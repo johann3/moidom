@@ -3,7 +3,7 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cosylab.moidom"
         version   = "2.2.1">
-    <name>Cosylab phonega Hello World</name>
+    <name>Cosylab phonegap Hello World</name>
 
     <description>
         Cosylab Hello World sample application that responds to the deviceready event.
