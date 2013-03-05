@@ -39,7 +39,8 @@
 			//
 			// VARIABLES
 			//
-			// PhoneGap Ready variable
+			// PhoneGap Ready variable. Initialized to 'false' (device not ready) and
+			// set to 'true' when the device is ready.
 			var PGReady = false;
 		
 			//
@@ -59,11 +60,23 @@
 			// onDeviceReady()
 			// phonegap is loaded and it is now safe to make calls to phonegap methods
 			function onDeviceReady() {
-				navigator.notification.alert("PhoneGap is ready!");
-				
-				
+				// Set to 'true' to let other parts of the code know the PhoneGap is
+				// initialized
+				PGReady = true;
             }
 		</script>
+
+		<!-- =================================================================
+			jQuery CODE
+		================================================================== -->				
+		<script>
+			$(document).ready (function ()
+			{
+				var readyInfoElement = $("#readyInfo");
+				readyInfoElement.text ("Ready!!!");
+			});
+		</script>
+		
     </head>
 
 	<!--
@@ -109,7 +122,13 @@
 		<!-- 
 			Bootstrap button
 		-->
-		<p>Bootstrap default button:</p>
-		<button id="bID" class="btn" type="button">Default button</button>
+		<p>Bootstrap primary button:</p>
+		<button id="bID" class="btn btn-primary" type="button">Primary button</button>
+		
+		<!--
+			Ready info
+		-->
+		<p id="readyInfo">Initializing...</p>
+		
     </body>
 </html>
