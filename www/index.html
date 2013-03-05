@@ -18,38 +18,79 @@
     under the License.
 -->
 <html>
+	<!--
+	**********************************************************************
+		HEAD (HTML)
+	**********************************************************************
+	-->
     <head>
+		<!-- =================================================================
+			INITIALIZATION
+		================================================================== -->		
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
 		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-		
 		<script type="text/javascript" src="phonegap.js"></script>
+		
+		<!-- =================================================================
+			JAVA SCRIPT CODE
+		================================================================== -->				
 		<script type="text/javascript">
-			// Call onDeviceReady when phonegap is loaded.
 			//
+			// VARIABLES
+			//
+			// PhoneGap Ready variable
+			var PGReady = false;
+		
+			//
+			// FUNCTIONS
+			//
+			// ----------------------------------------------------------------------
+			// onBodyLoad()
+			// Called onDeviceReady when phonegap is loaded.
 			// At this point, the document has loaded but phonegap.js has not.
 			// When phonegap is loaded and talking with the native device,
 			// it will call the event `deviceready`.
-			//
 			function onBodyLoad() {                   
 				document.addEventListener("deviceready", onDeviceReady, false);
         	}
-               
+             
+			// ----------------------------------------------------------------------
+			// onDeviceReady()
 			// phonegap is loaded and it is now safe to make calls to phonegap methods
-			//
 			function onDeviceReady() {
 				navigator.notification.alert("PhoneGap is ready!");
+				
+				
             }
 		</script>
     </head>
+
+	<!--
+	**********************************************************************
+		BODY (HTML)
+	**********************************************************************
+	-->
     <body onload="onBodyLoad()">
+		<!-- =================================================================
+			Heading
+		================================================================== -->
 		<h1>Hello, World!</h1>
         <p>This is a sample PhoneGap application with jQuery mobile and bootstrap.</p>	
 
+		<!-- =================================================================
+			Frameworks
+		================================================================== -->
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script src="http://code.jquery.com/mobile/1.3.0/jquery.mobile-1.3.0.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 
+		<!-- =================================================================
+			Page content
+		================================================================== -->
+		<!-- 
+			Bootstrap grid
+		-->
 		<p>Bootstrap grid below:</p>
 		<div class="row-fluid show-grid">
 			<div class="span4">
@@ -64,7 +105,11 @@
 				<p class="text-center">sp12: Center aligned text.</p>
 			</div>  <!-- span 8 -->
 		</div>	<!-- row -->
+		
+		<!-- 
+			Bootstrap button
+		-->
 		<p>Bootstrap default button:</p>
-		<p><button class="btn" type="button">Default button</button></p>
+		<button id="bID" class="btn" type="button">Default button</button>
     </body>
 </html>
