@@ -53,7 +53,12 @@
 			// When phonegap is loaded and talking with the native device,
 			// it will call the event `deviceready`.
 			function onBodyLoad() {                   
-				document.addEventListener("deviceready", onDeviceReady, false);
+				document.addEventListener("deviceready", onDeviceReady, false);				
+				
+				alert("jQuery is ready, too");
+				
+				var readyInfoElement = $("#readyInfo");
+				readyInfoElement.text("Ready!");				
         	}
              
 			// ----------------------------------------------------------------------
@@ -64,13 +69,7 @@
 				// initialized
 				PGReady = true;
 				
-				navigator.notification.alert("PhoneGap is ready!");
-				
-				alert("jQuery is ready, too");
-				
-				var readyInfoElement = $("#readyInfo");
-				readyInfoElement.text("Ready!");
-				
+				navigator.notification.alert("PhoneGap is ready!");				
             }
 		</script>
     </head>
