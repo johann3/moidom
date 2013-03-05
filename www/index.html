@@ -21,13 +21,22 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no" />
+		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 		
 		<script type="text/javascript" src="phonegap.js"></script>
 		<script type="text/javascript">
+			// Call onDeviceReady when phonegap is loaded.
+			//
+			// At this point, the document has loaded but phonegap.js has not.
+			// When phonegap is loaded and talking with the native device,
+			// it will call the event `deviceready`.
+			//
 			function onBodyLoad() {                   
 				document.addEventListener("deviceready", onDeviceReady, false);
         	}
                
+			// phonegap is loaded and it is now safe to make calls to phonegap methods
+			//
 			function onDeviceReady() {
 				navigator.notification.alert("PhoneGap is ready!");
             }
@@ -36,5 +45,7 @@
     <body onload="onBodyLoad()">
 		<h1>HelloWorld2</h1>
         <p>This is a sample PhoneGap application.</p>
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<script src="js/bootstrap.min.js"></script>
     </body>
 </html>
