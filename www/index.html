@@ -75,7 +75,7 @@
 				// Show alert
 				navigator.notification.alert("PhoneGap is ready!");		
 
-				
+				// Register the event handler (button = bID)
 				$("#bID").click (function ()
 					{ 
 						alert ("Thanks for clicking."); 
@@ -110,18 +110,12 @@
 		<!-- 
 			Bootstrap grid
 		-->
-		<p>Bootstrap grid below:</p>
 		<div class="row-fluid show-grid">
 			<div class="span4">
-				<p class="text-center">sp4: Center aligned text.</p>
+				<p class="text-center">sp4: Center.</p>
 			</div>  <!-- span 4 -->
 			<div class="span8">
-				<p class="text-right">sp8: Right aligned text.</p>
-			</div>  <!-- span 8 -->
-		</div>	<!-- row -->
-		<div class="row-fluid show grid">
-			<div class="span12">
-				<p id="c12r2" class="text-center">sp12: Center aligned text.</p>
+				<p class="text-right">sp8: Right.</p>
 			</div>  <!-- span 8 -->
 		</div>	<!-- row -->
 		
@@ -129,19 +123,24 @@
 			Bootstrap button
 		-->
 		<p>Bootstrap primary button:</p>
-		<button id="bID" class="btn btn-primary" type="button">Primary button</button>
+		<button id="bID" class="btn btn-small btn-primary" type="button">Primary button</button>
 		
 		<!--
 			Ready info
 		-->
 		<p id="readyInfo">Initializing...</p>
-		<br>
 		
 		<!-- 
 			Test histogram - only placeholder here
 		-->
 		<p>Test histogram should appear here</p>
 		<div id="histogram" style="width:300px;height:150px;"></div>
+		
+		<!-- 
+			Histogram using server data - only placeholder here
+		-->
+		<p>Histogram using server data should appear here</p>
+		<div id="serverhist" style="width:300px;height:150px;"></div>
 		<p>---------------------------------</p>
 
 		<!-- =================================================================
