@@ -52,11 +52,14 @@
 			// At this point, the document has loaded but phonegap.js has not.
 			// When phonegap is loaded and talking with the native device,
 			// it will call the event `deviceready`.
-			function onBodyLoad() {                   
+			function onBodyLoad() {    
+				// Register the event handler              
 				document.addEventListener("deviceready", onDeviceReady, false);				
 				
+				// Show alert
 				alert("jQuery is ready, too");
 				
+				// Modify HTML element
 				var readyInfoElement = $("#readyInfo");
 				readyInfoElement.text("Ready!");				
         	}
@@ -69,7 +72,14 @@
 				// initialized
 				PGReady = true;
 				
-				navigator.notification.alert("PhoneGap is ready!");				
+				// Show alert
+				navigator.notification.alert("PhoneGap is ready!");		
+
+				
+				$("# bID").click (function ()
+					{ 
+						alert ("Thanks for clicking."); 
+					});
             }
 		</script>
     </head>
@@ -111,7 +121,7 @@
 		</div>	<!-- row -->
 		<div class="row-fluid show grid">
 			<div class="span12">
-				<p class="text-center">sp12: Center aligned text.</p>
+				<p id="c12r2" class="text-center">sp12: Center aligned text.</p>
 			</div>  <!-- span 8 -->
 		</div>	<!-- row -->
 		
