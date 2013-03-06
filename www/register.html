@@ -41,7 +41,7 @@
 			//
 			// PhoneGap Ready variable. Initialized to 'false' (device not ready) and
 			// set to 'true' when the device is ready.
-			var pgReady = false;
+			var PGReady = false;
 		
 			//
 			// FUNCTIONS
@@ -61,8 +61,8 @@
 				var jQReadyInfoElement = $("#jQueryReadyInfo");
 				jQReadyInfoElement.text("jQuery: Ready!");				
         	}
-             
-			// ----------------------------------------------------------------------
+ 
+ 			// ----------------------------------------------------------------------
 			// onDeviceReady()
 			// phonegap is loaded and it is now safe to make calls to phonegap methods.
 			// Set pgReady to 'true' to let other parts of the code know the 
@@ -74,8 +74,7 @@
 				
 				// Modify 'pgReadyInfo'
 				var pgReadyInfoElement = $("#pgReadyInfo");
-				pgReadyInfoElement.text("PhoneGap: Ready!         ");				
- 				
+				pgReadyInfoElement.text("PhoneGap: Ready!         ");												
 				// Register the event handler (button = "#bID")
 				$("#bID").click (function ()
 					{ 
@@ -102,18 +101,18 @@
 			Nav tabs
 		================================================================== -->
 		<ul class="nav nav-tabs">  
-			<li class="active">  
-				<a href="#">Home</a>
-			</li>   
-			<li><a href="register.html">Register</a></li>  
-			<li><a href="submit.html">Submit</a></li>   
+			<li><a href="index.html">Home</a></li>
+			<li class="active">
+				<a href="#">Register</a>
+			</li>
+			<li><a href="submit.html">Submit</a></li>
 			<li><a href="view.html">View</a></li>    
 		</ul>  
 		
 		<!-- =================================================================
 			Heading
 		================================================================== -->
-		<h1>Home</h1>
+		<h1>Register</h1>
 
 		<!-- =================================================================
 			Page content
@@ -130,7 +129,7 @@
 				<p id="pgReadyInfo" class="text-right">PhoneGap: Initializing...</p>
 			</div>
 			<div class="span12">
-				<p class="text-left">mOIDom welcome page</p>
+				<p class="text-left">mOIDom registration page</p>
 			</div>
 		</div>	<!-- row -->
     </body>

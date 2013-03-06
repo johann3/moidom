@@ -41,7 +41,7 @@
 			//
 			// PhoneGap Ready variable. Initialized to 'false' (device not ready) and
 			// set to 'true' when the device is ready.
-			var pgReady = false;
+			var PGReady = false;
 		
 			//
 			// FUNCTIONS
@@ -61,8 +61,8 @@
 				var jQReadyInfoElement = $("#jQueryReadyInfo");
 				jQReadyInfoElement.text("jQuery: Ready!");				
         	}
-             
-			// ----------------------------------------------------------------------
+ 
+ 			// ----------------------------------------------------------------------
 			// onDeviceReady()
 			// phonegap is loaded and it is now safe to make calls to phonegap methods.
 			// Set pgReady to 'true' to let other parts of the code know the 
@@ -74,8 +74,7 @@
 				
 				// Modify 'pgReadyInfo'
 				var pgReadyInfoElement = $("#pgReadyInfo");
-				pgReadyInfoElement.text("PhoneGap: Ready!         ");				
- 				
+				pgReadyInfoElement.text("PhoneGap: Ready!         ");												
 				// Register the event handler (button = "#bID")
 				$("#bID").click (function ()
 					{ 
@@ -102,23 +101,23 @@
 			Nav tabs
 		================================================================== -->
 		<ul class="nav nav-tabs">  
-			<li class="active">  
-				<a href="#">Home</a>
-			</li>   
+			<li><a href="index.html">Home</a></li>   
 			<li><a href="register.html">Register</a></li>  
-			<li><a href="submit.html">Submit</a></li>   
-			<li><a href="view.html">View</a></li>    
+			<li><a href="submit.html">Submit</a></li>
+			<li class="active">			
+				<a href="#">View</a>
+			</li>				
 		</ul>  
 		
 		<!-- =================================================================
 			Heading
 		================================================================== -->
-		<h1>Home</h1>
+		<h1>View</h1>
 
 		<!-- =================================================================
 			Page content
 		================================================================== -->
-		
+
 		<!-- 
 			Bootstrap grid
 		-->
@@ -130,8 +129,35 @@
 				<p id="pgReadyInfo" class="text-right">PhoneGap: Initializing...</p>
 			</div>
 			<div class="span12">
-				<p class="text-left">mOIDom welcome page</p>
+				<p class="text-left">mOIDom view page</p>
 			</div>
 		</div>	<!-- row -->
+		
+		<!-- 
+			Bootstrap button
+		-->
+		<p>Bootstrap primary button:</p>
+		<button id="bID" class="btn btn-small btn-primary" type="button">Primary button</button>
+		
+		<!-- 
+			Test histogram - only placeholder here
+		-->
+		<p>Test histogram should appear here</p>
+		<div id="histogram" style="width:300px;height:150px;"></div>
+		
+		<!-- 
+			Time diagram using server data - only placeholder here
+		-->
+		<p>Histogram using server data should appear here</p>
+		<div id="servertime" style="width:300px;height:150px;"></div>
+		<p>---------------------------------</p>
+
+		<!-- =================================================================
+			Flot chart
+		================================================================== -->
+		<script src="js/flot/jquery.flot.js"></script>
+		<script src="js/flot/jquery.flot.selection.js"></script>
+		<script src="js/flot/jquery.flot.crosshair.js"></script>
+		<script src="js/myExamples.js"></script>
     </body>
 </html>
