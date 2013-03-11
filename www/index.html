@@ -60,6 +60,12 @@
 				// Modify 'jQueryReadyInfo'
 				var jQReadyInfoElement = $("#jQueryReadyInfo");
 				jQReadyInfoElement.text("jQuery: Ready!");				
+				
+				// Register the event handler (button = "#bID")
+				$("#bID").click (function ()
+				{ 
+					alert ("Thanks for clicking."); 
+				});
         	}
              
 			// ----------------------------------------------------------------------
@@ -74,13 +80,7 @@
 				
 				// Modify 'pgReadyInfo'
 				var pgReadyInfoElement = $("#pgReadyInfo");
-				pgReadyInfoElement.text("PhoneGap: Ready!         ");				
- 				
-				// Register the event handler (button = "#bID")
-				$("#bID").click (function ()
-					{ 
-						alert ("Thanks for clicking."); 
-					});
+				pgReadyInfoElement.text("PhoneGap: Ready!         "); 				
             }
 		</script>
     </head>
@@ -113,31 +113,135 @@
 		<!-- =================================================================
 			Heading
 		================================================================== -->
-		<h1>Home</h1>
+
 
 		<!-- =================================================================
 			Page content
 		================================================================== -->
 		
 		<!-- 
-			Bootstrap grid
+			jQuery and PhoneGap init status 
 		-->
 		<div class="row-fluid">
 			<div class="span6">
 				<p id="jQueryReadyInfo" class="text-left">jQuery: Initializing...</p>
 			</div>
-			<div class="span5">
+			<div class="span6">
 				<p id="pgReadyInfo" class="text-right">PhoneGap: Initializing...</p>
 			</div>
-			<div class="span11">
-				<p class="text-left">mOIDom welcome page</p>
+		</div>
+		
+		<!-- 
+			Application description 
+		-->
+		<div class="row-fluid">
+			<div class="span12">
+				<p class="text-center">Opis aplikacije (potrebno definirati)</p>
 			</div>
+		</div>
+		
+		<!-- 
+			Link to more info (currently: local page) 
+		-->
+		<a data-toggle="modal" href="#appMoreInfo">Več informacij</a>
+		
+		<!-- 
+			Modal window 
+		-->
+		<div id="appMoreInfo" class="modal hide fade">
+
+			<!-- Modal header -->
+			<div class="modal-header">
+				<h3>Več informacij o aplikaciji</h3>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body">
+				<!-- Modal window text -->
+				<div class="row-fluid">
+					<div class="span12">
+						<p>Podrobnejše informacije o aplikaciji (potrebno definirati)</p>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button class="btn pull-left btn-success" data-dismiss="modal" aria-hidden="true">OK</button>
+			</div>
+		</div>
+		
+		<div class="row-fluid"><div class="span12"></div></div>
+		
+		<!-- 
+			Description of the application navigation 
+		-->
+		<div class="row-fluid">
+			<div class="span12">
+				<p class="text-center">Kratka navodila za navigacijo po aplikaciji (potrebno definirati)</p>
+			</div>
+		</div><div class="row-fluid"><div class="span12"></div></div>
+		
+		<!-- 
+			Test row to show the end of the page 
+		-->
+		<div class="row-fluid">
 			<div class="span6">
 				<p class="text-left">Left</p>
 			</div>
-			<div class="span5">
+			<div class="span6">
 				<p class="text-right">Right</p>
 			</div>
 		</div>	<!-- row -->
+		
+		<!-- 
+		<a class="btn btn-primary btn-large" data-toggle="modal" href="#betaModal">Join the Beta</a> 
+<div id="betaModal" class="modal hide fade">
+    <div class="modal-header">
+            <button class="close" data-dismiss="modal">×</button>
+            <h3>Join the Beta</h3>
+    </div>
+<div class="modal-body">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="span6">
+            <div class="logowrapper">
+                <img class="logoicon" src="http://placehold.it/300x300/bbb/&text=Your%20Logo" alt="App Logo"/>
+            </div>
+            </div>
+            <div class="span6">
+                <form class="form-horizontal">
+                    <p class="help-block">Name</p>
+                    <div class="input-prepend">
+                        <span class="add-on">*</span><input class="prependedInput" size="16" type="text">
+                    </div>
+                    <p class="help-block">Email</p>
+                    <div class="input-prepend">
+                        <span class="add-on">@</span><input class="prependedInput" size="16" type="email">
+                    </div>
+                  	<hr>
+                    <div class="help-block">
+                        <button type="submit" class="btn btn-large btn-info">Request an Invite</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="modal-footer">
+        <p><i>Lastest Update on October 2nd, 2012</i></p>
+    </div>
+</div>
+		-->
+		
     </body>
 </html>
+
+
+
+
+
+
+
+
+

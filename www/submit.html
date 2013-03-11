@@ -59,7 +59,13 @@
 				
 				// Modify 'jQueryReadyInfo'
 				var jQReadyInfoElement = $("#jQueryReadyInfo");
-				jQReadyInfoElement.text("jQuery: Ready!");				
+				jQReadyInfoElement.text("jQuery: Ready!");
+				
+				// Register the event handler (button = "#bID")
+				$("#bID").click (function ()
+				{ 
+					alert ("Thanks for clicking."); 
+				});				
         	}
  
  			// ----------------------------------------------------------------------
@@ -74,12 +80,7 @@
 				
 				// Modify 'pgReadyInfo'
 				var pgReadyInfoElement = $("#pgReadyInfo");
-				pgReadyInfoElement.text("PhoneGap: Ready!         ");												
-				// Register the event handler (button = "#bID")
-				$("#bID").click (function ()
-					{ 
-						alert ("Thanks for clicking."); 
-					});
+				pgReadyInfoElement.text("PhoneGap: Ready!");							
             }
 		</script>
     </head>
@@ -112,32 +113,76 @@
 		<!-- =================================================================
 			Heading
 		================================================================== -->
-		<h1>Submit</h1>
+
 
 		<!-- =================================================================
 			Page content
 		================================================================== -->
 
 		<!-- 
-			Bootstrap grid
+			jQuery and PhoneGap init status 
 		-->
 		<div class="row-fluid">
 			<div class="span6">
 				<p id="jQueryReadyInfo" class="text-left">jQuery: Initializing...</p>
 			</div>
-			<div class="span5">
+			<div class="span6">
 				<p id="pgReadyInfo" class="text-right">PhoneGap: Initializing...</p>
 			</div>
-			<div class="span11">
-				<p class="text-left">mOIDom submit page</p>
+		</div>
+		
+		<!-- 
+			Select environmental burden
+		-->
+		<div class="row-fluid">
+			<div class="span12">
+				<p class="text-left">Izbrana okoljska obremenitev:</p>
+			</div>
+		</div>	<!-- row -->
+		
+		<!-- 
+			Status placeholder 
+		-->
+		<p id="currentEB"></p>
+		
+		<!-- 
+			Button to select the EB 
+		-->
+		<a class="btn btn-primary" data-toggle="modal" href="#selectEB">Izberi okoljsko obremenitev</a> 
+		<br><br>
+		
+		<!-- 
+			Enter consumption data 
+		-->
+		<!-- Header -->
+		<div class="row-fluid">
+			<div class="span12">
+				<strong class="text-left">Vnesite podatke:</strong>
 			</div>
 		</div>	<!-- row -->
 
-		<!-- 
-			Bootstrap button
-		-->
-		<p>Bootstrap primary button:</p>
-		<button id="bID" class="btn btn-small btn-primary" type="button">Primary button</button>
-
+		<!-- Form -->
+		<div class="row-fluid">
+			<div class="span5">
+				<form>
+					<label>Trenutek odčitka:</label>
+					<input type="text" name="timeGetEB" class="span5">
+					<label>Vrednost odčitka:</label>
+					<input type="text" name="valEB" class="span5">
+					<label class="radio">
+					  <input type="radio" name="optValEB" id="ebInpIncrem" value="ebInpIncrem">
+					  Poraba od zadnjega odčitka
+					</label>
+					<label class="radio">
+					  <input type="radio" name="optValEB" id="ebInputCumul" value="ebInpCumul">
+					  Stanje števca
+					</label>					
+					<label></label>
+					<input type="submit" value="Potrdi" class="btn btn-primary pull-left btn-success">
+					<a href="#" class="btn btn-primary pull-left">Izbriši vse</a>
+					<div class="clearfix"></div>
+				</form>
+			</div>
+		</div>
     </body>
 </html>

@@ -60,7 +60,13 @@
 				// Modify 'jQueryReadyInfo'
 				var jQReadyInfoElement = $("#jQueryReadyInfo");
 				jQReadyInfoElement.text("jQuery: Ready!");				
-        	}
+
+				// Register the event handler (button = "#bID")
+				$("#bID").click (function ()
+				{ 
+					alert ("Thanks for clicking."); 
+				});
+	       	}
  
  			// ----------------------------------------------------------------------
 			// onDeviceReady()
@@ -74,12 +80,7 @@
 				
 				// Modify 'pgReadyInfo'
 				var pgReadyInfoElement = $("#pgReadyInfo");
-				pgReadyInfoElement.text("PhoneGap: Ready!");												
-				// Register the event handler (button = "#bID")
-				$("#bID").click (function ()
-					{ 
-						alert ("Thanks for clicking."); 
-					});
+				pgReadyInfoElement.text("PhoneGap: Ready!");										
             }
 		</script>
     </head>
@@ -112,43 +113,185 @@
 		<!-- =================================================================
 			Heading
 		================================================================== -->
-		<h1>Log in</h1>
+
 
 		<!-- =================================================================
 			Page content
 		================================================================== -->
-		
 		<!-- 
-			Bootstrap grid
+			jQuery and PhoneGap init status 
 		-->
 		<div class="row-fluid">
 			<div class="span6">
 				<p id="jQueryReadyInfo" class="text-left">jQuery: Initializing...</p>
 			</div>
-			<div class="span5">
+			<div class="span6">
 				<p id="pgReadyInfo" class="text-right">PhoneGap: Initializing...</p>
 			</div>
-			<div class="span11">
-				<p class="text-left">Log in if you already have the account (16):</p>
-			</div>	
-			<div class="span6">
-				<p class="text-left">Left</p>
+		</div>
+		
+		<!-- 
+			Login form (registered user only)
+		-->
+		<div class="row-fluid">
+			<div class="span12">
+				<p class="text-left">Registriran uporabnik:</p>
 			</div>
+		</div>	<!-- row -->
+		
+		<div class="row-fluid">
 			<div class="span5">
-				<p class="text-right">Right</p>
-			</div>	
-		</div>	<!-- row -->		
+				<form>
+					<label>Uporabniško ime:</label>
+					<input type="text" name="username" class="span5">
+					<label>Geslo:</label>
+					<input type="password" name="password" class="span5">
+					<label></label>
+					<input type="submit" value="Potrdi" class="btn btn-primary pull-left btn-success">
+					<div class="clearfix"></div>
+				</form>
+			</div>
+		</div>
 
+		<!-- 
+			Link (Register new user)
+		-->		
+		<div class="row-fluid">		
+			<br>
+			<a data-toggle="modal" href="#registerNewUser">Nov uporabnik?</a><br><br>
+			<a data-toggle="modal" href="#ForgotPassword">Pozabljeno geslo?</a>
+		</div>
+		
+
+		<!-- =================================================================
+			Modal windows
+		================================================================== -->
+		<!-- 
+			Register new user
+		-->
+		<div id="registerNewUser" class="modal hide fade">
+
+			<!-- Modal header -->
+			<div class="modal-header">
+				<h3>Registracija</h3>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body">
+				<div class="row-fluid">
+					<div class="span12">
+						<!-- User data -->
+						<p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
+						<strong>Podatki uporabnika:</strong>
+						<label></label>
+						<form>
+							<label>* Uporabniško ime:</label>
+							<input type="text" name="username" class="span8">
+							<label>* Elektronski naslov:</label>
+							<input type="email" name="email" class="span8">
+							<label>* Geslo:</label>
+							<input type="password" name="password" class="span8">
+							<label>* Potrdi geslo:</label>
+							<input type="password" name="password" class="span8">
+
+							<!-- Appartment data -->
+							<label></label>
+							<strong>Podatki o stanovanju:</strong>
+							<label></label>
+							<label>* Površina stanovanja (www.prostor.si):</label>
+							<input type="text" name="appArea" class="span8">
+							<label>* Število članov gospodinjstva:</label>
+							<input type="text" name="numFamilyMemb" class="span8">
+							<label>Priključna moč električnega priključka:</label>
+							<input type="text" name="elNominalPower" class="span8">
+							<label>Poštna številka kraja bivanja:</label>
+							<input type="text" name="postalNum" class="span8">
+							<div class="clearfix"></div>
+						</form>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<input type="submit" value="Potrdi" class="btn btn-success pull-left">
+				<a href="#" class="btn btn-primary pull-left">Izbriši vse</a>
+				<button class="btn pull-left btn-danger" data-dismiss="modal" aria-hidden="true">Prekini</button>
+			</div>
+		</div>    <!-- Register new user -->
+
+		<!-- 
+			Forgot password
+		-->
+		<div id="ForgotPassword" class="modal hide fade">
+
+			<!-- Modal header -->
+			<div class="modal-header">
+				<h3>Pozabljeno geslo</h3>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body">
+				<div class="row-fluid">
+					<div class="span12">
+						<!-- User data -->
+						<p>Prosim, vnesite vaš elektronski naslov. Na ta naslov vam bomo poslali novo geslo, ki ga uporabite pri naslednji prijavi.</p>
+						<label></label>
+						<form>
+							<label>* Elektronski naslov:</label>
+							<input type="email" name="email" class="span8">
+							<div class="clearfix"></div>
+						</form>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<input type="submit" value="Potrdi" class="btn btn-success pull-left">
+				<button class="btn pull-left btn-danger" data-dismiss="modal" aria-hidden="true">Prekini</button>
+			</div>
+		</div>    <!-- Forgot password -->
+
+		
+		
+		<!-- =================================================================
+			Examples
+		================================================================== -->
+		<!-- 
+		<div class="row-fluid">
+			<div class="span8">
+				<h2>Sign Up</h2>
+				<form>
+				<label>First Name</label>
+				<input type="text" name="firstname" class="span3">
+				<label>Last Name</label>
+				<input type="text" name="lastname" class="span3">
+				<label>Email Address</label>
+				<input type="email" name="email" class="span3">
+				<label>Username</label>
+				<input type="text" name="username" class="span3">
+				<label>Password</label>
+				<input type="password" name="password" class="span3">
+				<label><input type="checkbox" name="terms"> I agree with the <a href="#">Terms and Conditions</a>.</label>
+				<input type="submit" value="Sign up" class="btn btn-primary pull-left">
+				<div class="clearfix"></div>
+				</form>
+			</div>
+		</div>
+		-->
+		<!--
 		<form>
 			<label>Username</label>
 			<input type="text" name="username" class="input-large">
 			<label>Password</label>
 			<input type="password" name="password" class="input-large"><br>
-			<input type="submit" value="Sign up" class="btn btn-small">
+			<input type="submit" value="Sign up" class="btn">
 			<a href="#" class="btn">Second</a>
 		</form>
-
-
-
+		-->
+		
+		
+		
     </body>
 </html>
