@@ -103,11 +103,21 @@
 		
 		<div class="well">
 			<ul class="nav nav-tabs">
-			  <li class="active"><a href="#home" data-toggle="tab">Profile</a></li>
-			  <li><a href="#profile" data-toggle="tab">Password</a></li>
+			  <li class="active"><a href="#Home" data-toggle="tab">Začetek</a></li>
+			  <li><a href="#Login" data-toggle="tab">Prijava</a></li>
+			  <li><a href="#Submit" data-toggle="tab">Vnos</a></li>
+			  <li><a href="#View" data-toggle="tab">Pregled</a></li>
 			</ul>
+			<div class="row-fluid">
+				<div class="span6">
+					<p id="jQueryReadyInfo" class="text-left">jQuery: Initializing...</p>
+				</div>
+				<div class="span6">
+					<p id="pgReadyInfo" class="text-right">PhoneGap: Initializing...</p>
+				</div>
+			</div>
 			<div id="myTabContent" class="tab-content">
-			  <div class="tab-pane active in" id="home">
+			  <div class="tab-pane active in" id="Home">
 				<form id="tab">
 					<label>Username</label>
 					<input type="text" value="jsmith" class="input-xlarge">
@@ -169,9 +179,27 @@
 					</div>
 				</form>
 			  </div>
-			  <div class="tab-pane fade" id="profile">
+			  <div class="tab-pane fade" id="Login">
 				<form id="tab2">
 					<label>New Password</label>
+					<input type="password" class="input-xlarge">
+					<div>
+						<button class="btn btn-primary">Update</button>
+					</div>
+				</form>
+			  </div>
+			  <div class="tab-pane fade" id="Submit">
+				<form id="tab2">
+					<label>New Password 2</label>
+					<input type="password" class="input-xlarge">
+					<div>
+						<button class="btn btn-primary">Update</button>
+					</div>
+				</form>
+			  </div>
+			  <div class="tab-pane fade" id="View">
+				<form id="tab2">
+					<label>New Password 3</label>
 					<input type="password" class="input-xlarge">
 					<div>
 						<button class="btn btn-primary">Update</button>
