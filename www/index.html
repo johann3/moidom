@@ -173,12 +173,59 @@
 					</div>
 				</div>
 
+				<div class="row-fluid"><div class="span12"></div></div>
+				
 				<!-- Link (Register new user) -->		
-				<div class="row-fluid">		
+				<!--<div class="row-fluid">		
 					<br>
 					<a data-toggle="modal" href="#registerNewUser">Nov uporabnik?</a><br><br>
 					<a data-toggle="modal" href="#ForgotPassword">Pozabljeno geslo?</a><br><br>
-				</div>
+				</div>-->
+				
+				<!-- ACCORDION -->
+				
+				
+				
+				<div class="accordion" id="userRegistration">
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							  <a class="accordion-toggle" data-toggle="collapse" data-parent="#userRegistration" href="#newUser">Nov uporabnik?</a>
+						</div>
+						<div id="newUser" class="accordion-body collapse">
+							<div class="accordion-inner">
+								Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+							</div>
+						</div>
+					</div>
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#userRegistration" href="#forgotPass">Pozabljeno geslo?</a>
+						</div>
+						<div id="forgotPass" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<div class="row-fluid">
+									<div class="span8">
+										<!-- User data -->
+										<p>Prosim, vnesite vaš elektronski naslov. Na ta naslov vam bomo poslali novo geslo, ki ga uporabite pri naslednji prijavi.</p>
+										<br>
+										<form>
+											<label>* Elektronski naslov:</label>
+											<input type="email" name="email" class="span8">
+											<div class="clearfix"></div>
+										</form>
+									</div>
+								</div>
+								<input type="submit" value="Potrdi" class="btn btn-success pull-left">
+							</div>
+						</div>
+					</div>
+				</div>				
+				
+				
+				
+				
+				
+				
 			</div>
 		  
 			<!-- Tab: Submit -->
