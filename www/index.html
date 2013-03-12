@@ -152,51 +152,75 @@
 		  
 			<!-- Tab: Login -->
 			<div class="tab-pane fade" id="Login">
-				<!-- Login form (registered user only) -->
-				<div class="row-fluid">
-					<div class="span12">
-						<p class="text-left">Registriran uporabnik:</p>
-					</div>
-				</div>	<!-- row -->
-				
-				<div class="row-fluid">
-					<div class="span8">
-						<form>
-							<label>Uporabniško ime:</label>
-							<input type="text" name="username" class="span8">
-							<label>Geslo:</label>
-							<input type="password" name="password" class="span8">
-							<label></label>
-							<div class="clearfix"></div>
-						</form>
-						<input type="submit" value="Potrdi" class="btn btn-primary pull-left btn-success">
-					</div>
-				</div>
-
-				<div class="row-fluid"><div class="span12"></div></div>
-				
-				<!-- Link (Register new user) -->		
-				<!--<div class="row-fluid">		
-					<br>
-					<a data-toggle="modal" href="#registerNewUser">Nov uporabnik?</a><br><br>
-					<a data-toggle="modal" href="#ForgotPassword">Pozabljeno geslo?</a><br><br>
-				</div>-->
-				
-				<!-- ACCORDION -->
-				
-				
-				
 				<div class="accordion" id="userRegistration">
+					<!-- Login form (registered user only) -->					
 					<div class="accordion-group">
 						<div class="accordion-heading">
-							  <a class="accordion-toggle" data-toggle="collapse" data-parent="#userRegistration" href="#newUser">Nov uporabnik?</a>
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#userRegistration" href="#logIn">Registriran uporabnik:</a>
 						</div>
-						<div id="newUser" class="accordion-body collapse">
+						<div id="logIn" class="accordion-body collapse in">
 							<div class="accordion-inner">
-								Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+								<div class="row-fluid">
+									<div class="span8">
+										<form>
+											<label>Uporabniško ime:</label>
+											<input type="text" name="username" class="span8">
+											<label>Geslo:</label>
+											<input type="password" name="password" class="span8">
+											<label></label>
+											<div class="clearfix"></div>
+										</form>
+										<input type="submit" value="Potrdi" class="btn btn-primary pull-left btn-success">
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
+					<!-- Login form (new user) -->
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#userRegistration" href="#newUser">Nov uporabnik?</a>
+						</div>
+						<div id="newUser" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<div class="row-fluid">
+									<div class="span8">
+										<!-- User data -->
+										<p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
+										<strong>Podatki uporabnika:</strong>
+										<form>
+											<label>* Uporabniško ime:</label>
+											<input type="text" name="username" class="span8">
+											<label>* Elektronski naslov:</label>
+											<input type="email" name="email" class="span8">
+											<label>* Geslo:</label>
+											<input type="password" name="password" class="span8">
+											<label>* Potrdi geslo:</label>
+											<input type="password" name="password" class="span8">
+
+											<!-- Appartment data -->
+											<label></label>
+											<strong>Podatki o stanovanju:</strong>
+											<label></label>
+											<label>* Površina stanovanja (www.prostor.si):</label>
+											<input type="text" name="appArea" class="span8">
+											<label>* Število članov gospodinjstva:</label>
+											<input type="text" name="numFamilyMemb" class="span8">
+											<label>Priključna moč električnega priključka:</label>
+											<input type="text" name="elNominalPower" class="span8">
+											<label>Poštna številka kraja bivanja:</label>
+											<input type="text" name="postalNum" class="span8">
+											<div class="clearfix"></div>
+										</form>
+										<!-- Buttons -->
+										<input type="submit" value="Potrdi" class="btn btn-success">
+										<a href="#" class="btn btn-primary">Izbriši vse</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Forgot password form -->
 					<div class="accordion-group">
 						<div class="accordion-heading">
 							<a class="accordion-toggle" data-toggle="collapse" data-parent="#userRegistration" href="#forgotPass">Pozabljeno geslo?</a>
@@ -213,19 +237,13 @@
 											<input type="email" name="email" class="span8">
 											<div class="clearfix"></div>
 										</form>
+										<input type="submit" value="Potrdi" class="btn btn-success">
 									</div>
 								</div>
-								<input type="submit" value="Potrdi" class="btn btn-success pull-left">
 							</div>
 						</div>
 					</div>
 				</div>				
-				
-				
-				
-				
-				
-				
 			</div>
 		  
 			<!-- Tab: Submit -->
