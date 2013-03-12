@@ -152,14 +152,34 @@
 		  
 			<!-- Tab: Login -->
 			<div class="tab-pane fade" id="Login">
-				<form id="tab2">
-					<label>New Password</label>
-					<input type="password" class="input-xlarge">
-					<div>
-						<button class="btn btn-primary">Update</button>
+				<!-- Login form (registered user only) -->
+				<div class="row-fluid">
+					<div class="span12">
+						<p class="text-left">Registriran uporabnik:</p>
 					</div>
-				</form>
-			 </div>
+				</div>	<!-- row -->
+				
+				<div class="row-fluid">
+					<div class="span8">
+						<form>
+							<label>Uporabniško ime:</label>
+							<input type="text" name="username" class="span8">
+							<label>Geslo:</label>
+							<input type="password" name="password" class="span8">
+							<label></label>
+							<div class="clearfix"></div>
+						</form>
+						<input type="submit" value="Potrdi" class="btn btn-primary pull-left btn-success">
+					</div>
+				</div>
+
+				<!-- Link (Register new user) -->		
+				<div class="row-fluid">		
+					<br>
+					<a data-toggle="modal" href="#registerNewUser">Nov uporabnik?</a><br><br>
+					<a data-toggle="modal" href="#ForgotPassword">Pozabljeno geslo?</a><br><br>
+				</div>
+			</div>
 		  
 			<!-- Tab: Submit -->
 			<div class="tab-pane fade" id="Submit">
@@ -187,7 +207,7 @@
 		<!-- =================================================================
 			Modal windows
 		================================================================== -->
-		<!-- MODAL: appMoreInfo -->
+		<!-- MODAL: Home/appMoreInfo -->
 		<div id="appMoreInfo" class="modal hide fade">
 
 			<!-- Modal header -->
@@ -209,9 +229,97 @@
 			<div class="modal-footer">
 				<button class="btn pull-left btn-success" data-dismiss="modal" aria-hidden="true">OK</button>
 			</div>
-		</div>
+		</div>    <!-- appMoreInfo -->
 	
+		<!-- MODAL: Login/registerNewUser -->
+		<div id="registerNewUser" class="modal hide fade">
 
+			<!-- Modal header -->
+			<div class="modal-header">
+				<h3>Registracija</h3>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body">
+				<div class="row-fluid">
+					<div class="span10">
+						<!-- User data -->
+						<p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
+						<strong>Podatki uporabnika:</strong>
+						<form>
+							<label>* Uporabniško ime:</label>
+							<input type="text" name="username" class="span10">
+							<label>* Elektronski naslov:</label>
+							<input type="email" name="email" class="span10">
+							<label>* Geslo:</label>
+							<input type="password" name="password" class="span10">
+							<label>* Potrdi geslo:</label>
+							<input type="password" name="password" class="span10">
+
+							<!-- Appartment data -->
+							<label></label>
+							<strong>Podatki o stanovanju:</strong>
+							<label></label>
+							<label>* Površina stanovanja (www.prostor.si):</label>
+							<input type="text" name="appArea" class="span10">
+							<label>* Število članov gospodinjstva:</label>
+							<input type="text" name="numFamilyMemb" class="span10">
+							<label>Priključna moč električnega priključka:</label>
+							<input type="text" name="elNominalPower" class="span10">
+							<label>Poštna številka kraja bivanja:</label>
+							<input type="text" name="postalNum" class="span10">
+							<div class="clearfix"></div>
+						</form>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<input type="submit" value="Potrdi" class="btn btn-success pull-left">
+				<a href="#" class="btn btn-primary pull-left">Izbriši vse</a>
+				<button class="btn btn-danger pull-left" data-dismiss="modal" aria-hidden="true">Prekini</button>
+			</div>
+		</div>    <!-- Register new user -->
+
+		
+		<!-- MODAL: Login/ForgotPassword -->
+		<div id="ForgotPassword" class="modal hide fade">
+
+			<!-- Modal header -->
+			<div class="modal-header">
+				<h3>Pozabljeno geslo</h3>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body">
+				<div class="row-fluid">
+					<div class="span12">
+						<!-- User data -->
+						<p>Prosim, vnesite vaš elektronski naslov. Na ta naslov vam bomo poslali novo geslo, ki ga uporabite pri naslednji prijavi.</p>
+						<label></label>
+						<form>
+							<label>* Elektronski naslov:</label>
+							<input type="email" name="email" class="span8">
+							<div class="clearfix"></div>
+						</form>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<input type="submit" value="Potrdi" class="btn btn-success pull-left">
+				<button class="btn pull-left btn-danger" data-dismiss="modal" aria-hidden="true">Prekini</button>
+			</div>
+		</div>    <!-- Forgot password -->
+		
+		
+		
+		
+		
+		
+		
 	
 <!--
 		<div class="well">
