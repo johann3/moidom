@@ -101,6 +101,7 @@
 		<script src="js/jquery-1.9.1.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 
+		<script src="js/flot/jquery.flot.js"></script>
 		
 		<!-- =================================================================
 			Nav tabs
@@ -162,10 +163,11 @@
 							<div class="accordion-inner">
 								<div class="row-fluid">
 									<div class="span8">
+									<p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
 										<form>
-											<label>Uporabniško ime:</label>
+											<label>* Uporabniško ime:</label>
 											<input type="text" name="username" class="span8">
-											<label>Geslo:</label>
+											<label>* Geslo:</label>
 											<input type="password" name="password" class="span8">
 											<label></label>
 											<div class="clearfix"></div>
@@ -248,24 +250,89 @@
 		  
 			<!-- Tab: Submit -->
 			<div class="tab-pane fade" id="Submit">
-				<form id="tab2">
-					<label>New Password 2</label>
-					<input type="password" class="input-xlarge">
-					<div>
-						<button class="btn btn-primary">Update</button>
+				<div class="row-fluid">
+					<div class="span12">
+						<p class="text-left">Izbrana okoljska obremenitev:</p>
 					</div>
-				</form>
+				</div>	<!-- row -->
+
+				<!-- Status placeholder -->
+				<p id="currentEB"><strong>Ni definirana</strong></p>
+				
+				<!-- Select EB form -->
+				<div class="accordion" id="enterEB">
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#enterEB" href="#selectEB">Izberite okoljsko obremenitev</a>
+						</div>
+						<div id="selectEB" class="accordion-body collapse">
+							<div class="accordion-inner">
+							
+								<label class="radio">
+								  <input type="radio" name="selectedEB" id="electricity" value="electricity">
+								  Elektrika
+								</label>
+								<label class="radio">
+								  <input type="radio" name="selectedEB" id="water" value="water">
+								  Voda
+								</label>
+								<label class="radio">
+								  <input type="radio" name="selectedEB" id="gas" value="gas">
+								  Plin
+								</label>
+								<label class="radio">
+								  <input type="radio" name="selectedEB" id="heating" value="heating">
+								  Ogrevanje
+								</label>
+								<label class="radio">
+								  <input type="radio" name="selectedEB" id="somethingElse" value="somethingElse">
+								  ....
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Enter consumption data -->
+				<!-- Header -->
+				<div class="row-fluid">
+					<div class="span12">
+						<strong class="text-left">Vnesite podatke:</strong>
+					</div>
+				</div>
+
+				<!-- Form -->
+				<div class="row-fluid">
+					<div class="span8">
+						<form>
+							<label>Trenutek odčitka:</label>
+							<input type="text" name="timeGetEB" class="span8">
+							<label>Vrednost odčitka:</label>
+							<input type="text" name="valEB" class="span8">
+							<label class="radio">
+							  <input type="radio" name="optValEB" id="ebInpIncrem" value="ebInpIncrem">
+							  Poraba od zadnjega odčitka
+							</label>
+							<label class="radio">
+							  <input type="radio" name="optValEB" id="ebInputCumul" value="ebInpCumul">
+							  Stanje števca
+							</label>
+							<div class="clearfix"></div>
+						</form>
+						<!-- Buttons -->
+						<input type="submit" value="Potrdi" class="btn btn-success">
+						<a href="#" class="btn btn-primary">Izbriši vse</a>
+					</div>
+				</div>		
 			</div>
-		  
+			
 			<!-- Tab: View -->
 			<div class="tab-pane fade" id="View">
-				<form id="tab2">
-					<label>New Password 3</label>
-					<input type="password" class="input-xlarge">
-					<div>
-						<button class="btn btn-primary">Update</button>
-					</div>
-				</form>
+				
+				<p>Test histogram should appear here</p>
+				<div id="histogram" style="width:300px;height:150px;"></div>
+
+				<!-- Flot chart -->
+				<script src="js/myExamples.js"></script>
 			</div>
 		</div>
 		
@@ -295,180 +362,6 @@
 				<button class="btn pull-left btn-success" data-dismiss="modal" aria-hidden="true">OK</button>
 			</div>
 		</div>    <!-- appMoreInfo -->
-	
-		<!-- MODAL: Login/registerNewUser -->
-		<div id="registerNewUser" class="modal hide fade">
-
-			<!-- Modal header -->
-			<div class="modal-header">
-				<h3>Registracija</h3>
-			</div>
-
-			<!-- Modal body -->
-			<div class="modal-body">
-				<div class="row-fluid">
-					<div class="span10">
-						<!-- User data -->
-						<p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
-						<strong>Podatki uporabnika:</strong>
-						<form>
-							<label>* Uporabniško ime:</label>
-							<input type="text" name="username" class="span10">
-							<label>* Elektronski naslov:</label>
-							<input type="email" name="email" class="span10">
-							<label>* Geslo:</label>
-							<input type="password" name="password" class="span10">
-							<label>* Potrdi geslo:</label>
-							<input type="password" name="password" class="span10">
-
-							<!-- Appartment data -->
-							<label></label>
-							<strong>Podatki o stanovanju:</strong>
-							<label></label>
-							<label>* Površina stanovanja (www.prostor.si):</label>
-							<input type="text" name="appArea" class="span10">
-							<label>* Število članov gospodinjstva:</label>
-							<input type="text" name="numFamilyMemb" class="span10">
-							<label>Priključna moč električnega priključka:</label>
-							<input type="text" name="elNominalPower" class="span10">
-							<label>Poštna številka kraja bivanja:</label>
-							<input type="text" name="postalNum" class="span10">
-							<div class="clearfix"></div>
-						</form>
-					</div>
-				</div>
-			</div>
-			
-			<!-- Modal footer -->
-			<div class="modal-footer">
-				<input type="submit" value="Potrdi" class="btn btn-success pull-left">
-				<a href="#" class="btn btn-primary pull-left">Izbriši vse</a>
-				<button class="btn btn-danger pull-left" data-dismiss="modal" aria-hidden="true">Prekini</button>
-			</div>
-		</div>    <!-- Register new user -->
-
-		
-		<!-- MODAL: Login/ForgotPassword -->
-		<div id="ForgotPassword" class="modal hide fade">
-
-			<!-- Modal header -->
-			<div class="modal-header">
-				<h3>Pozabljeno geslo</h3>
-			</div>
-
-			<!-- Modal body -->
-			<div class="modal-body">
-				<div class="row-fluid">
-					<div class="span12">
-						<!-- User data -->
-						<p>Prosim, vnesite vaš elektronski naslov. Na ta naslov vam bomo poslali novo geslo, ki ga uporabite pri naslednji prijavi.</p>
-						<label></label>
-						<form>
-							<label>* Elektronski naslov:</label>
-							<input type="email" name="email" class="span8">
-							<div class="clearfix"></div>
-						</form>
-					</div>
-				</div>
-			</div>
-			
-			<!-- Modal footer -->
-			<div class="modal-footer">
-				<input type="submit" value="Potrdi" class="btn btn-success pull-left">
-				<button class="btn pull-left btn-danger" data-dismiss="modal" aria-hidden="true">Prekini</button>
-			</div>
-		</div>    <!-- Forgot password -->
-		
-		
-		
-		
-		
-		
-		
-	
-<!--
-		<div class="well">
-			<ul class="nav nav-tabs">
-			  <li class="active"><a href="#home" data-toggle="tab">Profile</a></li>
-			  <li><a href="#profile" data-toggle="tab">Password</a></li>
-			</ul>
-			<div id="myTabContent" class="tab-content">
-			  <div class="tab-pane active in" id="home">
-				<form id="tab">
-					<label>Username</label>
-					<input type="text" value="jsmith" class="input-xlarge">
-					<label>First Name</label>
-					<input type="text" value="John" class="input-xlarge">
-					<label>Last Name</label>
-					<input type="text" value="Smith" class="input-xlarge">
-					<label>Email</label>
-					<input type="text" value="jsmith@yourcompany.com" class="input-xlarge">
-					<label>New Entry 1</label>
-					<input type="text" value="New Entry 1" class="input-xlarge">
-					<label>New Entry 2</label>
-					<input type="text" value="New Entry 2" class="input-xlarge">
-					<label>New Entry 3</label>
-					<input type="text" value="New Entry 3" class="input-xlarge">
-					<label>New Entry 4</label>
-					<input type="text" value="New Entry 4" class="input-xlarge">
-					<label>Address</label>
-					<textarea value="Smith" rows="3" class="input-xlarge">2817 S 49th
-			Apt 314
-			San Jose, CA 95101
-					</textarea>
-					<label>Time Zone</label>
-					<select name="DropDownTimezone" id="DropDownTimezone" class="input-xlarge">
-					  <option value="-12.0">(GMT -12:00) Eniwetok, Kwajalein</option>
-					  <option value="-11.0">(GMT -11:00) Midway Island, Samoa</option>
-					  <option value="-10.0">(GMT -10:00) Hawaii</option>
-					  <option value="-9.0">(GMT -9:00) Alaska</option>
-					  <option selected="selected" value="-8.0">(GMT -8:00) Pacific Time (US & Canada)</option>
-					  <option value="-7.0">(GMT -7:00) Mountain Time (US & Canada)</option>
-					  <option value="-6.0">(GMT -6:00) Central Time (US & Canada), Mexico City</option>
-					  <option value="-5.0">(GMT -5:00) Eastern Time (US & Canada), Bogota, Lima</option>
-					  <option value="-4.0">(GMT -4:00) Atlantic Time (Canada), Caracas, La Paz</option>
-					  <option value="-3.5">(GMT -3:30) Newfoundland</option>
-					  <option value="-3.0">(GMT -3:00) Brazil, Buenos Aires, Georgetown</option>
-					  <option value="-2.0">(GMT -2:00) Mid-Atlantic</option>
-					  <option value="-1.0">(GMT -1:00 hour) Azores, Cape Verde Islands</option>
-					  <option value="0.0">(GMT) Western Europe Time, London, Lisbon, Casablanca</option>
-					  <option value="1.0">(GMT +1:00 hour) Brussels, Copenhagen, Madrid, Paris</option>
-					  <option value="2.0">(GMT +2:00) Kaliningrad, South Africa</option>
-					  <option value="3.0">(GMT +3:00) Baghdad, Riyadh, Moscow, St. Petersburg</option>
-					  <option value="3.5">(GMT +3:30) Tehran</option>
-					  <option value="4.0">(GMT +4:00) Abu Dhabi, Muscat, Baku, Tbilisi</option>
-					  <option value="4.5">(GMT +4:30) Kabul</option>
-					  <option value="5.0">(GMT +5:00) Ekaterinburg, Islamabad, Karachi, Tashkent</option>
-					  <option value="5.5">(GMT +5:30) Bombay, Calcutta, Madras, New Delhi</option>
-					  <option value="5.75">(GMT +5:45) Kathmandu</option>
-					  <option value="6.0">(GMT +6:00) Almaty, Dhaka, Colombo</option>
-					  <option value="7.0">(GMT +7:00) Bangkok, Hanoi, Jakarta</option>
-					  <option value="8.0">(GMT +8:00) Beijing, Perth, Singapore, Hong Kong</option>
-					  <option value="9.0">(GMT +9:00) Tokyo, Seoul, Osaka, Sapporo, Yakutsk</option>
-					  <option value="9.5">(GMT +9:30) Adelaide, Darwin</option>
-					  <option value="10.0">(GMT +10:00) Eastern Australia, Guam, Vladivostok</option>
-					  <option value="11.0">(GMT +11:00) Magadan, Solomon Islands, New Caledonia</option>
-					  <option value="12.0">(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka</option>
-					</select>
-					<div>
-						<button class="btn btn-primary">Update</button>
-					</div>
-				</form>
-			  </div>
-			  <div class="tab-pane fade" id="profile">
-				<form id="tab2">
-					<label>New Password</label>
-					<input type="password" class="input-xlarge">
-					<div>
-						<button class="btn btn-primary">Update</button>
-					</div>
-				</form>
-			  </div>
-		  </div>
-		</div>
--->		
-		
-		
     </body>
 </html>
 
