@@ -27,8 +27,8 @@
 		<!-- =================================================================
 			INITIALIZATION
 		================================================================== -->		
-        <!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">-->
-		<meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<!-- <meta charset="utf-8"> -->
         <!--<meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="css/bootstrap.css" rel="stylesheet">
@@ -85,6 +85,73 @@
 				var pgReadyInfoElement = $("#pgReadyInfo");
 				pgReadyInfoElement.text("PhoneGap: Ready!"); 				
             }
+ 
+			//----------------------------------------------------------------------
+			// plotUsageIncrem()
+			// Plots the histogram showing the selected environmental burden
+			// incrementaly. 
+			// The position of the chart is defined by the placeholder "histogram".
+
+			function plotUsageIncrem() {
+				$.plot($("#histogram"),
+					[
+						{
+							label: "Total Things",
+							data: [ [2010, 10], [2011, 12], [2012, 9], [2013, 11], [2014, 13] ],
+							bars: {
+								show: true,
+								barWidth: 1,
+								align: "left"
+							}   
+						}
+					],
+					{
+						xaxis: {
+							ticks: [
+								[2010, "2010"],
+								[2011, "2011"],
+								[2012, "2012"],
+								[2013, "2013"],
+								[2014, "2014"]
+							]
+						}   
+					}
+				);
+			}
+
+			//----------------------------------------------------------------------
+			// plotUsageCumul()
+			// Plots the histogram showing the selected environmental burden
+			// cumulatively. 
+			// The position of the chart is defined by the placeholder "histogram".
+
+			function plotUsageCumul() {
+				$.plot($("#histogram"),
+					[
+						{
+							label: "Total Things",
+							data: [ [2010, 10], [2011, 22], [2012, 31], [2013, 42], [2014, 55] ],
+							bars: {
+								show: true,
+								barWidth: 1,
+								align: "left"
+							}   
+						}
+					],
+					{
+						xaxis: {
+							ticks: [
+								[2010, "2010"],
+								[2011, "2011"],
+								[2012, "2012"],
+								[2013, "2013"],
+								[2014, "2014"]
+							]
+						}   
+					}
+				);
+			}
+			
 		</script>
     </head>
 
@@ -257,17 +324,16 @@
 				</div>	<!-- row -->
 
 				<!-- Status placeholder -->
-				<p id="currentEB"><strong>Ni definirana</strong></p>
+				<p id="currentEBSubm"><strong>Ni definirana</strong></p>
 				
 				<!-- Select EB form -->
-				<div class="accordion" id="enterEB">
+				<div class="accordion" id="enterEBSubm">
 					<div class="accordion-group">
 						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#enterEB" href="#selectEB">Izberite okoljsko obremenitev</a>
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#enterEBSubm" href="#selectEBSubm">Izberite okoljsko obremenitev</a>
 						</div>
-						<div id="selectEB" class="accordion-body collapse">
+						<div id="selectEBSubm" class="accordion-body collapse">
 							<div class="accordion-inner">
-							
 								<label class="radio">
 								  <input type="radio" name="selectedEB" id="electricity" value="electricity">
 								  Elektrika
@@ -327,12 +393,57 @@
 			
 			<!-- Tab: View -->
 			<div class="tab-pane fade" id="View">
+				<div class="row-fluid">
+					<div class="span12">
+						<p class="text-left">Izbrana okoljska obremenitev:</p>
+					</div>
+				</div>	<!-- row -->
+
+				<!-- Status placeholder -->
+				<p id="currentEBView"><strong>Ni definirana</strong></p>
+				
+				<!-- Select EB form -->
+				<div class="accordion" id="enterEBView">
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#enterEBView" href="#selectEBView">Izberite okoljsko obremenitev</a>
+						</div>
+						<div id="selectEBView" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<label class="radio">
+								  <input type="radio" name="selectedEB" id="electricity" value="electricity">
+								  Elektrika
+								</label>
+								<label class="radio">
+								  <input type="radio" name="selectedEB" id="water" value="water">
+								  Voda
+								</label>
+								<label class="radio">
+								  <input type="radio" name="selectedEB" id="gas" value="gas">
+								  Plin
+								</label>
+								<label class="radio">
+								  <input type="radio" name="selectedEB" id="heating" value="heating">
+								  Ogrevanje
+								</label>
+								<label class="radio">
+								  <input type="radio" name="selectedEB" id="somethingElse" value="somethingElse">
+								  ....
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>			
+				<!-- Select the type of view -->
+				<p>
+					<button class="btn btn-primary" onclick="plotUsageIncrem()">Poraba (po obdobjih)</button>
+					<button class="btn btn-primary"  onclick="plotUsageCumul()">Poraba (kumulativno)</button>
+					<button class="btn btn-primary">Percentil</button>
+				</p>
 				
 				<p>Test histogram should appear here</p>
 				<div id="histogram" style="width:300px;height:150px;"></div>
-
-				<!-- Flot chart -->
-				<script src="js/myExamples.js"></script>
+				<!-- <div id="histogram" style="width:80%;height:40%;"></div>  -->
 			</div>
 		</div>
 		
