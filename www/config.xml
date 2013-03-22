@@ -3,10 +3,10 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cosylab.moidom"
         version   = "2.2.1">
-    <name>Cosylab phonegap Hello World</name>
+    <name>mOIDom</name>
 
     <description>
-        Cosylab Hello World sample application that responds to the deviceready event.
+        mOIDom application.
     </description>
 
     <author href="http://cosylab.com" email="ludvik.kumin@cosylab.com">
@@ -37,7 +37,7 @@
 
     <gap:splash src="res/screen/android/MD-screen-ldpi-portrait.png"  gap:platform="android" gap:density="ldpi" />
     <gap:splash src="res/screen/android/MD-screen-mdpi-portrait.png"  gap:platform="android" gap:density="mdpi" />
-    <gap:splash src="res/screen/android/MDL-screen-hdpi-portrait.png"  gap:platform="android" gap:density="hdpi" />
+    <gap:splash src="res/screen/android/MD-screen-hdpi-portrait.png"  gap:platform="android" gap:density="hdpi" />
     <gap:splash src="res/screen/android/MD-screen-xhdpi-portrait.png" gap:platform="android" gap:density="xhdpi" />
     <gap:splash src="res/screen/blackberry/screen-225.png"         gap:platform="blackberry" />
     <gap:splash src="res/screen/ios/screen-iphone-portrait.png"    gap:platform="ios"     width="320" height="480" />
