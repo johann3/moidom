@@ -1,57 +1,47 @@
-<!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
+﻿<!DOCTYPE html>
 <html>
 	<!--
 	**********************************************************************
 		HEAD (HTML)
 	**********************************************************************
 	-->
-    <head>
+	<head>
 		<!-- =================================================================
 			INITIALIZATION
 		================================================================== -->		
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!--<meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">-->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<!--<meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="css/bootstrap.css" rel="stylesheet">
 		<link href="css/bootstrap-responsive.css" rel="stylesheet">
+		<link href="css/moidom.css" rel="stylesheet">
 		
-		<script src="js/jquery-1.9.1.min.js"></script>		
-		<script src="js/jquery.validate.js"></script>
-		<script src="js/jquery.cookie.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="js/jquery-1.9.1.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="js/jquery-migrate-1.1.1.js"></script>		
+		<script type="text/javascript" charset="UTF-8" src="js/jquery.validate.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="js/jquery.cookie.js"></script>
 		<!-- <script src="js/jquery.mobile-1.3.0.min.js"></script> -->
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/flot/jquery.flot.js"></script>
-		<script type="text/javascript" src="phonegap.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="js/bootstrap-datepicker.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="js/locales/bootstrap-datepicker.sl.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="js/flot/jquery.flot.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="phonegap.js"></script>
 		
 		<!-- =================================================================
 			JAVA SCRIPT CODE
 		================================================================== -->				
-		<script type="text/javascript">
+		<script type="text/javascript" charset="UTF-8">
 			//
 			// VARIABLES
 			//
 			// PhoneGap Ready variable. Initialized to 'false' (device not ready) and
 			// set to 'true' when the device is ready.
 			var pgReady = false;
-		
+
+			var DATAURL = "http://moidom.cosylab.com/moidom/rest/";
+			var HTMLURL = "";
+			var filesystemMode = true;
+
 			//
 			// FUNCTIONS
 			//
@@ -62,35 +52,123 @@
 			// it will call the event `deviceready`.
 			// Register the event handler for the 'deviceready' event and modify
 			// the HTML element 'jQueryReadyInfo'.
-			function onBodyLoad() {    
-				// Register the event handler              
-				document.addEventListener("deviceready", onDeviceReady, false);				
+			function onBodyLoad() {
+				// Register the event handler 
+				document.addEventListener("deviceready", onDeviceReady, false);
 				
 				// Modify 'jQueryReadyInfo'
 				var jQReadyInfoElement = $("#jQueryReadyInfo");
-				jQReadyInfoElement.text("jQuery: Ready!");				
+				jQReadyInfoElement.text("jQuery: Ready!");
 				
 				// Register the event handler (button = "#bID")
 				$("#bID").click (function ()
 				{ 
 					alert ("Thanks for clicking."); 
 				});
-				
-				// Validate the input form commentForm				
-				$("#logInForm").validate();				
-				
-				//  Save the latest tab using a cookie
-				$('a[data-toggle="tab"]').on('shown', function(e){
-				$.cookie('last_tab', $(e.target).attr('href'));
+
+				if (filesystemMode) {
+					// Override the MIME tipe to avoid "Not well-formed" error if reading from file
+					$.ajaxSetup({beforeSend: function(xhr) {
+							if (xhr.overrideMimeType) {
+								xhr.overrideMimeType("application/json");
+							}
+						}
+					});
+				}
+
+				// Validate the input form: Login (registered user only) [Tab: Login] 		
+				$("#formLogin").validate({
+					rules:
+					{
+						email: {required: true, email: true, maxlength: 50},
+						password: {required: true, minlength: 5, maxlength: 50}
+					},
+					submitHandler: function(form)
+					{
+						$.ajax({
+							url: DATAURL + 'user/login',
+							type: 'POST',
+							data: $(form).serialize(),
+							xhrFields: { withCredentials: true },
+							success: function(data, textStatus, xhr)
+							{
+								if (data.status == 0)
+									top.location.href = HTMLURL + 'main.html';
+								else
+									alert('Prijava ni uspela: ' + errorText(data.status));
+							},
+							error: function(data, textStatus, xhr)
+							{
+								alert('Prijava ni uspela: ' + textStatus);
+							}
+						});
+					}
 				});
 				
-				// Activate latest tab, if it exists:
-				var lastTab = $.cookie('last_tab');
-				if (lastTab) {
-					$('a[href=' + lastTab + ']').tab('show');
-				}
-        	}
-             
+				// Validate the input form: Register (new user) [Tab: Login] 		
+				$("#formRegisterUser").validate({
+					rules:
+					{
+						email: {required: true, email: true, maxlength: 50},
+						password: {required: true, minlength: 5, maxlength: 50},
+						confPassword: {required: true, minlength: 5, maxlength: 50, equalTo: "#password"},
+						household_area: {required: true, number: true, min: 1},
+						persons_in_household: {required: true, number: true, min: 1},
+						electric_power: {number: true, min: 1},
+						postal_code: {number: true, min: 1000, max: 9999}
+					},
+					submitHandler: function(form)
+					{
+						$.ajax({
+							url: DATAURL + 'user/register',
+							type: 'POST',
+							data: $(form).serialize(),
+							xhrFields: { withCredentials: true },
+							success: function(data, textStatus, xhr)
+							{
+								if (data.status == 0)
+									alert('Registracija je uspela');
+								else
+									alert('Registracija ni uspela: ' + errorText(data.status));
+							},
+							error: function(data, textStatus, xhr)
+							{
+								alert('Registracija ni uspela: ' + textStatus);
+							}
+						});
+					}
+				});
+				
+				
+				// Validate the input form: Forgot password [Tab: Login]
+				$("#formForgotPass").validate({
+					rules:
+					{
+						email: {required: true, email: true, maxlength: 50},
+					},
+					submitHandler: function(form)
+					{
+						$.ajax({
+							url: DATAURL + 'user/lost_password',
+							type: 'POST',
+							data: $(form).serialize(),
+							xhrFields: { withCredentials: true },
+							success: function(data, textStatus, xhr)
+							{
+								if (data.status == 0)
+									alert('Novo geslo poslano na email');
+								else
+									alert('Napaka pri posiljanju novega gesla: ' + errorText(data.status));
+							},
+							error: function(data, textStatus, xhr)
+							{
+								alert('Napaka pri posiljanjau novega gesla: ' + textStatus);
+							}
+						});
+					}
+				});
+			}
+
 			// ----------------------------------------------------------------------
 			// onDeviceReady()
 			// phonegap is loaded and it is now safe to make calls to phonegap methods.
@@ -98,362 +176,127 @@
 			// PhoneGap is initialized.
 			// Modify the HTML element 'pgReadyInfo'.
 			function onDeviceReady() {
+				if (navigator.connection.type == Connection.NONE) {
+					alert('Za uporabo te aplikacije potrebujete internetno povezavo!');
+				}
+
 				// Set pgReady.
 				pgReady = true;
-				
-				// Modify 'pgReadyInfo'
-				var pgReadyInfoElement = $("#pgReadyInfo");
-				pgReadyInfoElement.text("PhoneGap: Ready!"); 				
-            }
+			}
  
-			//----------------------------------------------------------------------
-			// plotUsageIncrem()
-			// Plots the histogram showing the selected environmental burden
-			// incrementaly. 
-			// The position of the chart is defined by the placeholder "histogram".
-
-			function plotUsageIncrem() {
-				$.plot($("#histogram"),
-					[
-						{
-							label: "Total Things",
-							data: [ [2010, 10], [2011, 12], [2012, 9], [2013, 11], [2014, 13] ],
-							bars: {
-								show: true,
-								barWidth: 1,
-								align: "left"
-							}   
-						}
-					],
-					{
-						xaxis: {
-							ticks: [
-								[2010, "2010"],
-								[2011, "2011"],
-								[2012, "2012"],
-								[2013, "2013"],
-								[2014, "2014"]
-							]
-						}   
-					}
-				);
+			function errorText(id) {
+				switch(id) {
+				case 0:
+					return "ni napake";
+				case 1:
+					return "podatek ze obstaja";
+				case 2:
+					return "neveljavno uporabnisko ime ali geslo";
+				case 3:
+					return "napacni vhodni podatki";
+				case 4:
+					return "neveljavna seja";
+				case 5:
+					return "uporabnik ni prijavljen";
+				default:
+					return "neopredeljena napaka";
+				}
 			}
 
-			//----------------------------------------------------------------------
-			// plotUsageCumul()
-			// Plots the histogram showing the selected environmental burden
-			// cumulatively. 
-			// The position of the chart is defined by the placeholder "histogram".
-
-			function plotUsageCumul() {
-				$.plot($("#histogram"),
-					[
-						{
-							label: "Total Things",
-							data: [ [2010, 10], [2011, 22], [2012, 31], [2013, 42], [2014, 55] ],
-							bars: {
-								show: true,
-								barWidth: 1,
-								align: "left"
-							}   
-						}
-					],
-					{
-						xaxis: {
-							ticks: [
-								[2010, "2010"],
-								[2011, "2011"],
-								[2012, "2012"],
-								[2013, "2013"],
-								[2014, "2014"]
-							]
-						}   
-					}
-				);
-			}
-			
 		</script>
-    </head>
+	</head>
 
 	<!--
 	**********************************************************************
 		BODY (HTML)
 	**********************************************************************
 	-->
-    <body onload="onBodyLoad()">
-		<!-- =================================================================
-			Nav tabs
-		================================================================== -->
-		<ul class="nav nav-tabs">
-		  <li class="active"><a href="#Home" data-toggle="tab">Začetek</a></li>
-		  <li><a href="#Login" data-toggle="tab">Prijava</a></li>
-		  <li><a href="#Submit" data-toggle="tab">Vnos</a></li>
-		  <li><a href="#View" data-toggle="tab">Pregled</a></li>
-		</ul>
+	<body onload="onBodyLoad()">
 		
 		<!-- =================================================================
 			Page content
 		================================================================== -->
 		<!-- jQuery and PhoneGap init status  -->
-		<div class="row-fluid">
-			<div class="span6">
-				<p id="jQueryReadyInfo" class="text-left">jQuery: Initializing...</p>
-			</div>
-			<div class="span6">
-				<p id="pgReadyInfo" class="text-right">PhoneGap: Initializing...</p>
-			</div>
-		</div>
 		<div id="myTabContent" class="tab-content">
 		
-			<!-- Tab: Home -->
-			<div class="tab-pane active in" id="Home">
-				<!-- Application description -->
-				<div class="row">
-					<div class="span12">
-						<p class="text-center">Opis aplikacije (potrebno definirati)</p>
-					</div>
+			<div class="row">
+				<div class="span5">
+					<p class="text-center">Opis aplikacije (pripravi Drago)</p>
 				</div>
-
-				<!-- Link to more info (currently: local page) -->
-				<a data-toggle="modal" href="#appMoreInfo">Več informacij</a>
-
-				<div class="row"><div class="span12"></div></div>
-
-				<!-- 
-					Description of the application navigation 
-				-->
-				<div class="row">
-					<div class="span12">
-						<p class="text-center">Kratka navodila za navigacijo po aplikaciji (potrebno definirati)</p>
-					</div>
-				</div><div class="row"><div class="span12"></div></div>
-			</div>
-		  
-			<!-- Tab: Login -->
-			<div class="tab-pane fade" id="Login">
-				<div class="accordion" id="userRegistration">
-					<!-- Login form (registered user only) -->					
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#userRegistration" href="#logIn">Registriran uporabnik:</a>
-						</div>
-						<div id="logIn" class="accordion-body collapse in">
-							<div class="accordion-inner">
-								<div class="row">
-									<div class="span8">
-									<p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
-										<form id="logInForm" method="post" action="">
-											<label>* Uporabniško ime:</label>
-											<input type="text" name="username" class="span8 required" minlength="2">
-											<label>* Geslo:</label>
-											<input type="password" name="password" class="span8 required" minlength="2">
-											<input type="submit" value="Potrdi" class="submit btn btn-primary btn-success">
-											<div class="clearfix"></div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Login form (new user) -->
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#userRegistration" href="#newUser">Nov uporabnik?</a>
-						</div>
-						<div id="newUser" class="accordion-body collapse">
-							<div class="accordion-inner">
-								<div class="row-fluid">
-									<div class="span8">
-										<!-- User data -->
-										<p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
-										<strong>Podatki uporabnika:</strong>
-										<form>
-											<label>* Uporabniško ime:</label>
-											<input type="text" name="username" class="span8">
-											<label>* Elektronski naslov:</label>
-											<input type="email" name="email" class="span8">
-											<label>* Geslo:</label>
-											<input type="password" name="password" class="span8">
-											<label>* Potrdi geslo:</label>
-											<input type="password" name="password" class="span8">
-
-											<!-- Appartment data -->
-											<label></label>
-											<strong>Podatki o stanovanju:</strong>
-											<label></label>
-											<label>* Površina stanovanja (www.prostor.si):</label>
-											<input type="text" name="appArea" class="span8">
-											<label>* Število članov gospodinjstva:</label>
-											<input type="text" name="numFamilyMemb" class="span8">
-											<label>Priključna moč električnega priključka:</label>
-											<input type="text" name="elNominalPower" class="span8">
-											<label>Poštna številka kraja bivanja:</label>
-											<input type="text" name="postalNum" class="span8">
-											<div class="clearfix"></div>
-										</form>
-										<!-- Buttons -->
-										<input type="submit" value="Potrdi" class="btn btn-success">
-										<a href="#" class="btn btn-primary">Izbriši vse</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- Forgot password form -->
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#userRegistration" href="#forgotPass">Pozabljeno geslo?</a>
-						</div>
-						<div id="forgotPass" class="accordion-body collapse">
-							<div class="accordion-inner">
-								<div class="row-fluid">
-									<div class="span8">
-										<!-- User data -->
-										<p>Prosim, vnesite vaš elektronski naslov. Na ta naslov vam bomo poslali novo geslo, ki ga uporabite pri naslednji prijavi.</p>
-										<br>
-										<form>
-											<label>* Elektronski naslov:</label>
-											<input type="email" name="email" class="span8">
-											<div class="clearfix"></div>
-										</form>
-										<input type="submit" value="Potrdi" class="btn btn-success">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>				
-			</div>
-		  
-			<!-- Tab: Submit -->
-			<div class="tab-pane fade" id="Submit">
-				<div class="row-fluid">
-					<div class="span12">
-						<p class="text-left">Izbrana okoljska obremenitev:</p>
-					</div>
-				</div>	<!-- row -->
-
-				<!-- Status placeholder -->
-				<p id="currentEBSubm"><strong>Ni definirana</strong></p>
-				
-				<!-- Select EB form -->
-				<div class="accordion" id="enterEBSubm">
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#enterEBSubm" href="#selectEBSubm">Izberite okoljsko obremenitev</a>
-						</div>
-						<div id="selectEBSubm" class="accordion-body collapse">
-							<div class="accordion-inner">
-								<label class="radio">
-								  <input type="radio" name="selectedEB" id="electricity" value="electricity">
-								  Elektrika
-								</label>
-								<label class="radio">
-								  <input type="radio" name="selectedEB" id="water" value="water">
-								  Voda
-								</label>
-								<label class="radio">
-								  <input type="radio" name="selectedEB" id="gas" value="gas">
-								  Plin
-								</label>
-								<label class="radio">
-								  <input type="radio" name="selectedEB" id="heating" value="heating">
-								  Ogrevanje
-								</label>
-								<label class="radio">
-								  <input type="radio" name="selectedEB" id="somethingElse" value="somethingElse">
-								  ....
-								</label>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- Enter consumption data -->
-				<!-- Header -->
-				<div class="row-fluid">
-					<div class="span12">
-						<strong class="text-left">Vnesite podatke:</strong>
-					</div>
-				</div>
-
-				<!-- Form -->
-				<div class="row-fluid">
-					<div class="span8">
-						<form>
-							<label>Trenutek odčitka:</label>
-							<input type="text" name="timeGetEB" class="span8">
-							<label>Vrednost odčitka:</label>
-							<input type="text" name="valEB" class="span8">
-							<label class="radio">
-							  <input type="radio" name="optValEB" id="ebInpIncrem" value="ebInpIncrem">
-							  Poraba od zadnjega odčitka
-							</label>
-							<label class="radio">
-							  <input type="radio" name="optValEB" id="ebInputCumul" value="ebInpCumul">
-							  Stanje števca
-							</label>
+				<div class="span4">
+					<div class="mini-layout">
+						<p>Prijava</p>
+						<form id="formLogin">
+							<label>Elektronski naslov:</label>
+							<input type="email" name="email" class="input-medim">
+							<label>Geslo:</label>
+							<input type="password" name="password" class="input-medim">
 							<div class="clearfix"></div>
+							<input type="submit" value="Prijava" class="submit btn btn-primary btn-success">
 						</form>
-						<!-- Buttons -->
-						<input type="submit" value="Potrdi" class="btn btn-success">
-						<a href="#" class="btn btn-primary">Izbriši vse</a>
-					</div>
-				</div>		
-			</div>
-			
-			<!-- Tab: View -->
-			<div class="tab-pane fade" id="View">
-				<div class="row-fluid">
-					<div class="span12">
-						<p class="text-left">Izbrana okoljska obremenitev:</p>
-					</div>
-				</div>	<!-- row -->
 
-				<!-- Status placeholder -->
-				<p id="currentEBView"><strong>Ni definirana</strong></p>
-				
-				<!-- Select EB form -->
-				<div class="accordion" id="enterEBView">
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#enterEBView" href="#selectEBView">Izberite okoljsko obremenitev</a>
-						</div>
-						<div id="selectEBView" class="accordion-body collapse">
-							<div class="accordion-inner">
-								<label class="radio">
-								  <input type="radio" name="selectedEB" id="electricity" value="electricity">
-								  Elektrika
-								</label>
-								<label class="radio">
-								  <input type="radio" name="selectedEB" id="water" value="water">
-								  Voda
-								</label>
-								<label class="radio">
-								  <input type="radio" name="selectedEB" id="gas" value="gas">
-								  Plin
-								</label>
-								<label class="radio">
-								  <input type="radio" name="selectedEB" id="heating" value="heating">
-								  Ogrevanje
-								</label>
-								<label class="radio">
-								  <input type="radio" name="selectedEB" id="somethingElse" value="somethingElse">
-								  ....
-								</label>
+						<!-- Forgot password -->
+						<a href="#forgotPassModal" role="button" data-toggle="modal">Ste pozabili geslo?</a>
+						<div id="forgotPassModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="forgotPassModalLabel" aria-hidden="true">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								<h3 id="forgotPassModalLabel">Pozabljeno geslo</h3>
+							</div>
+							<div class="modal-body">
+								<p>Prosim, vnesite vaš elektronski naslov. Na ta naslov vam bomo poslali novo geslo, ki ga uporabite pri naslednji prijavi.</p>
+								<br>
+								<form id="formForgotPass">
+									<label>Elektronski naslov:</label>
+									<input type="email" name="forgEmail" class="input-medium">
+									<div class="clearfix"></div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-primary" onclick="$('#formForgotPass').submit(); $('#forgotPassModal').modal('hide')">Pošlji zahtevo</button>
 							</div>
 						</div>
+						<br />
+
+						<!-- New user -->
+						<a href="#newUserModal" role="button" data-toggle="modal">Nov uporabnik</a>
+						<div id="newUserModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="newUserModalLabel" aria-hidden="true">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								<h3 id="newUserModalLabel">Nov uporabnik</h3>
+							</div>
+							<div class="modal-body">
+								<p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
+								<strong>Podatki uporabnika:</strong>
+								<form id="formRegisterUser">
+									<label>* Elektronski naslov:</label>
+									<input type="email" name="email" class="input-medium">
+									<label>* Geslo:</label>
+									<input type="password" name="password" id="password" class="input-medium">
+									<label>* Potrdi geslo:</label>
+									<input type="password" name="confPassword" id="confPassword" class="input-medium">
+
+									<!-- Appartment data -->
+									<label></label>
+									<strong>Podatki o stanovanju:</strong>
+									<label></label>
+									<label>* Površina stanovanja (m2) (www.prostor.si):</label>
+									<input type="number" name="household_area" class="input-medium">
+									<label>* Število članov gospodinjstva:</label>
+									<input type="number" name="persons_in_household" class="input-medium">
+									<label>Priključna moč električnega priključka (kW):</label>
+									<input type="number" name="electric_power" class="input-medium">
+									<label>Poštna številka kraja bivanja:</label>
+									<input type="number" name="postal_code" class="input-medium">
+									<div class="clearfix"></div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-primary" onclick="$('#formRegisterUser').submit(); $('#newUserModal').modal('hide')">Pošlji zahtevo</button>
+							</div>
+						</div>
+						<br />
 					</div>
-				</div>			
-				<!-- Select the type of view -->
-				<p>
-					<button class="btn btn-primary" onclick="plotUsageIncrem()">Poraba (po obdobjih)</button>
-					<button class="btn btn-primary"  onclick="plotUsageCumul()">Poraba (kumulativno)</button>
-					<button class="btn btn-primary">Percentil</button>
-				</p>
-				
-				<p>Test histogram should appear here</p>
-				<div id="histogram" style="width:300px;height:150px;"></div>
-				<!-- <div id="histogram" style="width:80%;height:40%;"></div>  -->
+				</div>
 			</div>
 		</div>
 		
@@ -482,8 +325,8 @@
 			<div class="modal-footer">
 				<button class="btn pull-left btn-success" data-dismiss="modal" aria-hidden="true">OK</button>
 			</div>
-		</div>    <!-- appMoreInfo -->
-    </body>
+		</div>	<!-- appMoreInfo -->
+	</body>
 </html>
 
 
