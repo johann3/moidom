@@ -1,0 +1,766 @@
+﻿<!DOCTYPE html>
+<html>
+	<!--
+	**********************************************************************
+		HEAD (HTML)
+	**********************************************************************
+	-->
+	<head>
+		<!-- =================================================================
+			INITIALIZATION
+		================================================================== -->		
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<!--<meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<link href="css/bootstrap-responsive.css" rel="stylesheet">
+		<link href="css/bootstrap-timepicker.min.css" rel="stylesheet">
+		
+		<script type="text/javascript" charset="UTF-8" src="js/jquery-1.9.1.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="js/jquery-migrate-1.1.1.js"></script>		
+		<script type="text/javascript" charset="UTF-8" src="js/jquery.validate.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="js/jquery.cookie.js"></script>
+		<!-- <script src="js/jquery.mobile-1.3.0.min.js"></script> -->
+		<script type="text/javascript" charset="UTF-8" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="js/bootstrap-datepicker.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="js/locales/bootstrap-datepicker.sl.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="js/bootstrap-timepicker.min.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="js/flot/jquery.flot.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="phonegap.js"></script>
+		
+		<!-- =================================================================
+			JAVA SCRIPT CODE
+		================================================================== -->				
+		<script type="text/javascript" charset="UTF-8">
+			//
+			// VARIABLES
+			//
+			// PhoneGap Ready variable. Initialized to 'false' (device not ready) and
+			// set to 'true' when the device is ready.
+			var pgReady = false;
+
+			var DATAURL = "http://moidom.cosylab.com/moidom/rest/";
+			var HTMLURL = "";
+			var filesystemMode = true;
+
+			var JSON_STATUS_OK = 0;
+			var JSON_STATUS_EXIST = 1;
+			var JSON_STATUS_INVALID_CREDENTIALS = 2;
+			var JSON_STATUS_INVALID_INPUT = 3;
+			var JSON_STATUS_NOT_LOGGED_IN = 4;
+			var JSON_STATUS_ERROR = 99;
+			
+			//
+			// FUNCTIONS
+			//
+			// ----------------------------------------------------------------------
+			// onBodyLoad()
+			// At this point, the document has loaded but phonegap.js has not.
+			// When phonegap is loaded and talking with the native device,
+			// it will call the event `deviceready`.
+			// Register the event handler for the 'deviceready' event and modify
+			// the HTML element 'jQueryReadyInfo'.
+			function onBodyLoad() {
+				// Register the event handler 
+				document.addEventListener("deviceready", onDeviceReady, false);				
+				
+				if (filesystemMode) {
+					// Override the MIME tipe to avoid "Not well-formed" error if reading from file
+					$.ajaxSetup({beforeSend: function(xhr) {
+							if (xhr.overrideMimeType) {
+								xhr.overrideMimeType("application/json");
+							}
+						}
+					});
+				}
+
+				// Initialize datepicker and timepicker
+				$('#submitDate').datepicker();
+				$('#submitTime').timepicker();
+				
+				// Validate the input form: Enter consumption data  [Tab: Submit]
+				$("#formSubmit").validate({
+					rules:
+					{
+						submitCommodity: {required: true},
+						submitDate: {required: true},
+						submitTime: {required: true},
+						submitValue: {required: true}
+					},
+					submitHandler: function(form)
+					{
+						var requestData = {
+							time: parseDateTime($('#submitDate').val(), 'dd.mm.yyyy', $('#submitTime').val(), 'hh:mm:ss'),
+							commodity: $('#submitCommodity').val(),
+							value: $('#submitValue').val().replace(',', '.')
+						};
+						$.ajax({
+							url: DATAURL + 'commodity/add_data',
+							type: 'POST',
+							data: requestData,
+							success: function(data, textStatus, xhr)
+							{
+								if (data.status != JSON_STATUS_OK) {
+									if (data.status == JSON_STATUS_NOT_LOGGED_IN)
+										top.location.href = HTMLURL + 'index.html';
+									else
+										alert('Posiljanje podatkov ni uspelo: ' + errorText(data.status));
+									return;
+								}
+							},
+							error: function(data, textStatus, xhr)
+							{
+								alert('Posiljanje podatkov ni uspelo: ' + textStatus);
+							}
+						});
+					}
+				});
+					
+				
+				// Validate the input form: Modify user data
+				$("#formUpdateUserData").validate({
+					rules:
+					{
+						password: {required: false, minlength: 5, maxlength: 50},
+						confPassword: {required: false, minlength: 5, maxlength: 50, equalTo: "#password"},
+						household_area: {required: true, number: true, min: 1},
+						persons_in_household: {required: true, number: true, min: 1},
+						electric_power: {number: true, min: 1},
+						postal_code: {number: true, min: 1000, max: 9999}
+					},
+					submitHandler: function(form)
+					{
+						$.ajax({
+							url: DATAURL + 'commodity/add_data',
+							type: 'POST',
+							data: $('#formUpdateUserData').serialize(),
+							success: function(data, textStatus, xhr)
+							{
+								if (data.status != JSON_STATUS_OK) {
+									if (data.status == JSON_STATUS_NOT_LOGGED_IN)
+										top.location.href = HTMLURL + 'index.html';
+									else
+										alert('Posiljanje podatkov ni uspelo: ' + errorText(data.status));
+									return;
+								}
+								alert('Podatki posodobljeni!');
+							},
+							error: function(data, textStatus, xhr)
+							{
+								alert('Posiljanje podatkov ni uspelo: ' + textStatus);
+							}
+						});
+					}
+				});				
+				
+			}
+
+			// ----------------------------------------------------------------------
+			// onDeviceReady()
+			// phonegap is loaded and it is now safe to make calls to phonegap methods.
+			// Set pgReady to 'true' to let other parts of the code know the 
+			// PhoneGap is initialized.
+			// Modify the HTML element 'pgReadyInfo'.
+			function onDeviceReady() {
+				// Set pgReady.
+				pgReady = true;
+			}
+ 
+			//----------------------------------------------------------------------
+			// plotEfficiencyClasses()
+			// Plots the histogram showing the efficiency classes.
+			// The position of the chart is defined by the placeholder
+			// "viewEffClassHistogram".
+			function plotEfficiencyClasses(plotHolder, userValueHolder) {
+				var commodityId = $('#viewCommodity').val();
+				var unit = $('#viewCommodity').find(':selected').data('unit');
+
+				$.ajax({
+					url: DATAURL + 'user/efficiency',
+					type: 'GET',
+					data: { commodity: commodityId },
+					xhrFields: { withCredentials: true },
+					success: function(data, textStatus, xhr)
+					{
+						if (data.status != JSON_STATUS_OK) {
+							if (data.status == JSON_STATUS_NOT_LOGGED_IN)
+								top.location.href = HTMLURL + 'index.html';
+							else
+								alert('Napaka pri sprejemanju podatkov o ucinkovitostih: ' + errorText(data.status));
+							return;
+						}
+
+						var plotOptions = {
+							yaxis: {
+								min: 0,
+								max: data.levels.length,
+								ticks: new Array() // fill-in during data processing
+							},
+							xaxis: {
+								ticksLength: 0,
+								ticks: false,
+							}
+						};
+
+						var plotData = new Array();
+						var captions = new Array();
+						var fixedBarWidth = 10;
+						for (var i = 0; i < data.levels.length; i++) {
+							var lineWidth = (data.class == data.levels[i].name ? 3 : 0);
+							plotData.push({
+								color: 'rgb(0,0,0)',
+								data: [ [fixedBarWidth + i, data.levels.length - 1 - i] ],
+								bars: {
+									horizontal: true,
+									show: true,
+									barWidth: 1,
+									align: "left",
+									fillColor: data.levels[i].color,
+									lineWidth: lineWidth
+								}
+							});
+							plotOptions.yaxis.ticks.push( [ (data.levels.length - 0.5 - i), (data.levels[i].name) ]);
+
+							// Draw the line of the user's value as new line-series (note overlays, code order important)
+							if (data.class == data.levels[i].name) {
+								var offset = 1 - (data.value - data.levels[i].min) / (data.levels[i].max - data.levels[i].min);
+								plotData.push({
+									color: 'rgb(0,0,0)',
+									data: [ [0, data.levels.length - offset - i], [fixedBarWidth + i, data.levels.length - offset - i] ],
+									lines: {
+										show: true,
+										lineWidth: 1
+									},
+									shadowSize: 0
+								});
+							}
+
+							// Remember series value interval for later unit printout
+							captions.push(data.levels[i].min + ' - ' + data.levels[i].max + ' ' + unit);
+						}
+
+						var plot = $.plot($('#' + plotHolder), plotData, plotOptions);
+
+						// Print out units
+						for (var i = 0; i < captions.length; i++) {
+							var o = plot.pointOffset({ x: 0.5, y: captions.length - i - 0.2});
+							$('#' + plotHolder).append("<div style='position:absolute;left:" + (o.left + 4) + "px;top:" + o.top + "px;color:#000;font-size:smaller'>" + captions[i] + "</div>");
+						}
+
+						// Append text fields
+						$('#' + userValueHolder).text(data.value + ' ' + unit);
+					},
+					error: function(data, textStatus, xhr)
+					{
+						alert('Napaka pri sprejemanju podatkov o obremenitvah: ' + textStatus);
+					}
+				});
+			}
+
+			//----------------------------------------------------------------------
+			// plotPercentil()
+			// Plots the histogram showing the selected commodity usage
+			// cumulatively. 
+			// The position of the chart is defined by the placeholder 
+			// "viewTimeseqCumul".				
+			function plotPercentil(plotHolder, userValueHolder, userRankHolder) {
+				var commodityId = $('#viewCommodity').val();
+				var unit = $('#viewCommodity').find(':selected').data('unit');
+
+				$.ajax({
+					url: DATAURL + 'user/efficiency',
+					type: 'GET',
+					data: { commodity: commodityId },
+					xhrFields: { withCredentials: true },
+					success: function(data, textStatus, xhr)
+					{
+						if (data.status != JSON_STATUS_OK) {
+							if (data.status == JSON_STATUS_NOT_LOGGED_IN)
+								top.location.href = HTMLURL + 'index.html';
+							else
+								alert('Napaka pri sprejemanju podatkov o ucinkovitostih: ' + errorText(data.status));
+							return;
+						}
+
+						var plotOptions = {
+							xaxis: {
+								min: 0,
+								ticks: new Array() // fill-in during data processing
+							}
+						};
+
+						var plotData = new Array();
+						for (var i = 0; i < data.levels.length; i++) {
+							plotData.push({
+								data: [ [ data.levels[i].min, data.levels[i].count ] ],
+								bars: {
+									show: true,
+									barWidth: (data.levels[i].max - data.levels[i].min),
+									align: "left",
+									fillColor: data.levels[i].color,
+									lineWidth: 0
+								}
+							});
+							plotOptions.xaxis.ticks.push( data.levels[i].max );
+
+							// Draw the line of the user's value as new line-series (note overlays, code order important)
+							if (data.class == data.levels[i].name) {
+								plotData.push({
+									color: 'rgb(0,0,0)',
+									data: [ [data.value, 0], [data.value, data.levels[i].count] ],
+									lines: {
+										show: true,
+										lineWidth: 1
+									},
+									shadowSize: 0
+								});
+							}
+						}
+
+						var plot = $.plot($('#' + plotHolder), plotData, plotOptions);
+
+						// Append text fields
+						$('#' + userValueHolder).text(data.value + ' ' + unit);
+						$('#' + userRankHolder).text(data.rank);
+					},
+					error: function(data, textStatus, xhr)
+					{
+						alert('Napaka pri sprejemanju podatkov o obremenitvah: ' + textStatus);
+					}
+				});
+			}
+
+			
+			function plotComodityData(plotHolder, incremental) {
+				var commodityId = $('#viewCommodity').val();
+
+				$.ajax({
+					url: DATAURL + 'commodity/get_data',
+					type: 'GET',
+					data: { commodity: commodityId, cumulative: (incremental ? 'false' : 'true') },
+					xhrFields: { withCredentials: true },
+					success: function(data, textStatus, xhr)
+					{
+						if (data.status != JSON_STATUS_OK) {
+							if (data.status == JSON_STATUS_NOT_LOGGED_IN)
+								top.location.href = HTMLURL + 'index.html';
+							else
+								alert('Napaka pri sprejemanju podatkov o obremenitvah: ' + errorText(data.status));
+							return;
+						}
+
+						var plotOptions = {
+							series:
+							{
+								lines: { show: true }
+							},
+							xaxis:
+							{
+								mode: "time",
+								timeformat: "%d/%m/%y"
+							}
+						};
+						if (!incremental) {
+							plotOptions.series['points'] = { show: true };
+						}
+
+						var plotData = new Array();
+						if (incremental) {
+							// skip first record
+							for (var i = 1; i < data.data.length; i++) {
+								plotData.push({
+									data: [[ data.data[i-1][0], data.data[i][1] ]],
+									bars: {
+										show: true,
+										barWidth: data.data[i][0] - data.data[i-1][0],
+										align: "left"
+									}
+								});
+							}
+						} else {
+							plotData.push(data.data);
+						}
+
+						$.plot($('#' + plotHolder), plotData, plotOptions);
+					},
+					error: function(data, textStatus, xhr)
+					{
+						alert('Napaka pri sprejemanju podatkov o obremenitvah: ' + textStatus);
+					}
+				});
+			}
+
+			function assignCommodity(assignedListId, unassignedListId) {
+				$.ajax({
+					url: DATAURL + 'user/assign_commodity',
+					type: 'POST',
+					data: { commodity: $('#' + unassignedListId).val() },
+					xhrFields: { withCredentials: true },
+					success: function(data, textStatus, xhr)
+					{
+						if (data.status != JSON_STATUS_OK) {
+							if (data.status == JSON_STATUS_NOT_LOGGED_IN)
+								top.location.href = HTMLURL + 'index.html';
+							else
+								alert('Sprememba ni uspela: ' + textStatus);
+							return;
+						}
+						populateCommodityList(assignedListId, 'assigned', 'unassignCommodity');
+						populateCommodityList(unassignedListId, 'unassigned');
+					},
+					error: function(data, textStatus, xhr)
+					{
+						alert('Sprememba ni uspela: ' + textStatus);
+					}
+				});
+			}
+
+			function unassignCommodity(id)
+			{
+				$.ajax({
+					url: DATAURL + 'user/unassign_commodity',
+					type: 'POST',
+					data: { commodity: id },
+					xhrFields: { withCredentials: true },
+					success: function(data, textStatus, xhr)
+					{
+						if (data.status != JSON_STATUS_OK) {
+							if (data.status == JSON_STATUS_NOT_LOGGED_IN)
+								top.location.href = HTMLURL + 'index.html';
+							else
+								alert('Sprememba ni uspela: ' + textStatus);
+							return;
+						}
+						populateCommodityList('assignedCommodities', 'assigned', 'unassignCommodity');
+						populateCommodityList('unassignedCommodities', 'unassigned');
+					},
+					error: function(data, textStatus, xhr)
+					{
+						alert('Sprememba ni uspela: ' + textStatus);
+					}
+				});
+			}
+
+			function errorText(id) {
+				switch(id) {
+				case JSON_STATUS_OK:
+					return "ni napake";
+				case JSON_STATUS_EXIST:
+					return "podatek ze obstaja";
+				case JSON_STATUS_INVALID_CREDENTIALS:
+					return "neveljavno uporabnisko ime ali geslo";
+				case JSON_STATUS_INVALID_INPUT:
+					return "napacni vhodni podatki";
+				case JSON_STATUS_NOT_LOGGED_IN:
+					return "neveljavna seja";
+				default:
+					return "neopredeljena napaka";
+				}
+			}
+
+			function populateCommodityList(id, typ, onclick)
+			{
+				var el = document.getElementById(id);
+
+				$.ajax({
+					url: DATAURL + 'commodity/list',
+					type: 'GET',
+					data: { type: typ },
+					xhrFields: { withCredentials: true },
+					success: function(data, textStatus, xhr)
+					{
+						if (data.status != JSON_STATUS_OK) {
+							if (data.status == JSON_STATUS_NOT_LOGGED_IN)
+								top.location.href = HTMLURL + 'index.html';
+							else
+								alert('Napaka pri prenosu seznama okoljskih obremenitev: ' + textStatus);
+							return;
+						}
+
+						$('#' + id).empty();
+
+						for (var i = 0; i < data.commodities.length; i++) {
+							if (el.nodeName == "SELECT") {
+								if (onclick)
+									$('#' + id).append('<option value="' + data.commodities[i].id + '" data-unit="' + data.commodities[i].unit + '" onclick="' + onclick + '(' + data.commodities[i].id + ')">' + data.commodities[i].name + '</option>');
+								else
+									$('#' + id).append('<option value="' + data.commodities[i].id + '" data-unit="' + data.commodities[i].unit + '" >' + data.commodities[i].name + '</option>');
+							} else if (el.nodeName == "UL") {
+								if (onclick)
+									$('#' + id).append('<li><a href="#" onclick="' + onclick + '(' + data.commodities[i].id + ')">' + data.commodities[i].name + '</a></li>');
+								else
+									$('#' + id).append('<li>' + data.commodities[i].name + '</li>');
+							}
+						}
+					},
+					error: function(data, textStatus, xhr)
+					{
+						alert('Napaka pri prenosu seznama okoljskih obremenitev: ' + textStatus);
+					}
+				});
+			}
+
+			function populateUserData(householdArea, personsInHousehold, electricPower, postalCode) {
+
+				$.ajax({
+					url: DATAURL + 'user/get_profile',
+					type: 'GET',
+					xhrFields: { withCredentials: true },
+					success: function(data, textStatus, xhr)
+					{
+						if (data.status != JSON_STATUS_OK) {
+							if (data.status == JSON_STATUS_NOT_LOGGED_IN)
+								top.location.href = HTMLURL + 'index.html';
+							else
+								alert('Napaka pri prenosu uporabnikovih podatkov: ' + textStatus);
+							return;
+						}
+
+						$('#' + householdArea).val(data.household_area);
+						$('#' + personsInHousehold).val(data.persons_in_household);
+						$('#' + electricPower).val(data.electric_power);
+						$('#' + postalCode).val(data.postal_code);
+					},
+					error: function(data, textStatus, xhr)
+					{
+						alert('Napaka pri prenosu seznama okoljskih obremenitev: ' + textStatus);
+					}
+				});
+			}
+			function parseDateTime(dateValue, dateFormat, timeValue, timeFormat) {
+				var dateFmt = new Array(), timeFmt = new Array();
+				var i = 0, j = 0;
+				var dateParts = dateValue.match(/(\d+)/g);
+				var timeParts = timeValue.match(/(\d+)/g);
+				dateFormat.replace(/(yyyy|dd|mm)/g, function(part) { dateFmt[part] = i++; });
+				timeFormat.replace(/(hh|mm|ss)/g, function(part) { timeFmt[part] = j++; });
+				var date = new Date(dateParts[dateFmt['yyyy']], dateParts[dateFmt['mm']] - 1, dateParts[dateFmt['dd']],
+									timeParts[timeFmt['hh']], timeParts[timeFmt['mm']], timeParts[timeFmt['ss']]);
+
+				return date.getTime();
+			}
+
+			
+		</script>
+	</head>
+
+	<!--
+	**********************************************************************
+		BODY (HTML)
+	**********************************************************************
+	-->
+	<body onload="onBodyLoad()">
+		<!-- =================================================================
+			Nav tabs
+		================================================================== -->
+		
+		<div class="tabbable"> <!-- Zadnji popravek -->
+		
+		<ul class="nav nav-tabs">
+		  <li id="tabSubmit"><a href="#Submit" data-toggle="tab">Vnos</a></li>
+		  <li id="tabViev"><a href="#View" data-toggle="tab" onclick="populateCommodityList('viewCommodity', 'assigned')">Prikaz</a></li>
+		</ul>
+		
+		<!-- =================================================================
+			Page content
+		================================================================== -->
+		<div id="myTabContent" class="tab-content">
+		
+			<!-- ------------------------
+			Tab: Submit
+			------------------------- -->
+			<div class="tab-pane fade" id="Submit">
+				<div class="accordion" id="commoditiManage">
+					<!-- ----
+					Accordion: Enter consumption data 
+					----- -->			
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiManage" href="#commodityValSubmit" onclick="populateCommodityList('submitCommodity', 'assigned')">Vnos podatkov o obremenitvi</a>
+						</div>
+						<div id="commodityValSubmit" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<div class="row">
+									<div class="span8">
+										<p>Izberite okoljsko obremenitev:</p>
+										<form id="formSubmit">
+											<select name="submitCommodity" id="submitCommodity"></select>
+											<p>Datum odčitka:</p>
+												<input type="text" name="submitDate" id="submitDate" data-date-format="dd.mm.yyyy" data-date-language="sl" data-date-autoclose="true" >
+											<p>Cas odčitka:</p>
+												<div class="bootstrap-timepicker">
+													<input type="text" name="submitTime" id="submitTime" data-template="dropdown" data-show-seconds="true" data-show-meridian="false" data-disable-focus="true" data-show-inputs="false" data-minute-step="1" data-second-step="1" >
+												</div>
+											<p>Vrednost odčitka:</p>
+												<input type="text" name="submitValue" id="submitValue">
+											<label class="radio">
+											  <input type="radio" name="type" value="cumulative">Novo stanje
+											</label>																								
+											  <label class="radio">
+											  <input type="radio" name="type" value="incremental">Prirast od zadnjega vnosa
+											</label>		
+											<div class="clearfix"></div>
+											<br>
+											<input type="submit" value="Vnesi" class="submit btn btn-primary btn-success">
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- ----
+					Accordion: Add commodity 
+					----- -->
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiManage" href="#commodityAdd" onclick="populateCommodityList('assignedCommodities', 'assigned', 'unassignCommodity'); populateCommodityList('unassignedCommodities', 'unassigned');">Moje okoljske obremenitve</a>
+						</div>
+						<div id="commodityAdd" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<div class="row">
+									<div class="span8">
+										<!-- Commodity list -->
+										<p>Vaše okoljske obremenitve:</p>
+										<ul id="assignedCommodities" style="list-style: none;"> </ul>
+										<p>Dodajte novo obremenitev s spiska:</p>
+										<form>
+											<select name="unassignedCommodities" id="unassignedCommodities" onchange="assignCommodity('assignedCommodities', 'unassignedCommodities')"></select>
+											<div class="clearfix"></div>
+										</form>
+										<br>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- ----
+					Accordion: Modify user data 
+					----- -->
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiManage" href="#updateUser" onclick="populateUserData('household_area', 'persons_in_household', 'electric_power', 'postal_code')">Sprememba podatkov o uporabniku</a>
+						</div>
+						<div id="updateUser" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<div class="row">
+									<div class="span8">
+										<!-- User data -->
+										<p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
+										<strong>Podatki uporabnika:</strong>
+										<form id="formUpdateUserData">
+											<!-- <label>* Elektronski naslov:</label>
+											<input type="email" name="email" class="span8"> -->
+											<label>* Geslo:</label>
+											<input type="password" name="password" id="password" class="span8">
+											<label>* Potrdi geslo:</label>
+											<input type="password" name="confPassword" id="confPassword" class="span8">
+											
+											<!-- Appartment data -->
+											<label></label>
+											<strong>Podatki o stanovanju:</strong>
+											<label></label>
+											<label>* Površina stanovanja (m2) (www.prostor.si):</label>
+											<input type="number" name="household_area" id="household_area" class="input-small">
+											<label>* Število članov gospodinjstva:</label>
+											<input type="number" name="persons_in_household" id="persons_in_household" class="input-small">
+											<label>Priključna moč električnega priključka (kW):</label>
+											<input type="number" name="electric_power" id="electric_power" class="input-small">
+											<label>Poštna številka kraja bivanja:</label>
+											<input type="number" name="postal_code" id="postal_code" class="input-small">
+											<div class="clearfix"></div>
+											<!-- Buttons -->
+											<input type="submit" value="Potrdi" class="submit btn btn-primary btn-success">
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>			
+			</div>
+			
+			<!-- ------------------------
+			Tab: View
+			------------------------- -->
+			<div class="tab-pane fade" id="View">
+				<p>Izberite okoljsko obremenitev:</p>
+				<form>
+					<select name="viewCommodity" id="viewCommodity"></select>
+					<div class="clearfix"></div>
+				</form>
+				<p>Izberite način prikaza za izbrano okoljsko obremenitev:</p>
+				<div class="accordion" id="commoditiView">
+					<!-- ----
+					Accordion: Efficiency class 
+					----- -->	
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewEffClass" onclick="plotEfficiencyClasses('viewEffClassHistogram', 'userValue')">Učinkovitostni razred</a>
+						</div>
+						<div id="commodityViewEffClass" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<div id="viewEffClassHistogram" style="width:600px;height:300px;"></div>
+								<br />
+								Vasa vrednost ucinkovitosti: <span id="userValue"></span>
+							</div>
+						</div>
+					</div>
+					<!-- ----
+					Accordion: Percentil 
+					----- -->
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewPercentil" onclick="plotPercentil('viewPercentilHistogram', 'userValueP', 'userRank')">Percentil učinkovitosti</a>
+						</div>
+						<div id="commodityViewPercentil" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<div id="viewPercentilHistogram" style="width:600px;height:300px;"></div>
+								<br />
+								Vasa vrednost ucinkovitosti: <span id="userValueP"></span><br />
+								<span id="userRank"></span>% uporabnikov je bolj ucinkovitih od vas<br />
+							</div>
+						</div>
+					</div>
+					<!-- ----
+					Accordion: Time sequence (incremental)
+					----- -->
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewTimeseqIncr" onclick="plotComodityData('viewTimeseqIncr', true)">Poraba po obdobjih</a>
+						</div>
+						<div id="commodityViewTimeseqIncr" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<div id="viewTimeseqIncr" style="width:600px;height:300px;"></div>
+							</div>
+						</div>
+					</div>
+					<!-- ----
+					Accordion: Time sequence (cummulative) 
+					----- -->
+					<div class="accordion-group">
+						<div class="accordion-heading">
+							<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewTimeseqCumul" onclick="plotComodityData('viewTimeseqCumul', false)">Skupna poraba</a>
+						</div>
+						<div id="commodityViewTimeseqCumul" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<div id="viewTimeseqCumul" style="width:600px;height:300px;"></div>
+							</div>
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+		
+		</div>  <!-- Zadnji popravek -->
+		
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
