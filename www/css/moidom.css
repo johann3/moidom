@@ -1,7 +1,117 @@
-/*!
- * mOIDom style
- */
+#mainHeader {
+	background: url(../img/mainHead.png) left top repeat-x #a4c032;
+	padding: 3px 10px;
+	box-shadow: 0 2px 0 rgba(0,0,0,.3);
+	position: fixed;
+	left: 0;
+	top: 0;
+	right:0;
+	z-index: 2;
+	height: 34px;
+}
 
+a {
+	color: #6ea100;
+}
+a:hover {
+	color: #6ea100;
+}
+
+.mainContent {
+	margin: 50px 20px 20px;
+}
+.welcome,
+.loginForm {
+	width: 38%;
+	margin: 10px 5%;
+	float: left;
+}
+.btn-primary {
+    background: url(../img/mainHead.png) left center repeat-x #a4c032;
+    border-color: #97b12b;
+}
+
+.mainNav {
+	position: fixed;
+	z-index: 3;
+	right:58px;
+	top: 5px;
+	border: none;
+}
+.mainNav > li > a,
+.mainNav > .active > a, .mainNav > .active > a:hover {
+	border: none;
+	border-radius: 10px;
+	padding: 4px 8px;
+	color: #fff;
+	text-shadow: 0 1px 0 #333;
+}
+.mainNav > li > a:hover {
+	background: #88a02a;
+}
+.mainNav > .active > a, .mainNav > .active > a:hover {
+	background: #88a02a;
+}
+.mainNav > li > a img {
+	margin-right: 6px;
+}
+
+.subMenu {
+	position: fixed;
+	left: 0;
+	right:0;
+	top: 40px;
+	padding: 5px 10px 0;
+	background: url(../img/submenu.png) left bottom repeat-x;
+	border: none;
+}
+.subMenu > li {
+	margin-right: 6px;
+	margin-bottom: 0;
+}
+.subMenu > li > a {
+	padding: 5px 8px;
+	color: #666;
+	text-shadow: 0 1px 0 #fff;
+}
+.subMenu > li > a:hover {
+	background: #fff;
+	border-color: transparent;
+}
+.subMenuContent {
+	margin-top: 38px;
+}
+.accordion-inner {
+	overflow: auto;
+}
+.logout {
+	position: absolute;
+	right:0;
+	top: 0;
+	display: block;
+	width:51px;
+	height: 40px;
+	background: url(../img/logout.png) left center;
+	cursor: pointer;
+}
+@media (max-width: 600px) {
+	.welcome, .loginForm { width: 90%; float: none; margin: 10px 0; }
+}
+@media (max-width: 480px) {
+	.mainContent {
+		margin: 50px 0 0;
+	}
+	.mainNav > li > a {
+		font-size: 0;
+	}
+	.mainNav > li > a img {
+		margin: 0;
+	}
+	.subMenu > li > a {
+		font-size: 12px;
+		padding: 4px 7px;
+	}
+}
 /* Mini layout previews
 -------------------------------------------------- */
 .mini-layout {

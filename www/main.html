@@ -1,20 +1,14 @@
 ﻿<!DOCTYPE html>
 <html>
-	<!--
-	**********************************************************************
-		HEAD (HTML)
-	**********************************************************************
-	-->
 	<head>
-		<!-- =================================================================
-			INITIALIZATION
-		================================================================== -->		
+		<title>mOIDom</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<!--<meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">-->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="css/bootstrap.css" rel="stylesheet">
 		<link href="css/bootstrap-responsive.css" rel="stylesheet">
 		<link href="css/bootstrap-timepicker.min.css" rel="stylesheet">
+		<link href="css/moidom.css" rel="stylesheet">
 		
 		<script type="text/javascript" charset="UTF-8" src="js/jquery-1.9.1.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="js/jquery-migrate-1.1.1.js"></script>		
@@ -28,10 +22,7 @@
 		<script type="text/javascript" charset="UTF-8" src="js/flot/jquery.flot.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="phonegap.js"></script>
 		
-		<!-- =================================================================
-			JAVA SCRIPT CODE
-		================================================================== -->				
-		<script type="text/javascript" charset="UTF-8">
+		<script type="text/javascript">
 			//
 			// VARIABLES
 			//
@@ -39,7 +30,7 @@
 			// set to 'true' when the device is ready.
 			var pgReady = false;
 
-			var DATAURL = "http://moidom.cosylab.com/moidom/rest/";
+			var DATAURL = "http://localhost:8080/moidom/rest/";
 			var HTMLURL = "";
 			var filesystemMode = true;
 
@@ -49,20 +40,17 @@
 			var JSON_STATUS_INVALID_INPUT = 3;
 			var JSON_STATUS_NOT_LOGGED_IN = 4;
 			var JSON_STATUS_ERROR = 99;
+
+			// This is used in populateCommodityList() function to select current commodity
+			// as other methods fail due to asynchronous workflow or are even uglier than this
+			var currentCommodityId = 0;
+
+			// Callback function to plot currently selected graph
+			var plotCurrentGraph = function() {};
 			
-			//
-			// FUNCTIONS
-			//
-			// ----------------------------------------------------------------------
-			// onBodyLoad()
-			// At this point, the document has loaded but phonegap.js has not.
-			// When phonegap is loaded and talking with the native device,
-			// it will call the event `deviceready`.
-			// Register the event handler for the 'deviceready' event and modify
-			// the HTML element 'jQueryReadyInfo'.
 			function onBodyLoad() {
 				// Register the event handler 
-				document.addEventListener("deviceready", onDeviceReady, false);				
+				document.addEventListener("deviceready", onDeviceReady, false);
 				
 				if (filesystemMode) {
 					// Override the MIME tipe to avoid "Not well-formed" error if reading from file
@@ -75,11 +63,48 @@
 				}
 
 				// Initialize datepicker and timepicker
-				$('#submitDate').datepicker();
+				$('#submitDate').datepicker('setValue', new Date());
 				$('#submitTime').timepicker();
-				
+				$('#startDate').datepicker('setValue', new Date());
+				$('#startTime').timepicker();
+
+				// Populate the input form for the first time
+				populateCommodityList('submitCommodity', 'assigned', null, setSubmitFields);
+
+				// Connect tabs' show events
+				$('#tabSubmit').on('show', function() {
+					populateCommodityList('submitCommodity', 'assigned', null, setSubmitFields);
+					$('submitTime').timepicker('setTime', formatTime(new Date()));
+					$('submitDate').datepicker('setValue', new Date());
+				});
+				$('#tabView').on('show', function() {
+					populateCommodityList('viewCommodity', 'assigned');
+				});
+				$('#tabSettings').on('show', function() {
+					populateCommodityList('assignedCommodities', 'assigned', 'unassignCommodityAsk');
+					populateCommodityList('unassignedCommodities', 'unassigned', null, setAssignCommodityUnit);
+				});
+
+				// Connect graphs' show events
+				$('#commodityViewEffClass').on('show', function() {
+					plotCurrentGraph = function() { plotEfficiencyClasses('viewEffClassHistogram', 'userValue'); }
+					plotCurrentGraph();
+				});
+				$('#commodityViewPercentil').on('show', function() {
+					plotCurrentGraph = function() { plotPercentil('viewPercentilHistogram', 'userValueP', 'userRank'); }
+					plotCurrentGraph();
+				});
+				$('#commodityViewTimeseqIncr').on('show', function() {
+					plotCurrentGraph = function() { plotComodityData('viewTimeseqIncr', true); }
+					plotCurrentGraph();
+				});
+				$('#commodityViewTimeseqCumul').on('show', function() {
+					plotCurrentGraph = function() { plotComodityData('viewTimeseqCumul', false); }
+					plotCurrentGraph();
+				});
+
 				// Validate the input form: Enter consumption data  [Tab: Submit]
-				$("#formSubmit").validate({
+				$('#formSubmit').validate({
 					rules:
 					{
 						submitCommodity: {required: true},
@@ -98,6 +123,7 @@
 							url: DATAURL + 'commodity/add_data',
 							type: 'POST',
 							data: requestData,
+							xhrFields: { withCredentials: true },
 							success: function(data, textStatus, xhr)
 							{
 								if (data.status != JSON_STATUS_OK) {
@@ -107,6 +133,9 @@
 										alert('Posiljanje podatkov ni uspelo: ' + errorText(data.status));
 									return;
 								}
+								$('#submitValue').val('');
+								currentCommodityId = $('#submitCommodity').val();
+								$('#mainTabs #tabView').tab('show');
 							},
 							error: function(data, textStatus, xhr)
 							{
@@ -115,7 +144,6 @@
 						});
 					}
 				});
-					
 				
 				// Validate the input form: Modify user data
 				$("#formUpdateUserData").validate({
@@ -131,7 +159,7 @@
 					submitHandler: function(form)
 					{
 						$.ajax({
-							url: DATAURL + 'commodity/add_data',
+							url: DATAURL + 'user/update_profile',
 							type: 'POST',
 							data: $('#formUpdateUserData').serialize(),
 							success: function(data, textStatus, xhr)
@@ -151,16 +179,56 @@
 							}
 						});
 					}
-				});				
-				
+				});
+
+				$('#formAssignCommodity').validate({
+					rules:
+					{
+						cumulative: { required: true },
+						startValue: { required: true, minlength: 1, maxlength: 50 },
+						startDate: { required: true },
+						startTime: { required: true },
+						unassignedCommodities: { required: true, number: true }
+					},
+					submitHandler: function(form) {
+						var requestData = {
+							cumulative: ($('#cumulativeTrue').prop('checked') ? 'true' : 'false'),
+							start_value: $('#startValue').val(),
+							commodity: $('#unassignedCommodities').val(),
+							start_time: parseDateTime($('#startDate').val(), 'dd.mm.yyyy', $('#startTime').val(), 'hh:mm:ss')
+						}
+						$.ajax({
+							url: DATAURL + 'user/assign_commodity',
+							type: 'POST',
+							data: requestData,
+							xhrFields: { withCredentials: true },
+							success: function(data, textStatus, xhr)
+							{
+								if (data.status != JSON_STATUS_OK) {
+									if (data.status == JSON_STATUS_NOT_LOGGED_IN)
+										top.location.href = HTMLURL + 'index.html';
+									else
+										alert('Sprememba ni uspela: ' + errorText(data.status));
+									return;
+								}
+								populateCommodityList('assignedCommodities', 'assigned', 'unassignCommodityAsk');
+								populateCommodityList('unassignedCommodities', 'unassigned', null, setAssignCommodityUnit);
+								$('#startValue').val('');
+								$('#startDate').val('');
+								$('#cumulativeTrue').prop('checked', false);
+								$('#cumulativeFalse').prop('checked', false);
+								setAssignCommodityUnit();
+								$('#novaObremenitev').modal('hide');
+							},
+							error: function(data, textStatus, xhr)
+							{
+								alert('Sprememba ni uspela: ' + textStatus);
+							}
+						});
+					}
+				});
 			}
 
-			// ----------------------------------------------------------------------
-			// onDeviceReady()
-			// phonegap is loaded and it is now safe to make calls to phonegap methods.
-			// Set pgReady to 'true' to let other parts of the code know the 
-			// PhoneGap is initialized.
-			// Modify the HTML element 'pgReadyInfo'.
 			function onDeviceReady() {
 				// Set pgReady.
 				pgReady = true;
@@ -390,29 +458,15 @@
 				});
 			}
 
-			function assignCommodity(assignedListId, unassignedListId) {
-				$.ajax({
-					url: DATAURL + 'user/assign_commodity',
-					type: 'POST',
-					data: { commodity: $('#' + unassignedListId).val() },
-					xhrFields: { withCredentials: true },
-					success: function(data, textStatus, xhr)
-					{
-						if (data.status != JSON_STATUS_OK) {
-							if (data.status == JSON_STATUS_NOT_LOGGED_IN)
-								top.location.href = HTMLURL + 'index.html';
-							else
-								alert('Sprememba ni uspela: ' + textStatus);
-							return;
-						}
-						populateCommodityList(assignedListId, 'assigned', 'unassignCommodity');
-						populateCommodityList(unassignedListId, 'unassigned');
-					},
-					error: function(data, textStatus, xhr)
-					{
-						alert('Sprememba ni uspela: ' + textStatus);
-					}
-				});
+			function unassignCommodityAsk(id)
+			{
+				$('#confirmCommodityUnassign').data('commodity', id);
+				$('#confirmCommodityUnassign').modal('show');
+			}
+			
+			function novaObremenitevDialog()
+			{
+				$('#novaObremenitev').modal('show');
 			}
 
 			function unassignCommodity(id)
@@ -431,8 +485,8 @@
 								alert('Sprememba ni uspela: ' + textStatus);
 							return;
 						}
-						populateCommodityList('assignedCommodities', 'assigned', 'unassignCommodity');
-						populateCommodityList('unassignedCommodities', 'unassigned');
+						populateCommodityList('assignedCommodities', 'assigned', 'unassignCommodityAsk');
+						populateCommodityList('unassignedCommodities', 'unassigned', null, setAssignCommodityUnit);
 					},
 					error: function(data, textStatus, xhr)
 					{
@@ -446,19 +500,27 @@
 				case JSON_STATUS_OK:
 					return "ni napake";
 				case JSON_STATUS_EXIST:
-					return "podatek ze obstaja";
+					return "podatek že obstaja";
 				case JSON_STATUS_INVALID_CREDENTIALS:
-					return "neveljavno uporabnisko ime ali geslo";
+					return "neveljavno uporabniško ime ali geslo";
 				case JSON_STATUS_INVALID_INPUT:
-					return "napacni vhodni podatki";
+					return "napačni vhodni podatki";
 				case JSON_STATUS_NOT_LOGGED_IN:
-					return "neveljavna seja";
+					return "uporabnik ni prijavljen";
+				case 5:
+					return "episma se ne da poslati";
+				case 6:
+					return "uporabnik ni potrjen";
+				case 7:
+					return "uporabnik je blokiran";
+				case 8:
+					return "prezgodnji datum ali čas";
 				default:
 					return "neopredeljena napaka";
 				}
 			}
 
-			function populateCommodityList(id, typ, onclick)
+			function populateCommodityList(id, typ, onclick, oncomplete)
 			{
 				var el = document.getElementById(id);
 
@@ -480,18 +542,22 @@
 						$('#' + id).empty();
 
 						for (var i = 0; i < data.commodities.length; i++) {
+							var selected = (currentCommodityId == data.commodities[i].id ? " selected" : "");
 							if (el.nodeName == "SELECT") {
 								if (onclick)
-									$('#' + id).append('<option value="' + data.commodities[i].id + '" data-unit="' + data.commodities[i].unit + '" onclick="' + onclick + '(' + data.commodities[i].id + ')">' + data.commodities[i].name + '</option>');
+									$('#' + id).append('<option value="' + data.commodities[i].id + '" data-unit="' + data.commodities[i].unit + '" data-cumulative="' + data.commodities[i].cumulative + '" onclick="' + onclick + '(' + data.commodities[i].id + ')" ' + selected + '>' + data.commodities[i].name + '</option>');
 								else
-									$('#' + id).append('<option value="' + data.commodities[i].id + '" data-unit="' + data.commodities[i].unit + '" >' + data.commodities[i].name + '</option>');
+									$('#' + id).append('<option value="' + data.commodities[i].id + '" data-unit="' + data.commodities[i].unit + '" data-cumulative="' + data.commodities[i].cumulative + '" ' + selected + '>' + data.commodities[i].name + '</option>');
 							} else if (el.nodeName == "UL") {
 								if (onclick)
-									$('#' + id).append('<li><a href="#" onclick="' + onclick + '(' + data.commodities[i].id + ')">' + data.commodities[i].name + '</a></li>');
+									$('#' + id).append('<li><a href="#" class="close" style="float: none" onclick="' + onclick + '(' + data.commodities[i].id + ')">&times;</a>&nbsp;' + data.commodities[i].name + '</li>');
 								else
 									$('#' + id).append('<li>' + data.commodities[i].name + '</li>');
 							}
 						}
+
+						if (oncomplete)
+							oncomplete();
 					},
 					error: function(data, textStatus, xhr)
 					{
@@ -527,6 +593,7 @@
 					}
 				});
 			}
+
 			function parseDateTime(dateValue, dateFormat, timeValue, timeFormat) {
 				var dateFmt = new Array(), timeFmt = new Array();
 				var i = 0, j = 0;
@@ -540,219 +607,243 @@
 				return date.getTime();
 			}
 
+			function formatTime(date) {
+				var fmt = date.get
+				var hh = date.getHours();
+				var mm = date.getMinutes();
+				var ss = date.getSeconds();
+				// These lines ensure you have two-digits
+				if (hh < 10) {hh = "0"+hh;}
+				if (mm < 10) {mm = "0"+mm;}
+				if (ss < 10) {ss = "0"+ss;}
+				// This formats your string to HH:MM:SS
+				return hh+":"+mm+":"+ss;
+			}
+
+			function setAssignCommodityUnit() {
+				var unit = $('#unassignedCommodities').find(':selected').data('unit');
+				if (unit)
+					$('#assignCommodityUnit').text(unit);
+			}
+
+			function setSubmitFields() {
+				var unit = $('#submitCommodity').find(':selected').data('unit');
+				$('#submitUnit').text(unit);
+
+				var cumulative = $('#submitCommodity').find(':selected').data('cumulative');
+				$('#submitCumulativeTrue').prop('checked', cumulative);
+				$('#submitCumulativeTrue').prop('disabled', !cumulative);
+				$('#submitCumulativeFalse').prop('checked', !cumulative);
+				$('#submitCumulativeFalse').prop('disabled', cumulative);
+			}
 			
+			function logout() {
+				$.ajax({
+					url: DATAURL + 'user/logout',
+					type: 'POST',
+					xhrFields: { withCredentials: true },
+					success: function(data, textStatus, xhr)
+					{
+						top.location.href = HTMLURL + 'index.html';
+					},
+					error: function(data, textStatus, xhr)
+					{
+						alert('Napaka pri odjavi: ' + textStatus);
+					}
+				});
+			}
 		</script>
 	</head>
 
-	<!--
-	**********************************************************************
-		BODY (HTML)
-	**********************************************************************
-	-->
 	<body onload="onBodyLoad()">
-		<!-- =================================================================
-			Nav tabs
-		================================================================== -->
 		
-		<div class="tabbable"> <!-- Zadnji popravek -->
+		<div id="mainHeader">
+			<a href="index.html">
+				<img src="img/logo.png" alt="mOIDom logo" />
+			</a>
+			<a href="#" class="logout" onclick="logout()"></a>
+		</div>
 		
-		<ul class="nav nav-tabs">
-		  <li id="tabSubmit"><a href="#Submit" data-toggle="tab">Vnos</a></li>
-		  <li id="tabViev"><a href="#View" data-toggle="tab" onclick="populateCommodityList('viewCommodity', 'assigned')">Prikaz</a></li>
-		</ul>
 		
-		<!-- =================================================================
-			Page content
-		================================================================== -->
-		<div id="myTabContent" class="tab-content">
+		<div class="mainContent">
 		
-			<!-- ------------------------
-			Tab: Submit
-			------------------------- -->
-			<div class="tab-pane fade" id="Submit">
-				<div class="accordion" id="commoditiManage">
-					<!-- ----
-					Accordion: Enter consumption data 
-					----- -->			
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiManage" href="#commodityValSubmit" onclick="populateCommodityList('submitCommodity', 'assigned')">Vnos podatkov o obremenitvi</a>
-						</div>
-						<div id="commodityValSubmit" class="accordion-body collapse">
-							<div class="accordion-inner">
-								<div class="row">
-									<div class="span8">
-										<p>Izberite okoljsko obremenitev:</p>
-										<form id="formSubmit">
-											<select name="submitCommodity" id="submitCommodity"></select>
-											<p>Datum odčitka:</p>
-												<input type="text" name="submitDate" id="submitDate" data-date-format="dd.mm.yyyy" data-date-language="sl" data-date-autoclose="true" >
-											<p>Cas odčitka:</p>
-												<div class="bootstrap-timepicker">
-													<input type="text" name="submitTime" id="submitTime" data-template="dropdown" data-show-seconds="true" data-show-meridian="false" data-disable-focus="true" data-show-inputs="false" data-minute-step="1" data-second-step="1" >
-												</div>
-											<p>Vrednost odčitka:</p>
-												<input type="text" name="submitValue" id="submitValue">
-											<label class="radio">
-											  <input type="radio" name="type" value="cumulative">Novo stanje
-											</label>																								
-											  <label class="radio">
-											  <input type="radio" name="type" value="incremental">Prirast od zadnjega vnosa
-											</label>		
-											<div class="clearfix"></div>
-											<br>
-											<input type="submit" value="Vnesi" class="submit btn btn-primary btn-success">
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- ----
-					Accordion: Add commodity 
-					----- -->
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiManage" href="#commodityAdd" onclick="populateCommodityList('assignedCommodities', 'assigned', 'unassignCommodity'); populateCommodityList('unassignedCommodities', 'unassigned');">Moje okoljske obremenitve</a>
-						</div>
-						<div id="commodityAdd" class="accordion-body collapse">
-							<div class="accordion-inner">
-								<div class="row">
-									<div class="span8">
-										<!-- Commodity list -->
-										<p>Vaše okoljske obremenitve:</p>
-										<ul id="assignedCommodities" style="list-style: none;"> </ul>
-										<p>Dodajte novo obremenitev s spiska:</p>
-										<form>
-											<select name="unassignedCommodities" id="unassignedCommodities" onchange="assignCommodity('assignedCommodities', 'unassignedCommodities')"></select>
-											<div class="clearfix"></div>
-										</form>
-										<br>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- ----
-					Accordion: Modify user data 
-					----- -->
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiManage" href="#updateUser" onclick="populateUserData('household_area', 'persons_in_household', 'electric_power', 'postal_code')">Sprememba podatkov o uporabniku</a>
-						</div>
-						<div id="updateUser" class="accordion-body collapse">
-							<div class="accordion-inner">
-								<div class="row">
-									<div class="span8">
-										<!-- User data -->
-										<p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
-										<strong>Podatki uporabnika:</strong>
-										<form id="formUpdateUserData">
-											<!-- <label>* Elektronski naslov:</label>
-											<input type="email" name="email" class="span8"> -->
-											<label>* Geslo:</label>
-											<input type="password" name="password" id="password" class="span8">
-											<label>* Potrdi geslo:</label>
-											<input type="password" name="confPassword" id="confPassword" class="span8">
-											
-											<!-- Appartment data -->
-											<label></label>
-											<strong>Podatki o stanovanju:</strong>
-											<label></label>
-											<label>* Površina stanovanja (m2) (www.prostor.si):</label>
-											<input type="number" name="household_area" id="household_area" class="input-small">
-											<label>* Število članov gospodinjstva:</label>
-											<input type="number" name="persons_in_household" id="persons_in_household" class="input-small">
-											<label>Priključna moč električnega priključka (kW):</label>
-											<input type="number" name="electric_power" id="electric_power" class="input-small">
-											<label>Poštna številka kraja bivanja:</label>
-											<input type="number" name="postal_code" id="postal_code" class="input-small">
-											<div class="clearfix"></div>
-											<!-- Buttons -->
-											<input type="submit" value="Potrdi" class="submit btn btn-primary btn-success">
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>			
-			</div>
+			<ul class="nav nav-tabs mainNav" id="mainTabs">
+			  <li class="active"><a href="#Submit" id="tabSubmit" data-toggle="tab" <img src="img/navPlus.png" alt="Vnos" />Vnos</a></li>
+			  <li><a href="#View" id="tabView" data-toggle="tab"><img src="img/navView.png" alt="Prikaz" />Prikaz</a></li>
+			  <li><a href="#Settings" id="tabSettings" data-toggle="tab"><img src="img/navSettings.png" alt="Nastavitve" />Nastavitve</a></li>
+			</ul>
 			
-			<!-- ------------------------
-			Tab: View
-			------------------------- -->
-			<div class="tab-pane fade" id="View">
-				<p>Izberite okoljsko obremenitev:</p>
-				<form>
-					<select name="viewCommodity" id="viewCommodity"></select>
-					<div class="clearfix"></div>
-				</form>
-				<p>Izberite način prikaza za izbrano okoljsko obremenitev:</p>
-				<div class="accordion" id="commoditiView">
-					<!-- ----
-					Accordion: Efficiency class 
-					----- -->	
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewEffClass" onclick="plotEfficiencyClasses('viewEffClassHistogram', 'userValue')">Učinkovitostni razred</a>
+			<div class="tab-content">
+				<div class="tab-pane active" id="Submit">
+					<div id="commoditiManage">
+						<div id="commodityValSubmit">
+							<form id="formSubmit">
+								<p>Izberite okoljsko obremenitev:</p>
+								<select name="submitCommodity" id="submitCommodity" onchange="setSubmitFields()"></select>
+								<p>Datum odčitka:</p>
+									<input type="text" name="submitDate" id="submitDate" data-date-format="dd.mm.yyyy" data-date-language="sl" data-date-autoclose="true" >
+								<p>Cas odčitka:</p>
+									<div class="bootstrap-timepicker">
+										<input type="text" name="submitTime" id="submitTime" data-template="dropdown" data-show-seconds="true" data-show-meridian="false" data-disable-focus="true" data-show-inputs="true" data-minute-step="1" data-second-step="1" >
+									</div>
+								<p>Vrednost odčitka:</p>
+									<input type="text" name="submitValue" id="submitValue"> <span id="submitUnit"></span><br />
+								<p>Način vnosa:</p>
+									<label class="radio"><input type="radio" name="submitCumulative" id="submitCumulativeTrue">Po stevcu</label>
+									<label class="radio"><input type="radio" name="submitCumulative" id="submitCumulativeFalse">Prirast od zadnjega vnosa</label>
+								<div class="clearfix"></div>
+								<br>
+								<input type="submit" value="Vnesi" class="submit btn btn-primary btn-success">
+							</form>
 						</div>
-						<div id="commodityViewEffClass" class="accordion-body collapse">
-							<div class="accordion-inner">
-								<div id="viewEffClassHistogram" style="width:600px;height:300px;"></div>
-								<br />
-								Vasa vrednost ucinkovitosti: <span id="userValue"></span>
+					</div>			
+				</div>
+				
+				<div class="tab-pane" id="View">
+					<form>
+						<span>Izberite okoljsko obremenitev:</span>
+						<select name="viewCommodity" id="viewCommodity" onchange="plotCurrentGraph()"></select>
+						<div class="clearfix"></div>
+					</form>
+					<p>Izberite način prikaza za izbrano okoljsko obremenitev:</p>
+					<div class="accordion" id="commoditiView">
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewEffClass">Učinkovitostni razred</a>
+							</div>
+							<div id="commodityViewEffClass" class="accordion-body collapse">
+								<div class="accordion-inner">
+									<div id="viewEffClassHistogram" style="width:600px;height:300px;"></div>
+									<br />
+									Vasa vrednost ucinkovitosti: <span id="userValue"></span>
+								</div>
 							</div>
 						</div>
-					</div>
-					<!-- ----
-					Accordion: Percentil 
-					----- -->
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewPercentil" onclick="plotPercentil('viewPercentilHistogram', 'userValueP', 'userRank')">Percentil učinkovitosti</a>
-						</div>
-						<div id="commodityViewPercentil" class="accordion-body collapse">
-							<div class="accordion-inner">
-								<div id="viewPercentilHistogram" style="width:600px;height:300px;"></div>
-								<br />
-								Vasa vrednost ucinkovitosti: <span id="userValueP"></span><br />
-								<span id="userRank"></span>% uporabnikov je bolj ucinkovitih od vas<br />
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewPercentil">Percentil učinkovitosti</a>
+							</div>
+							<div id="commodityViewPercentil" class="accordion-body collapse">
+								<div class="accordion-inner">
+									<div id="viewPercentilHistogram" style="width:600px;height:300px;"></div>
+									<br />
+									Vasa vrednost ucinkovitosti: <span id="userValueP"></span><br />
+									<span id="userRank"></span>% uporabnikov je bolj ucinkovitih od vas<br />
+								</div>
 							</div>
 						</div>
-					</div>
-					<!-- ----
-					Accordion: Time sequence (incremental)
-					----- -->
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewTimeseqIncr" onclick="plotComodityData('viewTimeseqIncr', true)">Poraba po obdobjih</a>
-						</div>
-						<div id="commodityViewTimeseqIncr" class="accordion-body collapse">
-							<div class="accordion-inner">
-								<div id="viewTimeseqIncr" style="width:600px;height:300px;"></div>
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewTimeseqIncr">Poraba po obdobjih</a>
+							</div>
+							<div id="commodityViewTimeseqIncr" class="accordion-body collapse">
+								<div class="accordion-inner">
+									<div id="viewTimeseqIncr" style="width:600px;height:300px;"></div>
+								</div>
 							</div>
 						</div>
-					</div>
-					<!-- ----
-					Accordion: Time sequence (cummulative) 
-					----- -->
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewTimeseqCumul" onclick="plotComodityData('viewTimeseqCumul', false)">Skupna poraba</a>
-						</div>
-						<div id="commodityViewTimeseqCumul" class="accordion-body collapse">
-							<div class="accordion-inner">
-								<div id="viewTimeseqCumul" style="width:600px;height:300px;"></div>
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewTimeseqCumul">Skupna poraba</a>
+							</div>
+							<div id="commodityViewTimeseqCumul" class="accordion-body collapse">
+								<div class="accordion-inner">
+									<div id="viewTimeseqCumul" style="width:600px;height:300px;"></div>
+								</div>
 							</div>
 						</div>
+					</div>	
+				</div>
+				
+				<div class="tab-pane fade" id="Settings">
+					<ul class="nav nav-tabs subMenu">
+					  <li class="active"><a data-toggle="tab" href="#commodityAdd" onclick="populateCommodityList('assignedCommodities', 'assigned', 'unassignCommodityAsk'); populateCommodityList('unassignedCommodities', 'unassigned', null, setAssignCommodityUnit)">Okoljske obremenitve</a></li>
+					  <li><a href="#updateUser" data-toggle="tab">Uporabniške nastavitve</a></li>
+					</ul>
+					
+					<div class="tab-content subMenuContent">
+						<div id="commodityAdd" class="tab-pane active">
+							<a href="#" class="btn btn-primary" onClick="novaObremenitevDialog()">Dodaj novo obremenitev</a>
+							<h3>Seznam obstoječih obremenitev:</h3>
+							<ul id="assignedCommodities" style="list-style: none;"> </ul>
+							<br>
+						</div>
+						<div id="updateUser" class="tab-pane fade">
+							<p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
+							<strong>Podatki uporabnika:</strong>
+							<form id="formUpdateUserData">
+								<!-- <label>* Elektronski naslov:</label>
+								<input type="email" name="email" class="span8"> -->
+								<label>* Geslo:</label>
+								<input type="password" name="password" id="password" class="span8">
+								<label>* Potrdi geslo:</label>
+								<input type="password" name="confPassword" id="confPassword" class="span8">
+								
+								<!-- Appartment data -->
+								<label></label>
+								<strong>Podatki o stanovanju:</strong>
+								<label></label>
+								<label>* Površina stanovanja (m2) (www.prostor.si):</label>
+								<input type="number" name="household_area" id="household_area" class="input-small">
+								<label>* Število članov gospodinjstva:</label>
+								<input type="number" name="persons_in_household" id="persons_in_household" class="input-small">
+								<label>Priključna moč električnega priključka (kW):</label>
+								<input type="number" name="electric_power" id="electric_power" class="input-small">
+								<label>Poštna številka kraja bivanja:</label>
+								<input type="number" name="postal_code" id="postal_code" class="input-small">
+								<div class="clearfix"></div>
+								<!-- Buttons -->
+								<input type="submit" value="Potrdi" class="submit btn btn-primary btn-success">
+							</form>
+						</div>
 					</div>
-				</div>	
+				</div>
+			</div>
+		
+		</div>
+		
+		<div id="confirmCommodityUnassign" class="modal hide fade">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h3>Potrditev brisanja obremenitve</h3>
+			</div>
+			<div class="modal-body">
+				<p>Ali res zelite pobrisati izbrano obremenitev iz vasega seznama?</p>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" onclick="unassignCommodity($('#confirmCommodityUnassign').data('commodity'));$('#confirmCommodityUnassign').modal('hide')">Da</a>
+				<a href="#" class="btn btn-primary" onclick="$('#confirmCommodityUnassign').modal('hide')">Ne</a>
 			</div>
 		</div>
 		
-		</div>  <!-- Zadnji popravek -->
-		
+		<div id="novaObremenitev" class="modal hide fade">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h3>Dodajanje nove obremenitve</h3>
+			</div>
+			<div class="modal-body">
+				<form id="formAssignCommodity">
+					<p>Način vnosa:</p>
+					<label class="radio"><input type="radio" name="cumulative" id="cumulativeTrue" value="true">Po števcu</label>
+					<label class="radio"><input type="radio" name="cumulative" id="cumulativeFalse" value="false">Prirast od zadnjega vnosa</label>
+					<p>Datum začetne vrednosti:</p>
+						<input type="text" name="startDate" id="startDate" data-date-format="dd.mm.yyyy" data-date-language="sl" data-date-autoclose="true" >
+					<p>Čas začetne vrednosti:</p>
+						<div class="bootstrap-timepicker">
+							<input type="text" name="startTime" id="startTime" data-template="dropdown" data-show-seconds="true" data-show-meridian="false" data-disable-focus="true" data-show-inputs="false" data-minute-step="1" data-second-step="1" >
+						</div>
+					<p>Začetna vrednost:</p>
+					<input type="number" name="startValue" id="startValue" class="input-small" value="0"> <span id="assignCommodityUnit"></span><br />
+					<p>Obremenitev:</p>
+					<select name="unassignedCommodities" id="unassignedCommodities" onchange="setAssignCommodityUnit()"></select>
+					<div class="clearfix"></div>
+					<input type="submit" value="Vnesi" class="submit btn btn-primary btn-success">
+				</form>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn btn-secondary" onclick="$('#novaObremenitev').modal('hide')">Prekliči</a>
+			</div>
+		</div>
 	</body>
 </html>
 
