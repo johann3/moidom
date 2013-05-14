@@ -1090,3 +1090,21 @@
     overflow: visible !important;
   }
 }
+@media (max-width: 600px) {
+	.welcome, .loginForm { width: 90%; float: none; margin: 10px 0; }
+}
+@media (max-width: 470px) {
+	.mainContent {
+		margin: 50px 0 0;
+	}
+	.mainNav > li > a {
+		font-size: 0;
+	}
+	.mainNav > li > a img {
+		margin: 0;
+	}
+	.subMenu > li > a {
+		font-size: 12px;
+		padding: 4px 7px;
+	}
+}
