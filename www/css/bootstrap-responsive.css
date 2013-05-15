@@ -885,6 +885,27 @@
 }
 
 @media (max-width: 480px) {
+	.appLogo img {
+		position:absolute;
+		clip:rect(0px, 48px, 34px, 0px);
+		left: 5px;
+		top: 3px;
+	}
+	.mainNav > li > a span { display: none; }
+	.mainContent {
+		margin: 50px 0 0;
+	}
+	.mainNav > li > a {
+		font-size: 0;
+	}
+	.mainNav > li > a img {
+		margin: 0;
+	}
+	.subMenu > li > a {
+		font-size: 12px;
+		padding: 4px 7px;
+	}
+	
   .nav-collapse {
     -webkit-transform: translate3d(0, 0, 0);
   }
@@ -1089,22 +1110,4 @@
     height: auto !important;
     overflow: visible !important;
   }
-}
-@media (max-width: 600px) {
-	.welcome, .loginForm { width: 90%; float: none; margin: 10px 0; }
-}
-@media (max-width: 470px) {
-	.mainContent {
-		margin: 50px 0 0;
-	}
-	.mainNav > li > a {
-		font-size: 0;
-	}
-	.mainNav > li > a img {
-		margin: 0;
-	}
-	.subMenu > li > a {
-		font-size: 12px;
-		padding: 4px 7px;
-	}
 }

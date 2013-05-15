@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type"CONTENT="text/html; charset=windows-1250">
+<script>
+function loadNext()
+{
+if (document.getElementById("radio1").checked==true)
+window.location = "202.html";
+if (document.getElementById("radio2").checked==true)
+window.location = "204.html";
+if (document.getElementById("radio3").checked==true)
+window.location = "205.html";
+}
+</script>
+</head>
+<body>
+<h1 id="title">
+Zmanjšanje porabe: toplotna energija
+</h1>
+<p id="text1">Za zmanjšanje porabe toplotne energije imate na voljo naslednje možnosti
+</p>
+<p id="text2">Izberite možnost.
+</p>
+<form>
+<table>
+<tr><td><input type="radio"name="radio"id="radio1"value="radio1">Posodobitev ogrevalnega sistema</td></tr>
+<tr><td><input type="radio"name="radio"id="radio2"value="radio2">Sprememba ogrevalnih navad</td></tr>
+<tr><td><input type="radio"name="radio"id="radio3"value="radio3">Izboljšanje energetskih lastnosti stavbe</td></tr>
+</table>
+<button type="button"id="button"onclick="loadNext()">Naprej</button>
+</form>
+</body>
+</html>

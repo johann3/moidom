@@ -656,151 +656,170 @@
 	</head>
 
 	<body onload="onBodyLoad()">
-		
-		<div id="mainHeader">
-			<a href="index.html">
-				<img src="img/logo.png" alt="mOIDom logo" />
-			</a>
-			<a href="#" class="logout" onclick="logout()"></a>
-		</div>
-		
-		
-		<div class="mainContent">
-		
-			<ul class="nav nav-tabs mainNav" id="mainTabs">
-			  <li class="active"><a href="#Submit" id="tabSubmit" data-toggle="tab"> <img src="img/navPlus.png" alt="Vnos" />Vnos</a></li>
-			  <li><a href="#View" id="tabView" data-toggle="tab"><img src="img/navView.png" alt="Prikaz" />Prikaz</a></li>
-			  <li><a href="#Settings" id="tabSettings" data-toggle="tab"><img src="img/navSettings.png" alt="Nastavitve" />Nastavitve</a></li>
-			</ul>
+		<div class="mainWrap">
+			<div id="mainHeader">
+				<a href="index.html" class="appLogo">
+					<img src="img/logo.png" alt="mOIDom logo" />
+				</a>
+				<a href="#" class="logout" onclick="logout()"></a>
+			</div>
 			
-			<div class="tab-content">
-				<div class="tab-pane active" id="Submit">
-					<div id="commoditiManage">
-						<div id="commodityValSubmit">
-							<form id="formSubmit">
-								<p>Izberite okoljsko obremenitev:</p>
-								<select name="submitCommodity" id="submitCommodity" onchange="setSubmitFields()"></select>
-								<p>Datum odčitka:</p>
-									<input type="text" name="submitDate" id="submitDate" data-date-format="dd.mm.yyyy" data-date-language="sl" data-date-autoclose="true" >
-								<p>Cas odčitka:</p>
-									<div class="bootstrap-timepicker">
-										<input type="text" name="submitTime" id="submitTime" data-template="dropdown" data-show-seconds="true" data-show-meridian="false" data-disable-focus="true" data-show-inputs="true" data-minute-step="1" data-second-step="1" >
-									</div>
-								<p>Vrednost odčitka:</p>
-									<input type="text" name="submitValue" id="submitValue"> <span id="submitUnit"></span><br />
-								<p>Način vnosa:</p>
-									<label class="radio"><input type="radio" name="submitCumulative" id="submitCumulativeTrue">Po stevcu</label>
-									<label class="radio"><input type="radio" name="submitCumulative" id="submitCumulativeFalse">Prirast od zadnjega vnosa</label>
-								<div class="clearfix"></div>
-								<br>
-								<input type="submit" value="Vnesi" class="submit btn btn-primary btn-success">
-							</form>
-						</div>
-					</div>			
-				</div>
+			
+			<div class="mainContent">
+			
+				<ul class="nav nav-tabs mainNav" id="mainTabs">
+				  <li class="active"><a href="#Submit" id="tabSubmit" data-toggle="tab"><img src="img/navPlus.png" alt="Vnos" /><span>Vnos</span></a></li>
+				  <li><a href="#View" id="tabView" data-toggle="tab"><img src="img/navView.png" alt="Prikaz" /><span>Prikaz</span></a></li>
+				  <li><a href="#Consultance" id="tabConsultance" data-toggle="tab"><img src="img/navConsultance.png" alt="Svetovanje" /><span>Svetovanje</span></a></li>
+				  <li><a href="#Settings" id="tabSettings" data-toggle="tab"><img src="img/navSettings.png" alt="Nastavitve" /><span>Nastavitve</span></a></li>
+				</ul>
 				
-				<div class="tab-pane" id="View">
-					<form>
-						<span>Izberite okoljsko obremenitev:</span>
-						<select name="viewCommodity" id="viewCommodity" onchange="plotCurrentGraph()"></select>
-						<div class="clearfix"></div>
-					</form>
-					<p>Izberite način prikaza za izbrano okoljsko obremenitev:</p>
-					<div class="accordion" id="commoditiView">
-						<div class="accordion-group">
-							<div class="accordion-heading">
-								<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewEffClass">Učinkovitostni razred</a>
+				<div class="tab-content">
+					<div class="tab-pane active" id="Submit">
+						<div id="commoditiManage">
+							<div id="commodityValSubmit">
+								<form id="formSubmit">
+									<p>Izberite okoljsko obremenitev:</p>
+									<select name="submitCommodity" id="submitCommodity" onchange="setSubmitFields()"></select>
+									<p>Datum odčitka:</p>
+										<input type="text" name="submitDate" id="submitDate" data-date-format="dd.mm.yyyy" data-date-language="sl" data-date-autoclose="true" >
+									<p>Cas odčitka:</p>
+										<div class="bootstrap-timepicker">
+											<input type="text" name="submitTime" id="submitTime" data-template="dropdown" data-show-seconds="true" data-show-meridian="false" data-disable-focus="true" data-show-inputs="true" data-minute-step="1" data-second-step="1" >
+										</div>
+									<p>Vrednost odčitka:</p>
+										<input type="text" name="submitValue" id="submitValue"> <span id="submitUnit"></span><br />
+									<p>Način vnosa:</p>
+										<label class="radio"><input type="radio" name="submitCumulative" id="submitCumulativeTrue">Po stevcu</label>
+										<label class="radio"><input type="radio" name="submitCumulative" id="submitCumulativeFalse">Prirast od zadnjega vnosa</label>
+									<div class="clearfix"></div>
+									<br>
+									<input type="submit" value="Vnesi" class="submit btn btn-primary btn-success">
+								</form>
 							</div>
-							<div id="commodityViewEffClass" class="accordion-body collapse">
-								<div class="accordion-inner">
-									<div id="viewEffClassHistogram" style="width:600px;height:300px;"></div>
-									<br />
-									Vasa vrednost ucinkovitosti: <span id="userValue"></span>
-								</div>
-							</div>
-						</div>
-						<div class="accordion-group">
-							<div class="accordion-heading">
-								<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewPercentil">Percentil učinkovitosti</a>
-							</div>
-							<div id="commodityViewPercentil" class="accordion-body collapse">
-								<div class="accordion-inner">
-									<div id="viewPercentilHistogram" style="width:600px;height:300px;"></div>
-									<br />
-									Vasa vrednost ucinkovitosti: <span id="userValueP"></span><br />
-									<span id="userRank"></span>% uporabnikov je bolj ucinkovitih od vas<br />
-								</div>
-							</div>
-						</div>
-						<div class="accordion-group">
-							<div class="accordion-heading">
-								<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewTimeseqIncr">Poraba po obdobjih</a>
-							</div>
-							<div id="commodityViewTimeseqIncr" class="accordion-body collapse">
-								<div class="accordion-inner">
-									<div id="viewTimeseqIncr" style="width:600px;height:300px;"></div>
-								</div>
-							</div>
-						</div>
-						<div class="accordion-group">
-							<div class="accordion-heading">
-								<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewTimeseqCumul">Skupna poraba</a>
-							</div>
-							<div id="commodityViewTimeseqCumul" class="accordion-body collapse">
-								<div class="accordion-inner">
-									<div id="viewTimeseqCumul" style="width:600px;height:300px;"></div>
-								</div>
-							</div>
-						</div>
-					</div>	
-				</div>
-				
-				<div class="tab-pane fade" id="Settings">
-					<ul class="nav nav-tabs subMenu">
-					  <li class="active"><a data-toggle="tab" href="#commodityAdd" onclick="populateCommodityList('assignedCommodities', 'assigned', 'unassignCommodityAsk'); populateCommodityList('unassignedCommodities', 'unassigned', null, setAssignCommodityUnit)">Okoljske obremenitve</a></li>
-					  <li><a href="#updateUser" data-toggle="tab">Uporabniške nastavitve</a></li>
-					</ul>
+						</div>			
+					</div>
 					
-					<div class="tab-content subMenuContent">
-						<div id="commodityAdd" class="tab-pane active">
-							<a href="#" class="btn btn-primary" onClick="novaObremenitevDialog()">Dodaj novo obremenitev</a>
-							<h3>Seznam obstoječih obremenitev:</h3>
-							<ul id="assignedCommodities" style="list-style: none;"> </ul>
-							<br>
+					<div class="tab-pane" id="View">
+						<form>
+							<span>Izberite okoljsko obremenitev:</span>
+							<select name="viewCommodity" id="viewCommodity" onchange="plotCurrentGraph()"></select>
+							<div class="clearfix"></div>
+						</form>
+						<p>Izberite način prikaza za izbrano okoljsko obremenitev:</p>
+						<div class="accordion" id="commoditiView">
+							<div class="accordion-group">
+								<div class="accordion-heading">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewEffClass">Učinkovitostni razred</a>
+								</div>
+								<div id="commodityViewEffClass" class="accordion-body collapse">
+									<div class="accordion-inner">
+										<div id="viewEffClassHistogram" style="width:600px;height:300px;"></div>
+										<br />
+										Vasa vrednost ucinkovitosti: <span id="userValue"></span>
+									</div>
+								</div>
+							</div>
+							<div class="accordion-group">
+								<div class="accordion-heading">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewPercentil">Percentil učinkovitosti</a>
+								</div>
+								<div id="commodityViewPercentil" class="accordion-body collapse">
+									<div class="accordion-inner">
+										<div id="viewPercentilHistogram" style="width:600px;height:300px;"></div>
+										<br />
+										Vasa vrednost ucinkovitosti: <span id="userValueP"></span><br />
+										<span id="userRank"></span>% uporabnikov je bolj ucinkovitih od vas<br />
+									</div>
+								</div>
+							</div>
+							<div class="accordion-group">
+								<div class="accordion-heading">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewTimeseqIncr">Poraba po obdobjih</a>
+								</div>
+								<div id="commodityViewTimeseqIncr" class="accordion-body collapse">
+									<div class="accordion-inner">
+										<div id="viewTimeseqIncr" style="width:600px;height:300px;"></div>
+									</div>
+								</div>
+							</div>
+							<div class="accordion-group">
+								<div class="accordion-heading">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#commoditiView" href="#commodityViewTimeseqCumul">Skupna poraba</a>
+								</div>
+								<div id="commodityViewTimeseqCumul" class="accordion-body collapse">
+									<div class="accordion-inner">
+										<div id="viewTimeseqCumul" style="width:600px;height:300px;"></div>
+									</div>
+								</div>
+							</div>
+						</div>	
+					</div>
+					
+					<div class="tab-pane" id="Consultance">
+						<div id="commodityValSubmit">
+<iframe src="svetovanje/start.html" height="500" width="100%" allowtransparency="true" border="0" style="border: none;"></iframe>
 						</div>
-						<div id="updateUser" class="tab-pane fade">
-							<p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
-							<strong>Podatki uporabnika:</strong>
-							<form id="formUpdateUserData">
-								<!-- <label>* Elektronski naslov:</label>
-								<input type="email" name="email" class="span8"> -->
-								<label>* Geslo:</label>
-								<input type="password" name="password" id="password" class="span8">
-								<label>* Potrdi geslo:</label>
-								<input type="password" name="confPassword" id="confPassword" class="span8">
-								
-								<!-- Appartment data -->
-								<label></label>
-								<strong>Podatki o stanovanju:</strong>
-								<label></label>
-								<label>* Površina stanovanja (m2) (www.prostor.si):</label>
-								<input type="number" name="household_area" id="household_area" class="input-small">
-								<label>* Število članov gospodinjstva:</label>
-								<input type="number" name="persons_in_household" id="persons_in_household" class="input-small">
-								<label>Priključna moč električnega priključka (kW):</label>
-								<input type="number" name="electric_power" id="electric_power" class="input-small">
-								<label>Poštna številka kraja bivanja:</label>
-								<input type="number" name="postal_code" id="postal_code" class="input-small">
-								<div class="clearfix"></div>
-								<!-- Buttons -->
-								<input type="submit" value="Potrdi" class="submit btn btn-primary btn-success">
-							</form>
+					</div>
+					<div class="tab-pane fade" id="Settings">
+						<ul class="nav nav-tabs subMenu">
+						  <li class="active"><a data-toggle="tab" href="#commodityAdd" onclick="populateCommodityList('assignedCommodities', 'assigned', 'unassignCommodityAsk'); populateCommodityList('unassignedCommodities', 'unassigned', null, setAssignCommodityUnit)">Okoljske obremenitve</a></li>
+						  <li><a href="#updateUser" data-toggle="tab">Uporabniške nastavitve</a></li>
+						</ul>
+						
+						<div class="tab-content subMenuContent">
+							<div id="commodityAdd" class="tab-pane active">
+								<a href="#" class="btn btn-primary" onClick="novaObremenitevDialog()">Dodaj novo obremenitev</a>
+								<h3>Seznam obstoječih obremenitev:</h3>
+								<ul id="assignedCommodities" style="list-style: none;"> </ul>
+								<br>
+							</div>
+							<div id="updateUser" class="tab-pane fade">
+								<p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
+								<strong>Podatki uporabnika:</strong>
+								<form id="formUpdateUserData">
+									<!-- <label>* Elektronski naslov:</label>
+									<input type="email" name="email" class="span8"> -->
+									<label>* Geslo:</label>
+									<input type="password" name="password" id="password" class="span8">
+									<label>* Potrdi geslo:</label>
+									<input type="password" name="confPassword" id="confPassword" class="span8">
+									
+									<!-- Appartment data -->
+									<label></label>
+									<strong>Podatki o stanovanju:</strong>
+									<label></label>
+									<label>* Površina stanovanja (m2) (www.prostor.si):</label>
+									<input type="number" name="household_area" id="household_area" class="input-small">
+									<label>* Število članov gospodinjstva:</label>
+									<input type="number" name="persons_in_household" id="persons_in_household" class="input-small">
+									<label>Priključna moč električnega priključka (kW):</label>
+									<input type="number" name="electric_power" id="electric_power" class="input-small">
+									<label>Poštna številka kraja bivanja:</label>
+									<input type="number" name="postal_code" id="postal_code" class="input-small">
+									<div class="clearfix"></div>
+									<!-- Buttons -->
+									<input type="submit" value="Potrdi" class="submit btn btn-primary btn-success">
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
+			
 			</div>
+			
+			<div id="appFooter">
+				<div class="center">
+					<span>© 2013 mOIDom | Vse pravice pridržane.</span>
+					<div class="socialIcons">
+						<span>Sledite nam na </span>
+						<a href="https://www.facebook.com/pages/Moidom/371804792918719?fref=ts" target="_blank" class="facebook"></a>
+						<a href="http://www.twitter.com/moidom1" target="_blank" class="twitter"></a>
+					</div>
+				</div>
+			</div>
+		</div>	
 		
-		</div>
 		
 		<div id="confirmCommodityUnassign" class="modal hide fade">
 			<div class="modal-header">

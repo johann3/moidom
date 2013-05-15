@@ -176,95 +176,104 @@
 	</head>
 
 	<body onload="onBodyLoad()">
-		
-		<div id="mainHeader">
-			<a href="index.html">
-				<img src="img/logo.png" />
-			</a>
-		</div>
-		<div class="mainContent">
-		
-				<div class="welcome">
-					 <h2>Pozdravljeni na spletni strani aplikacije mOIDom!</h2>
-
-					<p>So vaši mesečni računi previsoki? Želite porabiti manj, pa ne veste kako? Če ste na vsaj eno vprašanje odgovorili z da, potem je aplikacija mOIDom prava izbira za vas. S pomočjo aplikacije mOIDom boste enostavno spremljali svojo porabo in z upoštevanjem varčevalnih nasvetov, ki jih aplikacija ponuja, zmanjšali stroške svojega gospodinjstva.</p>
-					<p>mOIDom je spletna in mobilna aplikacija informativno-svetovalnega značaja, ki vam omogoča spremljanje porabe in stroškov gospodinjstva. Preko uporabnih nasvetov in praktičnih nalog boste spoznali, kje vaše gospodinjstvo izgublja denar in kaj spremeniti, da optimizirate porabo ter s tem privarčujete. Cilj aplikacije je tudi spodbujanje k varčevanju z energijo in tako zmanjševanje obremenjevanja okolja z emisijami in zviševanje energetske učinkovitosti zgradb.</p>
-					<p>Uporabite aplikacijo, ukrepajte in privarčujte!</p>
-				</div>
-				<div class="mini-layout loginForm">
-					<h3>Prijava</h3>
-					<form id="formLogin">
-						<label>Elektronski naslov:</label>
-						<input type="email" name="email" class="input-medim">
-						<label>Geslo:</label>
-						<input type="password" name="password" class="input-medim">
-						<div class="clearfix"></div>
-						<input type="submit" value="Prijava" class="submit btn btn-primary">
-					</form>
-
-					<!-- Forgot password -->
-					<a href="#forgotPassModal" role="button" data-toggle="modal">Ste pozabili geslo?</a>
-					<div id="forgotPassModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="forgotPassModalLabel" aria-hidden="true">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h3 id="forgotPassModalLabel">Pozabljeno geslo</h3>
-						</div>
-						<div class="modal-body">
-							<p>Prosim, vnesite vaš elektronski naslov. Na ta naslov vam bomo poslali novo geslo, ki ga uporabite pri naslednji prijavi.</p>
-							<br>
-							<form id="formForgotPass">
-								<label>Elektronski naslov:</label>
-								<input type="email" name="forgEmail" class="input-medium">
-								<div class="clearfix"></div>
-							</form>
-						</div>
-						<div class="modal-footer">
-							<button class="btn btn-primary" onclick="$('#formForgotPass').submit(); $('#forgotPassModal').modal('hide')">Pošlji zahtevo</button>
-						</div>
+		<div class="mainWrap">
+			<div id="mainHeader">
+				<a href="index.html" class="appLogo">
+					<img src="img/logo.png" />
+				</a>
+			</div>
+			<div class="mainContent">
+			
+					<div class="welcome">
+						<h2>Pozdravljeni na spletni strani aplikacije mOIDom!</h2>
+						<p>So vaši mesečni računi previsoki? Želite porabiti manj, pa ne veste kako? Če ste na vsaj eno vprašanje odgovorili z da, potem je aplikacija mOIDom prava izbira za vas. S pomočjo aplikacije mOIDom boste enostavno spremljali svojo porabo in z upoštevanjem varčevalnih nasvetov, ki jih aplikacija ponuja, zmanjšali stroške svojega gospodinjstva.</p>
+						<p>mOIDom je spletna in mobilna aplikacija informativno-svetovalnega značaja, ki vam omogoča spremljanje porabe in stroškov gospodinjstva. Preko uporabnih nasvetov in praktičnih nalog boste spoznali, kje vaše gospodinjstvo izgublja denar in kaj spremeniti, da optimizirate porabo ter s tem privarčujete. Cilj aplikacije je tudi spodbujanje k varčevanju z energijo in tako zmanjševanje obremenjevanja okolja z emisijami in zviševanje energetske učinkovitosti zgradb.</p>
+						<p>Uporabite aplikacijo, ukrepajte in privarčujte!</p>
 					</div>
-					<br />
-
-					<!-- New user -->
-					<a href="#newUserModal" role="button" data-toggle="modal">Nov uporabnik</a>
-					<div id="newUserModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="newUserModalLabel" aria-hidden="true">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-							<h3 id="newUserModalLabel">Nov uporabnik</h3>
+					<div class="mini-layout loginForm">
+						<h3>Prijava</h3>
+						<form id="formLogin">
+							<label>Elektronski naslov:</label>
+							<input type="email" name="email" class="input-medim">
+							<label>Geslo:</label>
+							<input type="password" name="password" class="input-medim">
+							<div class="clearfix"></div>
+							<input type="submit" value="Prijava" class="submit btn btn-primary">
+						</form>
+	
+						<!-- Forgot password -->
+						<a href="#forgotPassModal" role="button" data-toggle="modal">Ste pozabili geslo?</a>
+						<div id="forgotPassModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="forgotPassModalLabel" aria-hidden="true">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								<h3 id="forgotPassModalLabel">Pozabljeno geslo</h3>
+							</div>
+							<div class="modal-body">
+								<p>Prosim, vnesite vaš elektronski naslov. Na ta naslov vam bomo poslali novo geslo, ki ga uporabite pri naslednji prijavi.</p>
+								<br>
+								<form id="formForgotPass">
+									<label>Elektronski naslov:</label>
+									<input type="email" name="forgEmail" class="input-medium">
+									<div class="clearfix"></div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-primary" onclick="$('#formForgotPass').submit(); $('#forgotPassModal').modal('hide')">Pošlji zahtevo</button>
+							</div>
 						</div>
-						<div class="modal-body">
-							<p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
-							<strong>Podatki uporabnika:</strong>
-							<form id="formRegisterUser">
-								<label>* Elektronski naslov:</label>
-								<input type="email" name="email" class="input-medium">
-								<label>* Geslo:</label>
-								<input type="password" name="password" id="password" class="input-medium">
-								<label>* Potrdi geslo:</label>
-								<input type="password" name="confPassword" id="confPassword" class="input-medium">
-
-								<!-- Appartment data -->
-								<label></label>
-								<strong>Podatki o stanovanju:</strong>
-								<label></label>
-								<label>* Površina stanovanja (m2) (www.prostor.si):</label>
-								<input type="number" name="household_area" class="input-medium">
-								<label>* Število članov gospodinjstva:</label>
-								<input type="number" name="persons_in_household" class="input-medium">
-								<label>Priključna moč električnega priključka (kW):</label>
-								<input type="number" name="electric_power" class="input-medium">
-								<label>Poštna številka kraja bivanja:</label>
-								<input type="number" name="postal_code" class="input-medium">
-								<div class="clearfix"></div>
-							</form>
+						<br />
+	
+						<!-- New user -->
+						<a href="#newUserModal" role="button" data-toggle="modal">Nov uporabnik</a>
+						<div id="newUserModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="newUserModalLabel" aria-hidden="true">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								<h3 id="newUserModalLabel">Nov uporabnik</h3>
+							</div>
+							<div class="modal-body">
+								<p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
+								<strong>Podatki uporabnika:</strong>
+								<form id="formRegisterUser">
+									<label>* Elektronski naslov:</label>
+									<input type="email" name="email" class="input-medium">
+									<label>* Geslo:</label>
+									<input type="password" name="password" id="password" class="input-medium">
+									<label>* Potrdi geslo:</label>
+									<input type="password" name="confPassword" id="confPassword" class="input-medium">
+	
+									<!-- Appartment data -->
+									<label></label>
+									<strong>Podatki o stanovanju:</strong>
+									<label></label>
+									<label>* Površina stanovanja (m2) (www.prostor.si):</label>
+									<input type="number" name="household_area" class="input-medium">
+									<label>* Število članov gospodinjstva:</label>
+									<input type="number" name="persons_in_household" class="input-medium">
+									<label>Priključna moč električnega priključka (kW):</label>
+									<input type="number" name="electric_power" class="input-medium">
+									<label>Poštna številka kraja bivanja:</label>
+									<input type="number" name="postal_code" class="input-medium">
+									<div class="clearfix"></div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button class="btn btn-primary" onclick="$('#formRegisterUser').submit(); $('#newUserModal').modal('hide')">Pošlji zahtevo</button>
+							</div>
 						</div>
-						<div class="modal-footer">
-							<button class="btn btn-primary" onclick="$('#formRegisterUser').submit(); $('#newUserModal').modal('hide')">Pošlji zahtevo</button>
-						</div>
+						<br />
 					</div>
-					<br />
+			</div>
+			<div id="appFooter">
+				<div class="center">
+					<span>© 2013 mOIDom | Vse pravice pridržane.</span>
+					<div class="socialIcons">
+						<span>Sledite nam na </span>
+						<a href="https://www.facebook.com/pages/Moidom/371804792918719?fref=ts" target="_blank" class="facebook"></a>
+						<a href="http://www.twitter.com/moidom1" target="_blank" class="twitter"></a>
+					</div>
 				</div>
-		</div>
-		
+			</div>
+		</div>	
 		<div id="appMoreInfo" class="modal hide fade">
 
 			<!-- Modal header -->

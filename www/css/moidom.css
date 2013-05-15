@@ -1,3 +1,7 @@
+body, html {
+	height: 100%;
+	padding: 0;
+}
 #mainHeader {
 	background: url(../img/mainHead.png) left top repeat-x #a4c032;
 	padding: 3px 10px;
@@ -17,9 +21,15 @@ a:hover {
 	color: #6ea100;
 }
 
-.mainContent {
-	margin: 50px 20px 20px;
+.mainWrap {
+	min-height: 100%;
+	position: relative;
 }
+.mainContent {
+	padding: 50px 20px;
+	margin: 0;
+}
+
 .welcome,
 .loginForm {
 	width: 38%;
@@ -97,20 +107,44 @@ a:hover {
 @media (max-width: 600px) {
 	.welcome, .loginForm { width: 90%; float: none; margin: 10px 0; }
 }
-@media (max-width: 480px) {
-	.mainContent {
-		margin: 50px 0 0;
-	}
-	.mainNav > li > a {
-		font-size: 0;
-	}
-	.mainNav > li > a img {
-		margin: 0;
-	}
-	.subMenu > li > a {
-		font-size: 12px;
-		padding: 4px 7px;
-	}
+
+#appFooter {
+	background: url(../img/footer.png) left top repeat-x #939392;
+	padding: 5px 10px;
+	color: #e9e9e8;
+	font-size: 11px;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+#appFooter .center {
+	position: relative;
+	min-height: 40px;
+}
+#appFooter .center > span {
+	margin-top: 10px;
+	float: left;
+}
+#appFooter .socialIcons {
+	position: absolute;
+	right: 10px;
+	top: 5px;
+}
+#appFooter .socialIcons > * {
+	display: inline-block;
+	vertical-align: middle;
+}
+#appFooter .socialIcons > a {
+	width: 30px;
+	height: 30px;
+	background: url(../img/facebook.png) left top;
+}
+#appFooter .socialIcons > a:hover {
+	background-position: left bottom;
+}
+#appFooter .socialIcons > a.twitter {
+	background-image: url(../img/twitter.png);
 }
 /* Mini layout previews
 -------------------------------------------------- */
