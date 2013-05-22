@@ -26,7 +26,7 @@
 			// set to 'true' when the device is ready.
 			var pgReady = false;
 
-			var DATAURL = "http://www.moidom.si/moidom/rest/";
+			var DATAURL = "http://www.moidom.si/server/";
 			var HTMLURL = "";
 			var filesystemMode = true;
 
@@ -110,7 +110,7 @@
 				
 				
 				// Validate the input form: Forgot password [Tab: Login]
-				$("#formForgotPass").validate({
+				$("#formLostPass").validate({
 					rules:
 					{
 						email: {required: true, email: true, maxlength: 50},
@@ -120,7 +120,7 @@
 						$.ajax({
 							url: DATAURL + 'user/lost_password',
 							type: 'POST',
-							data: $(form).serialize(),
+							data: { email: $('#lostPassEmail').val() },
 							xhrFields: { withCredentials: true },
 							success: function(data, textStatus, xhr)
 							{
@@ -178,9 +178,7 @@
 	<body onload="onBodyLoad()">
 		<div class="mainWrap">
 			<div id="mainHeader">
-				<a href="index.html" class="appLogo">
-					<img src="img/logo.png" />
-				</a>
+				<a href="index.html" class="appLogo"></a>
 			</div>
 			<div class="mainContent">
 			
@@ -202,23 +200,23 @@
 						</form>
 	
 						<!-- Forgot password -->
-						<a href="#forgotPassModal" role="button" data-toggle="modal">Ste pozabili geslo?</a>
-						<div id="forgotPassModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="forgotPassModalLabel" aria-hidden="true">
+						<a href="#lostPassModal" role="button" data-toggle="modal">Ste pozabili geslo?</a>
+						<div id="lostPassModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="lostPassModalLabel" aria-hidden="true">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-								<h3 id="forgotPassModalLabel">Pozabljeno geslo</h3>
+								<h3 id="lostPassModalLabel">Pozabljeno geslo</h3>
 							</div>
 							<div class="modal-body">
 								<p>Prosim, vnesite vaš elektronski naslov. Na ta naslov vam bomo poslali novo geslo, ki ga uporabite pri naslednji prijavi.</p>
 								<br>
-								<form id="formForgotPass">
+								<form id="formLostPass">
 									<label>Elektronski naslov:</label>
-									<input type="email" name="forgEmail" class="input-medium">
+									<input type="email" name="lostPassEmail" id="lostPassEmail" class="input-medium">
 									<div class="clearfix"></div>
 								</form>
 							</div>
 							<div class="modal-footer">
-								<button class="btn btn-primary" onclick="$('#formForgotPass').submit(); $('#forgotPassModal').modal('hide')">Pošlji zahtevo</button>
+								<button class="btn btn-primary" onclick="$('#formLostPass').submit(); $('#lostPassModal').modal('hide')">Pošlji zahtevo</button>
 							</div>
 						</div>
 						<br />

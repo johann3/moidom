@@ -2,7 +2,14 @@
 <html>
 <head>
 <META HTTP-EQUIV="Content-Type"CONTENT="text/html; charset=windows-1250">
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script type="text/javascript" charset="UTF-8" src="../js/jquery-1.9.1.js"></script>
 <script>
+var NODE_ID = 'node1';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = "http://www.moidom.si/server/";
+
 function loadNext()
 {
 if (document.getElementById("radio1").checked==true)
@@ -12,6 +19,32 @@ window.location = "204.html";
 if (document.getElementById("radio3").checked==true)
 window.location = "205.html";
 }
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
 </script>
 </head>
 <body>
@@ -28,7 +61,13 @@ Zmanjšanje porabe: toplotna energija
 <tr><td><input type="radio"name="radio"id="radio2"value="radio2">Sprememba ogrevalnih navad</td></tr>
 <tr><td><input type="radio"name="radio"id="radio3"value="radio3">Izboljšanje energetskih lastnosti stavbe</td></tr>
 </table>
-<button type="button"id="button"onclick="loadNext()">Naprej</button>
+<button type="submit"id="button">Naprej</button>
 </form>
+
+<div id="progressbar">
+   <div class="progressTxt">
+   Beleżim podatke ...
+   </div>
+</div>
 </body>
 </html>
