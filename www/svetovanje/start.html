@@ -1,23 +1,30 @@
-<!DOCTYPE html>
+ď»ż<!DOCTYPE html>
 <html>
 <head>
-<META HTTP-EQUIV="Content-Type"CONTENT="text/html; charset=windows-1250">
+<title>
+start
+</title>
+<meta charset='utf-8'>
 <link href="../css/moidom_iframe.css" rel="stylesheet">
 <script type="text/javascript" charset="UTF-8" src="../js/jquery-1.9.1.js"></script>
 <script>
-var NODE_ID = 'node1';
+var NODE_ID = 'nodestart';
 var APPLICATION_ID = 1;
 var TIMEOUT = 1000;
 var DATA_URL = "http://www.moidom.si/server/";
 
 function loadNext()
 {
-if (document.getElementById("radio1").checked==true)
-window.location = "202.html";
-if (document.getElementById("radio2").checked==true)
-window.location = "204.html";
-if (document.getElementById("radio3").checked==true)
-window.location = "205.html";
+if (document.getElementById("radio273").checked==true)
+window.location = "301.html";
+if (document.getElementById("radio274").checked==true)
+window.location = "201.html";
+if (document.getElementById("radio275").checked==true)
+window.location = "401.html";
+if (document.getElementById("radio276").checked==true)
+window.location = "501.html";
+if (document.getElementById("radio277").checked==true)
+window.location = "100.html";
 }
 
 $(document).ready(function() {
@@ -49,24 +56,27 @@ $(document).ready(function() {
 </head>
 <body>
 <h1 id="title">
-Zmanjšanje porabe: toplotna energija
+Okoljsko svetovanje
 </h1>
-<p id="text1">Za zmanjšanje porabe toplotne energije imate na voljo naslednje možnosti
+<p id="text1">
+Za katero podroÄŤje vas zanima okoljsko svetovanje?
 </p>
-<p id="text2">Izberite možnost.
+<p id="text2">
+Izberite moĹľnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio"name="radio"id="radio1"value="radio1">Posodobitev ogrevalnega sistema</td></tr>
-<tr><td><input type="radio"name="radio"id="radio2"value="radio2">Sprememba ogrevalnih navad</td></tr>
-<tr><td><input type="radio"name="radio"id="radio3"value="radio3">Izboljšanje energetskih lastnosti stavbe</td></tr>
+<tr><td><input type="radio" name="radio" id="radio273" value="radio273" onChange="updateForm()">ElektriÄŤna energija</td></tr>
+<tr><td><input type="radio" name="radio" id="radio274" value="radio274" onChange="updateForm()">Ogrevanje</td></tr>
+<tr><td><input type="radio" name="radio" id="radio275" value="radio275" onChange="updateForm()">Voda</td></tr>
+<tr><td><input type="radio" name="radio" id="radio276" value="radio276" onChange="updateForm()">Smeti</td></tr>
+<tr><td><input type="radio" name="radio" id="radio277" value="radio277" onChange="updateForm()">IzobraĹľevalne naloge</td></tr>
 </table>
-<button type="submit"id="button">Naprej</button>
+<button type="submit" id="button">Naprej</button>
 </form>
-
 <div id="progressbar">
    <div class="progressTxt">
-   Beleżim podatke ...
+   BeleĹľim podatke ...
    </div>
 </div>
 </body>

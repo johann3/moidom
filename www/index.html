@@ -18,6 +18,8 @@
 		<script type="text/javascript" charset="UTF-8" src="js/flot/jquery.flot.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="phonegap.js"></script>
 		
+        <script type="text/javascript" charset="UTF-8" src="common.js"></script>
+        
 		<script type="text/javascript" charset="UTF-8">
 			//
 			// VARIABLES
@@ -26,7 +28,7 @@
 			// set to 'true' when the device is ready.
 			var pgReady = false;
 
-			var DATAURL = "http://www.moidom.si/server/";
+			var DATAURL = getDataUrl(); // in common.js
 			var HTMLURL = "";
 			var filesystemMode = true;
 
@@ -96,7 +98,7 @@
 							success: function(data, textStatus, xhr)
 							{
 								if (data.status == 0)
-									alert('Registracija je uspela. Poslano vam je bilo elektronska posta. Prosimo potrdite registracijo.');
+									alert('Registracija je uspela. Poslana vam je bila elektronska pošta. Prosimo potrdite registracijo.');
 								else
 									alert('Registracija ni uspela: ' + errorText(data.status));
 							},
@@ -147,31 +149,6 @@
 				pgReady = true;
 			}
  
-			function errorText(id) {
-				switch(id) {
-				case 0:
-					return "ni napake";
-				case 1:
-					return "podatek že obstaja";
-				case 2:
-					return "neveljavno uporabniško ime ali geslo";
-				case 3:
-					return "napačni vhodni podatki";
-				case 4:
-					return "uporabnik ni prijavljen";
-				case 5:
-					return "episma se ne da poslati";
-				case 6:
-					return "uporabnik ni potrjen";
-				case 7:
-					return "uporabnik je blokiran";
-				case 8:
-					return "prezgodnji datum ali čas";
-				default:
-					return "neopredeljena napaka";
-				}
-			}
-
 		</script>
 	</head>
 
@@ -243,7 +220,7 @@
 									<label></label>
 									<strong>Podatki o stanovanju:</strong>
 									<label></label>
-									<label>* Površina stanovanja (m2) (www.prostor.si):</label>
+									<label>* Površina stanovanja (m2):</label>
 									<input type="number" name="household_area" class="input-medium">
 									<label>* Število članov gospodinjstva:</label>
 									<input type="number" name="persons_in_household" class="input-medium">
