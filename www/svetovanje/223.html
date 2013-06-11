@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+223
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script type="text/javascript" charset="UTF-8" src="../js/jquery-1.9.1.js"></script>
+<script>
+var NODE_ID = 'node223';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = "http://www.moidom.si/server/";
+
+function loadNext()
+{
+if (document.getElementById("radio121").checked==true)
+window.location = "225.html";
+if (document.getElementById("radio122").checked==true)
+window.location = "226.html";
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Stanje ovoja stavbe
+</h1>
+<p id="text1">
+Stene za relativno učinkovito stavbo morajo imeti najmanj 10 do 12 cm debelo izolacijo. Podstrešje pa najmanj 20 do 25 cm. Le ta mora čim večji del ovoje ker le tako je možno zagotoviti dobre toplotne lastnosti stavbe. Če primerjate svojo stavbo z zgoraj napisanimi trditvami lahko ugotovite sledeče.
+</p>
+<p id="text2">
+Izberite možnost.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio121" value="radio121" onChange="updateForm()">Imam dobro izoliran ovoj stavbe in nimam potrebe po dodatnih ukrepih</td></tr>
+<tr><td><input type="radio" name="radio" id="radio122" value="radio122" onChange="updateForm()">Moj ovoj stavbe ni izoliran ali je pomanjkljivo izoliran</td></tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Beležim podatke ...
+   </div>
+</div>
+</body>
+</html>

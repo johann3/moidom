@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+104
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script type="text/javascript" charset="UTF-8" src="../js/jquery-1.9.1.js"></script>
+<script>
+var NODE_ID = 'node104';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = "http://www.moidom.si/server/";
+
+function loadNext()
+{
+if (document.getElementById("radio171").checked==true)
+window.location = "105.html";
+if (document.getElementById("radio172").checked==true)
+window.location = "104.html";
+if (document.getElementById("radio173").checked==true)
+window.location = "104.html";
+}
+function updateForm()
+{
+var correct=true;
+if (document.getElementById("radio171").checked!=true) {
+    correct=false;
+}
+if (document.getElementById("radio172").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio173").checked!=false) {
+    correct=false;
+}
+if (correct==true) {
+   document.getElementById("evaluation").innerHTML="pravilen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(100,255,100)";
+}
+else {
+   document.getElementById("evaluation").innerHTML="napačen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(255,100,100)";
+}
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Elektrika
+</h1>
+<p id="text1">
+Smiselno je, da električne naprave, ki so bolj potratne (pralni stroj, sušilni stroj …) uporabljamo v nočnem času, ko je električna energija cenejša (če imamo dvotarifni števec).
+</p>
+<p id="text2">
+Označite trditev s klikom.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio171" value="radio171" onChange="updateForm()">Da</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio172" value="radio172" onChange="updateForm()">Ne</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio173" value="radio173" onChange="updateForm()">Ne vem</td><td></td></tr>
+<tr>
+<td> Vaš odgovor je </td>
+<td id="evaluation"> nepopoln. </td>
+</tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Beležim podatke ...
+   </div>
+</div>
+</body>
+</html>

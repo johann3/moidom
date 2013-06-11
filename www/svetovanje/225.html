@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+225
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script type="text/javascript" charset="UTF-8" src="../js/jquery-1.9.1.js"></script>
+<script>
+var NODE_ID = 'node225';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = "http://www.moidom.si/server/";
+
+function loadNext()
+{
+if (document.getElementById("radio133").checked==true)
+window.location = ".html";
+if (document.getElementById("radio134").checked==true)
+window.location = "205.html";
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Dobra izolacija ali stavbno pohištvo
+</h1>
+<p id="text1">
+Ugotovil sem sledeče
+</p>
+<p id="text2">
+Izberite možnost.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio133" value="radio133" onChange="updateForm()">Imam dobro stavbno pohištvo in izolacijo ovoja</td></tr>
+<tr><td><input type="radio" name="radio" id="radio134" value="radio134" onChange="updateForm()">Da bi šel nazaj preverit možne dodatne ukrepe na ovoju ali stavbnem pohištvu </td></tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Beležim podatke ...
+   </div>
+</div>
+</body>
+</html>

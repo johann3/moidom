@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+205
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script type="text/javascript" charset="UTF-8" src="../js/jquery-1.9.1.js"></script>
+<script>
+var NODE_ID = 'node205';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = "http://www.moidom.si/server/";
+
+function loadNext()
+{
+if (document.getElementById("radio115").checked==true)
+window.location = "223.html";
+if (document.getElementById("radio116").checked==true)
+window.location = "224.html";
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Izboljšanje energetskih lastnosti stavbe
+</h1>
+<p id="text1">
+Lahko izboljšate energetske lastnosti stavbe
+</p>
+<p id="text2">
+Izberite možnost.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio115" value="radio115" onChange="updateForm()">Preverite stanje ovoja stavbe</td></tr>
+<tr><td><input type="radio" name="radio" id="radio116" value="radio116" onChange="updateForm()">Preverite stanje stavbnega pohištva</td></tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Beležim podatke ...
+   </div>
+</div>
+</body>
+</html>

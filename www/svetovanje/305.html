@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+305
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script type="text/javascript" charset="UTF-8" src="../js/jquery-1.9.1.js"></script>
+<script>
+var NODE_ID = 'node305';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = "http://www.moidom.si/server/";
+
+function loadNext()
+{
+if (document.getElementById("radio295").checked==true)
+window.location = ".html";
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Ogrevanje na električno energijo
+</h1>
+<p id="text1">
+Če se ogrevate na električno energijo je potrebno vedeti da je to dovoljeno le v izrednih primerih kot podporno ogrevanje ali pa z toplotnimi črpalkami. Zato imate sledeče možnosti.
+</p>
+<p id="text2">
+Izberite možnost.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio295" value="radio295" onChange="updateForm()">Prehod na drug energent</td></tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Beležim podatke ...
+   </div>
+</div>
+</body>
+</html>

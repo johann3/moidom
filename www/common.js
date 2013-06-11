@@ -14,6 +14,9 @@ function getHtmlUrl()
     return HTMLURL;
 }
 
+var JSON_STATUS_OK = 0;
+var JSON_STATUS_NOT_LOGGED_IN = 4;
+var JSON_STATUS_SESSION_EXPIRED = 13;
 
 function errorText(id) {
 	switch(id) {
@@ -50,6 +53,30 @@ function errorText(id) {
 	default:
 		return "neopredeljena napaka";
 	}
+}
+
+
+function dataStatusIsBad (status)
+{
+    if (status != JSON_STATUS_OK) {
+        if (status == JSON_STATUS_NOT_LOGGED_IN  ||  status == JSON_STATUS_SESSION_EXPIRED)
+            top.location.href = HTMLURL + 'index.html';
+        else
+            alert('Pošiljanje podatkov ni uspelo, strežnik je vrnil napako: ' + errorText(status));
+        return true;
+    }
+    return false;
+}
+
+
+function ajaxError(data, textStatus, xhr)
+{
+    alert('Pošiljanje podatkov ni uspelo, strežnik ni dosegljiv: ' + textStatus);
+}
+
+function localizeDecimal (decimal)
+{
+    return decimal.toString().replace('.', ',');
 }
 
 

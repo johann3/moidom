@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+224
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script type="text/javascript" charset="UTF-8" src="../js/jquery-1.9.1.js"></script>
+<script>
+var NODE_ID = 'node224';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = "http://www.moidom.si/server/";
+
+function loadNext()
+{
+if (document.getElementById("radio127").checked==true)
+window.location = "225.html";
+if (document.getElementById("radio128").checked==true)
+window.location = ".html";
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Stanje stavbnega pohištva
+</h1>
+<p id="text1">
+Stavbno pohištvo v stavbi je staro manj kot 15 let ima dvojno izolacijsko steklo in dobro tesni.  Če primerjate svojo stavbo z zgoraj napisanimi trditvami lahko ugotovite sledeče.
+</p>
+<p id="text2">
+Izberite možnost.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio127" value="radio127" onChange="updateForm()">Imam dobro stavbno pohištvo in nimam potrebe po zamenjavi</td></tr>
+<tr><td><input type="radio" name="radio" id="radio128" value="radio128" onChange="updateForm()">Moje stavbno pohištvo je staro z slabimi stekli ter ne tesni dobro.</td></tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Beležim podatke ...
+   </div>
+</div>
+</body>
+</html>
