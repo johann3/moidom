@@ -6,12 +6,13 @@
 </title>
 <meta charset='utf-8'>
 <link href="../css/moidom_iframe.css" rel="stylesheet">
-<script type="text/javascript" charset="UTF-8" src="../js/jquery-1.9.1.js"></script>
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
 <script>
 var NODE_ID = 'node108';
 var APPLICATION_ID = 1;
 var TIMEOUT = 1000;
-var DATA_URL = "http://www.moidom.si/server/";
+var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {

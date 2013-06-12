@@ -1,26 +1,29 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="sl">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!--<meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/bootstrap-responsive.css" rel="stylesheet">
+        <link href="css/bootstrap-timepicker.min.css" rel="stylesheet">
+        <link href="css/bootstrap-fileupload.min.css" rel="stylesheet">
         <link href="css/moidom.css" rel="stylesheet">
         
-        <script type="text/javascript" charset="UTF-8" src="js/jquery-1.9.1.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="js/jquery-migrate-1.1.1.js"></script>       
-        <script type="text/javascript" charset="UTF-8" src="js/jquery.validate.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="js/jquery.cookie.js"></script>
-        <!-- <script src="js/jquery.mobile-1.3.0.min.js"></script> -->
-        <script type="text/javascript" charset="UTF-8" src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="js/bootstrap-datepicker.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="js/locales/bootstrap-datepicker.sl.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="js/flot/jquery.flot.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="phonegap.js"></script>
+        <script charset="UTF-8" src="js/jquery.min.js"></script>
+        <script charset="UTF-8" src="js/jquery.cookie.js"></script>
+        <script charset="UTF-8" src="js/jquery.flot.js"></script>
+        <script charset="UTF-8" src="js/jquery.form.js"></script>
+        <script charset="UTF-8" src="js/jquery.validate.js"></script>
+        <script charset="UTF-8" src="js/bootstrap.min.js"></script>
+        <script charset="UTF-8" src="js/bootstrap-datepicker.js"></script>
+        <script charset="UTF-8" src="js/bootstrap-datepicker.sl.js"></script>
+        <script charset="UTF-8" src="js/bootstrap-timepicker.min.js"></script>
+        <script charset="UTF-8" src="js/bootstrap-fileupload.min.js"></script>
+        <script charset="UTF-8" src="js/cordova-2.4.0.js"></script>
+        <script charset="UTF-8" src="js/ocr.js"></script>
+        <script charset="UTF-8" src="phonegap.js"></script>
+        <script charset="UTF-8" src="common.js"></script>
         
-        <script type="text/javascript" charset="UTF-8" src="common.js"></script>
-        
-        <script type="text/javascript" charset="UTF-8">
+        <script charset="UTF-8">
             //
             // VARIABLES
             //
@@ -28,25 +31,29 @@
             // set to 'true' when the device is ready.
             var pgReady = false;
 
-            var DATAURL = getDataUrl(); // in common.js
-            var HTMLURL = "";
-            var filesystemMode = true;
+            var DATA_URL = getDataUrl(); // in common.js
+            var HTML_URL = "";
 
             //
             function onBodyLoad() {
                 // Register the event handler 
                 document.addEventListener("deviceready", onDeviceReady, false);
                 
-                if (filesystemMode) {
-                    // Override the MIME tipe to avoid "Not well-formed" error if reading from file
-                    $.ajaxSetup({beforeSend: function(xhr) {
-                            if (xhr.overrideMimeType) {
-                                xhr.overrideMimeType("application/json");
-                            }
-                        }
-                    });
-                }
-
+                // if logged in, continue to the main page
+                $.ajax({
+                    url: DATA_URL + 'user/get_profile',
+                    type: 'GET',
+                    data: {},
+                    xhrFields: { withCredentials: true },
+                    success: function(data, textStatus, xhr)
+                    {
+                        if (data.status == 0)
+                            top.location.href = HTML_URL + 'main.html';
+                    },
+                    error: ajaxError
+                });
+                
+                
                 // Validate the input form: Login (registered user only) [Tab: Login]       
                 $("#formLogin").validate({
                     rules:
@@ -57,21 +64,18 @@
                     submitHandler: function(form)
                     {
                         $.ajax({
-                            url: DATAURL + 'user/login',
+                            url: DATA_URL + 'user/login',
                             type: 'POST',
                             data: $(form).serialize(),
                             xhrFields: { withCredentials: true },
                             success: function(data, textStatus, xhr)
                             {
                                 if (data.status == 0)
-                                    top.location.href = HTMLURL + 'main.html';
+                                    top.location.href = HTML_URL + 'main.html';
                                 else
                                     alert('Prijava ni uspela: ' + errorText(data.status));
                             },
-                            error: function(data, textStatus, xhr)
-                            {
-                                alert('Prijava ni uspela: ' + textStatus);
-                            }
+                            error: ajaxError
                         });
                     }
                 });
@@ -91,7 +95,7 @@
                     submitHandler: function(form)
                     {
                         $.ajax({
-                            url: DATAURL + 'user/register',
+                            url: DATA_URL + 'user/register',
                             type: 'POST',
                             data: $(form).serialize(),
                             xhrFields: { withCredentials: true },
@@ -102,10 +106,7 @@
                                 else
                                     alert('Registracija ni uspela: ' + errorText(data.status));
                             },
-                            error: function(data, textStatus, xhr)
-                            {
-                                alert('Registracija ni uspela: ' + textStatus);
-                            }
+                            error: ajaxError
                         });
                     }
                 });
@@ -120,7 +121,7 @@
                     submitHandler: function(form)
                     {
                         $.ajax({
-                            url: DATAURL + 'user/lost_password',
+                            url: DATA_URL + 'user/lost_password',
                             type: 'POST',
                             data: { email: $('#lostPassEmail').val() },
                             xhrFields: { withCredentials: true },
@@ -129,12 +130,9 @@
                                 if (data.status == 0)
                                     alert('Novo geslo poslano na email');
                                 else
-                                    alert('Napaka pri posiljanju novega gesla: ' + errorText(data.status));
+                                    alert('Napaka pri pošiljanju novega gesla: ' + errorText(data.status));
                             },
-                            error: function(data, textStatus, xhr)
-                            {
-                                alert('Napaka pri pošiljanju novega gesla: ' + textStatus);
-                            }
+                            error: ajaxError
                         });
                     }
                 });
@@ -159,61 +157,70 @@
             </div>
             <div class="mainContent">
             
-                    <div class="welcome">
-                        <h2>Pozdravljeni na spletni strani aplikacije mOIDom!</h2>
-                        <p>So vaši mesečni računi previsoki? Želite porabiti manj, pa ne veste kako? Če ste na vsaj eno vprašanje odgovorili z da, potem je aplikacija mOIDom prava izbira za vas. S pomočjo aplikacije mOIDom boste enostavno spremljali svojo porabo in z upoštevanjem varčevalnih nasvetov, ki jih aplikacija ponuja, zmanjšali stroške svojega gospodinjstva.</p>
-                        <p>mOIDom je spletna in mobilna aplikacija informativno-svetovalnega značaja, ki vam omogoča spremljanje porabe in stroškov gospodinjstva. Preko uporabnih nasvetov in praktičnih nalog boste spoznali, kje vaše gospodinjstvo izgublja denar in kaj spremeniti, da optimizirate porabo ter s tem privarčujete. Cilj aplikacije je tudi spodbujanje k varčevanju z energijo in tako zmanjševanje obremenjevanja okolja z emisijami in zviševanje energetske učinkovitosti zgradb.</p>
-                        <p>Uporabite aplikacijo, ukrepajte in privarčujte!</p>
-                    </div>
-                    <div class="mini-layout loginForm">
-                        <h3>Prijava</h3>
-                        <form id="formLogin">
-                            <label>Elektronski naslov:</label>
-                            <input type="email" name="email" class="input-medim">
-                            <label>Geslo:</label>
-                            <input type="password" name="password" class="input-medim">
-                            <div class="clearfix"></div>
-                            <input type="submit" value="Prijava" class="submit btn btn-primary">
-                        </form>
-    
-                        <!-- Forgot password -->
-                        <a href="#lostPassModal" role="button" data-toggle="modal">Ste pozabili geslo?</a>
-                        <div id="lostPassModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="lostPassModalLabel" aria-hidden="true">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h3 id="lostPassModalLabel">Pozabljeno geslo</h3>
+                <div class="welcome">
+                    <h2>Pozdravljeni na spletni strani aplikacije mOIDom!</h2>
+                    <p>So vaši mesečni računi previsoki? Želite porabiti manj, pa ne veste kako? Če ste na vsaj eno vprašanje odgovorili z da, potem je aplikacija mOIDom prava izbira za vas. S pomočjo aplikacije mOIDom boste enostavno spremljali svojo porabo in z upoštevanjem varčevalnih nasvetov, ki jih aplikacija ponuja, zmanjšali stroške svojega gospodinjstva.</p>
+                    <p>mOIDom je spletna in mobilna aplikacija informativno-svetovalnega značaja, ki vam omogoča spremljanje porabe in stroškov gospodinjstva. Preko uporabnih nasvetov in praktičnih nalog boste spoznali, kje vaše gospodinjstvo izgublja denar in kaj spremeniti, da optimizirate porabo ter s tem privarčujete. Cilj aplikacije je tudi spodbujanje k varčevanju z energijo in tako zmanjševanje obremenjevanja okolja z emisijami in zviševanje energetske učinkovitosti zgradb.</p>
+                    <p>Uporabite aplikacijo, ukrepajte in privarčujte!</p>
+                </div>
+                
+                <div class="tab-content">
+                    <div class="accordion" id="startView">
+                        <div class="accordion-group">
+                            <div class="accordion-heading">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#startView" href="#startViewLogin">Prijava</a>
                             </div>
-                            <div class="modal-body">
-                                <p>Prosim, vnesite vaš elektronski naslov. Na ta naslov vam bomo poslali novo geslo, ki ga uporabite pri naslednji prijavi.</p>
-                                <br>
-                                <form id="formLostPass">
-                                    <label>Elektronski naslov:</label>
-                                    <input type="email" name="lostPassEmail" id="lostPassEmail" class="input-medium">
-                                    <div class="clearfix"></div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-primary" onclick="$('#formLostPass').submit(); $('#lostPassModal').modal('hide')">Pošlji zahtevo</button>
+                            <div id="startViewLogin" class="accordion-body collapse">
+                                <div class="accordion-inner">
+                                    <form id="formLogin">
+                                        <label>Elektronski naslov:</label>
+                                        <input type="email" name="email" class="input-medim">
+                                        <label>Geslo:</label>
+                                        <input type="password" name="password" class="input-medim">
+                                        <label>Ostanite prijavljeni:</label>
+                                        <input type="checkbox" name="permanent" value="true" class="input-medim"></input>
+                                        <br />
+                                        <div class="clearfix"></div>
+                                        <br />
+                                        <input type="submit" value="Prijavi se" class="submit btn btn-primary">
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                        <br />
-    
-                        <!-- New user -->
-                        <a href="#newUserModal" role="button" data-toggle="modal">Nov uporabnik</a>
-                        <div id="newUserModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="newUserModalLabel" aria-hidden="true">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h3 id="newUserModalLabel">Nov uporabnik</h3>
+                        
+                        <div class="accordion-group">
+                            <div class="accordion-heading">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#startView" href="#startViewForgotten">Ste pozabili geslo?</a>
                             </div>
-                            <div class="modal-body">
+                            <div id="startViewForgotten" class="accordion-body collapse">
+                                <div class="accordion-inner">
+                                    <p>Prosim, vnesite vaš registrirani elektronski naslov. Na ta naslov vam bomo poslali novo geslo, ki ga uporabite pri naslednji prijavi.</p>
+                                    <br>
+                                    <form id="formLostPass">
+                                        <label>Elektronski naslov:</label>
+                                        <input type="email" name="lostPassEmail" id="lostPassEmail" class="input-medium">
+                                        <div class="clearfix"></div>
+                                        <input type="submit" value="Pošlji zahtevo" class="submit btn btn-primary">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-group">
+                            <div class="accordion-heading">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#startView" href="#startViewRegister">Nov uporabnik</a>
+                            </div>
+                            <div id="startViewRegister" class="accordion-body collapse">
+                                <div class="accordion-inner">
+
                                 <p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
                                 <strong>Podatki uporabnika:</strong>
                                 <form id="formRegisterUser">
                                     <label>* Elektronski naslov:</label>
                                     <input type="email" name="email" class="input-medium">
-                                    <label>* Geslo:</label>
+                                    <label>* Geslo za mOIDom:</label>
                                     <input type="password" name="password" id="password" class="input-medium">
-                                    <label>* Potrdi geslo:</label>
+                                    <label>* Potrdi geslo za mOIDom:</label>
                                     <input type="password" name="confPassword" id="confPassword" class="input-medium">
     
                                     <!-- Appartment data -->
@@ -229,14 +236,15 @@
                                     <label>Poštna številka kraja bivanja:</label>
                                     <input type="number" name="postal_code" class="input-medium">
                                     <div class="clearfix"></div>
+                                    <input type="submit" value="Pošlji zahtevo" class="submit btn btn-primary">
                                 </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-primary" onclick="$('#formRegisterUser').submit(); $('#newUserModal').modal('hide')">Pošlji zahtevo</button>
+                                </div>
                             </div>
                         </div>
-                        <br />
+
                     </div>
+                </div>
+                    
             </div>
             <div id="appFooter">
                 <div class="center">

@@ -1,9 +1,8 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="sl">
     <head>
         <title>mOIDom</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <!--<meta name="viewport" id="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/bootstrap-responsive.css" rel="stylesheet">
@@ -11,24 +10,20 @@
         <link href="css/bootstrap-fileupload.min.css" rel="stylesheet">
         <link href="css/moidom.css" rel="stylesheet">
         
-        <script type="text/javascript" charset="UTF-8" src="js/jquery-1.9.1.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="js/jquery-migrate-1.1.1.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="js/jquery.validate.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="js/jquery.cookie.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="js/jquery.form.js"></script>
-        <!-- <script src="js/jquery.mobile-1.3.0.min.js"></script> -->
-        <script type="text/javascript" charset="UTF-8" src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="js/bootstrap-datepicker.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="js/locales/bootstrap-datepicker.sl.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="js/bootstrap-timepicker.min.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="js/bootstrap-fileupload.min.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="js/flot/jquery.flot.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="phonegap.js"></script>
-        
-        <script type="text/javascript" charset="UTF-8" src="cordova-2.4.0.js"></script>
-        <script type="text/javascript" charset="UTF-8" src="js/ocr.js"></script>
-
-        <script type="text/javascript" charset="UTF-8" src="common.js"></script>
+        <script charset="UTF-8" src="js/jquery.min.js"></script>
+        <script charset="UTF-8" src="js/jquery.cookie.js"></script>
+        <script charset="UTF-8" src="js/jquery.flot.js"></script>
+        <script charset="UTF-8" src="js/jquery.form.js"></script>
+        <script charset="UTF-8" src="js/jquery.validate.js"></script>
+        <script charset="UTF-8" src="js/bootstrap.min.js"></script>
+        <script charset="UTF-8" src="js/bootstrap-datepicker.js"></script>
+        <script charset="UTF-8" src="js/bootstrap-datepicker.sl.js"></script>
+        <script charset="UTF-8" src="js/bootstrap-timepicker.min.js"></script>
+        <script charset="UTF-8" src="js/bootstrap-fileupload.min.js"></script>
+        <script charset="UTF-8" src="js/cordova-2.4.0.js"></script>
+        <script charset="UTF-8" src="js/ocr.js"></script>
+        <script charset="UTF-8" src="phonegap.js"></script>
+        <script charset="UTF-8" src="common.js"></script>
         
         <script type="text/javascript">
             //
@@ -38,16 +33,8 @@
             // set to 'true' when the device is ready.
             var pgReady = false;
 
-            var DATAURL = getDataUrl(); // in common.js
-            var HTMLURL = "";
-            var filesystemMode = true;
-
-            var JSON_STATUS_OK = 0;
-            var JSON_STATUS_EXIST = 1;
-            var JSON_STATUS_INVALID_CREDENTIALS = 2;
-            var JSON_STATUS_INVALID_INPUT = 3;
-            var JSON_STATUS_NOT_LOGGED_IN = 4;
-            var JSON_STATUS_ERROR = 99;
+            var DATA_URL = getDataUrl(); // in common.js
+            var HTML_URL = "";
 
             var currentCommodityId = 0;  // remembers the last selected commodity
             var assignedCommodityIdList = // IDs of lists that show assigned commodities per user 
@@ -84,16 +71,6 @@
                 // Register the event handler 
                 document.addEventListener("deviceready", onDeviceReady, false);
                 
-                if (filesystemMode) {
-                    // Override the MIME tipe to avoid "Not well-formed" error if reading from file
-                    $.ajaxSetup({beforeSend: function(xhr) {
-                            if (xhr.overrideMimeType) {
-                                xhr.overrideMimeType("application/json");
-                            }
-                        }
-                    });
-                }
-
                 // Initialize datepicker and timepicker
                 $('#submitDate').datepicker('setValue', new Date());
                 $('#submitTime').timepicker();
@@ -165,7 +142,7 @@
                         };
                         var updateExisting = ($('#submitCommodity').attr('disabled') == 'disabled');
                         $.ajax({
-                            url: DATAURL + 'commodity/' + (updateExisting ? 'update_data' : 'add_data'),
+                            url: DATA_URL + 'commodity/' + (updateExisting ? 'update_data' : 'add_data'),
                             type: 'POST',
                             data: requestData,
                             xhrFields: { withCredentials: true },
@@ -183,7 +160,7 @@
                 });
                 
                 $('#formImport').ajaxForm({
-                    url: DATAURL + 'commodity/add_file',
+                    url: DATA_URL + 'commodity/add_file',
                     type: 'POST',
                     data: { format: 'CSV' },
                     dataType: 'json',
@@ -212,7 +189,7 @@
                     submitHandler: function(form)
                     {
                         $.ajax({
-                            url: DATAURL + 'user/update_profile',
+                            url: DATA_URL + 'user/update_profile',
                             type: 'POST',
                             data: $('#formUserSettings').serialize(),
                             success: function(data, textStatus, xhr)
@@ -243,7 +220,7 @@
                             start_time: parseDateTime($('#startDate').val(), 'dd.mm.yyyy', $('#startTime').val(), 'hh:mm:ss')
                         }
                         $.ajax({
-                            url: DATAURL + 'user/assign_commodity',
+                            url: DATA_URL + 'user/assign_commodity',
                             type: 'POST',
                             data: requestData,
                             xhrFields: { withCredentials: true },
@@ -270,6 +247,19 @@
                 setPicSourceType();
             }
  
+ 
+            function getEfficiencyUnitText()
+            {
+                var efficiencyUnitId = $('#viewEfficiencyUnit').val();
+                var efficiencyUnit = '';
+                if (efficiencyUnitId == 1)
+                    efficiencyUnit = '/m2';
+                if (efficiencyUnitId == 2)
+                    efficiencyUnit = '/osebo';
+                return efficiencyUnit;
+            }
+
+
             //----------------------------------------------------------------------
             // The function shows the indicator values, yearly, monthly and daily.
             function showIndicatorValues() {
@@ -279,7 +269,7 @@
                 var commodityUnit = $('#viewCommodity').find(':selected').data('unit');
 
                 $.ajax({
-                    url: DATAURL + 'commodity/efficiency',
+                    url: DATA_URL + 'commodity/efficiency',
                     type: 'GET',
                     data: {
                         commodity: commodityId,
@@ -303,22 +293,8 @@
             }
 
 
-            function getEfficiencyUnitText()
-            {
-                var efficiencyUnitId = $('#viewEfficiencyUnit').val();
-                var efficiencyUnit = '';
-                if (efficiencyUnitId == 1)
-                    efficiencyUnit = '/m2';
-                if (efficiencyUnitId == 2)
-                    efficiencyUnit = '/osebo';
-                return efficiencyUnit;
-            }
-
-
             //----------------------------------------------------------------------
-            // The function plots the histogram showing the efficiency classes.
-            // The position of the chart is defined by the placeholder
-            // "viewEffClassHistogram".
+            // The function plots the efficiency class graph.
             function plotEfficiencyClasses() {
                 var commodityId = $('#viewCommodity').val();
                 var efficiencyUnit = $('#viewEfficiencyUnit').val();
@@ -326,7 +302,7 @@
                 var unit = $('#viewCommodity').find(':selected').data('unit');
 
                 $.ajax({
-                    url: DATAURL + 'commodity/efficiency',
+                    url: DATA_URL + 'commodity/efficiency',
                     type: 'GET',
                     data: {
                         commodity: commodityId,
@@ -407,11 +383,9 @@
 
             //----------------------------------------------------------------------
             // The function plots the percentile graph and updates associated texts. 
-            // The position of the chart is defined by the placeholder 
-            // "viewTimeseqCumul".              
             function showPercentiles() {
                 $.ajax({
-                    url: DATAURL + 'commodity/efficiency',
+                    url: DATA_URL + 'commodity/efficiency',
                     type: 'GET',
                     data: {
                         commodity: $('#viewCommodity').val(),
@@ -476,11 +450,12 @@
             }
 
             
+            // The function plots the cumulative or non-cumulative usage graph.
             function plotComodityData(plotHolder, totalValueHolder, cumulative) {
                 var commodityId = $('#viewCommodity').val();
 
                 $.ajax({
-                    url: DATAURL + 'commodity/get_data',
+                    url: DATA_URL + 'commodity/get_data',
                     type: 'GET',
                     data: { 
                         commodity: commodityId, 
@@ -536,11 +511,13 @@
                 });
             }
 
+
             function unassignCommodityAsk(id)
             {
                 $('#confirmCommodityUnassign').data('commodity', id);
                 $('#confirmCommodityUnassign').modal('show');
             }
+            
             
             function unassignTagAsk(id)
             {
@@ -551,7 +528,7 @@
             function assignCommodity(id)
             {
                 $.ajax({
-                    url: DATAURL + 'user/assign_commodity',
+                    url: DATA_URL + 'user/assign_commodity',
                     type: 'POST',
                     data: {
                         cumulative: ($('#cumulativeTrue').prop('checked') ? 'true' : 'false'),
@@ -574,7 +551,7 @@
             function unassignCommodity(id)
             {
                 $.ajax({
-                    url: DATAURL + 'user/unassign_commodity',
+                    url: DATA_URL + 'user/unassign_commodity',
                     type: 'POST',
                     data: { commodity: id },
                     xhrFields: { withCredentials: true },
@@ -592,7 +569,7 @@
                 var id = $('#' + el).val();
                 if (id != null) {
                     $.ajax({
-                        url: DATAURL + 'user/assign_tag',
+                        url: DATA_URL + 'user/assign_tag',
                         type: 'POST',
                         data: { tag: id },
                         xhrFields: { withCredentials: true },
@@ -610,7 +587,7 @@
             function unassignTag(id)
             {
                 $.ajax({
-                    url: DATAURL + 'user/unassign_tag',
+                    url: DATA_URL + 'user/unassign_tag',
                     type: 'POST',
                     data: { tag: id },
                     xhrFields: { withCredentials: true },
@@ -627,7 +604,7 @@
             function populateCommodityLists(idList, typ, onclick, oncomplete)
             {
                 $.ajax({
-                    url: DATAURL + 'user/list_commodities',
+                    url: DATA_URL + 'user/list_commodities',
                     type: 'GET',
                     data: { type: typ },
                     xhrFields: { withCredentials: true },
@@ -655,12 +632,16 @@
                                 var selected = (currentCommodityId == commodity.id ? " selected" : "");
                                 if (el.nodeName == "SELECT") {
                                     if (onclick)
-                                        $('#' + id).append('<option value="' + commodity.id + '" data-unit="' + commodity.unit + '" data-cumulative="' + commodity.cumulative + '" onclick="' + onclick + '(' + commodity.id + ')" ' + selected + '>' + commodity.name + '</option>');
+                                        $('#' + id).append('<option value="' + commodity.id + '" data-unit="' + commodity.unit + 
+                                            '" data-cumulative="' + commodity.cumulative + '" onclick="' + onclick + 
+                                            '(' + commodity.id + ')" ' + selected + '>' + commodity.name + '</option>');
                                     else
-                                        $('#' + id).append('<option value="' + commodity.id + '" data-unit="' + commodity.unit + '" data-cumulative="' + commodity.cumulative + '" ' + selected + '>' + commodity.name + '</option>');
+                                        $('#' + id).append('<option value="' + commodity.id + '" data-unit="' + commodity.unit + 
+                                            '" data-cumulative="' + commodity.cumulative + '" ' + selected + '>' + commodity.name + '</option>');
                                 } else if (el.nodeName == "UL") {
                                     if (onclick)
-                                        $('#' + id).append('<li><a href="#" class="close" style="float: none" onclick="' + onclick + '(' + commodity.id + ')">&times;</a>&nbsp;' + commodity.name + '</li>');
+                                        $('#' + id).append('<li><a href="#" class="close" style="float: none" onclick="' + 
+                                            onclick + '(' + commodity.id + ')">&times;</a>&nbsp;' + commodity.name + '</li>');
                                     else
                                         $('#' + id).append('<li>' + commodity.name + '</li>');
                                 }
@@ -674,17 +655,19 @@
                 });
             }
 
+
             function populateAssignedUnassignedCommodities() {
                 populateCommodityLists(['assignedCommodities'], 'assigned', 'unassignCommodityAsk');
                 populateCommodityLists(['unassignedCommodities'], 'unassigned', null, setAssignCommodityDependants);
             }
+
 
             function populateTagsList(id, typ, onclick)
             {
                 var el = document.getElementById(id);
 
                 $.ajax({
-                    url: DATAURL + 'user/list_tags',
+                    url: DATA_URL + 'user/list_tags',
                     data: { type: typ },
                     type: 'GET',
                     xhrFields: { withCredentials: true },
@@ -703,7 +686,8 @@
                                     $('#' + id).append('<option value="' + tag.id + '">' + tag.name + '</option>');
                             } else if (el.nodeName == "UL") {
                                 if (onclick)
-                                    $('#' + id).append('<li><a href="#" class="close" style="float: none" onclick="' + onclick + '(' + tag.id + ')">&times;</a>&nbsp;' + tag.name + '</li>');
+                                    $('#' + id).append('<li><a href="#" class="close" style="float: none" onclick="' 
+                                        + onclick + '(' + tag.id + ')">&times;</a>&nbsp;' + tag.name + '</li>');
                                 else
                                     $('#' + id).append('<li>' + tag.name + '</li>');
                             }
@@ -712,6 +696,7 @@
                     error: ajaxError
                 });
             }
+
 
             function populateAssignedUnassignedTags() {
                 populateTagsList('assignedTags', 'unassignable', 'unassignTagAsk'); 
@@ -722,7 +707,7 @@
             function populateUserData() {
 
                 $.ajax({
-                    url: DATAURL + 'user/get_profile',
+                    url: DATA_URL + 'user/get_profile',
                     type: 'GET',
                     xhrFields: { withCredentials: true },
                     success: function(data, textStatus, xhr)
@@ -771,12 +756,12 @@
             
             function logout() {
                 $.ajax({
-                    url: DATAURL + 'user/logout',
+                    url: DATA_URL + 'user/logout',
                     type: 'POST',
                     xhrFields: { withCredentials: true },
                     success: function(data, textStatus, xhr)
                     {
-                        top.location.href = HTMLURL + 'index.html';
+                        top.location.href = HTML_URL + 'index.html';
                     },
                     error: ajaxError
                 });
@@ -792,7 +777,7 @@
                 } else {
                     var commodityId = $('#submitCommodity').val();
                     $.ajax({
-                        url: DATAURL + 'commodity/get_data',
+                        url: DATA_URL + 'commodity/get_data',
                         type: 'GET',
                         data: {
                             commodity: commodityId,
@@ -820,7 +805,7 @@
 
             function requestDataEmail(cumulative) {
                 $.ajax({
-                    url: DATAURL + 'commodity/email_data',
+                    url: DATA_URL + 'commodity/email_data',
                     type: 'GET',
                     data: {
                         commodity: $('#viewCommodity').val(),
@@ -1029,9 +1014,9 @@
                     
                     <div class="tab-pane fade" id="Settings">
                         <ul class="nav nav-tabs subMenu">
-                          <li class="active"><a data-toggle="tab" href="#commoditySettings" onclick="populateAssignedUnassignedCommodities()">Okoljske obremenitve</a></li>
-                          <li><a data-toggle="tab" href="#tagsSettings" onclick="populateAssignedUnassignedTags()">Označbe skupin</a></li>
-                          <li><a href="#userSettings" data-toggle="tab">Uporabniške nastavitve</a></li>
+                          <li class="active"><a data-toggle="tab" href="#commoditySettings" onclick="populateAssignedUnassignedCommodities()">Obremenitve</a></li>
+                          <li><a data-toggle="tab" href="#tagsSettings" onclick="populateAssignedUnassignedTags()">Označbe</a></li>
+                          <li><a href="#userSettings" data-toggle="tab">Uporabnik</a></li>
                         </ul>
                         
                         <div class="tab-content subMenuContent">
