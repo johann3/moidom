@@ -1,17 +1,17 @@
-var DATAURL = "http://www.moidom.si/server/";
-//DATAURL = "http://localhost:8080/server/";
-var HTMLURL = "";
+var DATA_URL = "http://www.moidom.si/server/";
+//DATA_URL = "http://localhost:8080/server/";
+var HTML_URL = "";
 
 function getDataUrl()
 {
     // this is prefix for server call urls
-    return DATAURL;
+    return DATA_URL;
 }
 
 function getHtmlUrl()
 {
-    // this is prefix sibling html pages
-    return HTMLURL;
+    // this is prefix for sibling html pages
+    return HTML_URL;
 }
 
 var JSON_STATUS_OK = 0;
