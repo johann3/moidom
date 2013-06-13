@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- See description at https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.cosylab.moidom"
-        version   = "2.2.2">
+        version   = "1.0.0">
     <name>mOIDom</name>
 
     <description>
-        mOIDom application.
+        mOIDom mobilna aplikacija
     </description>
 
-    <author href="http://cosylab.com" email="ludvik.kumin@cosylab.com">
-        Ludvik Kumin
+    <author href="http://www.cosylab.com" email="info@cosylab.com">
+        Cosylab
     </author>
 
     <feature name="http://api.phonegap.com/1.0/device" />
 
-    <preference name="phonegap-version" value="2.5.0" />
+    <preference name="phonegap-version" value="2.7.0" />
     <preference name="orientation"      value="default" />
     <preference name="target-device"    value="universal" />
     <preference name="fullscreen"       value="false" />
