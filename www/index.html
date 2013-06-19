@@ -20,6 +20,10 @@
         <script charset="UTF-8" src="js/bootstrap-fileupload.min.js"></script>
         <script charset="UTF-8" src="js/ocr.js"></script>
         <script charset="UTF-8" src="phonegap.js"></script>
+        <!--  when creating mobile applications, phonegap.js is automatically included, 
+          see https://build.phonegap.com/docs/preparing-your-app
+          otherwse, it's skipped
+        -->
         <script charset="UTF-8" src="common.js"></script>
         
         <script charset="UTF-8">
@@ -72,7 +76,7 @@
                                 if (data.status == 0)
                                     top.location.href = HTML_URL + 'main.html';
                                 else
-                                    alert('Prijava ni uspela: ' + errorText(data.status));
+                                    alert('Prijava ni uspela: ' + data.status_loc);
                             },
                             error: ajaxError
                         });
@@ -103,7 +107,7 @@
                                 if (data.status == 0)
                                     alert('Registracija je uspela. Poslana vam je bila elektronska pošta. Prosimo potrdite registracijo.');
                                 else
-                                    alert('Registracija ni uspela: ' + errorText(data.status));
+                                    alert('Registracija ni uspela: ' + data.status_loc);
                             },
                             error: ajaxError
                         });
@@ -129,7 +133,7 @@
                                 if (data.status == 0)
                                     alert('Novo geslo poslano na email');
                                 else
-                                    alert('Napaka pri pošiljanju novega gesla: ' + errorText(data.status));
+                                    alert('Napaka pri pošiljanju novega gesla: ' + data.status_loc);
                             },
                             error: ajaxError
                         });
@@ -251,7 +255,7 @@
                     <div class="socialIcons">
                         <span>Sledite nam na </span>
                         <a href="https://www.facebook.com/pages/Moidom/371804792918719?fref=ts" target="_blank" class="facebook"></a>
-                        <a href="http://www.twitter.com/moidom1" target="_blank" class="twitter"></a>
+                        <a href="https://twitter.com/moidom_si" target="_blank" class="twitter"></a>
                     </div>
                 </div>
             </div>

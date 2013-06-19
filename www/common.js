@@ -16,53 +16,20 @@ function getHtmlUrl()
 
 var JSON_STATUS_OK = 0;
 var JSON_STATUS_NOT_LOGGED_IN = 4;
-var JSON_STATUS_SESSION_EXPIRED = 13;
+var JSON_STATUS_SESSION_EXPIRED = 7;
 
-function errorText(id) {
-	switch(id) {
-	case 0:
-		return "ni napake";
-	case 1:
-		return "podatek že obstaja";
-	case 2:
-		return "neveljavno uporabniško ime ali geslo";
-	case 3:
-		return "napačni vhodni podatki";
-	case 4:
-		return "uporabnik ni prijavljen";
-	case 5:
-		return "episma se ne da poslati";
-	case 6:
-		return "uporabnik ni potrjen";
-	case 7:
-		return "uporabnik je blokiran";
-	case 8:
-		return "prezgodnji datum ali čas";
-	case 9:
-		return "napačna obremenitev";
-	case 10:
-		return "napačni podatki v datoteki";
-	case 11:
-		return "izvoz podatkov je skrajšan, ker je preveč podatkov";
-	case 12:
-		return "napačni epoštni naslov, ima ločilo";
-	case 13:
-		return "uporabnikova seja je potekla, prijavi se ponovno";
-	case 14:
-	    return "uporabnik nima vzdrževalnih pravic";
-	default:
-		return "neopredeljena napaka";
-	}
-}
-
-
-function dataStatusIsBad (status)
+// the functions checks the 'status', depending on it
+// it either changes the web page to the login page (not logged in, no more logged in)
+// or shows an error messages (other errors)
+// or doesn noting special if status is fine
+// The functions returns true if the status means an error.
+function dataStatusIsBad (status, status_loc)
 {
     if (status != JSON_STATUS_OK) {
         if (status == JSON_STATUS_NOT_LOGGED_IN  ||  status == JSON_STATUS_SESSION_EXPIRED)
-            top.location.href = HTMLURL + 'index.html';
+            top.location.href = HTML_URL + 'index.html';
         else
-            alert('Pošiljanje podatkov ni uspelo, strežnik je vrnil napako: ' + errorText(status));
+            alert('Pošiljanje podatkov ni uspelo, strežnik je vrnil napako: ' + status_loc);
         return true;
     }
     return false;
