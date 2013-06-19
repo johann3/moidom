@@ -26,10 +26,12 @@ var JSON_STATUS_SESSION_EXPIRED = 7;
 function dataStatusIsBad (status, status_loc)
 {
     if (status != JSON_STATUS_OK) {
-        if (status == JSON_STATUS_NOT_LOGGED_IN  ||  status == JSON_STATUS_SESSION_EXPIRED)
+        if (status == JSON_STATUS_NOT_LOGGED_IN  ||  status == JSON_STATUS_SESSION_EXPIRED) {
+            alert('Niste (več) prijavljeni, sledi začetna stran');
             top.location.href = HTML_URL + 'index.html';
-        else
+        } else {
             alert('Pošiljanje podatkov ni uspelo, strežnik je vrnil napako: ' + status_loc);
+        }
         return true;
     }
     return false;
