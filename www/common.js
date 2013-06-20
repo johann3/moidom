@@ -1,6 +1,6 @@
 var DATA_URL = "http://www.moidom.si/server/";
+//DATA_URL = "http://www.moidom.si/server2/";  // server2 is used for testing
 //DATA_URL = "http://localhost:8080/server/";
-DATA_URL = "http://www.moidom.si/server2/";  // server2 is used for testing
 var HTML_URL = ""; // useful for tracking the code that changes URLs
 
 function getDataUrl()

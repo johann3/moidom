@@ -90,9 +90,9 @@
                         email: {required: true, email: true, maxlength: 50},
                         password: {required: true, minlength: 5, maxlength: 50},
                         confPassword: {required: true, minlength: 5, maxlength: 50, equalTo: "#password"},
-                        household_area: {required: true, number: true, min: 1},
-                        persons_in_household: {required: true, number: true, min: 1},
-                        electric_power: {number: true, min: 1},
+                        area: {required: true, number: true, min: 1},
+                        persons: {required: true, number: true, min: 1},
+                        in_power: {number: true, min: 1},
                         postal_code: {number: true, min: 1000, max: 9999}
                     },
                     submitHandler: function(form)
@@ -231,11 +231,11 @@
                                     <strong>Podatki o stanovanju:</strong>
                                     <label></label>
                                     <label>* Površina stanovanja (m2):</label>
-                                    <input type="number" name="household_area" class="input-medium">
+                                    <input type="number" name="area" class="input-medium">
                                     <label>* Število članov gospodinjstva:</label>
-                                    <input type="number" name="persons_in_household" class="input-medium">
+                                    <input type="number" name="persons" class="input-medium">
                                     <label>Priključna moč električnega priključka (kW):</label>
-                                    <input type="number" name="electric_power" class="input-medium">
+                                    <input type="number" name="in_power" class="input-medium">
                                     <label>Poštna številka kraja bivanja:</label>
                                     <input type="number" name="postal_code" class="input-medium">
                                     <div class="clearfix"></div>
