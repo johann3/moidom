@@ -283,7 +283,7 @@
             function genQuickActionHtml (name, nameSuffix, iconId, iconSuffix, tabId)
             {
                 var result =            
-                    '<a onclick="do_quick_jump(\''+iconId+'\', \'' + tabId +
+                    '<a class="quickIcon" onclick="do_quick_jump(\''+iconId+'\', \'' + tabId +
                     '\')"><img src="img/quick/' + iconId + iconSuffix + '.png" title="' + name + nameSuffix + '"></a>';
                 return result;                    
             }
@@ -995,13 +995,13 @@
                     <div class="tab-pane" id="Quick">
                         <span id="quickActions">
                         <!--
-                        <a onclick="do_quick_jump('ee','tabSubmit')"><img src="img/quick/eev.png" title="Elektrika (EUR) vnos"></a>
-                        <a onclick="do_quick_jump('ee','tabView')"><img src="img/quick/eep.png" title="Elektrika (EUR) prikaz"></a>
-                        <a onclick="do_quick_jump('ek','tabSubmit')"><img src="img/quick/ekv.png" title="Elektrika (količina) vnos"></a>
-                        <a onclick="do_quick_jump('ek','tabView')"><img src="img/quick/ekp.png" title="Elektrika (količina) prikaz"></a>
+                        <a class="quickIcon" onclick="do_quick_jump('ee','tabSubmit')"><img src="img/quick/eev.png" title="Elektrika (EUR) vnos"></a>
+                        <a class="quickIcon" onclick="do_quick_jump('ee','tabView')"><img src="img/quick/eep.png" title="Elektrika (EUR) prikaz"></a>
+                        <a class="quickIcon" onclick="do_quick_jump('ek','tabSubmit')"><img src="img/quick/ekv.png" title="Elektrika (količina) vnos"></a>
+                        <a class="quickIcon" onclick="do_quick_jump('ek','tabView')"><img src="img/quick/ekp.png" title="Elektrika (količina) prikaz"></a>
                         -->
                         </span>
-                        <!-- <a onclick="do_quick_jump('','tabConsult')"><img src="img/quick/advice.png" title="Svetovanje"></a> -->
+                        <!-- <a class="quickIcon" onclick="do_quick_jump('','tabConsult')"><img src="img/quick/advice.png" title="Svetovanje"></a> -->
                     </div>
                     
                     
