@@ -22,13 +22,13 @@ var JSON_STATUS_SESSION_EXPIRED = 7;
 // the functions checks the 'status', depending on it
 // it either changes the web page to the login page (not logged in, no more logged in)
 // or shows an error messages (other errors)
-// or doesn noting special if status is fine
+// or does nothing special if status is fine
 // The functions returns true if the status means an error.
 function dataStatusIsBad (status, status_loc)
 {
     if (status != JSON_STATUS_OK) {
         if (status == JSON_STATUS_NOT_LOGGED_IN  ||  status == JSON_STATUS_SESSION_EXPIRED) {
-            alert('Niste (več) prijavljeni (status ' + status + '), sledi začetna stran');
+            //alert('Niste (več) prijavljeni (status ' + status + '), sledi začetna stran');
             top.location.href = HTML_URL + 'index.html';
         } else {
             alert('Pošiljanje podatkov ni uspelo, strežnik je vrnil napako: ' + status_loc);

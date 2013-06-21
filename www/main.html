@@ -39,9 +39,9 @@
             var DATA_URL = getDataUrl(); // in common.js
             var HTML_URL = "";
 
-            var currentCommodityId = 0;  // remembers the last selected commodity
-            var assignedCommodityIdList = // IDs of lists that show assigned commodities per user 
-                ['submitCommodity', 'importCommodity', 'viewCommodity'];
+            var currentCommodityId = 0;  // remembers the last selected commodity; == 0 when no commodity, >= 1 actual value
+            var assignedCommodityIdList = // IDs of <select> lists that show assigned commodities per user 
+                ['#submitCommodity', '#importCommodity', '#viewCommodity'];
             var assignedCommodityCount = 0; // total number of assigned commodities to a user
 
             var GRAPH_EFFICIENCY = 1;
@@ -70,6 +70,23 @@
                 }
             };
             
+            
+            // The function updates the selected commodity in all <select>s
+            function updateCommoditySelection () {
+                if (currentCommodityId > 0) {
+                    for (var i=0; i<assignedCommodityIdList.length; i++) {
+                        $(assignedCommodityIdList[i]).val(currentCommodityId);
+                    }                
+                }
+            }
+            
+            
+            // The function returns true if it detects a mobile environment requiring quick menu by default
+            function isQuickMobile()
+            {
+                return window.innerWidth <= 800 && window.innerHeight <= 600;
+            }
+            
             $(document).ready(function() {
                 // Register the event handler 
                 document.addEventListener("deviceready", onDeviceReady, false);
@@ -83,23 +100,24 @@
                 // Populate the input form for the first time
                 populateAssignedCommodities();
 
+                if (isQuickMobile()) {
+                    $('#mainTabs #tabQuick').tab('show');
+                }
+                
                 // Connect tabs' show events
                 $('#tabSubmit').on('show', function() {
-                    populateAssignedCommodities();
+                    updateCommoditySelection();
                 });
                 $('#tabSingleSubmit').on('show', function() {
-                    populateAssignedCommodities();
+                    updateCommoditySelection();
                     $('submitTime').timepicker('setTime', formatTime(new Date()));
                     $('submitDate').datepicker('setValue', new Date());
-                    $('submitCommodity').removeAttr('disabled');
-                    if ($('#submitCommodity').val() == '') {
-                        $('#mainTabs #tabSettings').tab('show');
-                    }
                 });
                 $('#tabImport').on('show', function() {
-                    populateAssignedCommodities();
+                    updateCommoditySelection();
                 });
                 $('#tabView').on('show', function() {
+                    updateCommoditySelection();
                     populateTagsList('viewTag', 'assigned');
                     updateIndicatorsAndGraph();
                 });
@@ -143,7 +161,7 @@
                             commodity: $('#submitCommodity').val(),
                             value: $('#submitValue').val().replace(',', '.')
                         };
-                        var updateExisting = ($('#submitCommodity').attr('disabled') == 'disabled');
+                        var updateExisting = $('#updateExisting').is(':checked');
                         $.ajax({
                             url: DATA_URL + 'entry/' + (updateExisting ? 'update' : 'store'),
                             type: 'POST',
@@ -154,7 +172,6 @@
                                 if (dataStatusIsBad (data.status, data.status_loc))
                                     return; 
                                 $('#submitValue').val('');
-                                currentCommodityId = $('#submitCommodity').val();
                                 $('#mainTabs #tabView').tab('show');
                             },
                             error: ajaxError
@@ -248,6 +265,57 @@
                 setPicSourceType();
             }
  
+ 
+            // The function processes a click on icon in Quick (Hitro) menu
+            function do_quick_jump(iconId, tabId)
+            {
+                // the first few commodities (id from 1 to 6) have the abbreviations
+                // listed after 'o' 
+                var iconIds = ['o', 'ee', 'ek', 'te', 'tk', 've', 'vk'];
+                var commodityId = iconIds.indexOf (iconId);
+                if (commodityId > 0) {
+                    currentCommodityId = commodityId;
+                }
+                $('#mainTabs #' + tabId).tab('show');
+            }
+
+
+            function genQuickActionHtml (name, nameSuffix, iconId, iconSuffix, tabId)
+            {
+                var result =            
+                    '<a onclick="do_quick_jump(\''+iconId+'\', \'' + tabId +
+                    '\')"><img src="img/quick/' + iconId + iconSuffix + '.png" title="' + name + nameSuffix + '"></a>';
+                return result;                    
+            }
+            
+
+            function genQuickActionPair (name, iconId)
+            {
+                var s1 = genQuickActionHtml (name, ' - vnos', iconId, 'v', 'tabSubmit');
+                var s2 = genQuickActionHtml (name, ' - prikaz', iconId, 'p', 'tabView');
+                return s1 + s2;
+            }
+            
+            // The function updates the contents of #quickActions based on assigned 'commodities'
+            function updateQuickActions (commodities)
+            {
+                var comLength = commodities.length;
+                var actionHtml = '';
+                var anyOther = false;
+                for (var i=0; i<comLength; i++) {
+                    var name = commodities[i].name;
+                    var iconId = commodities[i].icon_id;
+                    if (iconId == 'o') {
+                        anyOther = true; // 'o' ostale obremenitve
+                        continue;
+                    }
+                    actionHtml += genQuickActionPair (name, iconId);
+                }
+                if (anyOther)
+                    actionHtml += genQuickActionPair ('Ostalo', 'o');
+                $('#quickActions').html(actionHtml);
+            }
+            
  
             function getEfficiencyUnitText()
             {
@@ -651,7 +719,7 @@
 
             // The function updates all the commodity lists with their ids 'idList'
             // by calling user/list_commodities with type set to 'typ'
-            // setting onclick attribute to the specified string in parameters
+            // setting onclick attributes to the specified string in parameters
             // 'removalCheckName', 'importCheckName', 'importDisableCheckName'
             // and finally calling function as specified by parameter 'oncomplete'
             function populateCommodityLists(idList, typ, oncomplete, removalCheckName, importEnableCheckName, importDisableCheckName)
@@ -670,6 +738,7 @@
                             var hintHtmlString = '';
                             var contentVisible = true;
                             if (assignedCommodityCount == 0) {
+                                currentCommodityId = 0;
                                 hintHtmlString = 'Na meniju <a href="#Settings" onclick="showTabSettings()">' + 
                                     'Nastavitve</a>&gt Obremenitve ' +
                                     'dodajte obremenitev, potem vnesite podatke.';
@@ -678,11 +747,12 @@
                             showHide ('#viewUnavailableHint', '#viewContents', hintHtmlString, contentVisible);
                             showHide ('#submitUnavailableHint', '#formSubmit', hintHtmlString, contentVisible);
                             showHide ('#importUnavailableHint', '#formImport', hintHtmlString, contentVisible);
+                            updateQuickActions (data.commodities);
                         }
                         for (var j=0; j < idList.length; j++) {
-                            id = idList[j];
-                            var el = document.getElementById(id);
-                            $('#' + id).empty();
+                            commodityListid = idList[j];
+                            var el = document.getElementById(commodityListid.substr(1));
+                            $(commodityListid).empty();
     
                             for (var i = 0; i < data.commodities.length; i++) {
                                 var commodity = data.commodities[i];
@@ -690,7 +760,7 @@
                                 var importKey = commodity["import_id"];
                                 var cumulative = commodity.cumulative;
                                 if (el.nodeName == "SELECT") {
-                                    $('#' + id).append('<option value="' + commodity.id + '" data-unit="' + commodity.unit + 
+                                    $(commodityListid).append('<option value="' + commodity.id + '" data-unit="' + commodity.unit + 
                                         '" data-cumulative="' + commodity.cumulative + '" ' + selected + '>' + commodity.name + '</option>');
                                 } else if (el.nodeName == "UL") {
                                     // values for removalCheckName, importEnableCheckName, importDisableCheckName are expected here                                    
@@ -707,7 +777,7 @@
                                             '&nbsp;<a href="#" style="float: none" onclick="' + 
                                             importDisableCheckName + '(' + commodity.id + ')">Onemogoči uvoz</a>';
                                     }
-                                    $('#' + id).append('<li>&nbsp;' + commodity.name + removeHtml +
+                                    $(commodityListid).append('<li>&nbsp;' + commodity.name + removeHtml +
                                         importHtml + '</li>');
                                 }
                             }
@@ -723,15 +793,15 @@
 
             function populateAssignedCommodities() {
                 // several lists with the same content in different part of application, all as SELECT
-                populateCommodityLists(assignedCommodityIdList, 'assigned', setSubmitFields);
+                populateCommodityLists(assignedCommodityIdList, 'assigned', updateSubmitForm);
             }
             
 
             function populateAssignedUnassignedCommodities() {
                 // both lists at setup menu, already assigned as UL and noy yet assigned as SELECT
-                populateCommodityLists(['assignedCommodities'], 'assigned', null, 
+                populateCommodityLists(['#assignedCommodities'], 'assigned', null, 
                     'unassignCommodityAsk', 'enableCommodityImportAsk', 'disableCommodityImportAsk');
-                populateCommodityLists(['unassignedCommodities'], 'unassigned', setAssignCommodityDependants);
+                populateCommodityLists(['#unassignedCommodities'], 'unassigned', setAssignCommodityDependants);
             }
 
 
@@ -822,31 +892,17 @@
                 }
             }
 
-            function setSubmitFields() {
+            // The function updates the values in simple submit form
+            // according to the submitCommodity and updateExisting value 
+            function updateSubmitForm() {
+                currentCommodityId = $('#submitCommodity').val();
+                var updateExisting = $('#updateExisting').is(':checked');
                 var unit = $('#submitCommodity').find(':selected').data('unit');
                 $('#submitUnit').text(' '+unit);
-
                 var cumulative = $('#submitCommodity').find(':selected').data('cumulative');
                 $('#submitCumulativeText').text(cumulative?'po števcu':'prirast od zadnjega vnosa');
-            }
-            
-            function logout() {
-                $.ajax({
-                    url: DATA_URL + 'user/logout',
-                    type: 'POST',
-                    xhrFields: { withCredentials: true },
-                    success: function(data, textStatus, xhr)
-                    {
-                        top.location.href = HTML_URL + 'index.html';
-                    },
-                    error: ajaxError
-                });
-            }
 
-            function getExistingValue() {
-                var updateExisting = ($('#submitCommodity').attr('disabled') == 'disabled');
-                if (updateExisting) {
-                    $('#submitCommodity').removeAttr('disabled');
+                if (!updateExisting) {
                     $('#submitDate').datepicker('setValue', new Date());
                     $('#submitTime').timepicker('setTime', formatTime(new Date()));
                     $('#submitValue').val('');
@@ -864,19 +920,36 @@
                         {
                             if (dataStatusIsBad (data.status, data.status_loc))
                                 return; 
-                            if (data.data.length != 1) {
-                                alert('Zadnje vnešeni podatek je bil uvožen preko datoteke in ga ni moč popravljati.');
+                            if (data.data.length > 1) {
+                                alert('Zadnje vnešeni odčitek je bil uvožen preko datoteke in ga ni moč popravljati, izklapljam stikalo "Popravi zadnjega".');
+                                $('#updateExisting').prop('checked', false);
                                 return;
                             }
-
+                            if (data.data.length == 0) {
+                                alert('Ni še vnešenih odčitkov, izklapljam stikalo "Popravi zadnjega".');
+                                $('#updateExisting').prop('checked', false);
+                                return;
+                            }
                             $('#submitDate').datepicker('setValue', data.data[0][0]);
                             $('#submitTime').timepicker('setTime', formatTime(new Date(data.data[0][0])));
                             $('#submitValue').val(data.data[0][1]);
-                            $('#submitCommodity').attr('disabled', 'disabled');
                         },
                         error: ajaxError
                     });
                 }
+            }
+
+            function logout() {
+                $.ajax({
+                    url: DATA_URL + 'user/logout',
+                    type: 'POST',
+                    xhrFields: { withCredentials: true },
+                    success: function(data, textStatus, xhr)
+                    {
+                        top.location.href = HTML_URL + 'index.html';
+                    },
+                    error: ajaxError
+                });
             }
 
             function requestDataEmail(cumulative) {
@@ -910,6 +983,7 @@
             <div class="mainContent">
             
                 <ul class="nav nav-tabs mainNav" id="mainTabs">
+                  <li><a href="#Quick" id="tabQuick" data-toggle="tab"><img src="img/navQuick.png" alt="Hitro" /><span>Hitro</span></a></li>
                   <li class="active"><a href="#Submit" id="tabSubmit" data-toggle="tab"><img src="img/navPlus.png" alt="Vnos" /><span>Vnos</span></a></li>
                   <li><a href="#View" id="tabView" data-toggle="tab"><img src="img/navView.png" alt="Prikaz" /><span>Prikaz</span></a></li>
                   <li><a href="#Consult" id="tabConsult" data-toggle="tab"><img src="img/navConsult.png" alt="Svetovanje" /><span>Svetovanje</span></a></li>
@@ -918,6 +992,19 @@
                 </ul>
                 
                 <div class="tab-content">
+                    <div class="tab-pane" id="Quick">
+                        <span id="quickActions">
+                        <!--
+                        <a onclick="do_quick_jump('ee','tabSubmit')"><img src="img/quick/eev.png" title="Elektrika (EUR) vnos"></a>
+                        <a onclick="do_quick_jump('ee','tabView')"><img src="img/quick/eep.png" title="Elektrika (EUR) prikaz"></a>
+                        <a onclick="do_quick_jump('ek','tabSubmit')"><img src="img/quick/ekv.png" title="Elektrika (količina) vnos"></a>
+                        <a onclick="do_quick_jump('ek','tabView')"><img src="img/quick/ekp.png" title="Elektrika (količina) prikaz"></a>
+                        -->
+                        </span>
+                        <!-- <a onclick="do_quick_jump('','tabConsult')"><img src="img/quick/advice.png" title="Svetovanje"></a> -->
+                    </div>
+                    
+                    
                     <div class="tab-pane active" id="Submit">
                         <ul class="nav nav-tabs subMenu">
                           <li class="active"><a data-toggle="tab" id="tabSingleSubmit" href="#singleSubmit">Enostaven vnos</a></li>
@@ -928,9 +1015,9 @@
                             <div id="singleSubmit" class="tab-pane active">
                                 <span id="submitUnavailableHint"></span>
                                 <form id="formSubmit">
-                                    <p>Popravi zadnjega: <input type="checkbox" name="updateExisting" onclick="getExistingValue()"></input></p>
                                     <p>Okoljska obremenitev:</p>
-                                    <select name="submitCommodity" id="submitCommodity" onchange="setSubmitFields()"></select>
+                                    <select name="submitCommodity" id="submitCommodity" onchange="updateSubmitForm()"></select>
+                                    <p>Popravi zadnjega: <input type="checkbox" name="updateExisting" id="updateExisting" onclick="updateSubmitForm()"></input></p>
                                     <p>Datum odčitka:</p>
                                         <input type="text" name="submitDate" id="submitDate" data-date-format="dd.mm.yyyy" data-date-language="sl" data-date-autoclose="true" >
                                     <p>Čas odčitka:</p>
@@ -955,7 +1042,7 @@
                                 <span id="importUnavailableHint"></span>
                                 <form id="formImport" method="post">
                                     <p>Okoljska obremenitev:</p>
-                                    <select name="commodity" id="importCommodity"></select>
+                                    <select name="commodity" id="importCommodity" onchange="currentCommodityId = $('#importCommodity').val();"></select>
                                     <br />
                                     <p>Datoteka za uvoz:</p>
                                     <div class="fileupload fileupload-new" data-provides="fileupload">
