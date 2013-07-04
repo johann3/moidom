@@ -6,20 +6,70 @@
 </title>
 <meta charset='utf-8'>
 <link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
 <script>
+var NODE_ID = 'node214';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
 function loadNext()
 {
-window.location = "start.html"
+if (document.getElementById("radio708").checked==true)
+window.location = "227.html";
+if (document.getElementById("radio709").checked==true)
+window.location = "212.html";
 }
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
 </script>
 </head>
 <body>
 <h1 id="title">
-Daljinska toplota posodobitev
+Daljinska toplota posodobitev.
 </h1>
 <p id="text1">
-V dokumentu si preberite nasvete za posodobitev vašega sistema
+Preverite možnosti za posodobitev ogrevalnega sistema. Za posodobitev sistema daljinskega sistema ogrevanja mora vaša zgradba imeti dostop do sistema daljinskega ogrevanja. Zato ugotavljam da:
 </p>
-<button type="button" id="button" onclick="loadNext()">Naprej</button>
+<p id="text2">
+Izberite možnost.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio708" value="radio708" onChange="updateForm()">Imam možnost posodobitve.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio709" value="radio709" onChange="updateForm()">Nimam možnosti nadaljnje uporabe tega sistema ogrevanja in bom šel nazaj na izbiro energenta.</td></tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
 </body>
 </html>

@@ -16,8 +16,10 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio295").checked==true)
-window.location = ".html";
+if (document.getElementById("radio905").checked==true)
+window.location = "212.html";
+if (document.getElementById("radio906").checked==true)
+window.location = "218.html";
 }
 
 $(document).ready(function() {
@@ -59,13 +61,14 @@ Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio295" value="radio295" onChange="updateForm()">Prehod na drug energent</td></tr>
+<tr><td><input type="radio" name="radio" id="radio905" value="radio905" onChange="updateForm()">Prehod na drug energent</td></tr>
+<tr><td><input type="radio" name="radio" id="radio906" value="radio906" onChange="updateForm()">Prehod na visokoučinkovito ogrevanje z električno energijo</td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">
-   Beležim podatke ...
+   Prenašam podatke ...
    </div>
 </div>
 </body>

@@ -194,7 +194,7 @@
                     },
                     error: ajaxError
                 });
-                
+                                
                 // Validate the input form: Modify user data
                 $("#formUserSettings").validate({
                     rules:
@@ -987,6 +987,7 @@
                   <li class="active"><a href="#Submit" id="tabSubmit" data-toggle="tab"><img src="img/navPlus.png" alt="Vnos" /><span>Vnos</span></a></li>
                   <li><a href="#View" id="tabView" data-toggle="tab"><img src="img/navView.png" alt="Prikaz" /><span>Prikaz</span></a></li>
                   <li><a href="#Consult" id="tabConsult" data-toggle="tab"><img src="img/navConsult.png" alt="Svetovanje" /><span>Svetovanje</span></a></li>
+                  <li><a href="#Train" id="tabTrain" data-toggle="tab"><img src="img/navTrain.png" alt="Vaje" /><span>Vaje</span></a></li>
                   <li><a href="#Settings" id="tabSettings" data-toggle="tab"><img src="img/navSettings.png" alt="Nastavitve" /><span>Nastavitve</span></a></li>
                   <li><a href="#Logout" id="tabLogout" data-toggle="tab"><img src="img/navLogout.png" alt="Odjava" /><span>Odjava</span></a></li>
                 </ul>
@@ -1001,7 +1002,8 @@
                         <a class="quickIcon" onclick="do_quick_jump('ek','tabView')"><img src="img/quick/ekp.png" title="Elektrika (količina) prikaz"></a>
                         -->
                         </span>
-                        <!-- <a class="quickIcon" onclick="do_quick_jump('','tabConsult')"><img src="img/quick/advice.png" title="Svetovanje"></a> -->
+                        <a class="quickIcon" onclick="do_quick_jump('','tabConsult')"><img src="img/quick/consult.png" title="Svetovanje"></a>
+                        <a class="quickIcon" onclick="do_quick_jump('','tabTrain')"><img src="img/quick/train.png" title="Vaje"></a>
                     </div>
                     
                     
@@ -1044,6 +1046,9 @@
                                     <p>Okoljska obremenitev:</p>
                                     <select name="commodity" id="importCommodity" onchange="currentCommodityId = $('#importCommodity').val();"></select>
                                     <br />
+                                    <p>Vrsta datoteke</p>
+                                    <label class="radio"><input type="radio" name="format" id="csvImport" value="csv" checked="true">CSV</label>
+                                    <label class="radio"><input type="radio" name="format" id="fhemImport" value="fhem">FHEM</label>
                                     <p>Datoteka za uvoz:</p>
                                     <div class="fileupload fileupload-new" data-provides="fileupload">
                                         <div class="input-append">
@@ -1059,6 +1064,9 @@
                                             <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Odstrani</a>
                                         </div>
                                     </div>
+                                    <br />
+                                    Ime spremenljivke za FHEM
+                                    <input type="text" name="variable" id="fhemVariable">
                                     <br />
                                     <input type="submit" value="Uvozi" class="submit btn btn-primary btn-success">
                                 </form>
@@ -1178,6 +1186,23 @@
                         </div>
                     </div> <!-- div id="Consult" -->                    
                     
+                    <div class="tab-pane" id="Train">
+                        <div id="commodityValSubmit">
+                            <script>
+                            jQuery(document).ready(function() {
+                                var height = $(window).height() - 130;
+                                $('#consultFrame').css('height', height);
+                                $(window).resize(function() {
+                                    var height2 = $(window).height() - 130;
+                                    $('#consultFrame').css('height', height2);
+                               });
+                            });
+                            </script>
+                            <iframe id="consultFrame" src="vaje/start.html" height="500" width="100%"
+                                allowtransparency="true" border="0" style="border: none;"></iframe>
+                        </div>
+                    </div> <!-- div id="Train" -->                    
+                    
                     <div class="tab-pane fade" id="Settings">
                         <ul class="nav nav-tabs subMenu">
                           <li class="active"><a data-toggle="tab" href="#commoditySettings" onclick="populateAssignedUnassignedCommodities()">Obremenitve</a></li>
@@ -1202,7 +1227,7 @@
                                             <input type="text" name="startTime" id="startTime" data-template="dropdown" data-show-seconds="true" data-show-meridian="false" data-disable-focus="true" data-show-inputs="true" data-minute-step="1" data-second-step="1" >
                                         </div>
                                     <p>Začetna vrednost:</p>
-                                    <input type="number" name="startValue" id="startValue" class="input-small" value="0"> <span id="assignCommodityUnit"></span><br />
+                                    <input type="text" name="startValue" id="startValue" class="input-small" value="0"> <span id="assignCommodityUnit"></span><br />
                                     <div class="clearfix"></div>
                                     <input type="submit" value="Dodaj novo obremenitev" class="submit btn btn-primary btn-success">
                                 </form>

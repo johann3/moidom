@@ -16,12 +16,14 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio288").checked==true)
+if (document.getElementById("radio897").checked==true)
 window.location = "305.html";
-if (document.getElementById("radio289").checked==true)
+if (document.getElementById("radio898").checked==true)
 window.location = "306.html";
-if (document.getElementById("radio290").checked==true)
+if (document.getElementById("radio899").checked==true)
 window.location = "307.html";
+if (document.getElementById("radio900").checked==true)
+window.location = "318.html";
 }
 
 $(document).ready(function() {
@@ -63,15 +65,16 @@ Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio288" value="radio288" onChange="updateForm()">Ogrevanje</td></tr>
-<tr><td><input type="radio" name="radio" id="radio289" value="radio289" onChange="updateForm()">Razsvetljava</td></tr>
-<tr><td><input type="radio" name="radio" id="radio290" value="radio290" onChange="updateForm()">Bela tehnika</td></tr>
+<tr><td><input type="radio" name="radio" id="radio897" value="radio897" onChange="updateForm()">Ogrevanje</td></tr>
+<tr><td><input type="radio" name="radio" id="radio898" value="radio898" onChange="updateForm()">Razsvetljava</td></tr>
+<tr><td><input type="radio" name="radio" id="radio899" value="radio899" onChange="updateForm()">Bela tehnika</td></tr>
+<tr><td><input type="radio" name="radio" id="radio900" value="radio900" onChange="updateForm()">Mali gospodinski aparati</td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">
-   Beležim podatke ...
+   Prenašam podatke ...
    </div>
 </div>
 </body>

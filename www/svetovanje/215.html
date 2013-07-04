@@ -6,11 +6,47 @@
 </title>
 <meta charset='utf-8'>
 <link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
 <script>
+var NODE_ID = 'node215';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
 function loadNext()
 {
-window.location = "start.html"
+if (document.getElementById("radio714").checked==true)
+window.location = "230.html";
+if (document.getElementById("radio715").checked==true)
+window.location = "212.html";
 }
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
 </script>
 </head>
 <body>
@@ -18,8 +54,22 @@ window.location = "start.html"
 Lesna biomasa posodobitev
 </h1>
 <p id="text1">
-V dokumentu si preberite nasvete za posodobitev vašega sistema
+Za namestitev sistema ogrevanja z lesno biomaso morate najprej preveriti ali imate prostorske in logistične možnosti za izrabo tega energenta. Torej ali ima vaša zgradba prostor z dimnikom, ali z možnostjo namestitve dimnika. Ta prostor je dovolj velik za  kotel in zalogovnike goriva ter toplote in ima tudi možnost dostopa za dobavo goriva. Zato ugotavljam da:
 </p>
-<button type="button" id="button" onclick="loadNext()">Naprej</button>
+<p id="text2">
+Izberite možnost.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio714" value="radio714" onChange="updateForm()">Imam možnost posodobitve sistema ogrevanja z lesno biomaso.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio715" value="radio715" onChange="updateForm()">Nimam več možnosti uporabe tega sistema ogrevanja in bom šel nazaj na izbiro energenta.</td></tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
 </body>
 </html>
