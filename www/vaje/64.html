@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+64
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node64';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("radio374").checked==true)
+window.location = "65.html";
+if (document.getElementById("radio375").checked==true)
+window.location = "64.html";
+if (document.getElementById("radio376").checked==true)
+window.location = "64.html";
+if (document.getElementById("radio377").checked==true)
+window.location = "64.html";
+}
+function updateForm()
+{
+var correct=true;
+if (document.getElementById("radio374").checked!=true) {
+    correct=false;
+}
+if (document.getElementById("radio375").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio376").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio377").checked!=false) {
+    correct=false;
+}
+if (correct==true) {
+   document.getElementById("evaluation").innerHTML="pravilen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(100,255,100)";
+}
+else {
+   document.getElementById("evaluation").innerHTML="napačen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(255,100,100)";
+}
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Toplota
+</h1>
+<p id="text1">
+Voda ima visoko specifično toploto …
+</p>
+<p id="text2">
+Označite trditev s klikom.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio374" value="radio374" onChange="updateForm()">to omogoča ugodno klimo na Zemlji, hkrati pa nam veča račune, ker porabimo veliko energije za ogrevanje sanitarne vode</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio375" value="radio375" onChange="updateForm()">ta podatek ni pomemben za življenje na Zemlji</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio376" value="radio376" onChange="updateForm()">ta visoka specifična toplota povzroča globalno segrevanje</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio377" value="radio377" onChange="updateForm()">ta podatek ne drži, saj imamo na primer kovine veliko večjo specifično toploto</td><td></td></tr>
+<tr>
+<td> Vaš odgovor je </td>
+<td id="evaluation"> nepopoln. </td>
+</tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>

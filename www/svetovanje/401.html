@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+401
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node401';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("radio979").checked==true)
+window.location = "402.html";
+if (document.getElementById("radio980").checked==true)
+window.location = "403.html";
+if (document.getElementById("radio981").checked==true)
+window.location = "403.html";
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Zmanjšanje stroškov za vodo
+</h1>
+<p id="text1">
+Za zmanjšanje stroškov vode imate na voljo naslednje možnosti.
+</p>
+<p id="text2">
+Izberite možnost.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio979" value="radio979" onChange="updateForm()">Lahko zmanjšate porabo.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio980" value="radio980" onChange="updateForm()">Lahko preverite vašo velikost priključka.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio981" value="radio981" onChange="updateForm()">Lahko poiščete druge vire</td></tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>

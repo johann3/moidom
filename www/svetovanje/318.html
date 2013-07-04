@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+318
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node318';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("radio965").checked==true)
+window.location = "319.html";
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Mali gospodinski aparati
+</h1>
+<p id="text1">
+Pri malih gospodinjskih aparatih obstaja nekaj splošnih nasvetov kako varčevati. Prvo pravilo je da že pri nakupu naprav izberemo tiste z boljšim energetskim razredom, ta naj bo vsaj A ali A+. Za podrobnejše informacije izberite napravo, ki vas podrobneje zanima.
+</p>
+<p id="text2">
+Izberite možnost.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio965" value="radio965" onChange="updateForm()">Likalnik</td></tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>

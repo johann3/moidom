@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+153
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node153';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("radio629").checked==true)
+window.location = "153.html";
+if (document.getElementById("radio630").checked==true)
+window.location = "153.html";
+if (document.getElementById("radio631").checked==true)
+window.location = "154.html";
+if (document.getElementById("radio632").checked==true)
+window.location = "153.html";
+}
+function updateForm()
+{
+var correct=true;
+if (document.getElementById("radio629").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio630").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio631").checked!=true) {
+    correct=false;
+}
+if (document.getElementById("radio632").checked!=false) {
+    correct=false;
+}
+if (correct==true) {
+   document.getElementById("evaluation").innerHTML="pravilen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(100,255,100)";
+}
+else {
+   document.getElementById("evaluation").innerHTML="napačen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(255,100,100)";
+}
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Voda: Varčevanje z vodo.
+</h1>
+<p id="text1">
+Predpostavimo, da v vašem kraju letno pade 1000 mm padavin na kvadratni meter površine (prave vrednosti za vaš kraj bivanja lahko poiščete v Statističnem letopisu RS; http://www.stat.si/letopis/2012/01_12/01-08-12.htm). Ocenite, koliko deževnice bi lahko zbrali s strehe družinske hiše s površino 200 kvadratnih metrov?
+</p>
+<p id="text2">
+Označite trditev s klikom.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio629" value="radio629" onChange="updateForm()">2 kubična metra vode</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio630" value="radio630" onChange="updateForm()">20 kubičnih metrov vode</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio631" value="radio631" onChange="updateForm()">200 kubičnih metrov vode</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio632" value="radio632" onChange="updateForm()">2000 kubičnih metrov vode</td><td></td></tr>
+<tr>
+<td> Vaš odgovor je </td>
+<td id="evaluation"> nepopoln. </td>
+</tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>

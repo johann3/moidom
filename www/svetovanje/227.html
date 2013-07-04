@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+227
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node227';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("radio792").checked==true)
+window.location = "228.html";
+if (document.getElementById("radio793").checked==true)
+window.location = "229.html";
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Daljinska toplota sistem
+</h1>
+<p id="text1">
+Kvaliteten sistem daljinskega ogrevanja zahteva namestitev moderne avtomatizirane in kompaktne toplotne podpostaje pri uporabniku. Ta omogoča kvalitetno izrabo toplote in natančno regulacijo, ki je prilagojena potrebam uporabnika. Pri temu je pomembno, da so vse komponente ogrevalnega sistema pravilno dimenzionirane in uravnotežene. Poglejte si še podrobnejše razlage komponent sistema.
+</p>
+<p id="text2">
+Izberite možnost.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio792" value="radio792" onChange="updateForm()">Kaj je toplotna podpostaja.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio793" value="radio793" onChange="updateForm()">Kaj je uravnoteženje ogrevalnega sistema.</td></tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>

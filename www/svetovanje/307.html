@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+307
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node307';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("radio937").checked==true)
+window.location = "312.html";
+if (document.getElementById("radio938").checked==true)
+window.location = "313.html";
+if (document.getElementById("radio939").checked==true)
+window.location = "314.html";
+if (document.getElementById("radio940").checked==true)
+window.location = "315.html";
+if (document.getElementById("radio941").checked==true)
+window.location = "316.html";
+if (document.getElementById("radio942").checked==true)
+window.location = "317.html";
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Bela tehnika
+</h1>
+<p id="text1">
+Pri napravah bele tehnike obstaja nekaj splošnih nasvetov kako varčevati. Prvo pravilo je da že pri nakupu naprav izberemo tiste z boljšim energetskim razredom, ta naj bo vsaj A ali A+. Za podrobnejše informacije izberite napravo, ki vas podrobneje zanima.
+</p>
+<p id="text2">
+Izberite možnost.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio937" value="radio937" onChange="updateForm()">Pralni stroj</td></tr>
+<tr><td><input type="radio" name="radio" id="radio938" value="radio938" onChange="updateForm()">Pomivalni stroj</td></tr>
+<tr><td><input type="radio" name="radio" id="radio939" value="radio939" onChange="updateForm()">Štedilnik</td></tr>
+<tr><td><input type="radio" name="radio" id="radio940" value="radio940" onChange="updateForm()">Pečica</td></tr>
+<tr><td><input type="radio" name="radio" id="radio941" value="radio941" onChange="updateForm()">Hladilnik in zamrzovalnik</td></tr>
+<tr><td><input type="radio" name="radio" id="radio942" value="radio942" onChange="updateForm()">Sušilni stroj</td></tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>

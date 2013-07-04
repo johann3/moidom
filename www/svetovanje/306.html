@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+306
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node306';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("radio911").checked==true)
+window.location = "308.html";
+if (document.getElementById("radio912").checked==true)
+window.location = "309.html";
+if (document.getElementById("radio913").checked==true)
+window.location = "310.html";
+if (document.getElementById("radio914").checked==true)
+window.location = "311.html";
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Razsvetljava
+</h1>
+<p id="text1">
+Čim bolje izkoristimo dnevno svetlobo. Na voljo imamo več možnosti: Prostori, v katerih se podnevi najbolj zadržujemo - kuhinja, dnevna soba, naj imajo okna proti jugu oziroma zahodu. Delovne površine - pisalna miza, kuhinjski pult, naj bodo v bližini oken. Velike in visoke omare razporejamo čim dlje od okna, da nam ne bodo po nepotrebnem odžirale svetlobo. Zavese na oknih naj bodo tanke in prosojne. Odvečne svetlobe se raje znebimo z dodatnimi senčili. 13. Vedno ugasnimo luči, ko zapuščamo prostor. Kakšno razvetljavo oziroma kalšne tipe svetilk uporabljate?
+</p>
+<p id="text2">
+Izberite možnost.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio911" value="radio911" onChange="updateForm()">Navadne žarnice</td></tr>
+<tr><td><input type="radio" name="radio" id="radio912" value="radio912" onChange="updateForm()">Fluorescenčne sijalke</td></tr>
+<tr><td><input type="radio" name="radio" id="radio913" value="radio913" onChange="updateForm()">Visokoučinkovite varčne in kompaktne sijalke</td></tr>
+<tr><td><input type="radio" name="radio" id="radio914" value="radio914" onChange="updateForm()">Led svetilke</td></tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>

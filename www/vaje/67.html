@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+67
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node67';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("radio398").checked==true)
+window.location = "67.html";
+if (document.getElementById("radio399").checked==true)
+window.location = "67.html";
+if (document.getElementById("radio400").checked==true)
+window.location = "67.html";
+if (document.getElementById("radio401").checked==true)
+window.location = "68.html";
+}
+function updateForm()
+{
+var correct=true;
+if (document.getElementById("radio398").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio399").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio400").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio401").checked!=true) {
+    correct=false;
+}
+if (correct==true) {
+   document.getElementById("evaluation").innerHTML="pravilen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(100,255,100)";
+}
+else {
+   document.getElementById("evaluation").innerHTML="napačen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(255,100,100)";
+}
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Toplota
+</h1>
+<p id="text1">
+Vse snovi se z večanjem temperature raztezajo. Od česa je odvisen raztezek?
+</p>
+<p id="text2">
+Označite trditev s klikom.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio398" value="radio398" onChange="updateForm()">Od toplote, izpostavljenosti svetlobi in razteznega koenficienta</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio399" value="radio399" onChange="updateForm()">Od prvotne temperature, polovične dolžine in razteznega koeficienta</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio400" value="radio400" onChange="updateForm()">Od notranje energije, prečnega preseka in četrtine dolžine</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio401" value="radio401" onChange="updateForm()">Od prvotne dolžine, razteznega koeficienta in razlike temperatur</td><td></td></tr>
+<tr>
+<td> Vaš odgovor je </td>
+<td id="evaluation"> nepopoln. </td>
+</tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+71
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node71';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("radio430").checked==true)
+window.location = "71.html";
+if (document.getElementById("radio431").checked==true)
+window.location = "71.html";
+if (document.getElementById("radio432").checked==true)
+window.location = "71.html";
+if (document.getElementById("radio433").checked==true)
+window.location = "72.html";
+}
+function updateForm()
+{
+var correct=true;
+if (document.getElementById("radio430").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio431").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio432").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio433").checked!=true) {
+    correct=false;
+}
+if (correct==true) {
+   document.getElementById("evaluation").innerHTML="pravilen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(100,255,100)";
+}
+else {
+   document.getElementById("evaluation").innerHTML="napačen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(255,100,100)";
+}
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Toplota
+</h1>
+<p id="text1">
+Kako bi zračunal izkoristek nekega toplotnega stroja?
+</p>
+<p id="text2">
+Označite trditev s klikom.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio430" value="radio430" onChange="updateForm()">Delo krat čas, v katerem to delo opravlja</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio431" value="radio431" onChange="updateForm()">Moč stroja krat delo, ki ga opravi</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio432" value="radio432" onChange="updateForm()">Sila s katero delo opravlja deljeno s časom, v katerem opravlja delo</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio433" value="radio433" onChange="updateForm()">Kot razmerje oddanega dela in prejete toplote </td><td></td></tr>
+<tr>
+<td> Vaš odgovor je </td>
+<td id="evaluation"> nepopoln. </td>
+</tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>
