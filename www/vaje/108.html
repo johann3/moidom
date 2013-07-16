@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio591").checked==true)
+if (document.getElementById("radio61").checked==true)
 window.location = "108.html";
-if (document.getElementById("radio592").checked==true)
+if (document.getElementById("radio62").checked==true)
 window.location = "109.html";
-if (document.getElementById("radio593").checked==true)
+if (document.getElementById("radio63").checked==true)
 window.location = "108.html";
-if (document.getElementById("radio594").checked==true)
+if (document.getElementById("radio64").checked==true)
 window.location = "108.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio591").checked!=false) {
+if (document.getElementById("radio61").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio592").checked!=true) {
+if (document.getElementById("radio62").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio593").checked!=false) {
+if (document.getElementById("radio63").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio594").checked!=false) {
+if (document.getElementById("radio64").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,10 +89,10 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio591" value="radio591" onChange="updateForm()">Na skrivaj jih boste odložili v sosedov zabojnik.</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio592" value="radio592" onChange="updateForm()">Odpeljali jih boste na ekološki otok.</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio593" value="radio593" onChange="updateForm()">Spravili jih boste v vreče in počakali na naslednji odvoz.</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio594" value="radio594" onChange="updateForm()">V črnih vrečah jih boste položili ob posodo za odpadke.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio61" value="radio61" onChange="updateForm()">Na skrivaj jih boste odložili v sosedov zabojnik.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio62" value="radio62" onChange="updateForm()">Odpeljali jih boste na ekološki otok.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio63" value="radio63" onChange="updateForm()">Spravili jih boste v vreče in počakali na naslednji odvoz.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio64" value="radio64" onChange="updateForm()">V črnih vrečah jih boste položili ob posodo za odpadke.</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

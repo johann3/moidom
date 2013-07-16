@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio390").checked==true)
+if (document.getElementById("radio673").checked==true)
 window.location = "66.html";
-if (document.getElementById("radio391").checked==true)
+if (document.getElementById("radio674").checked==true)
 window.location = "67.html";
-if (document.getElementById("radio392").checked==true)
+if (document.getElementById("radio675").checked==true)
 window.location = "66.html";
-if (document.getElementById("radio393").checked==true)
+if (document.getElementById("radio676").checked==true)
 window.location = "66.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio390").checked!=false) {
+if (document.getElementById("radio673").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio391").checked!=true) {
+if (document.getElementById("radio674").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio392").checked!=false) {
+if (document.getElementById("radio675").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio393").checked!=false) {
+if (document.getElementById("radio676").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,10 +89,10 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio390" value="radio390" onChange="updateForm()">Ne drži, temperatura mu naraste</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio391" value="radio391" onChange="updateForm()">Drži, na ta princip delujejo klimatske naprave</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio392" value="radio392" onChange="updateForm()">Temperatura plina je konstantna ne glede na volumen</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio393" value="radio393" onChange="updateForm()">Plinu se temperatura spremeni samo, če spreminjamo pritisk</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio673" value="radio673" onChange="updateForm()">Ne drži, temperatura mu naraste</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio674" value="radio674" onChange="updateForm()">Drži, na ta princip delujejo klimatske naprave</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio675" value="radio675" onChange="updateForm()">Temperatura plina je konstantna ne glede na volumen</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio676" value="radio676" onChange="updateForm()">Plinu se temperatura spremeni samo, če spreminjamo pritisk</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

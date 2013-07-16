@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio398").checked==true)
+if (document.getElementById("radio681").checked==true)
 window.location = "67.html";
-if (document.getElementById("radio399").checked==true)
+if (document.getElementById("radio682").checked==true)
 window.location = "67.html";
-if (document.getElementById("radio400").checked==true)
+if (document.getElementById("radio683").checked==true)
 window.location = "67.html";
-if (document.getElementById("radio401").checked==true)
+if (document.getElementById("radio684").checked==true)
 window.location = "68.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio398").checked!=false) {
+if (document.getElementById("radio681").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio399").checked!=false) {
+if (document.getElementById("radio682").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio400").checked!=false) {
+if (document.getElementById("radio683").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio401").checked!=true) {
+if (document.getElementById("radio684").checked!=true) {
     correct=false;
 }
 if (correct==true) {
@@ -89,10 +89,10 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio398" value="radio398" onChange="updateForm()">Od toplote, izpostavljenosti svetlobi in razteznega koenficienta</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio399" value="radio399" onChange="updateForm()">Od prvotne temperature, polovične dolžine in razteznega koeficienta</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio400" value="radio400" onChange="updateForm()">Od notranje energije, prečnega preseka in četrtine dolžine</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio401" value="radio401" onChange="updateForm()">Od prvotne dolžine, razteznega koeficienta in razlike temperatur</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio681" value="radio681" onChange="updateForm()">Od toplote, izpostavljenosti svetlobi in razteznega koenficienta</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio682" value="radio682" onChange="updateForm()">Od prvotne temperature, polovične dolžine in razteznega koeficienta</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio683" value="radio683" onChange="updateForm()">Od notranje energije, prečnega preseka in četrtine dolžine</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio684" value="radio684" onChange="updateForm()">Od prvotne dolžine, razteznega koeficienta in razlike temperatur</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

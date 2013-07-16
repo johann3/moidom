@@ -16,23 +16,33 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio446").checked==true)
+if (document.getElementById("radio729").checked==true)
 window.location = "74.html";
-if (document.getElementById("radio447").checked==true)
+if (document.getElementById("radio730").checked==true)
+window.location = "74.html";
+if (document.getElementById("radio731").checked==true)
+window.location = "74.html";
+if (document.getElementById("radio732").checked==true)
 window.location = "73.html";
-if (document.getElementById("radio448").checked==true)
+if (document.getElementById("radio733").checked==true)
 window.location = "73.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio446").checked!=true) {
+if (document.getElementById("radio729").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio447").checked!=false) {
+if (document.getElementById("radio730").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio448").checked!=false) {
+if (document.getElementById("radio731").checked!=true) {
+    correct=false;
+}
+if (document.getElementById("radio732").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio733").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -77,16 +87,18 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-Označite način izmenjave toplote
+Označite vse načine izmenjave toplote
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio446" value="radio446" onChange="updateForm()">sevanje</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio447" value="radio447" onChange="updateForm()">žarnjenje</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio448" value="radio448" onChange="updateForm()">pihanje</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio729" value="radio729" onChange="updateForm()">prevajanje</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio730" value="radio730" onChange="updateForm()">konvekcija</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio731" value="radio731" onChange="updateForm()">sevanje</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio732" value="radio732" onChange="updateForm()">žarnjenje</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio733" value="radio733" onChange="updateForm()">pihanje</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

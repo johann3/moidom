@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio382").checked==true)
+if (document.getElementById("radio665").checked==true)
 window.location = "65.html";
-if (document.getElementById("radio383").checked==true)
+if (document.getElementById("radio666").checked==true)
 window.location = "65.html";
-if (document.getElementById("radio384").checked==true)
+if (document.getElementById("radio667").checked==true)
 window.location = "66.html";
-if (document.getElementById("radio385").checked==true)
+if (document.getElementById("radio668").checked==true)
 window.location = "65.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio382").checked!=false) {
+if (document.getElementById("radio665").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio383").checked!=false) {
+if (document.getElementById("radio666").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio384").checked!=true) {
+if (document.getElementById("radio667").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio385").checked!=false) {
+if (document.getElementById("radio668").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,10 +89,10 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio382" value="radio382" onChange="updateForm()">Tekočina (kalorik), ki teče od vročih teles k hladnim</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio383" value="radio383" onChange="updateForm()">Abstraktna količina, ki so jo uvedli fiziki, da poenostavijo računanje</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio384" value="radio384" onChange="updateForm()">Kinetična energije (gibanje) osnovnih delcev</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio385" value="radio385" onChange="updateForm()">Sončna energija</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio665" value="radio665" onChange="updateForm()">Tekočina (kalorik), ki teče od vročih teles k hladnim</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio666" value="radio666" onChange="updateForm()">Abstraktna količina, ki so jo uvedli fiziki, da poenostavijo računanje</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio667" value="radio667" onChange="updateForm()">Kinetična energije (gibanje) osnovnih delcev</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio668" value="radio668" onChange="updateForm()">Sončna energija</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

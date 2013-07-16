@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio583").checked==true)
+if (document.getElementById("radio53").checked==true)
 window.location = "107.html";
-if (document.getElementById("radio584").checked==true)
+if (document.getElementById("radio54").checked==true)
 window.location = "108.html";
-if (document.getElementById("radio585").checked==true)
+if (document.getElementById("radio55").checked==true)
 window.location = "107.html";
-if (document.getElementById("radio586").checked==true)
+if (document.getElementById("radio56").checked==true)
 window.location = "107.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio583").checked!=false) {
+if (document.getElementById("radio53").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio584").checked!=true) {
+if (document.getElementById("radio54").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio585").checked!=false) {
+if (document.getElementById("radio55").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio586").checked!=false) {
+if (document.getElementById("radio56").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,10 +89,10 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio583" value="radio583" onChange="updateForm()">metana</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio584" value="radio584" onChange="updateForm()">ogljikovega dioksida</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio585" value="radio585" onChange="updateForm()">ogljikovega monoksida</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio586" value="radio586" onChange="updateForm()">vodne pare</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio53" value="radio53" onChange="updateForm()">metana</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio54" value="radio54" onChange="updateForm()">ogljikovega dioksida</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio55" value="radio55" onChange="updateForm()">ogljikovega monoksida</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio56" value="radio56" onChange="updateForm()">vodne pare</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

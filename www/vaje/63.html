@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio366").checked==true)
+if (document.getElementById("radio649").checked==true)
 window.location = "63.html";
-if (document.getElementById("radio367").checked==true)
+if (document.getElementById("radio650").checked==true)
 window.location = "64.html";
-if (document.getElementById("radio368").checked==true)
+if (document.getElementById("radio651").checked==true)
 window.location = "63.html";
-if (document.getElementById("radio369").checked==true)
+if (document.getElementById("radio652").checked==true)
 window.location = "63.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio366").checked!=false) {
+if (document.getElementById("radio649").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio367").checked!=true) {
+if (document.getElementById("radio650").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio368").checked!=false) {
+if (document.getElementById("radio651").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio369").checked!=false) {
+if (document.getElementById("radio652").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -82,17 +82,17 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-Sosed, na katerega mejimo s steno, ima rad v stanovanju nižjo temperaturo. Kakšno je smotrno dejanje?
+Sosed, na katerega mejimo s steno, ima rad v stanovanju nižjo temperaturo. Kakšno je smoterno dejanje?
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio366" value="radio366" onChange="updateForm()">Pred mejno steno vgradimo radiator in tako preprečimo hladu, da prehaja iz sosedovega stanovanja</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio367" value="radio367" onChange="updateForm()">Mejno steno izoliramo</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio368" value="radio368" onChange="updateForm()">Mejno steno prebarvamo na oranžno</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio369" value="radio369" onChange="updateForm()">Nič ne naredimo, saj toplotne izgube prizadanejo le soseda</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio649" value="radio649" onChange="updateForm()">Pred mejno steno vgradimo radiator in tako preprečimo hladu, da prehaja iz sosedovega stanovanja</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio650" value="radio650" onChange="updateForm()">Mejno steno izoliramo</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio651" value="radio651" onChange="updateForm()">Mejno steno prebarvamo na oranžno</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio652" value="radio652" onChange="updateForm()">Nič ne naredimo, saj toplotne izgube prizadanejo le soseda</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

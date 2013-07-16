@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio334").checked==true)
+if (document.getElementById("radio617").checked==true)
 window.location = "59.html";
-if (document.getElementById("radio335").checked==true)
+if (document.getElementById("radio618").checked==true)
 window.location = "60.html";
-if (document.getElementById("radio336").checked==true)
+if (document.getElementById("radio619").checked==true)
 window.location = "59.html";
-if (document.getElementById("radio337").checked==true)
+if (document.getElementById("radio620").checked==true)
 window.location = "59.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio334").checked!=false) {
+if (document.getElementById("radio617").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio335").checked!=true) {
+if (document.getElementById("radio618").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio336").checked!=false) {
+if (document.getElementById("radio619").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio337").checked!=false) {
+if (document.getElementById("radio620").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,10 +89,10 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio334" value="radio334" onChange="updateForm()">ogrevanje na elektriko, saj vodni grelci niso veliki porabniki energije</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio335" value="radio335" onChange="updateForm()">vgraditi sončne kolektorje</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio336" value="radio336" onChange="updateForm()">ogrevanje z lesno biomaso, saj je cenejša kot elektrika</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio337" value="radio337" onChange="updateForm()">ogrevanje na kurilno olje, saj je cenejše kot lesna biomasa</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio617" value="radio617" onChange="updateForm()">ogrevanje na elektriko, saj vodni grelci niso veliki porabniki energije</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio618" value="radio618" onChange="updateForm()">vgraditi sončne kolektorje</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio619" value="radio619" onChange="updateForm()">ogrevanje z lesno biomaso, saj je cenejša kot elektrika</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio620" value="radio620" onChange="updateForm()">ogrevanje na kurilno olje, saj je cenejše kot lesna biomasa</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

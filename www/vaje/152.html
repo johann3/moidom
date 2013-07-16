@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio621").checked==true)
+if (document.getElementById("radio94").checked==true)
 window.location = "152.html";
-if (document.getElementById("radio622").checked==true)
+if (document.getElementById("radio95").checked==true)
 window.location = "152.html";
-if (document.getElementById("radio623").checked==true)
+if (document.getElementById("radio96").checked==true)
 window.location = "153.html";
-if (document.getElementById("radio624").checked==true)
+if (document.getElementById("radio97").checked==true)
 window.location = "152.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio621").checked!=false) {
+if (document.getElementById("radio94").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio622").checked!=false) {
+if (document.getElementById("radio95").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio623").checked!=true) {
+if (document.getElementById("radio96").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio624").checked!=false) {
+if (document.getElementById("radio97").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,10 +89,10 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio621" value="radio621" onChange="updateForm()">50 L vode/prebivalca na dan</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio622" value="radio622" onChange="updateForm()">100 L vode/prebivalca na dan</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio623" value="radio623" onChange="updateForm()">150 L vode/prebivalca na dan</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio624" value="radio624" onChange="updateForm()">200 L vode/prebivalca na dan</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio94" value="radio94" onChange="updateForm()">50 L vode/prebivalca na dan</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio95" value="radio95" onChange="updateForm()">100 L vode/prebivalca na dan</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio96" value="radio96" onChange="updateForm()">150 L vode/prebivalca na dan</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio97" value="radio97" onChange="updateForm()">200 L vode/prebivalca na dan</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

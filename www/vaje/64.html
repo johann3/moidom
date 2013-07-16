@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio374").checked==true)
+if (document.getElementById("radio657").checked==true)
 window.location = "65.html";
-if (document.getElementById("radio375").checked==true)
+if (document.getElementById("radio658").checked==true)
 window.location = "64.html";
-if (document.getElementById("radio376").checked==true)
+if (document.getElementById("radio659").checked==true)
 window.location = "64.html";
-if (document.getElementById("radio377").checked==true)
+if (document.getElementById("radio660").checked==true)
 window.location = "64.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio374").checked!=true) {
+if (document.getElementById("radio657").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio375").checked!=false) {
+if (document.getElementById("radio658").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio376").checked!=false) {
+if (document.getElementById("radio659").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio377").checked!=false) {
+if (document.getElementById("radio660").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,10 +89,10 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio374" value="radio374" onChange="updateForm()">to omogoča ugodno klimo na Zemlji, hkrati pa nam veča račune, ker porabimo veliko energije za ogrevanje sanitarne vode</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio375" value="radio375" onChange="updateForm()">ta podatek ni pomemben za življenje na Zemlji</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio376" value="radio376" onChange="updateForm()">ta visoka specifična toplota povzroča globalno segrevanje</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio377" value="radio377" onChange="updateForm()">ta podatek ne drži, saj imamo na primer kovine veliko večjo specifično toploto</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio657" value="radio657" onChange="updateForm()">to omogoča ugodno klimo na Zemlji, hkrati pa nam veča račune, ker porabimo veliko energije za ogrevanje sanitarne vode</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio658" value="radio658" onChange="updateForm()">ta podatek ni pomemben za življenje na Zemlji</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio659" value="radio659" onChange="updateForm()">ta visoka specifična toplota povzroča globalno segrevanje</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio660" value="radio660" onChange="updateForm()">ta podatek ne drži, saj imamo na primer kovine veliko večjo specifično toploto</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

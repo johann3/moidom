@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+43
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node43';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("evaluation").innerHTML=="Rezultat prikazuje strošek električne energije prenosnega računalnika v enem letu, če ga uporabljate samo v času MT.")
+window.location = "44.html";
+}
+function updateForm()
+{
+var P=parseFloat(document.getElementById("P").value); 
+var h=parseFloat(document.getElementById("h").value); 
+var MT=parseFloat(document.getElementById("MT").value); 
+var stro=parseFloat(document.getElementById("stro").value); 
+MT=iz aplikacije;
+stro=P/1000*h*MT;
+if (!isNaN(P))
+document.getElementById("P").value=P;
+if (!isNaN(h))
+document.getElementById("h").value=h;
+if (!isNaN(MT))
+document.getElementById("MT").value=MT;
+if (!isNaN(stro))
+document.getElementById("stro").value=stro;
+if ((stro>=0)) {
+    document.getElementById("evaluation").innerHTML="Rezultat prikazuje strošek električne energije prenosnega računalnika v enem letu, če ga uporabljate samo v času MT.";
+}
+}
+function prediction()
+{
+var strop=parseFloat(document.getElementById("strop").value); 
+var stro=parseFloat(document.getElementById("stro").value); 
+x=strop/stro*100
+if (!isNaN(strop))
+document.getElementById("strop").value=strop;
+if (!isNaN(stro))
+document.getElementById("stro").value=stro;
+if ((x<50)) {
+    document.getElementById("predvidevanje").innerHTML="Slabo.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,100,100)";
+}
+if ((x>=50) && (x<80)) {
+    document.getElementById("predvidevanje").innerHTML="Dobro.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,140,0)";
+}
+if ((x>=80) && (x<120)) {
+    document.getElementById("predvidevanje").innerHTML="Odlično.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(100,255,100)";
+}
+if ((x>=120) && (x<150)) {
+    document.getElementById("predvidevanje").innerHTML="Dobro.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,140,0)";
+}
+if ((x>=150)) {
+    document.getElementById("predvidevanje").innerHTML="Slabo.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,100,100)";
+}
+}
+function restrictInput (element)
+{
+	element.value = element.value.replace(/[^(0-9\.)]/, '');
+}
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+
+<body>
+<h1 id="title">
+Elektrika
+</h1>
+<p id="text1">
+Koliko električne energije v povprečju porabijo prenosni računalniki, če ga uporabljate v MT?
+</p>
+<p id="text2">
+Da se rezultat 
+izračuna samodejno, v obrazec dopolnite podatke, ki jih niste vpisali v aplikacijo mOIDom. 
+</p>
+<form>
+<table>
+<tr><td id="text3">Predvidi, kolikšen je strošek električne energije prenosnega računalnika na leto.</td>
+<td><input type="text" name="strop" id="strop" onkeyup="restrictInput(this)" value="" /></td>
+<td id="stropUnit">kWh/leto</td>
+</table>
+<table>
+<tr><td id="var1Name">Moč prenosnega računalnika</td>
+<td><input type="text" name="P" id="P" value="" onkeyup="updateForm();prediction();restrictInput(this);"/></td>
+<td id="var1Unit">W</td></tr>
+<tr><td id="var2Name">Povprečna uporaba računalnika na dan</td>
+<td><input type="text" name="h" id="h" value="" onkeyup="updateForm();prediction();restrictInput(this);"/></td>
+<td id="var2Unit">h</td></tr>
+<tr><td id="var3Name">Cena elektrike: enotarifni MT</td>
+<td><input type="text" name="MT" id="MT" value="" onkeyup="updateForm();prediction();"/></td>
+<td id="var3Unit">EUR/kWh</td></tr>
+<tr><td id="var4Name">Strošek na leto</td>
+<td><input type="text" name="stro" id="stro" value="" onkeyup="updateForm();prediction();"/></td>
+<td id="var4Unit">EUR</td></tr>
+</table>
+
+<table>
+<tr>
+<td id="evaluation"></td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td id="text4">Vaše predvidevanje je bilo:</td><td id="predvidevanje"></td>
+</tr>
+</table>
+
+<button type="submit" id="button">Naprej</button>
+
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>

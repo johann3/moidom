@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+78
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node78';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("radio770").checked==true)
+window.location = "79.html";
+if (document.getElementById("radio771").checked==true)
+window.location = "78.html";
+if (document.getElementById("radio772").checked==true)
+window.location = "78.html";
+if (document.getElementById("radio773").checked==true)
+window.location = "78.html";
+}
+function updateForm()
+{
+var correct=true;
+if (document.getElementById("radio770").checked!=true) {
+    correct=false;
+}
+if (document.getElementById("radio771").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio772").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio773").checked!=false) {
+    correct=false;
+}
+if (correct==true) {
+   document.getElementById("evaluation").innerHTML="pravilen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(100,255,100)";
+}
+else {
+   document.getElementById("evaluation").innerHTML="napačen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(255,100,100)";
+}
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Toplota
+</h1>
+<p id="text1">
+V kopalni kadi je 30 litrov hladne vode s temperaturo 22˚C. Koliko litrov vroče vode s temperaturo 85˚C moramo doliti, da se voda v kadi segreje na 35˚C? Toploto Q izračunamo kot produkt specifične toplote, mase in razlike temperature. Specifična toplota vode je 4200 J/kgK. Namig: (m₀*c₀*(Tk-To))/(c₀*(T1-Tk))  m=masa, c=specifična toplota, T=temperatura
+</p>
+<p id="text2">
+Označite trditev s klikom.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio770" value="radio770" onChange="updateForm()">7.8 l</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio771" value="radio771" onChange="updateForm()">7.0 l</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio772" value="radio772" onChange="updateForm()">8.1 l</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio773" value="radio773" onChange="updateForm()">14 l</td><td></td></tr>
+<tr>
+<td> Vaš odgovor je </td>
+<td id="evaluation"> nepopoln. </td>
+</tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>

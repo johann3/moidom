@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+79
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node79';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("radio777").checked==true)
+window.location = "79.html";
+if (document.getElementById("radio778").checked==true)
+window.location = "79.html";
+if (document.getElementById("radio779").checked==true)
+window.location = "79.html";
+if (document.getElementById("radio780").checked==true)
+window.location = "80.html";
+}
+function updateForm()
+{
+var correct=true;
+if (document.getElementById("radio777").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio778").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio779").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio780").checked!=true) {
+    correct=false;
+}
+if (correct==true) {
+   document.getElementById("evaluation").innerHTML="pravilen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(100,255,100)";
+}
+else {
+   document.getElementById("evaluation").innerHTML="napačen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(255,100,100)";
+}
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Toplota
+</h1>
+<p id="text1">
+Koliko toplote potrebujemo, da segrejemo zrak v sobi z dimenzijami 7 x 3 x 2.5 m, s temperaturo 12˚C na 20˚C. Specifična toplota zraka je 0.28 Wh/kgK (enota pomeni koliko energije moramo dovesti, da 1 kg zraka segrejemo za 1 kelvin), njegova gostota pa 1.25 kg/m3? Toploto Q izračunamo kot produkt specifične toplote, mase in razlike temperature. Maso pa izračunamo kot produkt gostote in volumna. Namig: (ρ*V)*c*(Tk-To)  ρ=gostota, V=volumen
+</p>
+<p id="text2">
+Označite trditev s klikom.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio777" value="radio777" onChange="updateForm()">153 kWh</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio778" value="radio778" onChange="updateForm()">94 Wh</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio779" value="radio779" onChange="updateForm()">264 Wh</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio780" value="radio780" onChange="updateForm()">147 Wh</td><td></td></tr>
+<tr>
+<td> Vaš odgovor je </td>
+<td id="evaluation"> nepopoln. </td>
+</tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>

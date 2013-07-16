@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio613").checked==true)
+if (document.getElementById("radio86").checked==true)
 window.location = "151.html";
-if (document.getElementById("radio614").checked==true)
+if (document.getElementById("radio87").checked==true)
 window.location = "151.html";
-if (document.getElementById("radio615").checked==true)
+if (document.getElementById("radio88").checked==true)
 window.location = "152.html";
-if (document.getElementById("radio616").checked==true)
+if (document.getElementById("radio89").checked==true)
 window.location = "151.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio613").checked!=false) {
+if (document.getElementById("radio86").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio614").checked!=false) {
+if (document.getElementById("radio87").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio615").checked!=true) {
+if (document.getElementById("radio88").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio616").checked!=false) {
+if (document.getElementById("radio89").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,10 +89,10 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio613" value="radio613" onChange="updateForm()">dvakrat</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio614" value="radio614" onChange="updateForm()">štirikrat</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio615" value="radio615" onChange="updateForm()">šestkrat</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio616" value="radio616" onChange="updateForm()">osemkrat</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio86" value="radio86" onChange="updateForm()">dvakrat</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio87" value="radio87" onChange="updateForm()">štirikrat</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio88" value="radio88" onChange="updateForm()">šestkrat</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio89" value="radio89" onChange="updateForm()">osemkrat</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

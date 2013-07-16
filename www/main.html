@@ -43,6 +43,7 @@
             var assignedCommodityIdList = // IDs of <select> lists that show assigned commodities per user 
                 ['#submitCommodity', '#importCommodity', '#viewCommodity'];
             var assignedCommodityCount = 0; // total number of assigned commodities to a user
+            var assignedCommodities = []; // empty list for now
 
             var GRAPH_EFFICIENCY = 1;
             var GRAPH_PERCENTILES = 2;
@@ -51,10 +52,10 @@
             var selectedGraph = 0; // 0 to GRAPH_CUMULATIVE
 
             // the function updates the contents of indicator texts and selected graph
-            function updateIndicatorsAndGraph() {
+            function updateIndicatorsAndGraph(updateUnits) {
                 if (assignedCommodityCount == 0)
                     return;
-                currentCommodityId = $('#viewCommodity').val();
+                updateCurrentCommodity ($('#viewCommodity').val(), updateUnits);
                 showIndicatorValues();
                 if (selectedGraph == GRAPH_EFFICIENCY) {
                     plotEfficiencyClasses();
@@ -71,12 +72,21 @@
             };
             
             
+            function updateCurrentCommodity (commodityId, updateUnits)
+            {
+                currentCommodityId = commodityId;
+                if (updateUnits) {
+                    populateEfficiencyUnit (currentCommodityId);
+                }                
+            }
+            
+
             // The function updates the selected commodity in all <select>s
             function updateCommoditySelection () {
                 if (currentCommodityId > 0) {
                     for (var i=0; i<assignedCommodityIdList.length; i++) {
                         $(assignedCommodityIdList[i]).val(currentCommodityId);
-                    }                
+                    }
                 }
             }
             
@@ -119,7 +129,7 @@
                 $('#tabView').on('show', function() {
                     updateCommoditySelection();
                     populateTagsList('viewTag', 'assigned');
-                    updateIndicatorsAndGraph();
+                    updateIndicatorsAndGraph(true);
                 });
                 $('#tabSettings').on('show', function() {
                     populateAssignedUnassignedCommodities();
@@ -128,19 +138,19 @@
                 // Connect graphs' show events
                 $('#commodityViewEffClass').on('show', function() {
                     selectedGraph = GRAPH_EFFICIENCY;
-                    updateIndicatorsAndGraph();
+                    updateIndicatorsAndGraph(false);
                 });
-                $('#commodityViewPercentil').on('show', function() {
+                $('#commodityViewPercentile').on('show', function() {
                     selectedGraph = GRAPH_PERCENTILES;
-                    updateIndicatorsAndGraph();
+                    updateIndicatorsAndGraph(false);
                 });
                 $('#commodityViewTimeseqIncr').on('show', function() {
                     selectedGraph = GRAPH_NONCUMULATIVE;
-                    updateIndicatorsAndGraph();
+                    updateIndicatorsAndGraph(false);
                 });
                 $('#commodityViewTimeseqCumul').on('show', function() {
                     selectedGraph = GRAPH_CUMULATIVE;
-                    updateIndicatorsAndGraph();
+                    updateIndicatorsAndGraph(false);
                 });
 
                 populateUserData();
@@ -274,7 +284,7 @@
                 var iconIds = ['o', 'ee', 'ek', 'te', 'tk', 've', 'vk'];
                 var commodityId = iconIds.indexOf (iconId);
                 if (commodityId > 0) {
-                    currentCommodityId = commodityId;
+                    updateCurrentCommodity (commodityId, true);
                 }
                 $('#mainTabs #' + tabId).tab('show');
             }
@@ -317,18 +327,6 @@
             }
             
  
-            function getEfficiencyUnitText()
-            {
-                var efficiencyUnitId = $('#viewEfficiencyUnit').val();
-                var efficiencyUnit = '';
-                if (efficiencyUnitId == 1)
-                    efficiencyUnit = '/m2';
-                if (efficiencyUnitId == 2)
-                    efficiencyUnit = '/osebo';
-                return efficiencyUnit;
-            }
-
-
             //----------------------------------------------------------------------
             // The function shows the indicator values, yearly, monthly and daily.
             function showIndicatorValues() {
@@ -363,7 +361,7 @@
 
 
             //----------------------------------------------------------------------
-            // The function plots the efficiency class graph.
+            // The function plots the efficiency class graph, if available
             function plotEfficiencyClasses() {
                 var commodityId = $('#viewCommodity').val();
                 var efficiencyUnit = $('#viewEfficiencyUnit').val();
@@ -382,7 +380,10 @@
                     success: function(data, textStatus, xhr)
                     {
                         if (dataStatusIsBad (data.status, data.status_loc))
-                            return; 
+                            return;
+                        if (!showHide2 (data.levels.length > 0, '#effClassShown', '#effClassHidden'))
+                            return;
+                        var increasing = data.increasing;
                         var plotOptions = {
                             yaxis: {
                                 min: 0,
@@ -399,7 +400,7 @@
                         var captions = new Array();
                         var fixedBarWidth = 10;
                         for (var i = 0; i < data.levels.length; i++) {
-                            var lineWidth = (data.class == data.levels[i].name ? 3 : 0);
+                            var lineWidth = (data.efficiency_class == data.levels[i].name ? 3 : 0);
                             plotData.push({
                                 color: 'rgb(0,0,0)',
                                 data: [ [fixedBarWidth + i, data.levels.length - 1 - i] ],
@@ -415,7 +416,7 @@
                             plotOptions.yaxis.ticks.push( [ (data.levels.length - 0.5 - i), (data.levels[i].name) ]);
 
                             // Draw the line of the user's value as new line-series (note overlays, code order important)
-                            if (data.class == data.levels[i].name) {
+                            if (data.efficiency_class == data.levels[i].name) {
                                 var offset = 1 - (data.value - data.levels[i].min) / (data.levels[i].max - data.levels[i].min);
                                 plotData.push({
                                     color: 'rgb(0,0,0)',
@@ -428,9 +429,11 @@
                                 });
                             }
                             var rangeText = localizeDecimal(data.levels[i].min) + ' - ' + localizeDecimal(data.levels[i].max);
-                            var isLast = i + 1 == data.levels.length;
-                            if (isLast) {
+                            if (i + 1 == data.levels.length  &&  increasing) {
                                 rangeText = '> ' + localizeDecimal(data.levels[i].min);
+                            }
+                            if (i == 0  &&  !increasing) {
+                                rangeText = '> ' + localizeDecimal(data.levels[i].max);
                             }
 
                             // Remember series value interval for later unit printout
@@ -467,6 +470,8 @@
                     {
                         if (dataStatusIsBad (data.status, data.status_loc))
                             return; 
+                        if (!showHide2 (data.levels.length > 0, '#percentileShown', '#percentileHidden'))
+                            return;
                         var plotOptions = {
                             xaxis: {
                                 min: 0,
@@ -492,7 +497,7 @@
                             }
 
                             // Draw the line of the user's value as new line-series (note overlays, code order important)
-                            if (data.class == data.levels[i].name) {
+                            if (data.efficiency_class == data.levels[i].name) {
                                 plotData.push({
                                     color: 'rgb(0,0,0)',
                                     data: [ [data.value, 0], [data.value, data.levels[i].count] ],
@@ -515,7 +520,7 @@
                             + getEfficiencyUnitText();
                         $('#percentileUnit').text(unit);
                         $('#' + indicatorHolder).text(localizeDecimal(data.value) + ' ' + unit);
-                        $('#' + userRankHolder).text(data.rank);
+                        $('#' + userRankHolder).text(data.percentile_rank);
                     },
                     error: ajaxError
                 });
@@ -711,9 +716,67 @@
                     $(contentId).hide();
             }
             
+            
+            /// The function shows either main contents or alternative text
+            /// and returns back the condition.
+            function showHide2 (condition, contentsId, alternativeId)
+            {
+                if (condition) {
+                    $(alternativeId).hide();
+                    $(contentsId).show();
+                } else {
+                    $(alternativeId).show();
+                    $(contentsId).hide();
+                }
+                return condition;
+            }
+            
+            
             function showTabSettings ()
             {
                 $('#mainTabs #tabSettings').tab('show');
+            }
+
+
+            // The function updates the #viewEfficiencyUnit list with units suitable to the specified commodity
+            function populateEfficiencyUnit (commodityId)
+            {
+                // the first two units are fixed, the third one is changeable
+                thirdUnit = 2;
+                for (var i=0; i < assignedCommodities.length; i++) {
+                    if (assignedCommodities[i].id == commodityId) {
+                        thirdUnit = assignedCommodities[i].indicator_unit3;
+                    }
+                }
+                var thirdText = thirdUnit == 2 ? 'po osebi' : 'po generirani moči';
+                unitList = [
+                    [0, 'nominalno'], 
+                    [1, 'po površini'],
+                    [thirdUnit,thirdText]];                
+
+                unitListid = '#viewEfficiencyUnit';
+                var el = document.getElementById(unitListid.substr(1));
+                $(unitListid).empty();
+                var listHtml = '';
+                for (var i = 0; i < unitList.length; i++) {
+                    var unit = unitList[i];
+                    listHtml += '<option value="' + unit[0] + '" ' + '>' + unit[1] + '</option>';
+                }
+                $(unitListid).append(listHtml);                
+            }
+            
+
+            function getEfficiencyUnitText()
+            {
+                var efficiencyUnitId = $('#viewEfficiencyUnit').val();
+                var efficiencyUnit = '';
+                if (efficiencyUnitId == 1)
+                    efficiencyUnit = '/m2';
+                if (efficiencyUnitId == 2)
+                    efficiencyUnit = '/osebo';
+                if (efficiencyUnitId == 3)
+                    efficiencyUnit = '/kW';
+                return efficiencyUnit;
             }
 
 
@@ -735,10 +798,11 @@
                             return; 
                         if (typ == 'assigned') {
                             assignedCommodityCount = data.commodities.length;
+                            assignedCommodities = data.commodities;
                             var hintHtmlString = '';
                             var contentVisible = true;
                             if (assignedCommodityCount == 0) {
-                                currentCommodityId = 0;
+                                updateCurrentCommodity (0, true);
                                 hintHtmlString = 'Na meniju <a href="#Settings" onclick="showTabSettings()">' + 
                                     'Nastavitve</a>&gt Obremenitve ' +
                                     'dodajte obremenitev, potem vnesite podatke.';
@@ -750,7 +814,7 @@
                             updateQuickActions (data.commodities);
                         }
                         for (var j=0; j < idList.length; j++) {
-                            commodityListid = idList[j];
+                            commodityListid = idList[j]; // includes intial hash (#)
                             var el = document.getElementById(commodityListid.substr(1));
                             $(commodityListid).empty();
     
@@ -895,7 +959,7 @@
             // The function updates the values in simple submit form
             // according to the submitCommodity and updateExisting value 
             function updateSubmitForm() {
-                currentCommodityId = $('#submitCommodity').val();
+                updateCurrentCommodity ($('#submitCommodity').val(), true);
                 var updateExisting = $('#updateExisting').is(':checked');
                 var unit = $('#submitCommodity').find(':selected').data('unit');
                 $('#submitUnit').text(' '+unit);
@@ -1044,7 +1108,8 @@
                                 <span id="importUnavailableHint"></span>
                                 <form id="formImport" method="post">
                                     <p>Okoljska obremenitev:</p>
-                                    <select name="commodity" id="importCommodity" onchange="currentCommodityId = $('#importCommodity').val();"></select>
+                                    <select name="commodity" id="importCommodity" onchange=
+                                        "updateCurrentCommodity ($('#importCommodity').val(),true);"></select>
                                     <br />
                                     <p>Vrsta datoteke</p>
                                     <label class="radio"><input type="radio" name="format" id="csvImport" value="csv" checked="true">CSV</label>
@@ -1079,17 +1144,21 @@
                         <span id="viewContents">
                         <form>
                             <span>Okoljska obremenitev:</span>
-                            <select id="viewCommodity" onchange="updateIndicatorsAndGraph()"></select>
+                            <select id="viewCommodity" onchange="updateIndicatorsAndGraph(true)"></select>
                             <br />
                             <span>Merska enota kazalca učinkovitosti:</span>
-                            <select id="viewEfficiencyUnit" onchange="updateIndicatorsAndGraph()">
+                            <select id="viewEfficiencyUnit" onchange="updateIndicatorsAndGraph(false)">
+                                <!--
                                 <option value="0">nominalno</option>
                                 <option value="1">po površini</option>
                                 <option value="2">po osebi</option>
+                                -->
+                                <!-- the value "po osebi" is used for most commodities, but some use "po generirani moči"
+                                  depending on commodity's indicator_unit3, see function populateEfficiencyUnit -->
                             </select>
                             <br />
                             <span>Obdobje izračuna kazalca učinkovitosti:</span>
-                            <select id="viewEfficiencyPeriod" onchange="updateIndicatorsAndGraph()">
+                            <select id="viewEfficiencyPeriod" onchange="updateIndicatorsAndGraph(false)">
                                 <option value="0">zadnji vnos</option>
                                 <option value="1">zadnji mesec</option>
                                 <option value="2">zadnje leto</option>
@@ -1110,28 +1179,38 @@
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#commodityView" href="#commodityViewEffClass">Učinkovitostni razred - grafikon</a>
                                 </div>
                                 <div id="commodityViewEffClass" class="accordion-body collapse">
-                                    Prikazani so učinkovitostni razredi za izbrano okoljsko obremenitev in mersko enoto kazalca učinkovitosti.
-                                    Letna vrednost kazalca učinkovitosti za izbrano obdobje izračuna je v debeleje obrobljenem razredu. 
-                                    <div class="accordion-inner">
-                                        <div id="viewEffClassHistogram" style="width:600px;height:300px;"></div>
+                                    <div id="effClassHidden">
+                                        Za izbrano okoljsko obremenitev in mersko enoto kazalca učinkovitosti grafikon ni na voljo.
+                                    </div>
+                                    <div id="effClassShown">
+                                        Prikazani so učinkovitostni razredi za izbrano okoljsko obremenitev in mersko enoto kazalca učinkovitosti.
+                                        Letna vrednost kazalca učinkovitosti za izbrano obdobje izračuna je v debeleje obrobljenem razredu. 
+                                        <div class="accordion-inner">
+                                            <div id="viewEffClassHistogram" style="width:600px;height:300px;"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="accordion-group">
                                 <div class="accordion-heading">
-                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#commodityView" href="#commodityViewPercentil">Percentil učinkovitosti - grafikon</a>
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#commodityView" href="#commodityViewPercentile">Percentil učinkovitosti - grafikon</a>
                                 </div>
-                                <div id="commodityViewPercentil" class="accordion-body collapse">
-                                    <span>Označba skupine za prikaz percentilov:</span>
-                                    <select name="viewTag" id="viewTag" onchange="updateIndicatorsAndGraph()"></select>
-                                    <br />
-                                    <div class="accordion-inner">
-                                        <div id="viewPercentilHistogram" style="width:600px;height:300px;"></div>
+                                <div id="commodityViewPercentile" class="accordion-body collapse">
+                                    <div id="percentileHidden">
+                                        Za izbrano okoljsko obremenitev in mersko enoto kazalca učinkovitosti grafikon ni na voljo.
+                                    </div>
+                                    <div id="percentileShown">
+                                        <span>Označba skupine za prikaz percentilov:</span>
+                                        <select name="viewTag" id="viewTag" onchange="updateIndicatorsAndGraph(false)"></select>
                                         <br />
-                                        Navpična os: število uporabnikov v učinkovitostnem razredu.<br />
-                                        Vodoravna os: vrednost v <span id="percentileUnit"></span>/leto.<br />
-                                        Kazalec učinkovitosti: <span id="indicatorAtPercentile"></span>/leto.<br />
-                                        <span id="userRank"></span>% uporabnikov z vašo označbo skupine je bolj učinkovitih od vas.<br />
+                                        <div class="accordion-inner">
+                                            <div id="viewPercentilHistogram" style="width:600px;height:300px;"></div>
+                                            <br />
+                                            Navpična os: število uporabnikov v učinkovitostnem razredu.<br />
+                                            Vodoravna os: vrednost v <span id="percentileUnit"></span>/leto.<br />
+                                            Kazalec učinkovitosti: <span id="indicatorAtPercentile"></span>/leto.<br />
+                                            <span id="userRank"></span>% uporabnikov z vašo označbo skupine je bolj učinkovitih od vas.<br />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1198,7 +1277,7 @@
                                });
                             });
                             </script>
-                            <iframe id="consultFrame" src="vaje/start.html" height="500" width="100%"
+                            <iframe id="consultFrame" src="vaje/startizo.html" height="500" width="100%"
                                 allowtransparency="true" border="0" style="border: none;"></iframe>
                         </div>
                     </div> <!-- div id="Train" -->                    

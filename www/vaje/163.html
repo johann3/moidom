@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+163
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node163';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("evaluation").innerHTML=="Iz rezultata je jasno, da lahko na ta način izgubite veliko vode.")
+window.location = "164.html";
+}
+function updateForm()
+{
+var Ni=parseFloat(document.getElementById("Ni").value); 
+var V=parseFloat(document.getElementById("V").value); 
+var n=parseFloat(document.getElementById("n").value); 
+var izg1=parseFloat(document.getElementById("izg1").value); 
+var izg2=parseFloat(document.getElementById("izg2").value); 
+var izg3=parseFloat(document.getElementById("izg3").value); 
+var izg=parseFloat(document.getElementById("izg").value); 
+V=0.05;
+izg1=Ni*3600*V/1000*n;
+izg2=Ni*86400*V/1000*n;
+izg3=Ni*2592000*V/1000*n;
+izg=Ni*31536000*V/1000*n;
+if (!isNaN(Ni))
+document.getElementById("Ni").value=Ni;
+if (!isNaN(V))
+document.getElementById("V").value=V;
+if (!isNaN(n))
+document.getElementById("n").value=n;
+if (!isNaN(izg1))
+document.getElementById("izg1").value=izg1;
+if (!isNaN(izg2))
+document.getElementById("izg2").value=izg2;
+if (!isNaN(izg3))
+document.getElementById("izg3").value=izg3;
+if (!isNaN(izg))
+document.getElementById("izg").value=izg;
+if ((izg>=0)) {
+    document.getElementById("evaluation").innerHTML="Iz rezultata je jasno, da lahko na ta način izgubite veliko vode.";
+}
+}
+function prediction()
+{
+var izgp=parseFloat(document.getElementById("izgp").value); 
+var izg=parseFloat(document.getElementById("izg").value); 
+x=izgp/izg*100
+if (!isNaN(izgp))
+document.getElementById("izgp").value=izgp;
+if (!isNaN(izg))
+document.getElementById("izg").value=izg;
+if ((x<50)) {
+    document.getElementById("predvidevanje").innerHTML="Slabo.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,100,100)";
+}
+if ((x>=50) && (x<80)) {
+    document.getElementById("predvidevanje").innerHTML="Dobro.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,140,0)";
+}
+if ((x>=80) && (x<120)) {
+    document.getElementById("predvidevanje").innerHTML="Odlično.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(100,255,100)";
+}
+if ((x>=120) && (x<150)) {
+    document.getElementById("predvidevanje").innerHTML="Dobro.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,140,0)";
+}
+if ((x>=150)) {
+    document.getElementById("predvidevanje").innerHTML="Slabo.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,100,100)";
+}
+}
+function restrictInput (element)
+{
+	element.value = element.value.replace(/[^(0-9\.)]/, '');
+}
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+
+<body>
+<h1 id="title">
+Kapljica po kapljica, jezero
+</h1>
+<p id="text1">
+Navidez majhne in nepomembne izgube se lahko v daljšem časovnem obdobju izkažejo za pomembne. Primer je kapljanje vodne pipe. Izračunaj kolikšna je dnevna izguba vode, če je v hiši pipa, ki kaplja s frekvenco 1 kapljica na sekundo. Volumen 1 kapljice vode 0,050 ml. Preveri, koliko vode bi izgubil, če bi imel v hiši tri takšne pipe.
+</p>
+<p id="text2">
+Da se rezultat izračuna samodejno, v obrazec dopolni podatke, ki jih nisi vnesel v aplikacijo mOIDom. 
+</p>
+<form>
+<table>
+<tr><td id="text3">Predvidite koliko litrov vode na ta način izgubite v enem letu.</td>
+<td><input type="text" name="izgp" id="izgp" onkeyup="restrictInput(this)" value="" /></td>
+<td id="izgpUnit">L</td>
+</table>
+<table>
+<tr><td id="var1Name">Frekvenca kapljanja</td>
+<td><input type="text" name="Ni" id="Ni" value="" onkeyup="updateForm();prediction();restrictInput(this);"/></td>
+<td id="var1Unit">kapljic/sekundo</td></tr>
+<tr><td id="var2Name">Volumen kapljice</td>
+<td><input type="text" name="V" id="V" value="" onkeyup="updateForm();prediction();"/></td>
+<td id="var2Unit">mL</td></tr>
+<tr><td id="var3Name">Število pip</td>
+<td><input type="text" name="n" id="n" value="" onkeyup="updateForm();prediction();restrictInput(this);"/></td>
+<td id="var3Unit"></td></tr>
+<tr><td id="var4Name">Izguba vode v eni uri</td>
+<td><input type="text" name="izg1" id="izg1" value="" onkeyup="updateForm();prediction();"/></td>
+<td id="var4Unit">L</td></tr>
+<tr><td id="var5Name">Izguba vode v enem dnevu</td>
+<td><input type="text" name="izg2" id="izg2" value="" onkeyup="updateForm();prediction();"/></td>
+<td id="var5Unit">L</td></tr>
+<tr><td id="var6Name">Izguba vode v enem mesecu</td>
+<td><input type="text" name="izg3" id="izg3" value="" onkeyup="updateForm();prediction();"/></td>
+<td id="var6Unit">L</td></tr>
+<tr><td id="var7Name">Izguba vode v enem letu</td>
+<td><input type="text" name="izg" id="izg" value="" onkeyup="updateForm();prediction();"/></td>
+<td id="var7Unit">L</td></tr>
+</table>
+
+<table>
+<tr>
+<td id="evaluation"></td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td id="text4">Vaše predvidevanje je bilo:</td><td id="predvidevanje"></td>
+</tr>
+</table>
+
+<button type="submit" id="button">Naprej</button>
+
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>

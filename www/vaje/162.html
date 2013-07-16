@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+162
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node162';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("evaluation").innerHTML=="Iz rezultata je jasno, da lahko privarčujete, če se prhate namesto kopate.")
+window.location = "163.html";
+}
+function updateForm()
+{
+var V=parseFloat(document.getElementById("V").value); 
+var pret=parseFloat(document.getElementById("pret").value); 
+var t=parseFloat(document.getElementById("t").value); 
+var por1=parseFloat(document.getElementById("por1").value); 
+var por2=parseFloat(document.getElementById("por2").value); 
+var por=parseFloat(document.getElementById("por").value); 
+por1=pret*t;
+por2=V;
+por=por2-por1;
+if (!isNaN(V))
+document.getElementById("V").value=V;
+if (!isNaN(pret))
+document.getElementById("pret").value=pret;
+if (!isNaN(t))
+document.getElementById("t").value=t;
+if (!isNaN(por1))
+document.getElementById("por1").value=por1;
+if (!isNaN(por2))
+document.getElementById("por2").value=por2;
+if (!isNaN(por))
+document.getElementById("por").value=por;
+if ((por>=0)) {
+    document.getElementById("evaluation").innerHTML="Iz rezultata je jasno, da lahko privarčujete, če se prhate namesto kopate.";
+}
+}
+function prediction()
+{
+var porp=parseFloat(document.getElementById("porp").value); 
+var por=parseFloat(document.getElementById("por").value); 
+x=porp/por*100
+if (!isNaN(porp))
+document.getElementById("porp").value=porp;
+if (!isNaN(por))
+document.getElementById("por").value=por;
+if ((x<50)) {
+    document.getElementById("predvidevanje").innerHTML="Slabo.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,100,100)";
+}
+if ((x>=50) && (x<80)) {
+    document.getElementById("predvidevanje").innerHTML="Dobro.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,140,0)";
+}
+if ((x>=80) && (x<120)) {
+    document.getElementById("predvidevanje").innerHTML="Odlično.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(100,255,100)";
+}
+if ((x>=120) && (x<150)) {
+    document.getElementById("predvidevanje").innerHTML="Dobro.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,140,0)";
+}
+if ((x>=150)) {
+    document.getElementById("predvidevanje").innerHTML="Slabo.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,100,100)";
+}
+}
+function restrictInput (element)
+{
+	element.value = element.value.replace(/[^(0-9\.)]/, '');
+}
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+
+<body>
+<h1 id="title">
+Prhanje ali kopanje?
+</h1>
+<p id="text1">
+Kopalne kadi se med seboj zelo razlikujejo  po volumnu, tako da ga morate za vsako kad izmeriti posebej. Za naš izračun bomo privzeli volumen kadi 120 L. Za prhanje bomo privzeli pretok vode 4L/min ter povprečni čas prhanja, ki je 5 min.
+</p>
+<p id="text2">
+Da se rezultat izračuna samodejno, v obrazec dopolni podatke, ki jih nisi vnesel v aplikacijo mOIDom. 
+</p>
+<form>
+<table>
+<tr><td id="text3">Predvidite kolikšna je razlika v L v porabi vode pri prhanju ali pri kopanju.</td>
+<td><input type="text" name="porp" id="porp" onkeyup="restrictInput(this)" value="" /></td>
+<td id="porpUnit">L</td>
+</table>
+<table>
+<tr><td id="var1Name">Volumen kadi</td>
+<td><input type="text" name="V" id="V" value="" onkeyup="updateForm();prediction();restrictInput(this);"/></td>
+<td id="var1Unit">L</td></tr>
+<tr><td id="var2Name">Pretok vode</td>
+<td><input type="text" name="pret" id="pret" value="" onkeyup="updateForm();prediction();restrictInput(this);"/></td>
+<td id="var2Unit">L/min</td></tr>
+<tr><td id="var3Name">Čas prhanja</td>
+<td><input type="text" name="t" id="t" value="" onkeyup="updateForm();prediction();restrictInput(this);"/></td>
+<td id="var3Unit">min</td></tr>
+<tr><td id="var4Name">Poraba vode pri prhanju</td>
+<td><input type="text" name="por1" id="por1" value="" onkeyup="updateForm();prediction();"/></td>
+<td id="var4Unit">L</td></tr>
+<tr><td id="var5Name">Poraba vode pri kopanju</td>
+<td><input type="text" name="por2" id="por2" value="" onkeyup="updateForm();prediction();"/></td>
+<td id="var5Unit">L</td></tr>
+<tr><td id="var6Name">Razlika</td>
+<td><input type="text" name="por" id="por" value="" onkeyup="updateForm();prediction();"/></td>
+<td id="var6Unit">L</td></tr>
+</table>
+
+<table>
+<tr>
+<td id="evaluation"></td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td id="text4">Vaše predvidevanje je bilo:</td><td id="predvidevanje"></td>
+</tr>
+</table>
+
+<button type="submit" id="button">Naprej</button>
+
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>

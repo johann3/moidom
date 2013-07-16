@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+39
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node39';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("evaluation").innerHTML=="Rezultat prikazuje strošekelektrične energije za segrevanje vode na leto, če segrevate vodo le v času tarife MT.")
+window.location = "40.html";
+}
+function updateForm()
+{
+var c=parseFloat(document.getElementById("c").value); 
+var m=parseFloat(document.getElementById("m").value); 
+var st=parseFloat(document.getElementById("st").value); 
+var por=parseFloat(document.getElementById("por").value); 
+var cena=parseFloat(document.getElementById("cena").value); 
+var stro=parseFloat(document.getElementById("stro").value); 
+c=4200;
+por=c*m*st/3600;
+cena=iz aplikacije;
+stro=por*cena;
+if (!isNaN(c))
+document.getElementById("c").value=c;
+if (!isNaN(m))
+document.getElementById("m").value=m;
+if (!isNaN(st))
+document.getElementById("st").value=st;
+if (!isNaN(por))
+document.getElementById("por").value=por;
+if (!isNaN(cena))
+document.getElementById("cena").value=cena;
+if (!isNaN(stro))
+document.getElementById("stro").value=stro;
+if ((stro>=0)) {
+    document.getElementById("evaluation").innerHTML="Rezultat prikazuje strošekelektrične energije za segrevanje vode na leto, če segrevate vodo le v času tarife MT.";
+}
+}
+function prediction()
+{
+var strop=parseFloat(document.getElementById("strop").value); 
+var stro=parseFloat(document.getElementById("stro").value); 
+x=strop/stro*100
+if (!isNaN(strop))
+document.getElementById("strop").value=strop;
+if (!isNaN(stro))
+document.getElementById("stro").value=stro;
+if ((x<50)) {
+    document.getElementById("predvidevanje").innerHTML="Slabo.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,100,100)";
+}
+if ((x>=50) && (x<80)) {
+    document.getElementById("predvidevanje").innerHTML="Dobro.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,140,0)";
+}
+if ((x>=80) && (x<120)) {
+    document.getElementById("predvidevanje").innerHTML="Odlično.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(100,255,100)";
+}
+if ((x>=120) && (x<150)) {
+    document.getElementById("predvidevanje").innerHTML="Dobro.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,140,0)";
+}
+if ((x>=150)) {
+    document.getElementById("predvidevanje").innerHTML="Slabo.";
+    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,100,100)";
+}
+}
+function restrictInput (element)
+{
+	element.value = element.value.replace(/[^(0-9\.)]/, '');
+}
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+
+<body>
+<h1 id="title">
+Elektrika
+</h1>
+<p id="text1">
+Koliko električne energije potroši vodni grelec, da segreje 1 liter vode, če uporabljamo vodni grelec samo v tarifi MT?
+</p>
+<p id="text2">
+Da se rezultat 
+izračuna samodejno, v obrazec dopolnite podatke, ki jih niste vpisali v aplikacijo mOIDom. 
+</p>
+<form>
+<table>
+<tr><td id="text3">Predvidi, kolikšen je strošek električne energije vodnega grelca na leto.</td>
+<td><input type="text" name="strop" id="strop" onkeyup="restrictInput(this)" value="" /></td>
+<td id="stropUnit">EUR</td>
+</table>
+<table>
+<tr><td id="var1Name">Specifična toplota vode</td>
+<td><input type="text" name="c" id="c" value="" onkeyup="updateForm();prediction();"/></td>
+<td id="var1Unit">J/kgK</td></tr>
+<tr><td id="var2Name">Masa vode (1 L = 1kg)</td>
+<td><input type="text" name="m" id="m" value="" onkeyup="updateForm();prediction();restrictInput(this);"/></td>
+<td id="var2Unit">kg</td></tr>
+<tr><td id="var3Name">Za koliko kelvinov želimo segreti vodo</td>
+<td><input type="text" name="st" id="st" value="" onkeyup="updateForm();prediction();restrictInput(this);"/></td>
+<td id="var3Unit">K</td></tr>
+<tr><td id="var4Name">Poraba električne energije za segrevanje vode na leto</td>
+<td><input type="text" name="por" id="por" value="" onkeyup="updateForm();prediction();"/></td>
+<td id="var4Unit">kWh</td></tr>
+<tr><td id="var5Name">Cena elektrike: enotarifni MT</td>
+<td><input type="text" name="cena" id="cena" value="" onkeyup="updateForm();prediction();"/></td>
+<td id="var5Unit">EUR/kWh</td></tr>
+<tr><td id="var6Name">Strošek segrevanja vode na leto</td>
+<td><input type="text" name="stro" id="stro" value="" onkeyup="updateForm();prediction();"/></td>
+<td id="var6Unit">EUR</td></tr>
+</table>
+
+<table>
+<tr>
+<td id="evaluation"></td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td id="text4">Vaše predvidevanje je bilo:</td><td id="predvidevanje"></td>
+</tr>
+</table>
+
+<button type="submit" id="button">Naprej</button>
+
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>

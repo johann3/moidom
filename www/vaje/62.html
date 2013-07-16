@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio358").checked==true)
+if (document.getElementById("radio641").checked==true)
 window.location = "63.html";
-if (document.getElementById("radio359").checked==true)
+if (document.getElementById("radio642").checked==true)
 window.location = "62.html";
-if (document.getElementById("radio360").checked==true)
+if (document.getElementById("radio643").checked==true)
 window.location = "62.html";
-if (document.getElementById("radio361").checked==true)
+if (document.getElementById("radio644").checked==true)
 window.location = "62.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio358").checked!=true) {
+if (document.getElementById("radio641").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio359").checked!=false) {
+if (document.getElementById("radio642").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio360").checked!=false) {
+if (document.getElementById("radio643").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio361").checked!=false) {
+if (document.getElementById("radio644").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,10 +89,10 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio358" value="radio358" onChange="updateForm()">Iz področja z višjo temperaturo na področje z nižjo temperaturo</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio359" value="radio359" onChange="updateForm()">Iz področja z nižjo temperaturo na področje z višjo temperaturo</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio360" value="radio360" onChange="updateForm()">Toplotni tok se ne vzpostavi ne glede na temperaturo</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio361" value="radio361" onChange="updateForm()">Ne vem</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio641" value="radio641" onChange="updateForm()">Iz področja z višjo temperaturo na področje z nižjo temperaturo</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio642" value="radio642" onChange="updateForm()">Iz področja z nižjo temperaturo na področje z višjo temperaturo</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio643" value="radio643" onChange="updateForm()">Toplotni tok se ne vzpostavi ne glede na temperaturo</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio644" value="radio644" onChange="updateForm()">Ne vem</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

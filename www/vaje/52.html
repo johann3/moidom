@@ -16,23 +16,23 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio284").checked==true)
+if (document.getElementById("radio567").checked==true)
 window.location = "52.html";
-if (document.getElementById("radio285").checked==true)
+if (document.getElementById("radio568").checked==true)
 window.location = "53.html";
-if (document.getElementById("radio286").checked==true)
+if (document.getElementById("radio569").checked==true)
 window.location = "52.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio284").checked!=false) {
+if (document.getElementById("radio567").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio285").checked!=true) {
+if (document.getElementById("radio568").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio286").checked!=false) {
+if (document.getElementById("radio569").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -84,9 +84,9 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio284" value="radio284" onChange="updateForm()">Da</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio285" value="radio285" onChange="updateForm()">Ne</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio286" value="radio286" onChange="updateForm()">Ne vem</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio567" value="radio567" onChange="updateForm()">Da</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio568" value="radio568" onChange="updateForm()">Ne</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio569" value="radio569" onChange="updateForm()">Ne vem</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

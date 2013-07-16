@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio342").checked==true)
+if (document.getElementById("radio625").checked==true)
 window.location = "60.html";
-if (document.getElementById("radio343").checked==true)
+if (document.getElementById("radio626").checked==true)
 window.location = "60.html";
-if (document.getElementById("radio344").checked==true)
+if (document.getElementById("radio627").checked==true)
 window.location = "60.html";
-if (document.getElementById("radio345").checked==true)
+if (document.getElementById("radio628").checked==true)
 window.location = "61.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio342").checked!=false) {
+if (document.getElementById("radio625").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio343").checked!=false) {
+if (document.getElementById("radio626").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio344").checked!=false) {
+if (document.getElementById("radio627").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio345").checked!=true) {
+if (document.getElementById("radio628").checked!=true) {
     correct=false;
 }
 if (correct==true) {
@@ -82,17 +82,17 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-Specifična toplota je toplota, ki jo porabimo, da …
+Specifična toplota je toplota, ki so porabimo, da …
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio342" value="radio342" onChange="updateForm()">segrejemo neko snov</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio343" value="radio343" onChange="updateForm()">segrejemo 1 kilogram materiala</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio344" value="radio344" onChange="updateForm()">stalimo neko snov</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio345" value="radio345" onChange="updateForm()">segrejemo en kilogram snovi za en kelvin</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio625" value="radio625" onChange="updateForm()">segrejemo neko snov</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio626" value="radio626" onChange="updateForm()">segrejemo 1 kilogram materiala</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio627" value="radio627" onChange="updateForm()">stalimo neko snov</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio628" value="radio628" onChange="updateForm()">segrejemo en kilogram snovi za en kelvin</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

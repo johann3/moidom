@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio414").checked==true)
+if (document.getElementById("radio697").checked==true)
 window.location = "69.html";
-if (document.getElementById("radio415").checked==true)
+if (document.getElementById("radio698").checked==true)
 window.location = "69.html";
-if (document.getElementById("radio416").checked==true)
+if (document.getElementById("radio699").checked==true)
 window.location = "70.html";
-if (document.getElementById("radio417").checked==true)
+if (document.getElementById("radio700").checked==true)
 window.location = "69.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio414").checked!=false) {
+if (document.getElementById("radio697").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio415").checked!=false) {
+if (document.getElementById("radio698").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio416").checked!=true) {
+if (document.getElementById("radio699").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio417").checked!=false) {
+if (document.getElementById("radio700").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,10 +89,10 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio414" value="radio414" onChange="updateForm()">Pri temperaturah večjih od 15 stopinj C</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio415" value="radio415" onChange="updateForm()">Pri temperaturah večjih od 30 stopinj C</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio416" value="radio416" onChange="updateForm()">Pri temperaturah večjih od -273 stopinj C</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio417" value="radio417" onChange="updateForm()">Pri temperaturah nižjih od 0 K</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio697" value="radio697" onChange="updateForm()">Pri temperaturah večjih od 15 stopinj C</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio698" value="radio698" onChange="updateForm()">Pri temperaturah večjih od 30 stopinj C</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio699" value="radio699" onChange="updateForm()">Pri temperaturah večjih od -273 stopinj C</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio700" value="radio700" onChange="updateForm()">Pri temperaturah nižjih od 0 K</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio637").checked==true)
+if (document.getElementById("radio110").checked==true)
 window.location = "154.html";
-if (document.getElementById("radio638").checked==true)
+if (document.getElementById("radio111").checked==true)
 window.location = "154.html";
-if (document.getElementById("radio639").checked==true)
+if (document.getElementById("radio112").checked==true)
 window.location = "154.html";
-if (document.getElementById("radio640").checked==true)
-window.location = "startizo.html";
+if (document.getElementById("radio113").checked==true)
+window.location = "155.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio637").checked!=false) {
+if (document.getElementById("radio110").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio638").checked!=false) {
+if (document.getElementById("radio111").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio639").checked!=false) {
+if (document.getElementById("radio112").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio640").checked!=true) {
+if (document.getElementById("radio113").checked!=true) {
     correct=false;
 }
 if (correct==true) {
@@ -89,10 +89,10 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio637" value="radio637" onChange="updateForm()">50 kubičnih metrov vode na leto</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio638" value="radio638" onChange="updateForm()">500 kubičnih metrov vode na leto</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio639" value="radio639" onChange="updateForm()">1000 kubičnih metrov vode na leto</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio640" value="radio640" onChange="updateForm()">1500 kubičnih metrov vode na leto</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio110" value="radio110" onChange="updateForm()">50 kubičnih metrov vode na leto</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio111" value="radio111" onChange="updateForm()">500 kubičnih metrov vode na leto</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio112" value="radio112" onChange="updateForm()">1000 kubičnih metrov vode na leto</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio113" value="radio113" onChange="updateForm()">1500 kubičnih metrov vode na leto</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

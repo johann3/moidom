@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio319").checked==true)
+if (document.getElementById("radio602").checked==true)
 window.location = "57.html";
-if (document.getElementById("radio320").checked==true)
+if (document.getElementById("radio603").checked==true)
 window.location = "57.html";
-if (document.getElementById("radio321").checked==true)
+if (document.getElementById("radio604").checked==true)
 window.location = "58.html";
-if (document.getElementById("radio322").checked==true)
+if (document.getElementById("radio605").checked==true)
 window.location = "57.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio319").checked!=false) {
+if (document.getElementById("radio602").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio320").checked!=false) {
+if (document.getElementById("radio603").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio321").checked!=true) {
+if (document.getElementById("radio604").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio322").checked!=false) {
+if (document.getElementById("radio605").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,10 +89,10 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio319" value="radio319" onChange="updateForm()">4</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio320" value="radio320" onChange="updateForm()">5</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio321" value="radio321" onChange="updateForm()">6</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio322" value="radio322" onChange="updateForm()">7</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio602" value="radio602" onChange="updateForm()">4</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio603" value="radio603" onChange="updateForm()">5</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio604" value="radio604" onChange="updateForm()">6</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio605" value="radio605" onChange="updateForm()">7</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

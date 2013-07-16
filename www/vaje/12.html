@@ -16,33 +16,33 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio82").checked==true)
+if (document.getElementById("radio283").checked==true)
 window.location = "12.html";
-if (document.getElementById("radio83").checked==true)
+if (document.getElementById("radio284").checked==true)
 window.location = "12.html";
-if (document.getElementById("radio84").checked==true)
+if (document.getElementById("radio285").checked==true)
 window.location = "12.html";
-if (document.getElementById("radio85").checked==true)
+if (document.getElementById("radio286").checked==true)
 window.location = "12.html";
-if (document.getElementById("radio86").checked==true)
+if (document.getElementById("radio287").checked==true)
 window.location = "13.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio82").checked!=false) {
+if (document.getElementById("radio283").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio83").checked!=false) {
+if (document.getElementById("radio284").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio84").checked!=false) {
+if (document.getElementById("radio285").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio85").checked!=false) {
+if (document.getElementById("radio286").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio86").checked!=true) {
+if (document.getElementById("radio287").checked!=true) {
     correct=false;
 }
 if (correct==true) {
@@ -94,11 +94,11 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio82" value="radio82" onChange="updateForm()">Tok × tok</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio83" value="radio83" onChange="updateForm()">Napetost × napetost</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio84" value="radio84" onChange="updateForm()">Napetost × frekvenca</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio85" value="radio85" onChange="updateForm()">Frekvenca × tok</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio86" value="radio86" onChange="updateForm()">Tok × napetost</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio283" value="radio283" onChange="updateForm()">Tok × tok</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio284" value="radio284" onChange="updateForm()">Napetost × napetost</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio285" value="radio285" onChange="updateForm()">Napetost × frekvenca</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio286" value="radio286" onChange="updateForm()">Frekvenca × tok</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio287" value="radio287" onChange="updateForm()">Tok × napetost</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

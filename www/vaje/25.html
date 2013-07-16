@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio190").checked==true)
-window.location = "startizo.html";
-if (document.getElementById("radio191").checked==true)
+if (document.getElementById("radio391").checked==true)
+window.location = "26.html";
+if (document.getElementById("radio392").checked==true)
 window.location = "25.html";
-if (document.getElementById("radio192").checked==true)
+if (document.getElementById("radio393").checked==true)
 window.location = "25.html";
-if (document.getElementById("radio193").checked==true)
+if (document.getElementById("radio394").checked==true)
 window.location = "25.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio190").checked!=true) {
+if (document.getElementById("radio391").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio191").checked!=false) {
+if (document.getElementById("radio392").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio192").checked!=false) {
+if (document.getElementById("radio393").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio193").checked!=false) {
+if (document.getElementById("radio394").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,10 +89,10 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio190" value="radio190" onChange="updateForm()">centimetra na sekundo</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio191" value="radio191" onChange="updateForm()">svetlobne hitrosti</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio192" value="radio192" onChange="updateForm()">100 kilometrov na uro</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio193" value="radio193" onChange="updateForm()">10 kilometrov na minuto</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio391" value="radio391" onChange="updateForm()">centimetra na sekundo</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio392" value="radio392" onChange="updateForm()">svetlobne hitrosti</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio393" value="radio393" onChange="updateForm()">100 kilometrov na uro</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio394" value="radio394" onChange="updateForm()">10 kilometrov na minuto</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

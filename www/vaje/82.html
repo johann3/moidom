@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+82
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node82';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("radio798").checked==true)
+window.location = "83.html";
+if (document.getElementById("radio799").checked==true)
+window.location = "82.html";
+if (document.getElementById("radio800").checked==true)
+window.location = "82.html";
+if (document.getElementById("radio801").checked==true)
+window.location = "82.html";
+}
+function updateForm()
+{
+var correct=true;
+if (document.getElementById("radio798").checked!=true) {
+    correct=false;
+}
+if (document.getElementById("radio799").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio800").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio801").checked!=false) {
+    correct=false;
+}
+if (correct==true) {
+   document.getElementById("evaluation").innerHTML="pravilen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(100,255,100)";
+}
+else {
+   document.getElementById("evaluation").innerHTML="napačen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(255,100,100)";
+}
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Toplota
+</h1>
+<p id="text1">
+Na led z maso 0.3 kg in temperaturo -12˚C vlijemo toplo vodo z maso 1 kg in temperaturo 80˚C. Kolikšna je končna temperatura? Specifična toplota ledu je 2100 J/kgK, talilna toplota vode je 334 kJ/kg, specifična toplota vode je 4200 J/kgK. Toploto Q izračunamo kot produkt specifične toplote, mase in razlike temperature. Pri faznem prehodu pa toploto Q izračunamo kot produkt talilne toplote in mase. Pri vaji predpostavljamo, da se toplota ne izgublja. Namig: ((m1*c*(T1-To))-(m2*c1*(To-T2))-(m2*qt))/((m1+m2)*c)  qt=talilna toplota, c=specifična toplota
+</p>
+<p id="text2">
+Označite trditev s klikom.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio798" value="radio798" onChange="updateForm()">42˚C</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio799" value="radio799" onChange="updateForm()">35˚C</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio800" value="radio800" onChange="updateForm()">40˚C</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio801" value="radio801" onChange="updateForm()">45˚C</td><td></td></tr>
+<tr>
+<td> Vaš odgovor je </td>
+<td id="evaluation"> nepopoln. </td>
+</tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>

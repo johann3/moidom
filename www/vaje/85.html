@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+85
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node85';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("radio819").checked==true)
+window.location = "85.html";
+if (document.getElementById("radio820").checked==true)
+window.location = "85.html";
+if (document.getElementById("radio821").checked==true)
+window.location = "85.html";
+if (document.getElementById("radio822").checked==true)
+window.location = "86.html";
+}
+function updateForm()
+{
+var correct=true;
+if (document.getElementById("radio819").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio820").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio821").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio822").checked!=true) {
+    correct=false;
+}
+if (correct==true) {
+   document.getElementById("evaluation").innerHTML="pravilen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(100,255,100)";
+}
+else {
+   document.getElementById("evaluation").innerHTML="napačen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(255,100,100)";
+}
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Toplota
+</h1>
+<p id="text1">
+V posodi je 3 kg vode s temperaturo 22˚C. V trenutku začne v posodo pritekati vroča voda s temperaturo 80˚C, masni tok je 4 kg/min (enota pove kolikšna masa vode vsako minuto priteče v posodo). V kolikšnem času se temperatura mešane vode v posodi dvigne na 60˚C? Specifična toplota vode je 4200 J/kgK. Toploto Q izračunamo kot produkt specifične toplote, mase in razlike temperature. Predpostavimo, da ni izgub toplote. Namig: (m₀/Ѳm)*((T2-To)/(T1-T2))   Ѳm=masni tok
+</p>
+<p id="text2">
+Označite trditev s klikom.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio819" value="radio819" onChange="updateForm()">2 min</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio820" value="radio820" onChange="updateForm()">0.0015 h</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio821" value="radio821" onChange="updateForm()">1.4 min</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio822" value="radio822" onChange="updateForm()">90 s</td><td></td></tr>
+<tr>
+<td> Vaš odgovor je </td>
+<td id="evaluation"> nepopoln. </td>
+</tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+80
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node80';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("radio784").checked==true)
+window.location = "80.html";
+if (document.getElementById("radio785").checked==true)
+window.location = "81.html";
+if (document.getElementById("radio786").checked==true)
+window.location = "80.html";
+if (document.getElementById("radio787").checked==true)
+window.location = "80.html";
+}
+function updateForm()
+{
+var correct=true;
+if (document.getElementById("radio784").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio785").checked!=true) {
+    correct=false;
+}
+if (document.getElementById("radio786").checked!=false) {
+    correct=false;
+}
+if (document.getElementById("radio787").checked!=false) {
+    correct=false;
+}
+if (correct==true) {
+   document.getElementById("evaluation").innerHTML="pravilen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(100,255,100)";
+}
+else {
+   document.getElementById("evaluation").innerHTML="napačen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(255,100,100)";
+}
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Toplota
+</h1>
+<p id="text1">
+Skozi zidove hiše teče iz notranjosti v okolico podnevi 750 minut povprečni toplotni tok 5 kW (watt je enota za toplotni tok), ponoči pa 690 minut povprečni tok 12 kW. Koliko kWh toplote izgubi hiša v celem dnevu? Toploto Q izračunamo kot produkt toplotnega toka in časa. Namig: P1*t1+P2*t2   P=toplotni tok, t=čas
+</p>
+<p id="text2">
+Označite trditev s klikom.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio784" value="radio784" onChange="updateForm()">1800 Wh</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio785" value="radio785" onChange="updateForm()">200 kWh</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio786" value="radio786" onChange="updateForm()">298 Wh</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio787" value="radio787" onChange="updateForm()">200 Wh</td><td></td></tr>
+<tr>
+<td> Vaš odgovor je </td>
+<td id="evaluation"> nepopoln. </td>
+</tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>

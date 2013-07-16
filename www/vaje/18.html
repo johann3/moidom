@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio133").checked==true)
+if (document.getElementById("radio334").checked==true)
 window.location = "19.html";
-if (document.getElementById("radio134").checked==true)
+if (document.getElementById("radio335").checked==true)
 window.location = "18.html";
-if (document.getElementById("radio135").checked==true)
+if (document.getElementById("radio336").checked==true)
 window.location = "18.html";
-if (document.getElementById("radio136").checked==true)
+if (document.getElementById("radio337").checked==true)
 window.location = "18.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio133").checked!=true) {
+if (document.getElementById("radio334").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio134").checked!=false) {
+if (document.getElementById("radio335").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio135").checked!=false) {
+if (document.getElementById("radio336").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio136").checked!=false) {
+if (document.getElementById("radio337").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,10 +89,10 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio133" value="radio133" onChange="updateForm()">kvadratom oddaljenosti</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio134" value="radio134" onChange="updateForm()">premosorazmerno z oddaljenostjo</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio135" value="radio135" onChange="updateForm()">kubikom oddaljenosti</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio136" value="radio136" onChange="updateForm()">je konstantna in sploh ne upada</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio334" value="radio334" onChange="updateForm()">kvadratom oddaljenosti</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio335" value="radio335" onChange="updateForm()">premosorazmerno z oddaljenostjo</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio336" value="radio336" onChange="updateForm()">kubikom oddaljenosti</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio337" value="radio337" onChange="updateForm()">je konstantna in sploh ne upada</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

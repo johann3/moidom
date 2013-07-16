@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio629").checked==true)
+if (document.getElementById("radio102").checked==true)
 window.location = "153.html";
-if (document.getElementById("radio630").checked==true)
+if (document.getElementById("radio103").checked==true)
 window.location = "153.html";
-if (document.getElementById("radio631").checked==true)
+if (document.getElementById("radio104").checked==true)
 window.location = "154.html";
-if (document.getElementById("radio632").checked==true)
+if (document.getElementById("radio105").checked==true)
 window.location = "153.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio629").checked!=false) {
+if (document.getElementById("radio102").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio630").checked!=false) {
+if (document.getElementById("radio103").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio631").checked!=true) {
+if (document.getElementById("radio104").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio632").checked!=false) {
+if (document.getElementById("radio105").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,10 +89,10 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio629" value="radio629" onChange="updateForm()">2 kubična metra vode</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio630" value="radio630" onChange="updateForm()">20 kubičnih metrov vode</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio631" value="radio631" onChange="updateForm()">200 kubičnih metrov vode</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio632" value="radio632" onChange="updateForm()">2000 kubičnih metrov vode</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio102" value="radio102" onChange="updateForm()">2 kubična metra vode</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio103" value="radio103" onChange="updateForm()">20 kubičnih metrov vode</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio104" value="radio104" onChange="updateForm()">200 kubičnih metrov vode</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio105" value="radio105" onChange="updateForm()">2000 kubičnih metrov vode</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

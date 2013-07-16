@@ -16,28 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio91").checked==true)
+if (document.getElementById("radio292").checked==true)
 window.location = "13.html";
-if (document.getElementById("radio92").checked==true)
+if (document.getElementById("radio293").checked==true)
 window.location = "13.html";
-if (document.getElementById("radio93").checked==true)
+if (document.getElementById("radio294").checked==true)
 window.location = "14.html";
-if (document.getElementById("radio94").checked==true)
+if (document.getElementById("radio295").checked==true)
 window.location = "13.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio91").checked!=false) {
+if (document.getElementById("radio292").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio92").checked!=false) {
+if (document.getElementById("radio293").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio93").checked!=true) {
+if (document.getElementById("radio294").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio94").checked!=false) {
+if (document.getElementById("radio295").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -82,17 +82,17 @@ $(document).ready(function() {
 Elektrika
 </h1>
 <p id="text1">
-Vsak vodnik v gospodinjstvu se upira prevajanju električnega toka.
+Vsak vodnik v gospodinstvu se upira prevajanju električnega toka.
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio91" value="radio91" onChange="updateForm()">Ne drži</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio92" value="radio92" onChange="updateForm()">Ne vem</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio93" value="radio93" onChange="updateForm()">Drži - tudi zaradi tega prihaja do izgub</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio94" value="radio94" onChange="updateForm()">Delno drži</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio292" value="radio292" onChange="updateForm()">Ne drži</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio293" value="radio293" onChange="updateForm()">Ne vem</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio294" value="radio294" onChange="updateForm()">Drži - tudi zaradi tega prihaja do izgub</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio295" value="radio295" onChange="updateForm()">Delno drži</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>

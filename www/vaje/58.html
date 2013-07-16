@@ -16,23 +16,23 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio327").checked==true)
+if (document.getElementById("radio610").checked==true)
 window.location = "59.html";
-if (document.getElementById("radio328").checked==true)
+if (document.getElementById("radio611").checked==true)
 window.location = "58.html";
-if (document.getElementById("radio329").checked==true)
+if (document.getElementById("radio612").checked==true)
 window.location = "58.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio327").checked!=true) {
+if (document.getElementById("radio610").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio328").checked!=false) {
+if (document.getElementById("radio611").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio329").checked!=false) {
+if (document.getElementById("radio612").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -84,9 +84,9 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio327" value="radio327" onChange="updateForm()">Okras in izolator - manjše toplotne izbgube</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio328" value="radio328" onChange="updateForm()">Okras in prevodnik - večje toplotne izgube</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio329" value="radio329" onChange="updateForm()">Okras in hkrati nima toplotne vloge</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio610" value="radio610" onChange="updateForm()">Okras in izolator - manjše toplotne izbgube</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio611" value="radio611" onChange="updateForm()">Okras in prevodnik - večje toplotne izgube</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio612" value="radio612" onChange="updateForm()">Okras in hkrati nima toplotne vloge</td><td></td></tr>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
