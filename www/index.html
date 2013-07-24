@@ -10,7 +10,7 @@
         
         <script charset="UTF-8" src="js/jquery.min.js"></script>
         <script charset="UTF-8" src="js/jquery.cookie.js"></script>
-        <script charset="UTF-8" src="js/jquery.flot.js"></script>
+        <script charset="UTF-8" src="js/jquery.flot.min.js"></script>
         <script charset="UTF-8" src="js/jquery.form.js"></script>
         <script charset="UTF-8" src="js/jquery.validate.js"></script>
         <script charset="UTF-8" src="js/bootstrap.min.js"></script>
@@ -41,6 +41,8 @@
             function onBodyLoad() {
                 // Register the event handler 
                 document.addEventListener("deviceready", onDeviceReady, false);
+                
+                addValidators();
                 
                 // if logged in, continue to the main page
                 $.ajax({
@@ -87,20 +89,30 @@
                 $("#formRegisterUser").validate({
                     rules:
                     {
-                        email: {required: true, email: true, maxlength: 50},
-                        password: {required: true, minlength: 5, maxlength: 50},
-                        confPassword: {required: true, minlength: 5, maxlength: 50, equalTo: "#password"},
-                        area: {required: true, number: true, min: 1},
-                        persons: {required: true, number: true, min: 1},
-                        in_power: {number: true, min: 1},
-                        postal_code: {number: true, min: 1000, max: 9999}
+                        email: {moidomRequired: true, email: true, maxlength: 50},
+                        password: {moidomRequired: true, minlength: 5, maxlength: 50},
+                        confPassword: {moidomRequired: true, minlength: 5, maxlength: 50, equalTo: "#password"},
+                        area: {moidomRequired: true, moidomPositiveInt: true},
+                        persons: {moidomRequired: true, moidomPositiveInt: true},
+                        in_power: {moidomPositiveInt: true},
+                        postal_code: {moidomPostalCode: true},
+                        out_power: {moidomDecimal: true},
                     },
                     submitHandler: function(form)
                     {
+                        var requestData = {
+                            email: $('#email').val(),
+                            password: $('#password').val(),
+                            area: $('#area').val(),
+                            persons: $('#persons').val(),
+                            in_power: firstNonEmpty ($('#in_power').val(), '0'),
+                            postal_code: firstNonEmpty ($('#postal_code').val(), '0'),
+                            out_power: firstNonEmpty ($('#out_power').val().replace(',', '.'), '0')
+                        };
                         $.ajax({
                             url: DATA_URL + 'user/register',
                             type: 'POST',
-                            data: $(form).serialize(),
+                            data: requestData,
                             xhrFields: { withCredentials: true },
                             success: function(data, textStatus, xhr)
                             {
@@ -185,6 +197,9 @@
                                         <br />
                                         <div class="clearfix"></div>
                                         <br />
+                                        S klikom na prijavo se strinjate s <a href="pogoji.html">splošnimi pogoji</a>,
+                                        ki vključujejo uporabo enega internega piškotka za potrebe sledenja prijavi v aplikaciji.
+                                        <br />
                                         <input type="submit" value="Prijavi se" class="submit btn btn-primary">
                                     </form>
                                 </div>
@@ -220,24 +235,25 @@
                                 <strong>Podatki uporabnika:</strong>
                                 <form id="formRegisterUser">
                                     <label>* Elektronski naslov:</label>
-                                    <input type="email" name="email" class="input-medium">
+                                    <input type="email" id="email" name="email" class="input-medium">
                                     <label>* Geslo za mOIDom:</label>
-                                    <input type="password" name="password" id="password" class="input-medium">
+                                    <input type="password" id="password" name="password" id="password" class="input-medium">
                                     <label>* Potrdi geslo za mOIDom:</label>
-                                    <input type="password" name="confPassword" id="confPassword" class="input-medium">
-    
-                                    <!-- Appartment data -->
+                                    <input type="password" id="confPassword" name="confPassword" id="confPassword" class="input-medium">
+
                                     <label></label>
                                     <strong>Podatki o stanovanju:</strong>
                                     <label></label>
-                                    <label>* Površina stanovanja (m2):</label>
-                                    <input type="number" name="area" class="input-medium">
+                                    <label>* Površina stanovanja (m2, celo število):</label>
+                                    <input type="number" id="area" name="area" class="input-medium">
                                     <label>* Število članov gospodinjstva:</label>
-                                    <input type="number" name="persons" class="input-medium">
-                                    <label>Priključna moč električnega priključka (kW):</label>
-                                    <input type="number" name="in_power" class="input-medium">
+                                    <input type="number" id="persons" name="persons" class="input-medium">
+                                    <label>Priključna moč električnega priključka (kW, celo število):</label>
+                                    <input type="number" id="in_power" name="in_power" class="input-medium">
                                     <label>Poštna številka kraja bivanja:</label>
-                                    <input type="number" name="postal_code" class="input-medium">
+                                    <input type="number" id="postal_code" name="postal_code" class="input-medium">
+                                    <label>Doma generirana moč (kW, decimalno število, decimalka je vejica ali pika):</label>
+                                    <input type="text" id="out_power" name="out_power" class="input-medium">
                                     <div class="clearfix"></div>
                                     <input type="submit" value="Pošlji zahtevo" class="submit btn btn-primary">
                                 </form>

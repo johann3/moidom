@@ -12,7 +12,7 @@
         
         <script charset="UTF-8" src="js/jquery.min.js"></script>
         <script charset="UTF-8" src="js/jquery.cookie.js"></script>
-        <script charset="UTF-8" src="js/jquery.flot.js"></script>
+        <script charset="UTF-8" src="js/jquery.flot.min.js"></script>
         <script charset="UTF-8" src="js/jquery.form.js"></script>
         <script charset="UTF-8" src="js/jquery.validate.js"></script>
         <script charset="UTF-8" src="js/bootstrap.min.js"></script>
@@ -24,7 +24,7 @@
         <script charset="UTF-8" src="phonegap.js"></script>
         <!--  when creating mobile applications, phonegap.js is automatically included, 
           see https://build.phonegap.com/docs/preparing-your-app
-          otherwse, it's skipped
+          otherwise, it's skipped
         -->
         <script charset="UTF-8" src="common.js"></script>
         
@@ -100,6 +100,8 @@
             $(document).ready(function() {
                 // Register the event handler 
                 document.addEventListener("deviceready", onDeviceReady, false);
+                
+                addValidators();
                 
                 // Initialize datepicker and timepicker
                 $('#submitDate').datepicker('setValue', new Date());
@@ -211,17 +213,27 @@
                     {
                         password: {required: false, minlength: 5, maxlength: 50},
                         confPassword: {required: false, minlength: 5, maxlength: 50, equalTo: "#password"},
-                        area: {required: true, number: true, min: 1},
-                        persons: {required: true, number: true, min: 1},
-                        in_power: {number: true, min: 1},
-                        postal_code: {number: true, min: 1000, max: 9999}
+                        area: {moidomRequired: true, moidomPositiveInt: true},
+                        persons: {moidomRequired: true, moidomPositiveInt: true},
+                        in_power: {moidomPositiveInt: true},
+                        postal_code: {moidomPostalCode: true},
+                        out_power: {moidomDecimal: true},
                     },
                     submitHandler: function(form)
                     {
+                        var requestData = {
+                            password: $('#password').val(),
+                            area: $('#area').val(),
+                            persons: $('#persons').val(),
+                            in_power: firstNonEmpty ($('#in_power').val(), '0'),
+                            postal_code: firstNonEmpty ($('#postal_code').val(), '0'),
+                            out_power: firstNonEmpty ($('#out_power').val().replace(',', '.'), '0')
+                        };
                         $.ajax({
                             url: DATA_URL + 'user/update_profile',
                             type: 'POST',
-                            data: $('#formUserSettings').serialize(),
+                            data: requestData,
+                            xhrFields: { withCredentials: true },
                             success: function(data, textStatus, xhr)
                             {
                                 if (dataStatusIsBad (data.status, data.status_loc))
@@ -243,10 +255,11 @@
                         unassignedCommodities: { required: true, number: true }
                     },
                     submitHandler: function(form) {
+                        var commodityId = $('#unassignedCommodities').val();
                         var requestData = {
                             cumulative: ($('#cumulativeTrue').prop('checked') ? 'true' : 'false'),
                             start_value: $('#startValue').val(),
-                            commodity: $('#unassignedCommodities').val(),
+                            commodity: commodityId,
                             start_time: parseDateTime($('#startDate').val(), 'dd.mm.yyyy', $('#startTime').val(), 'hh:mm:ss')
                         }
                         $.ajax({
@@ -258,6 +271,7 @@
                             {
                                 if (dataStatusIsBad (data.status, data.status_loc))
                                     return; 
+                                updateCurrentCommodity (commodityId, true);
                                 populateAssignedUnassignedCommodities();
                                 populateAssignedCommodities();
                                 setAssignCommodityDependants();
@@ -922,10 +936,11 @@
                         if (dataStatusIsBad (data.status, data.status_loc))
                             return; 
                         $('#updateUserEmail').text(data.email);
-                        $('#householdArea').val(data.area);
-                        $('#personsInHousehold').val(data.persons);
-                        $('#electricPower').val(data.in_power);
-                        $('#postalCode').val(data.postal_code);
+                        $('#area').val(data.area);
+                        $('#persons').val(data.persons);
+                        $('#in_power').val(zeroToEmpty(data.in_power));
+                        $('#postal_code').val(zeroToEmpty(data.postal_code));
+                        $('#out_power').val(zeroToEmpty(localizeDecimal(data.out_power)));
                         $('#logoutText').append(data.email);
                     },
                     error: ajaxError
@@ -1331,23 +1346,25 @@
                                     <p>Elektronski naslov:
                                     <span id="updateUserEmail"></span>
                                     </p>                                    
-                                    <label>* Geslo:</label>
+                                    <label>Geslo (če je polje prazno, ostane geslo nespremenjeno):</label>
                                     <input type="password" name="password" id="password" class="span8">
-                                    <label>* Potrdi geslo:</label>
+                                    <label>Potrdi geslo:</label>
                                     <input type="password" name="confPassword" id="confPassword" class="span8">
                                     
                                     <!-- Appartment data -->
                                     <label></label>
                                     <strong>Podatki o stanovanju:</strong>
-                                    <label></label>
-                                    <label>* Površina stanovanja (m2):</label>
-                                    <input type="number" name="area" id="householdArea" class="input-small">
+                                    <label>Polja, označena z *, so obvezna.</label>
+                                    <label>* Površina stanovanja (m2, celo število):</label>
+                                    <input type="number" id="area" name="area" class="input-medium">
                                     <label>* Število članov gospodinjstva:</label>
-                                    <input type="number" name="persons" id="personsInHousehold" class="input-small">
-                                    <label>Priključna moč električnega priključka (kW):</label>
-                                    <input type="number" name="in_power" id="electricPower" class="input-small">
+                                    <input type="number" id="persons" name="persons" class="input-medium">
+                                    <label>Priključna moč električnega priključka (kW, celo število):</label>
+                                    <input type="number" id="in_power" name="in_power" class="input-medium">
                                     <label>Poštna številka kraja bivanja:</label>
-                                    <input type="number" name="postal_code" id="postalCode" class="input-small">
+                                    <input type="number" id="postal_code" name="postal_code" class="input-medium">
+                                    <label>Doma generirana moč (kW, decimalno število, decimalka je vejica ali pika):</label>
+                                    <input type="text" id="out_power" name="out_power" class="input-medium">
                                     <div class="clearfix"></div>
                                     <!-- Buttons -->
                                     <input type="submit" value="Potrdi" class="submit btn btn-primary btn-success">
@@ -1358,6 +1375,7 @@
                     
                     <div class="tab-pane fade" id="Logout">
                         <form>
+                        <br />
                         <input type="button" class="btn btn-primary" value="Potrdi odjavo" onclick="logout()"></input>
                         </form>
                     </div>

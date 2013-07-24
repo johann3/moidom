@@ -50,6 +50,21 @@ function localizeDecimal (decimal)
 }
 
 
+function zeroToEmpty (numberAsString)
+{
+    return numberAsString == '0' ? '' : numberAsString;
+}
+
+
+function firstNonEmpty (a,b)
+{
+    if (a != '') {
+        return a;
+    }
+    return b;
+}
+
+
 function parseDateTime(dateValue, dateFormat, timeValue, timeFormat) {
 	var dateFmt = new Array(), timeFmt = new Array();
 	var i = 0, j = 0;
@@ -59,6 +74,23 @@ function parseDateTime(dateValue, dateFormat, timeValue, timeFormat) {
 	timeFormat.replace(/(hh|mm|ss)/g, function(part) { timeFmt[part] = j++; });
 	var date = new Date(dateParts[dateFmt['yyyy']], dateParts[dateFmt['mm']] - 1, dateParts[dateFmt['dd']],
 						timeParts[timeFmt['hh']], timeParts[timeFmt['mm']], timeParts[timeFmt['ss']]);
-
 	return date.getTime();
 }
+
+
+function addValidators()
+{
+    $.validator.addMethod("moidomRequired", function(value, element) {
+        return /^.+$/i.test(value);
+    }, "Vnos v to polje je obvezen.");
+    $.validator.addMethod("moidomPositiveInt", function(value, element) {
+        return this.optional(element) || /^[0-9]\d*$/i.test(value);
+    }, "Vnesi celo število, brez decimalk.");
+    $.validator.addMethod("moidomPostalCode", function(value, element) {
+        return this.optional(element) || /^[1-9]\d{3}$/i.test(value);
+    }, "Vnesi 4-mestno poštno številko.");
+    $.validator.addMethod("moidomDecimal", function(value, element) {
+        return this.optional(element) || /^\d+([,\.]\d+)?$/i.test(value);
+    }, "Vnesi celo ali decimalno število, decimalka je vejica ali pika.");
+}
+

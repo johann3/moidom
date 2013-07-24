@@ -2,16 +2,16 @@
 <!-- See description at https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.cosylab.moidom"
-        version   = "1.0.6">
+        id        = "si.moidom"
+        version   = "1.0.7">
     <name>mOIDom</name>
 
     <description>
         mOIDom mobilna aplikacija
     </description>
 
-    <author href="http://www.cosylab.com" email="info@cosylab.com">
-        Cosylab
+    <author href="http://www.cobik.com" email="info@cobik.si">
+        CO BIK
     </author>
 
     <feature name="http://api.phonegap.com/1.0/device" />
