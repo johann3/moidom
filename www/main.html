@@ -100,7 +100,7 @@
             
             // the function sets the style property of an element using its wanted width
             function setSizeUsingStyle (elementId, widthPx) {
-                // style="width:600px;height:300px;"
+                // style="width:300px;height:150px;"
                 widthPx = Math.round (widthPx);
                 var heightPx = Math.round (widthPx / 2);
                 var styleValue = 'width:'+widthPx+'px;height:'+heightPx+'px;';
@@ -110,7 +110,11 @@
             
             // the function sets the width and height of plot element based on window size
             function setPlotCanvasSize (elementId) {
-                setSizeUsingStyle (elementId, window.innerWidth*0.8);
+                var width = window.outerWidth*0.8;
+                if (width > 100) {
+                    width-=20;
+                }
+                setSizeUsingStyle (elementId, width);
             }
             
             $(document).ready(function() {
@@ -1219,7 +1223,7 @@
                                         Prikazani so učinkovitostni razredi za izbrano okoljsko obremenitev in mersko enoto kazalca učinkovitosti.
                                         Letna vrednost kazalca učinkovitosti za izbrano obdobje izračuna je v debeleje obrobljenem razredu. 
                                         <div class="accordion-inner">
-                                            <div id="viewEffClassHistogram" style="width:600px;height:300px;"></div>
+                                            <div id="viewEffClassHistogram" style="width:300px;height:150px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1237,7 +1241,7 @@
                                         <select name="viewTag" id="viewTag" onchange="updateIndicatorsAndGraph(false)"></select>
                                         <br />
                                         <div class="accordion-inner">
-                                            <div id="viewPercentilHistogram" style="width:600px;height:300px;"></div>
+                                            <div id="viewPercentilHistogram" style="width:300px;height:150px;"></div>
                                             <br />
                                             Navpična os: število uporabnikov v učinkovitostnem razredu.<br />
                                             Vodoravna os: vrednost v <span id="percentileUnit"></span>/leto.<br />
@@ -1253,7 +1257,7 @@
                                 </div>
                                 <div id="commodityViewTimeseqIncr" class="accordion-body collapse">
                                     <div class="accordion-inner">
-                                        <div id="viewTimeseqIncr" style="width:600px;height:300px;"></div>
+                                        <div id="viewTimeseqIncr" style="width:300px;height:150px;"></div>
                                         <br />
                                         Skupna uporaba: <span id="totalUserValue1"></span>
                                         <form>
@@ -1268,7 +1272,7 @@
                                 </div>
                                 <div id="commodityViewTimeseqCumul" class="accordion-body collapse">
                                     <div class="accordion-inner">
-                                        <div id="viewTimeseqCumul" style="width:600px;height:300px;"></div>
+                                        <div id="viewTimeseqCumul" style="width:300px;height:150px;"></div>
                                         <br />
                                         Skupna uporaba: <span id="totalUserValue2"></span>
                                         <form>

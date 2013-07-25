@@ -4,7 +4,7 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "si.moidom"
         version   = "1.0.8">
-    <name>mOIDom test</name>
+    <name>mOIDom</name>
 
     <description>
         mOIDom mobilna aplikacija
