@@ -103,6 +103,8 @@
                 // style="width:300px;height:150px;"
                 widthPx = Math.round (widthPx);
                 var heightPx = Math.round (widthPx / 2);
+                if (heightPx < 200)
+                    heightPx = 200;
                 var styleValue = 'width:'+widthPx+'px;height:'+heightPx+'px;';
                 $('#' + elementId).prop ('style', styleValue);
             }
@@ -110,7 +112,11 @@
             
             // the function sets the width and height of plot element based on window size
             function setPlotCanvasSize (elementId) {
-                var width = window.outerWidth*0.8;
+                var width1 = window.outerWidth;
+                var width2 = document.body.clientWidth;
+                var width = width1 < width2 ? width1 : width2;
+                // it's not easy to get the correct value across different systems
+                width *= 0.8;
                 if (width > 100) {
                     width-=20;
                 }
