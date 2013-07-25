@@ -112,11 +112,8 @@
             
             // the function sets the width and height of plot element based on window size
             function setPlotCanvasSize (elementId) {
-                var width1 = window.outerWidth;
-                var width2 = document.body.clientWidth;
-                var width = width1 < width2 ? width1 : width2;
-                // it's not easy to get the correct value across different systems
-                width *= 0.8;
+                var width = window.innerWidth;
+                width *= 0.9;
                 if (width > 100) {
                     width-=20;
                 }
