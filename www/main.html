@@ -13,6 +13,7 @@
         <script charset="UTF-8" src="js/jquery.min.js"></script>
         <script charset="UTF-8" src="js/jquery.cookie.js"></script>
         <script charset="UTF-8" src="js/jquery.flot.min.js"></script>
+        <script charset="UTF-8" src="js/jquery.flot.time.min.js"></script>
         <script charset="UTF-8" src="js/jquery.form.js"></script>
         <script charset="UTF-8" src="js/jquery.validate.js"></script>
         <script charset="UTF-8" src="js/bootstrap.min.js"></script>
@@ -97,6 +98,21 @@
                 return window.innerWidth <= 800 && window.innerHeight <= 600;
             }
             
+            // the function sets the style property of an element using its wanted width
+            function setSizeUsingStyle (elementId, widthPx) {
+                // style="width:600px;height:300px;"
+                widthPx = Math.round (widthPx);
+                var heightPx = Math.round (widthPx / 2);
+                var styleValue = 'width:'+widthPx+'px;height:'+heightPx+'px;';
+                $('#' + elementId).prop ('style', styleValue);
+            }
+            
+            
+            // the function sets the width and height of plot element based on window size
+            function setPlotCanvasSize (elementId) {
+                setSizeUsingStyle (elementId, window.innerWidth*0.8);
+            }
+            
             $(document).ready(function() {
                 // Register the event handler 
                 document.addEventListener("deviceready", onDeviceReady, false);
@@ -162,9 +178,9 @@
                     rules:
                     {
                         submitCommodity: {required: true},
-                        submitDate: {required: true},
-                        submitTime: {required: true},
-                        submitValue: {required: true}
+                        submitDate: {moidomRequired: true},
+                        submitTime: {moidomRequired: true},
+                        submitValue: {moidomRequired: true}
                     },
                     submitHandler: function(form)
                     {
@@ -249,9 +265,9 @@
                     rules:
                     {
                         cumulative: { required: true },
-                        startValue: { required: true, minlength: 1, maxlength: 50 },
-                        startDate: { required: true },
-                        startTime: { required: true },
+                        startValue: { moidomRequired: true, minlength: 1, maxlength: 50 },
+                        startDate: { moidomRequired: true },
+                        startTime: { moidomRequired: true },
                         unassignedCommodities: { required: true, number: true }
                     },
                     submitHandler: function(form) {
@@ -454,6 +470,7 @@
                             captions.push(rangeText + ' ' + unit + getEfficiencyUnitText() + "/leto");
                         }
 
+                        setPlotCanvasSize ('viewEffClassHistogram');
                         var plot = $.plot($('#viewEffClassHistogram'), plotData, plotOptions);
 
                         // Print out units
@@ -527,6 +544,7 @@
                         plotHolder = 'viewPercentilHistogram';
                         indicatorHolder = 'indicatorAtPercentile';
                         userRankHolder = 'userRank';
+                        setPlotCanvasSize (plotHolder);
                         var plot = $.plot($('#' + plotHolder), plotData, plotOptions);
 
                         // Update text fields below percentile graph
@@ -593,7 +611,7 @@
                                 totalValue += data.data[i][1] - data.data[i-1][1];
                             }
                         }
-
+                        setPlotCanvasSize (plotHolder);
                         $.plot($('#' + plotHolder), plotData, plotOptions);
                         var unit = $('#viewCommodity').find(':selected').data('unit');
                         $('#' + totalValueHolder).text(localizeDecimal(totalValue)+' '+unit);

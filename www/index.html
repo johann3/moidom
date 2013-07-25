@@ -10,7 +10,6 @@
         
         <script charset="UTF-8" src="js/jquery.min.js"></script>
         <script charset="UTF-8" src="js/jquery.cookie.js"></script>
-        <script charset="UTF-8" src="js/jquery.flot.min.js"></script>
         <script charset="UTF-8" src="js/jquery.form.js"></script>
         <script charset="UTF-8" src="js/jquery.validate.js"></script>
         <script charset="UTF-8" src="js/bootstrap.min.js"></script>
@@ -63,8 +62,8 @@
                 $("#formLogin").validate({
                     rules:
                     {
-                        email: {required: true, email: true, maxlength: 50},
-                        password: {required: true, minlength: 5, maxlength: 50}
+                        email: {moidomRequired: true, email: true, maxlength: 50},
+                        password: {moidomRequired: true, minlength: 5, maxlength: 50}
                     },
                     submitHandler: function(form)
                     {
@@ -131,7 +130,7 @@
                 $("#formLostPass").validate({
                     rules:
                     {
-                        email: {required: true, email: true, maxlength: 50},
+                        email: {moidomRequired: true, email: true, maxlength: 50},
                     },
                     submitHandler: function(form)
                     {
