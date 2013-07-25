@@ -98,7 +98,7 @@
                 return window.innerWidth <= 800 && window.innerHeight <= 600;
             }
             
-            // the function sets the style property of an element using its wanted width
+            // the function sets the style attribute of an element using its wanted width
             function setSizeUsingStyle (elementId, widthPx) {
                 // style="width:300px;height:150px;"
                 widthPx = Math.round (widthPx);
@@ -106,7 +106,7 @@
                 if (heightPx < 200)
                     heightPx = 200;
                 var styleValue = 'width:'+widthPx+'px;height:'+heightPx+'px;';
-                $('#' + elementId).prop ('style', styleValue);
+                $('#' + elementId).attr ('style', styleValue);
             }
             
             
