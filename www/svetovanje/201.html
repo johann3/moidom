@@ -16,11 +16,11 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio644").checked==true)
+if (document.getElementById("radio12").checked==true)
 window.location = "202.html";
-if (document.getElementById("radio645").checked==true)
+if (document.getElementById("radio13").checked==true)
 window.location = "204.html";
-if (document.getElementById("radio646").checked==true)
+if (document.getElementById("radio14").checked==true)
 window.location = "205.html";
 }
 
@@ -56,16 +56,16 @@ $(document).ready(function() {
 Zmanjšanje porabe: toplotna energija
 </h1>
 <p id="text1">
-Za zmanjšanje porabe toplotne energije imate na voljo naslednje možnosti
+Za zmanjšanje porabe toplotne energije imate na voljo naslednje možnosti:
 </p>
 <p id="text2">
 Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio644" value="radio644" onChange="updateForm()">Posodobitev ogrevalnega sistema</td></tr>
-<tr><td><input type="radio" name="radio" id="radio645" value="radio645" onChange="updateForm()">Sprememba ogrevalnih navad</td></tr>
-<tr><td><input type="radio" name="radio" id="radio646" value="radio646" onChange="updateForm()">Izboljšanje energetskih lastnosti stavbe</td></tr>
+<tr><td><input type="radio" name="radio" id="radio12" value="radio12" onChange="updateForm()">Posodobitev ogrevalnega sistema.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio13" value="radio13" onChange="updateForm()">Sprememba ogrevalnih navad.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio14" value="radio14" onChange="updateForm()">Izboljšanje energetskih lastnosti stavbe.</td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
 </form>

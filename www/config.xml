@@ -3,8 +3,8 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "si.moidom"
-        version   = "1.0.8">
-    <name>mOIDom test</name>
+        version   = "1.0.9">
+    <name>mOIDom</name>
 
     <description>
         mOIDom mobilna aplikacija

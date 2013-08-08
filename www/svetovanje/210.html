@@ -16,9 +16,9 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio683").checked==true)
+if (document.getElementById("radio51").checked==true)
 window.location = "215.html";
-if (document.getElementById("radio684").checked==true)
+if (document.getElementById("radio52").checked==true)
 window.location = "212.html";
 }
 
@@ -54,15 +54,15 @@ $(document).ready(function() {
 Lesna biomasa
 </h1>
 <p id="text1">
-Za zmanjšanje porabe toplotne energije imate na voljo naslednje možnosti
+Za zmanjšanje porabe toplotne energije imate na voljo naslednje možnosti:
 </p>
 <p id="text2">
 Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio683" value="radio683" onChange="updateForm()">Lahko posodobite ogrevalni sistem</td></tr>
-<tr><td><input type="radio" name="radio" id="radio684" value="radio684" onChange="updateForm()">Lahko zamenjate energent</td></tr>
+<tr><td><input type="radio" name="radio" id="radio51" value="radio51" onChange="updateForm()">Lahko posodobite ogrevalni sistem.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio52" value="radio52" onChange="updateForm()">Lahko zamenjate energent.</td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
 </form>

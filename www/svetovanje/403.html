@@ -16,9 +16,9 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio995").checked==true)
+if (document.getElementById("radio20").checked==true)
 window.location = "408.html";
-if (document.getElementById("radio996").checked==true)
+if (document.getElementById("radio21").checked==true)
 window.location = "409.html";
 }
 
@@ -51,7 +51,7 @@ $(document).ready(function() {
 </head>
 <body>
 <h1 id="title">
-Varčevanje v kuhinji.
+Varčevanje v kuhinji
 </h1>
 <p id="text1">
 V kuhinji lahko z vodo varčujemo na več načinov. Prosimo izberite način varčevanja.
@@ -61,8 +61,8 @@ Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio995" value="radio995" onChange="updateForm()">Varčevanje pri kuhanju</td></tr>
-<tr><td><input type="radio" name="radio" id="radio996" value="radio996" onChange="updateForm()">Varčevanje pri pomivanju</td></tr>
+<tr><td><input type="radio" name="radio" id="radio20" value="radio20" onChange="updateForm()">Varčevanje pri kuhanju.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio21" value="radio21" onChange="updateForm()">Varčevanje pri pomivanju.</td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
 </form>

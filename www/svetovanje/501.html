@@ -16,9 +16,9 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio1018").checked==true)
+if (document.getElementById("radio4").checked==true)
 window.location = "502.html";
-if (document.getElementById("radio1019").checked==true)
+if (document.getElementById("radio5").checked==true)
 window.location = "503.html";
 }
 
@@ -54,15 +54,15 @@ $(document).ready(function() {
 Zmanjšanje količine in stroška smeti
 </h1>
 <p id="text1">
-Za zmanjšanje stroškov in količine odpadkov imate na voljo naslednje možnosti
+Za zmanjšanje stroškov in količine odpadkov imate na voljo naslednje možnosti:
 </p>
 <p id="text2">
 Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio1018" value="radio1018" onChange="updateForm()">Preverite velikost vašega smetnjaka</td></tr>
-<tr><td><input type="radio" name="radio" id="radio1019" value="radio1019" onChange="updateForm()">Preverite svoje navade ravnanja z odpadki</td></tr>
+<tr><td><input type="radio" name="radio" id="radio4" value="radio4" onChange="updateForm()">Preverite velikost vašega smetnjaka.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio5" value="radio5" onChange="updateForm()">Preverite svoje navade ravnanja z odpadki.</td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
 </form>

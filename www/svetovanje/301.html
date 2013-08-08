@@ -16,11 +16,11 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio890").checked==true)
+if (document.getElementById("radio4").checked==true)
 window.location = "302.html";
-if (document.getElementById("radio891").checked==true)
+if (document.getElementById("radio5").checked==true)
 window.location = "303.html";
-if (document.getElementById("radio892").checked==true)
+if (document.getElementById("radio6").checked==true)
 window.location = "304.html";
 }
 
@@ -56,16 +56,16 @@ $(document).ready(function() {
 Zmanjšanje stroškov električne energije
 </h1>
 <p id="text1">
-Za zmanjšanje stroškov električne energije imate na voljo naslednje možnosti
+Za zmanjšanje stroškov električne energije imate na voljo naslednje možnosti:
 </p>
 <p id="text2">
 Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio890" value="radio890" onChange="updateForm()">Lahko zamnjate ponudnika</td></tr>
-<tr><td><input type="radio" name="radio" id="radio891" value="radio891" onChange="updateForm()">Lahko zmanjšate porabo</td></tr>
-<tr><td><input type="radio" name="radio" id="radio892" value="radio892" onChange="updateForm()">Lahko preverite vašo priključno moč</td></tr>
+<tr><td><input type="radio" name="radio" id="radio4" value="radio4" onChange="updateForm()">Lahko zamenjate ponudnika.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio5" value="radio5" onChange="updateForm()">Lahko zmanjšate porabo.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio6" value="radio6" onChange="updateForm()">Lahko preverite vašo priključno moč.</td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
 </form>
