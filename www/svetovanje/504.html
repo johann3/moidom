@@ -27,6 +27,10 @@ window.location = "508.html";
 if (document.getElementById("radio23").checked==true)
 window.location = "509.html";
 }
+function loadStart()
+{
+window.location = "start.html";
+}
 
 $(document).ready(function() {
     $('form').submit(function() {
@@ -60,7 +64,7 @@ $(document).ready(function() {
 Ločevanje odpadkov.
 </h1>
 <p id="text1">
-Ločevanje odpadkov je povezano z pravilnim razvrščanjem smeti v posamezne zabojnike. Ker plačujemo samo za mešane odpadke, je smiselno le-te zmanjšati, kolikor je mogoče, z ločevanjem. Preverite, v kateri zabojnik je potrebno dati posamezne odpadke.
+Ločevanje odpadkov je povezano z pravilnim razvrščanjem odpadkov v posamezne zabojnike. Ker plačujemo samo za mešane odpadke, je smiselno le-te zmanjšati, kolikor je mogoče, z ločevanjem. Preverite, v kateri zabojnik je potrebno dati posamezne odpadke.
 </p>
 <p id="text2">
 Izberite možnost.
@@ -74,6 +78,7 @@ Izberite možnost.
 <tr><td><input type="radio" name="radio" id="radio23" value="radio23" onChange="updateForm()">Rjavi zabojnik.</td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

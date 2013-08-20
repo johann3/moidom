@@ -35,14 +35,15 @@ window.location = "711.html";
 if (document.getElementById("evaluation").innerHTML=="Vaš kazalec učinkovitosti je enak razredu G")
 window.location = "712.html";
 }
+function loadStart()
+{
+window.location = "start.html";
+}
 function updateForm()
 {
 var por=parseFloat(document.getElementById("por").value); 
 var kaz=parseFloat(document.getElementById("kaz").value); 
-por=Iz aplikacije;
 kaz=por;
-if (!isNaN(por))
-document.getElementById("por").value=por;
 if (!isNaN(kaz))
 document.getElementById("kaz").value=kaz;
 if ((kaz>=0) && (kaz<50)) {
@@ -118,7 +119,7 @@ Vrednosti, ki jih še niste vnesli v aplikacijo, vnesite tukaj.
 <form>
 <table>
 <tr><td id="var1Name">Strošek energije za toploto na leto.</td>
-<td><input type="text" name="por" id="por" value="" onkeyup="updateForm()"/></td>
+<td><input type="text" name="por" id="por" value="" onkeyup="updateForm();restrictInput(this);"/></td>
 <td id="var1Unit">EUR/leto</td></tr>
 <tr><td id="var2Name">Kazalec učinkovitosti.</td>
 <td><input type="text" name="kaz" id="kaz" value="" onkeyup="updateForm()"/></td>
@@ -132,6 +133,7 @@ Vrednosti, ki jih še niste vnesli v aplikacijo, vnesite tukaj.
 </table>
 
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 
 </form>
 <div id="progressbar">

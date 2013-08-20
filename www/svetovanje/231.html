@@ -6,11 +6,53 @@
 </title>
 <meta charset='utf-8'>
 <link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
 <script>
+var NODE_ID = 'node231';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
 function loadNext()
 {
-window.location = ".html"
+if (document.getElementById("radio169").checked==true)
+window.location = "232.html";
+if (document.getElementById("radio170").checked==true)
+window.location = "233.html";
+if (document.getElementById("radio171").checked==true)
+window.location = "234.html";
 }
+function loadStart()
+{
+window.location = "start.html";
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
 </script>
 </head>
 <body>
@@ -20,6 +62,22 @@ Ogrevanje na pelete.
 <p id="text1">
 Ogrevanje na pelete sodi med najzanesljivejše in najbolj udobne načine ogrevanja. Kvaliteten ogrevalni sistem je sestavljen iz kotla na pelete z avtomatiziranim dovodom peletov iz zalogovnika za gorivo. Poleg tega je priporočljiv vmesni zalogovnik toplote, ki izboljša učinkovitost in delovanje sistema. Zalogovnik peletov bi naj bil tako velik, da zagotavlja letne potrebe po energiji v stavbi. Zagotovljen mora biti tudi dostop za dostavo peletov v zalogovnik z dostavnim vozilom. Obstajajo različne variante ogrevanja na pelete a je se potrebno zavedati, da le najbolj avtomatizirane in kvalitetne omogočajo udobje in zanesljivost, kot smo ga vajeni pri ogrevanju z recimo kurilnim oljem ali plinom. Ogrevalni sistem se lahko tudi kombinira z drugimi viri energije, kot je solarna energija, ki se lahko uporablja za pripravo tople vode v poletnih mesecih. 
 </p>
-<button type="button" id="button" onclick="loadNext()">Naprej</button>
+<p id="text2">
+Izberite možnost.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio169" value="radio169" onChange="updateForm()">Kaj so peleti?</td></tr>
+<tr><td><input type="radio" name="radio" id="radio170" value="radio170" onChange="updateForm()">Kaj je zalogovnik za pelete?</td></tr>
+<tr><td><input type="radio" name="radio" id="radio171" value="radio171" onChange="updateForm()">Kaj je zalogovnik za toploto?</td></tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
 </body>
 </html>

@@ -16,12 +16,16 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio397").checked==true)
+if (document.getElementById("radio22").checked==true)
 window.location = "788.html";
-if (document.getElementById("radio398").checked==true)
+if (document.getElementById("radio23").checked==true)
 window.location = "816.html";
-if (document.getElementById("radio399").checked==true)
+if (document.getElementById("radio24").checked==true)
 window.location = "844.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 
 $(document).ready(function() {
@@ -63,11 +67,12 @@ Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio397" value="radio397" onChange="updateForm()">Nominalno.</td></tr>
-<tr><td><input type="radio" name="radio" id="radio398" value="radio398" onChange="updateForm()">Po osebi.</td></tr>
-<tr><td><input type="radio" name="radio" id="radio399" value="radio399" onChange="updateForm()">Po m2.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio22" value="radio22" onChange="updateForm()">Nominalno.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio23" value="radio23" onChange="updateForm()">Po osebi.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio24" value="radio24" onChange="updateForm()">Po m2.</td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

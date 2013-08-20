@@ -16,10 +16,14 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio136").checked==true)
+if (document.getElementById("radio125").checked==true)
 window.location = "225.html";
-if (document.getElementById("radio137").checked==true)
+if (document.getElementById("radio126").checked==true)
 window.location = "226.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 
 $(document).ready(function() {
@@ -61,10 +65,11 @@ Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio136" value="radio136" onChange="updateForm()">Imam dobro izoliran ovoj stavbe in nimam potrebe po dodatnih ukrepih.</td></tr>
-<tr><td><input type="radio" name="radio" id="radio137" value="radio137" onChange="updateForm()">Moj ovoj stavbe ni izoliran ali je pomanjkljivo izoliran.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio125" value="radio125" onChange="updateForm()">Imam dobro izoliran ovoj stavbe in nimam potrebe po dodatnih ukrepih.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio126" value="radio126" onChange="updateForm()">Moj ovoj stavbe ni izoliran ali je pomanjkljivo izoliran.</td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

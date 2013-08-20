@@ -16,10 +16,14 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio82").checked==true)
+if (document.getElementById("radio74").checked==true)
 window.location = "230.html";
-if (document.getElementById("radio83").checked==true)
+if (document.getElementById("radio75").checked==true)
 window.location = "212.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 
 $(document).ready(function() {
@@ -61,10 +65,11 @@ Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio82" value="radio82" onChange="updateForm()">Imam možnost posodobitve sistema ogrevanja z lesno biomaso.</td></tr>
-<tr><td><input type="radio" name="radio" id="radio83" value="radio83" onChange="updateForm()">Nimam več možnosti uporabe tega sistema ogrevanja in bom šel nazaj na izbiro energenta.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio74" value="radio74" onChange="updateForm()">Imam možnost posodobitve sistema ogrevanja z lesno biomaso.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio75" value="radio75" onChange="updateForm()">Nimam več možnosti uporabe tega sistema ogrevanja in bom šel nazaj na izbiro energenta.</td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

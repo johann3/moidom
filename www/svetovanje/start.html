@@ -25,9 +25,13 @@ window.location = "401.html";
 if (document.getElementById("radio7").checked==true)
 window.location = "501.html";
 if (document.getElementById("radio8").checked==true)
-window.location = "701.html";
+window.location = "700.html";
 if (document.getElementById("radio9").checked==true)
-window.location = "../vaje/startizo.html";
+window.location = "../Vaje/startizo.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 
 $(document).ready(function() {
@@ -72,9 +76,9 @@ Izberite možnost.
 <tr><td><input type="radio" name="radio" id="radio4" value="radio4" onChange="updateForm()">Ogrevanje</td></tr>
 <tr><td><input type="radio" name="radio" id="radio5" value="radio5" onChange="updateForm()">Električna energija</td></tr>
 <tr><td><input type="radio" name="radio" id="radio6" value="radio6" onChange="updateForm()">Voda</td></tr>
-<tr><td><input type="radio" name="radio" id="radio7" value="radio7" onChange="updateForm()">Smeti</td></tr>
+<tr><td><input type="radio" name="radio" id="radio7" value="radio7" onChange="updateForm()">Odpadki</td></tr>
 <tr><td><input type="radio" name="radio" id="radio8" value="radio8" onChange="updateForm()">Izračun mojih energetskih kazalcev</td></tr>
-<tr><td><input type="radio" name="radio" id="radio9" value="radio9" onChange="updateForm()">Izobraževalne vaje</td></tr>
+<tr><td><input type="radio" name="radio" id="radio9" value="radio9" onChange="updateForm()">Izobraževalne naloge</td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
 </form>

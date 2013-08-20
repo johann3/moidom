@@ -21,6 +21,10 @@ window.location = "502.html";
 if (document.getElementById("radio5").checked==true)
 window.location = "503.html";
 }
+function loadStart()
+{
+window.location = "start.html";
+}
 
 $(document).ready(function() {
     $('form').submit(function() {
@@ -51,7 +55,7 @@ $(document).ready(function() {
 </head>
 <body>
 <h1 id="title">
-Zmanjšanje količine in stroška smeti
+Zmanjšanje količine in stroška odpadkov
 </h1>
 <p id="text1">
 Za zmanjšanje stroškov in količine odpadkov imate na voljo naslednje možnosti:
@@ -61,10 +65,11 @@ Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio4" value="radio4" onChange="updateForm()">Preverite velikost vašega smetnjaka.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio4" value="radio4" onChange="updateForm()">Preverite velikost vaše posode za odpadke.</td></tr>
 <tr><td><input type="radio" name="radio" id="radio5" value="radio5" onChange="updateForm()">Preverite svoje navade ravnanja z odpadki.</td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

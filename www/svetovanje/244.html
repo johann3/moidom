@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>
+244
+</title>
+<meta charset='utf-8'>
+<link href="../css/moidom_iframe.css" rel="stylesheet">
+<script charset="UTF-8" src="../js/jquery.min.js"></script>
+<script charset="UTF-8" src="../common.js"></script>
+<script>
+var NODE_ID = 'node244';
+var APPLICATION_ID = 1;
+var TIMEOUT = 1000;
+var DATA_URL = getDataUrl(); // in common.js
+
+function loadNext()
+{
+if (document.getElementById("radio221").checked==true)
+window.location = "247.html";
+if (document.getElementById("radio222").checked==true)
+window.location = "248.html";
+if (document.getElementById("radio223").checked==true)
+window.location = "249.html";
+}
+function loadStart()
+{
+window.location = "start.html";
+}
+
+$(document).ready(function() {
+    $('form').submit(function() {
+        $.ajax({
+            url: DATA_URL + 'consult/log',
+            type: 'GET',
+            data: {
+                node: NODE_ID,
+                params: $('form').serialize(),
+                application: APPLICATION_ID
+            },
+            xhrFields: { withCredentials: true },
+            async: true,
+            cache: false,
+            timeout: TIMEOUT,
+            beforeSend: function(xhr, options) { $('#progressbar').show(); }
+        })
+        .always(function () {
+            $('#progressbar').hide();
+            loadNext();
+        });
+        return false;
+    });
+
+    $('#progressbar').hide();
+});
+</script>
+</head>
+<body>
+<h1 id="title">
+Izolacija strehe
+</h1>
+<p id="text1">
+Priporočljiva debelina izolacijskega ovoja na strehi je 25 cm standardne debeline izolacijskega materiala. Pod izolacijo je potrebno namestiti parno zaporo ali oviro, ki preprečuje nabiranje vlage v izolacijskem materialu. Način izvedbe izolacije ostrešja se razlikuje pri sledečih tipih ostrešij.
+</p>
+<p id="text2">
+Izberite možnost.
+</p>
+<form>
+<table>
+<tr><td><input type="radio" name="radio" id="radio221" value="radio221" onChange="updateForm()">Zaprto ostrešje</td></tr>
+<tr><td><input type="radio" name="radio" id="radio222" value="radio222" onChange="updateForm()">Odprto ostrešje</td></tr>
+<tr><td><input type="radio" name="radio" id="radio223" value="radio223" onChange="updateForm()">Ravna streha</td></tr>
+</table>
+<button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
+</form>
+<div id="progressbar">
+   <div class="progressTxt">
+   Prenašam podatke ...
+   </div>
+</div>
+</body>
+</html>

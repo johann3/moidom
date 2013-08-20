@@ -23,6 +23,10 @@ window.location = "335.html";
 if (document.getElementById("radio73").checked==true)
 window.location = "336.html";
 }
+function loadStart()
+{
+window.location = "start.html";
+}
 
 $(document).ready(function() {
     $('form').submit(function() {
@@ -68,6 +72,7 @@ Izberite možnost.
 <tr><td><input type="radio" name="radio" id="radio73" value="radio73" onChange="updateForm()">Splošen nasvet</td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

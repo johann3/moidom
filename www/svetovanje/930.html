@@ -35,18 +35,16 @@ window.location = "938.html";
 if (document.getElementById("evaluation").innerHTML=="Vaš kazalec učinkovitosti je enak razredu G")
 window.location = "939.html";
 }
+function loadStart()
+{
+window.location = "start.html";
+}
 function updateForm()
 {
 var por=parseFloat(document.getElementById("por").value); 
 var št=parseFloat(document.getElementById("št").value); 
 var kaz=parseFloat(document.getElementById("kaz").value); 
-por=Iz aplikacije;
-št=Iz aplikacije;
 kaz=por/št;
-if (!isNaN(por))
-document.getElementById("por").value=por;
-if (!isNaN(št))
-document.getElementById("št").value=št;
 if (!isNaN(kaz))
 document.getElementById("kaz").value=kaz;
 if ((kaz>=0) && (kaz<1,5)) {
@@ -122,10 +120,10 @@ Vrednosti, ki jih še niste vnesli v aplikacijo, vnesite tukaj.
 <form>
 <table>
 <tr><td id="var1Name">Strošek energije za elektriko na leto.</td>
-<td><input type="text" name="por" id="por" value="" onkeyup="updateForm()"/></td>
+<td><input type="text" name="por" id="por" value="" onkeyup="updateForm();restrictInput(this);"/></td>
 <td id="var1Unit">EUR/leto</td></tr>
 <tr><td id="var2Name">Kvadratura objekta.</td>
-<td><input type="text" name="št" id="št" value="" onkeyup="updateForm()"/></td>
+<td><input type="text" name="št" id="št" value="" onkeyup="updateForm();restrictInput(this);"/></td>
 <td id="var2Unit">m²</td></tr>
 <tr><td id="var3Name">Kazalec učinkovitosti.</td>
 <td><input type="text" name="kaz" id="kaz" value="" onkeyup="updateForm()"/></td>
@@ -139,6 +137,7 @@ Vrednosti, ki jih še niste vnesli v aplikacijo, vnesite tukaj.
 </table>
 
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 
 </form>
 <div id="progressbar">

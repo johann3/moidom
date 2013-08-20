@@ -19,9 +19,11 @@ function loadNext()
 if (document.getElementById("radio4").checked==true)
 window.location = "402.html";
 if (document.getElementById("radio5").checked==true)
-window.location = "403.html";
-if (document.getElementById("radio6").checked==true)
-window.location = "403.html";
+window.location = "410.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 
 $(document).ready(function() {
@@ -64,10 +66,10 @@ Izberite možnost.
 <form>
 <table>
 <tr><td><input type="radio" name="radio" id="radio4" value="radio4" onChange="updateForm()">Lahko zmanjšate porabo.</td></tr>
-<tr><td><input type="radio" name="radio" id="radio5" value="radio5" onChange="updateForm()">Lahko preverite vašo velikost priključka.</td></tr>
-<tr><td><input type="radio" name="radio" id="radio6" value="radio6" onChange="updateForm()">Lahko poiščete druge vire.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio5" value="radio5" onChange="updateForm()">Lahko poiščete druge vire.</td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

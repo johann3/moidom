@@ -6,45 +6,15 @@
 </title>
 <meta charset='utf-8'>
 <link href="../css/moidom_iframe.css" rel="stylesheet">
-<script charset="UTF-8" src="../js/jquery.min.js"></script>
-<script charset="UTF-8" src="../common.js"></script>
 <script>
-var NODE_ID = 'node221';
-var APPLICATION_ID = 1;
-var TIMEOUT = 1000;
-var DATA_URL = getDataUrl(); // in common.js
-
 function loadNext()
 {
-if (document.getElementById("radio120").checked==true)
-window.location = ".html";
+window.location = "start.html"
 }
-
-$(document).ready(function() {
-    $('form').submit(function() {
-        $.ajax({
-            url: DATA_URL + 'consult/log',
-            type: 'GET',
-            data: {
-                node: NODE_ID,
-                params: $('form').serialize(),
-                application: APPLICATION_ID
-            },
-            xhrFields: { withCredentials: true },
-            async: true,
-            cache: false,
-            timeout: TIMEOUT,
-            beforeSend: function(xhr, options) { $('#progressbar').show(); }
-        })
-        .always(function () {
-            $('#progressbar').hide();
-            loadNext();
-        });
-        return false;
-    });
-
-    $('#progressbar').hide();
-});
+function loadStart()
+{
+window.location = "start.html";
+}
 </script>
 </head>
 <body>
@@ -54,19 +24,7 @@ Sprememba temperature ogrevanja
 <p id="text1">
 Znižanje temperature ogrevanja za 1 stopinjo nam prihrani do 7% energije za ogrevanje. Priporočljiva temperatura ogrevanja za dnevne prostore je od 20 do 21 stopinj Celzija in 17 do 19 stopinj za spalne prostore.
 </p>
-<p id="text2">
-Izberite možnost.
-</p>
-<form>
-<table>
-<tr><td><input type="radio" name="radio" id="radio120" value="radio120" onChange="updateForm()">Nasvet</td></tr>
-</table>
-<button type="submit" id="button">Naprej</button>
-</form>
-<div id="progressbar">
-   <div class="progressTxt">
-   Prenašam podatke ...
-   </div>
-</div>
+<button type="button" id="button" onclick="loadNext()">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na zaÄŤetek</button>
 </body>
 </html>

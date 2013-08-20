@@ -19,6 +19,10 @@ function loadNext()
 if (document.getElementById("radio159").checked==true)
 window.location = "333.html";
 }
+function loadStart()
+{
+window.location = "start.html";
+}
 
 $(document).ready(function() {
     $('form').submit(function() {
@@ -62,6 +66,7 @@ Izberite možnost.
 <tr><td><input type="radio" name="radio" id="radio159" value="radio159" onChange="updateForm()">Izrabite obnovljivo energijo.</td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">
