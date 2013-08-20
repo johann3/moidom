@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio697").checked==true)
+if (document.getElementById("radio141").checked==true)
 window.location = "69.html";
-if (document.getElementById("radio698").checked==true)
+if (document.getElementById("radio142").checked==true)
 window.location = "69.html";
-if (document.getElementById("radio699").checked==true)
+if (document.getElementById("radio143").checked==true)
 window.location = "70.html";
-if (document.getElementById("radio700").checked==true)
+if (document.getElementById("radio144").checked==true)
 window.location = "69.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio697").checked!=false) {
+if (document.getElementById("radio141").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio698").checked!=false) {
+if (document.getElementById("radio142").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio699").checked!=true) {
+if (document.getElementById("radio143").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio700").checked!=false) {
+if (document.getElementById("radio144").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-Teoretično pri katerih temperaturah lahko sušimo perilo?
+Vsaj teoretično: pri katerih temperaturah lahko sušimo perilo?
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio697" value="radio697" onChange="updateForm()">Pri temperaturah večjih od 15 stopinj C</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio698" value="radio698" onChange="updateForm()">Pri temperaturah večjih od 30 stopinj C</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio699" value="radio699" onChange="updateForm()">Pri temperaturah večjih od -273 stopinj C</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio700" value="radio700" onChange="updateForm()">Pri temperaturah nižjih od 0 K</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio141" value="radio141" onChange="updateForm()">Pri temperaturah, ki so višje od 0 stopinj C.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio142" value="radio142" onChange="updateForm()">Pri temperaturah, ki so višje od 18 stopinj C.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio143" value="radio143" onChange="updateForm()">Pri temperaturah, ki so višje od -273 stopinj C.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio144" value="radio144" onChange="updateForm()">Pri temperaturah, ki so nižje od 0 K.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

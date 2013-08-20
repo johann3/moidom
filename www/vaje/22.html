@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio366").checked==true)
+if (document.getElementById("radio165").checked==true)
 window.location = "22.html";
-if (document.getElementById("radio367").checked==true)
+if (document.getElementById("radio166").checked==true)
 window.location = "22.html";
-if (document.getElementById("radio368").checked==true)
+if (document.getElementById("radio167").checked==true)
 window.location = "23.html";
-if (document.getElementById("radio369").checked==true)
+if (document.getElementById("radio168").checked==true)
 window.location = "22.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio366").checked!=false) {
+if (document.getElementById("radio165").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio367").checked!=false) {
+if (document.getElementById("radio166").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio368").checked!=true) {
+if (document.getElementById("radio167").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio369").checked!=false) {
+if (document.getElementById("radio168").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Elektrika
 </h1>
 <p id="text1">
-Kakšna je enota za naboj po SI sistemu?
+Katero enoto uporabljamo za električni naboj po SI sistemu?
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio366" value="radio366" onChange="updateForm()">Volt</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio367" value="radio367" onChange="updateForm()">Ohm</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio368" value="radio368" onChange="updateForm()">Amper-sekunda</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio369" value="radio369" onChange="updateForm()">Tesla</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio165" value="radio165" onChange="updateForm()">Volt.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio166" value="radio166" onChange="updateForm()">Ohm.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio167" value="radio167" onChange="updateForm()">Amper-sekunda.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio168" value="radio168" onChange="updateForm()">Tesla.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

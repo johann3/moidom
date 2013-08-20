@@ -19,6 +19,10 @@ function loadNext()
 if (document.getElementById("evaluation").innerHTML=="Iz rezultata je jasno, da lahko na ta način izgubite veliko vode.")
 window.location = "164.html";
 }
+function loadStart()
+{
+window.location = "start.html";
+}
 function updateForm()
 {
 var Ni=parseFloat(document.getElementById("Ni").value); 
@@ -166,6 +170,7 @@ Da se rezultat izračuna samodejno, v obrazec dopolni podatke, ki jih nisi vnese
 </table>
 
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 
 </form>
 <div id="progressbar">

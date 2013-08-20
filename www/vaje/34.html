@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio454").checked==true)
+if (document.getElementById("radio253").checked==true)
 window.location = "35.html";
-if (document.getElementById("radio455").checked==true)
+if (document.getElementById("radio254").checked==true)
 window.location = "34.html";
-if (document.getElementById("radio456").checked==true)
+if (document.getElementById("radio255").checked==true)
 window.location = "34.html";
-if (document.getElementById("radio457").checked==true)
+if (document.getElementById("radio256").checked==true)
 window.location = "34.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio454").checked!=true) {
+if (document.getElementById("radio253").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio455").checked!=false) {
+if (document.getElementById("radio254").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio456").checked!=false) {
+if (document.getElementById("radio255").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio457").checked!=false) {
+if (document.getElementById("radio256").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Elektrika
 </h1>
 <p id="text1">
-Kolikšen tok teče čez tri zaporedno vezane žarnice z močjo 100 W (watt je enota za moč), če ima posamezna žarnica upor 144 Ω (ohm je enota za upornost)? Vse skupaj pa je priklopljeno na vir napetosti 220 V (volt je enota za napetost). Tok je enak količniku med napetostjo in upornostjo. Tok je v zaporednih vezjih enak. Namig: U/(3*R)
+Kolikšen tok teče skozi tri zaporedno vezane žarnice z močjo 100 W (watt je enota za moč), če ima posamezna žarnica upor 144 Ω (ohm je enota za upornost)? Vezje je priključeno na vir napetosti 220 V (volt je enota za napetost). Tok je enak količniku med napetostjo in upornostjo. Tok je v zaporednih vezjih enak. Namig: U/(3*R).
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio454" value="radio454" onChange="updateForm()">0.5 A</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio455" value="radio455" onChange="updateForm()">1.5 A</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio456" value="radio456" onChange="updateForm()">2.5 mA</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio457" value="radio457" onChange="updateForm()">5 A</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio253" value="radio253" onChange="updateForm()">0.5 A.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio254" value="radio254" onChange="updateForm()">1.5 A.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio255" value="radio255" onChange="updateForm()">2.5 mA.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio256" value="radio256" onChange="updateForm()">5 A.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

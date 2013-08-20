@@ -16,23 +16,27 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio146").checked==true)
+if (document.getElementById("radio71").checked==true)
 window.location = "160.html";
-if (document.getElementById("radio147").checked==true)
+if (document.getElementById("radio72").checked==true)
 window.location = "159.html";
-if (document.getElementById("radio148").checked==true)
+if (document.getElementById("radio73").checked==true)
 window.location = "159.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio146").checked!=true) {
+if (document.getElementById("radio71").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio147").checked!=false) {
+if (document.getElementById("radio72").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio148").checked!=false) {
+if (document.getElementById("radio73").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -84,15 +88,18 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio146" value="radio146" onChange="updateForm()">Da</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio147" value="radio147" onChange="updateForm()">Ne</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio148" value="radio148" onChange="updateForm()">Ne vem</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio71" value="radio71" onChange="updateForm()">Da</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio72" value="radio72" onChange="updateForm()">Ne</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio73" value="radio73" onChange="updateForm()">Ne vem</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

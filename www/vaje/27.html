@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio405").checked==true)
+if (document.getElementById("radio204").checked==true)
 window.location = "27.html";
-if (document.getElementById("radio406").checked==true)
+if (document.getElementById("radio205").checked==true)
 window.location = "28.html";
-if (document.getElementById("radio407").checked==true)
+if (document.getElementById("radio206").checked==true)
 window.location = "27.html";
-if (document.getElementById("radio408").checked==true)
+if (document.getElementById("radio207").checked==true)
 window.location = "27.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio405").checked!=false) {
+if (document.getElementById("radio204").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio406").checked!=true) {
+if (document.getElementById("radio205").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio407").checked!=false) {
+if (document.getElementById("radio206").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio408").checked!=false) {
+if (document.getElementById("radio207").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Elektrika
 </h1>
 <p id="text1">
-Na skupno vtičnico 220 V (volt je enota za napetost) vzporedno priključimo indukcijsko peč z močjo 2.3 kW (watt je enota za moč) in pomivalni stroj, ki troši 3.2 kW. Kolikšno varovalko potrebujemo? Tok izračunamo kot količnik med močjo in napetostjo. Pri vzporedni vezavi se tokovi seštevajo, napetosti pa so enake. Namig: (P1+P2)/U₀   P=moč, U=napetost
+Na skupno vtičnico 220 V (volt je enota za napetost) vzporedno priključimo indukcijsko peč z močjo 2.3 kW (watt je enota za moč) in pomivalni stroj, ki troši 3.2 kW. Kolikšno varovalko potrebujemo? Tok izračunamo kot količnik med močjo in napetostjo. Pri vzporedni vezavi se tokovi seštevajo, napetosti pa so enake. Namig: (P1+P2)/U, P=moč, U=napetost.
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio405" value="radio405" onChange="updateForm()">12.5 A</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio406" value="radio406" onChange="updateForm()">25 A</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio407" value="radio407" onChange="updateForm()">35 A</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio408" value="radio408" onChange="updateForm()">100 A</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio204" value="radio204" onChange="updateForm()">12.5 A.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio205" value="radio205" onChange="updateForm()">25 A.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio206" value="radio206" onChange="updateForm()">35 A.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio207" value="radio207" onChange="updateForm()">100 A.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio358").checked==true)
+if (document.getElementById("radio157").checked==true)
 window.location = "21.html";
-if (document.getElementById("radio359").checked==true)
+if (document.getElementById("radio158").checked==true)
 window.location = "21.html";
-if (document.getElementById("radio360").checked==true)
+if (document.getElementById("radio159").checked==true)
 window.location = "21.html";
-if (document.getElementById("radio361").checked==true)
+if (document.getElementById("radio160").checked==true)
 window.location = "22.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio358").checked!=false) {
+if (document.getElementById("radio157").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio359").checked!=false) {
+if (document.getElementById("radio158").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio360").checked!=false) {
+if (document.getElementById("radio159").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio361").checked!=true) {
+if (document.getElementById("radio160").checked!=true) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Elektrika
 </h1>
 <p id="text1">
-Strela lahko uniči električne naprave tudi če ni udarila v električno omrežje.
+Strela lahko uniči električne naprave, tudi če ni udarila v električno omrežje.
 </p>
 <p id="text2">
-Označite trditev s klikom.
+Se strinjate s trditvijo? Označite s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio358" value="radio358" onChange="updateForm()">Ne drži, naprave uniči samo, če udari neposredno v omrežje </td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio359" value="radio359" onChange="updateForm()">Ne drži, saj strele niso nevarne</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio360" value="radio360" onChange="updateForm()">Drži, vendar za ta pojav še ne poznamo fizikalne razlage</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio361" value="radio361" onChange="updateForm()">Drži, saj lahko znotraj naprave inducira zelo velik tok</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio157" value="radio157" onChange="updateForm()">Ne drži, naprave uniči samo, če udari neposredno v omrežje.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio158" value="radio158" onChange="updateForm()">Ne drži, saj strele niso nevarne.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio159" value="radio159" onChange="updateForm()">Drži, vendar za ta pojav še ne poznamo fizikalne razlage.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio160" value="radio160" onChange="updateForm()">Drži, saj se lahko znotraj naprave inducira zelo velik tok.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio398").checked==true)
+if (document.getElementById("radio197").checked==true)
 window.location = "26.html";
-if (document.getElementById("radio399").checked==true)
+if (document.getElementById("radio198").checked==true)
 window.location = "26.html";
-if (document.getElementById("radio400").checked==true)
+if (document.getElementById("radio199").checked==true)
 window.location = "27.html";
-if (document.getElementById("radio401").checked==true)
+if (document.getElementById("radio200").checked==true)
 window.location = "26.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio398").checked!=false) {
+if (document.getElementById("radio197").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio399").checked!=false) {
+if (document.getElementById("radio198").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio400").checked!=true) {
+if (document.getElementById("radio199").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio401").checked!=false) {
+if (document.getElementById("radio200").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,16 +93,19 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio398" value="radio398" onChange="updateForm()">5.4 kWh</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio399" value="radio399" onChange="updateForm()">3700 Wh</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio400" value="radio400" onChange="updateForm()">3,9 kWh</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio401" value="radio401" onChange="updateForm()">1800 Wh</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio197" value="radio197" onChange="updateForm()">5.4 kWh</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio198" value="radio198" onChange="updateForm()">3700 Wh</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio199" value="radio199" onChange="updateForm()">3,9 kWh</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio200" value="radio200" onChange="updateForm()">1800 Wh</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

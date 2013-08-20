@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio777").checked==true)
+if (document.getElementById("radio221").checked==true)
 window.location = "79.html";
-if (document.getElementById("radio778").checked==true)
+if (document.getElementById("radio222").checked==true)
 window.location = "79.html";
-if (document.getElementById("radio779").checked==true)
+if (document.getElementById("radio223").checked==true)
 window.location = "79.html";
-if (document.getElementById("radio780").checked==true)
+if (document.getElementById("radio224").checked==true)
 window.location = "80.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio777").checked!=false) {
+if (document.getElementById("radio221").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio778").checked!=false) {
+if (document.getElementById("radio222").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio779").checked!=false) {
+if (document.getElementById("radio223").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio780").checked!=true) {
+if (document.getElementById("radio224").checked!=true) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-Koliko toplote potrebujemo, da segrejemo zrak v sobi z dimenzijami 7 x 3 x 2.5 m, s temperaturo 12˚C na 20˚C. Specifična toplota zraka je 0.28 Wh/kgK (enota pomeni koliko energije moramo dovesti, da 1 kg zraka segrejemo za 1 kelvin), njegova gostota pa 1.25 kg/m3? Toploto Q izračunamo kot produkt specifične toplote, mase in razlike temperature. Maso pa izračunamo kot produkt gostote in volumna. Namig: (ρ*V)*c*(Tk-To)  ρ=gostota, V=volumen
+Koliko toplote potrebujemo, da v sobi z dimenzijami 7 x 3 x 2.5 m segrejemo zrak z začetno temperaturo 12˚C na 20˚C? Specifična toplota zraka je 0.28 Wh/kgK (enota pomeni koliko energije moramo dovesti, da 1 kg zraka segrejemo za 1 kelvin), njegova gostota pa 1.25 kg/m^3? Toploto Q izračunamo kot produkt specifične toplote, mase in spremembe temperatur. Maso izračunamo kot produkt gostote in volumna. Namig: (ρ*V)*c*(Tk-Tz)  ρ=gostota, V=volumen.
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio777" value="radio777" onChange="updateForm()">153 kWh</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio778" value="radio778" onChange="updateForm()">94 Wh</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio779" value="radio779" onChange="updateForm()">264 Wh</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio780" value="radio780" onChange="updateForm()">147 Wh</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio221" value="radio221" onChange="updateForm()">153 kWh.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio222" value="radio222" onChange="updateForm()">94 Wh.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio223" value="radio223" onChange="updateForm()">264 Wh.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio224" value="radio224" onChange="updateForm()">147 Wh.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

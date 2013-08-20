@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio633").checked==true)
+if (document.getElementById("radio77").checked==true)
 window.location = "61.html";
-if (document.getElementById("radio634").checked==true)
+if (document.getElementById("radio78").checked==true)
 window.location = "61.html";
-if (document.getElementById("radio635").checked==true)
+if (document.getElementById("radio79").checked==true)
 window.location = "62.html";
-if (document.getElementById("radio636").checked==true)
+if (document.getElementById("radio80").checked==true)
 window.location = "61.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio633").checked!=false) {
+if (document.getElementById("radio77").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio634").checked!=false) {
+if (document.getElementById("radio78").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio635").checked!=true) {
+if (document.getElementById("radio79").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio636").checked!=false) {
+if (document.getElementById("radio80").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-Toplotni tok je definiran kot …
+Toplotni tok je definiran kot…
 </p>
 <p id="text2">
-Označite trditev s klikom.
+Pravilno dokončajte trditev. Označite s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio633" value="radio633" onChange="updateForm()">toplota krat čas v kateri prečete toplota</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio634" value="radio634" onChange="updateForm()">moč krat delo</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio635" value="radio635" onChange="updateForm()">toplota, ki se pretoči v določenem času</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio636" value="radio636" onChange="updateForm()">sila krat ročica</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio77" value="radio77" onChange="updateForm()">toplota krat čas, v katerem prečete toplota.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio78" value="radio78" onChange="updateForm()">moč krat delo.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio79" value="radio79" onChange="updateForm()">toplota, ki se pretoči v določenem času.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio80" value="radio80" onChange="updateForm()">sila krat ročica.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

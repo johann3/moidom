@@ -16,23 +16,27 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio226").checked==true)
+if (document.getElementById("radio25").checked==true)
 window.location = "5.html";
-if (document.getElementById("radio227").checked==true)
+if (document.getElementById("radio26").checked==true)
 window.location = "4.html";
-if (document.getElementById("radio228").checked==true)
+if (document.getElementById("radio27").checked==true)
 window.location = "4.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio226").checked!=true) {
+if (document.getElementById("radio25").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio227").checked!=false) {
+if (document.getElementById("radio26").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio228").checked!=false) {
+if (document.getElementById("radio27").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -77,22 +81,25 @@ $(document).ready(function() {
 Elektrika
 </h1>
 <p id="text1">
-Smiselno je, da električne naprave, ki so bolj potratne (pralni stroj, sušilni stroj …) uporabljamo v nočnem času, ko je električna energija cenejša (če imamo dvotarifni števec).
+Smiselno je, da električne naprave, ki so energetsko bolj potratne (pralni stroj, sušilni stroj…), uporabljamo v nočnem času, ko je električna energija cenejša (če imamo dvotarifni števec).
 </p>
 <p id="text2">
-Označite trditev s klikom.
+Se strinjate s trditvijo? Označite s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio226" value="radio226" onChange="updateForm()">Da</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio227" value="radio227" onChange="updateForm()">Ne</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio228" value="radio228" onChange="updateForm()">Ne vem</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio25" value="radio25" onChange="updateForm()">Da.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio26" value="radio26" onChange="updateForm()">Ne.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio27" value="radio27" onChange="updateForm()">Ne vem.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

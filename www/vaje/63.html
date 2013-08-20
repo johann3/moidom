@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio649").checked==true)
+if (document.getElementById("radio93").checked==true)
 window.location = "63.html";
-if (document.getElementById("radio650").checked==true)
+if (document.getElementById("radio94").checked==true)
 window.location = "64.html";
-if (document.getElementById("radio651").checked==true)
+if (document.getElementById("radio95").checked==true)
 window.location = "63.html";
-if (document.getElementById("radio652").checked==true)
+if (document.getElementById("radio96").checked==true)
 window.location = "63.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio649").checked!=false) {
+if (document.getElementById("radio93").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio650").checked!=true) {
+if (document.getElementById("radio94").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio651").checked!=false) {
+if (document.getElementById("radio95").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio652").checked!=false) {
+if (document.getElementById("radio96").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-Sosed, na katerega mejimo s steno, ima rad v stanovanju nižjo temperaturo. Kakšno je smoterno dejanje?
+Sosed, s katerim mejimo preko stene, ima rad v stanovanju nižjo temperaturo kot mi. Kako bi najbolj ustrezno ravnali?
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio649" value="radio649" onChange="updateForm()">Pred mejno steno vgradimo radiator in tako preprečimo hladu, da prehaja iz sosedovega stanovanja</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio650" value="radio650" onChange="updateForm()">Mejno steno izoliramo</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio651" value="radio651" onChange="updateForm()">Mejno steno prebarvamo na oranžno</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio652" value="radio652" onChange="updateForm()">Nič ne naredimo, saj toplotne izgube prizadanejo le soseda</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio93" value="radio93" onChange="updateForm()">Pred mejno steno vgradimo radiator in tako preprečimo hladu, da prehaja iz sosedovega stanovanja.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio94" value="radio94" onChange="updateForm()">Mejno steno izoliramo.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio95" value="radio95" onChange="updateForm()">Mejno steno prebarvamo s "toplo barvo", na primer z oranžno.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio96" value="radio96" onChange="updateForm()">Nič ne naredimo, saj toplotne izgube prizadanejo le soseda.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

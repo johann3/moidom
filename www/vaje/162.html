@@ -19,6 +19,10 @@ function loadNext()
 if (document.getElementById("evaluation").innerHTML=="Iz rezultata je jasno, da lahko privarčujete, če se prhate namesto kopate.")
 window.location = "163.html";
 }
+function loadStart()
+{
+window.location = "start.html";
+}
 function updateForm()
 {
 var V=parseFloat(document.getElementById("V").value); 
@@ -158,6 +162,7 @@ Da se rezultat izračuna samodejno, v obrazec dopolni podatke, ki jih nisi vnese
 </table>
 
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 
 </form>
 <div id="progressbar">

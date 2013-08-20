@@ -19,6 +19,10 @@ function loadNext()
 if (document.getElementById("evaluation").innerHTML=="Iz rezultata je jasno, da lahko če si pri umivanju zob vodo nalijete v kozarec  privarčujete veliko.")
 window.location = "162.html";
 }
+function loadStart()
+{
+window.location = "start.html";
+}
 function updateForm()
 {
 var t=parseFloat(document.getElementById("t").value); 
@@ -29,7 +33,6 @@ var št=parseFloat(document.getElementById("št").value);
 var porvsi=parseFloat(document.getElementById("porvsi").value); 
 var por=parseFloat(document.getElementById("por").value); 
 porena=t*n*pret;
-št=iz aplikacije;
 porvsi=t*n*pret*št;
 por=t*n*pret*št*365/1000;
 if (!isNaN(t))
@@ -142,7 +145,7 @@ Da se rezultat izračuna samodejno, v obrazec dopolni podatke, ki jih nisi vnese
 <td><input type="text" name="porena" id="porena" value="" onkeyup="updateForm();prediction();"/></td>
 <td id="var4Unit">L/dan</td></tr>
 <tr><td id="var5Name">Število članov gospodinjstva</td>
-<td><input type="text" name="št" id="št" value="" onkeyup="updateForm();prediction();"/></td>
+<td><input type="text" name="št" id="št" value="" onkeyup="updateForm();prediction();restrictInput(this);"/></td>
 <td id="var5Unit">oseb</td></tr>
 <tr><td id="var6Name">Poraba vode vseh članov gospodinjstva skupaj na dan</td>
 <td><input type="text" name="porvsi" id="porvsi" value="" onkeyup="updateForm();prediction();"/></td>
@@ -165,6 +168,7 @@ Da se rezultat izračuna samodejno, v obrazec dopolni podatke, ki jih nisi vnese
 </table>
 
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 
 </form>
 <div id="progressbar">

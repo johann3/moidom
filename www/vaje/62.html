@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio641").checked==true)
+if (document.getElementById("radio85").checked==true)
 window.location = "63.html";
-if (document.getElementById("radio642").checked==true)
+if (document.getElementById("radio86").checked==true)
 window.location = "62.html";
-if (document.getElementById("radio643").checked==true)
+if (document.getElementById("radio87").checked==true)
 window.location = "62.html";
-if (document.getElementById("radio644").checked==true)
+if (document.getElementById("radio88").checked==true)
 window.location = "62.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio641").checked!=true) {
+if (document.getElementById("radio85").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio642").checked!=false) {
+if (document.getElementById("radio86").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio643").checked!=false) {
+if (document.getElementById("radio87").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio644").checked!=false) {
+if (document.getElementById("radio88").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-V kateri smeri vedno teče toplotni tok?
+V kateri smeri med dvemo področjema v toplotnem stiku vedno teče toplotni tok sam od sebe?
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio641" value="radio641" onChange="updateForm()">Iz področja z višjo temperaturo na področje z nižjo temperaturo</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio642" value="radio642" onChange="updateForm()">Iz področja z nižjo temperaturo na področje z višjo temperaturo</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio643" value="radio643" onChange="updateForm()">Toplotni tok se ne vzpostavi ne glede na temperaturo</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio644" value="radio644" onChange="updateForm()">Ne vem</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio85" value="radio85" onChange="updateForm()">S področja z višjo temperaturo na področje z nižjo temperaturo.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio86" value="radio86" onChange="updateForm()">S področja z nižjo temperaturo na področje z višjo temperaturo.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio87" value="radio87" onChange="updateForm()">Toplotni tok se sam od sebe ne vzpostavi nikoli, ne glede na temperaturno razliko.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio88" value="radio88" onChange="updateForm()">Ne vem.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

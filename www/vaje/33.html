@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio447").checked==true)
+if (document.getElementById("radio246").checked==true)
 window.location = "33.html";
-if (document.getElementById("radio448").checked==true)
+if (document.getElementById("radio247").checked==true)
 window.location = "34.html";
-if (document.getElementById("radio449").checked==true)
+if (document.getElementById("radio248").checked==true)
 window.location = "33.html";
-if (document.getElementById("radio450").checked==true)
+if (document.getElementById("radio249").checked==true)
 window.location = "33.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio447").checked!=false) {
+if (document.getElementById("radio246").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio448").checked!=true) {
+if (document.getElementById("radio247").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio449").checked!=false) {
+if (document.getElementById("radio248").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio450").checked!=false) {
+if (document.getElementById("radio249").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Elektrika
 </h1>
 <p id="text1">
-Med konca bakrene žice dolžine 10 m in premera 1.5 mm priključimo napetost 220 V (volt je enota za napetost). Kolikšen tok teče skozi žico? Specifičen upor bakra je 0.017 Ωmmˆ2/m (to je enota za specifični upor).  Tok izračunamo kot količnik med napetostjo in uporom. Upor izračunamo kot produkt specifičnega upora in dolžine ulomljeno s presekom. Namig: U/(4*ζ*b/π*dˆ2)   ζ=specifičen upor
+Med konca bakrene žice dolžine 10 m in premera 1.5 mm priključimo napetost 220 V (volt je enota za napetost). Kolikšen tok teče skozi žico? Specifičen upor bakra je 0.017 Ωmmˆ2/m (to je enota za specifični upor).  Tok izračunamo kot količnik med napetostjo in uporom. Upor izračunamo kot produkt specifičnega upora in dolžine (b), ulomljeno s presekom. Namig: U/(4*ζ*b/π*dˆ2), ζ=specifičen upor.
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio447" value="radio447" onChange="updateForm()">3200 A</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio448" value="radio448" onChange="updateForm()">2200 A</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio449" value="radio449" onChange="updateForm()">2.2 mA</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio450" value="radio450" onChange="updateForm()">53 A</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio246" value="radio246" onChange="updateForm()">3200 A.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio247" value="radio247" onChange="updateForm()">2200 A.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio248" value="radio248" onChange="updateForm()">2.2 mA.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio249" value="radio249" onChange="updateForm()">53 A.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

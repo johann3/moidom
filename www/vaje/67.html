@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio681").checked==true)
+if (document.getElementById("radio125").checked==true)
 window.location = "67.html";
-if (document.getElementById("radio682").checked==true)
+if (document.getElementById("radio126").checked==true)
 window.location = "67.html";
-if (document.getElementById("radio683").checked==true)
+if (document.getElementById("radio127").checked==true)
 window.location = "67.html";
-if (document.getElementById("radio684").checked==true)
+if (document.getElementById("radio128").checked==true)
 window.location = "68.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio681").checked!=false) {
+if (document.getElementById("radio125").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio682").checked!=false) {
+if (document.getElementById("radio126").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio683").checked!=false) {
+if (document.getElementById("radio127").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio684").checked!=true) {
+if (document.getElementById("radio128").checked!=true) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-Vse snovi se z večanjem temperature raztezajo. Od česa je odvisen raztezek?
+Snovi se z višanjem temperature večinoma raztezajo. Od česa je odvisen raztezek?
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio681" value="radio681" onChange="updateForm()">Od toplote, izpostavljenosti svetlobi in razteznega koenficienta</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio682" value="radio682" onChange="updateForm()">Od prvotne temperature, polovične dolžine in razteznega koeficienta</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio683" value="radio683" onChange="updateForm()">Od notranje energije, prečnega preseka in četrtine dolžine</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio684" value="radio684" onChange="updateForm()">Od prvotne dolžine, razteznega koeficienta in razlike temperatur</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio125" value="radio125" onChange="updateForm()">Od toplote, izpostavljenosti svetlobi in razteznega koenficienta.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio126" value="radio126" onChange="updateForm()">Od prvotne temperature, polovične dolžine in skrčitvenega koeficienta.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio127" value="radio127" onChange="updateForm()">Od notranje energije, prečnega preseka in četrtine dolžine.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio128" value="radio128" onChange="updateForm()">Od prvotnih dimenzij, razteznega koeficienta in razlike temperatur.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

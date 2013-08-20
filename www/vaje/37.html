@@ -19,6 +19,10 @@ function loadNext()
 if (document.getElementById("evaluation").innerHTML=="Rezultat prikazuje strošekelektrične energije za segrevanje vode na leto, če segrevate vodo le v času tarife ET.")
 window.location = "40.html";
 }
+function loadStart()
+{
+window.location = "start.html";
+}
 function updateForm()
 {
 var c=parseFloat(document.getElementById("c").value); 
@@ -29,7 +33,6 @@ var cena=parseFloat(document.getElementById("cena").value);
 var stro=parseFloat(document.getElementById("stro").value); 
 c=4200;
 por=c*m*st/3600;
-cena=iz aplikacije;
 stro=por*cena;
 if (!isNaN(c))
 document.getElementById("c").value=c;
@@ -140,7 +143,7 @@ izračuna samodejno, v obrazec dopolnite podatke, ki jih niste vpisali v aplikac
 <td><input type="text" name="por" id="por" value="" onkeyup="updateForm();prediction();"/></td>
 <td id="var4Unit">kWh</td></tr>
 <tr><td id="var5Name">Cena elektrike: enotarifni ET</td>
-<td><input type="text" name="cena" id="cena" value="" onkeyup="updateForm();prediction();"/></td>
+<td><input type="text" name="cena" id="cena" value="" onkeyup="updateForm();prediction();restrictInput(this);"/></td>
 <td id="var5Unit">EUR/kWh</td></tr>
 <tr><td id="var6Name">Strošek segrevanja vode na leto</td>
 <td><input type="text" name="stro" id="stro" value="" onkeyup="updateForm();prediction();"/></td>
@@ -160,6 +163,7 @@ izračuna samodejno, v obrazec dopolnite podatke, ki jih niste vpisali v aplikac
 </table>
 
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 
 </form>
 <div id="progressbar">

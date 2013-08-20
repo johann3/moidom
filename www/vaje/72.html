@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio721").checked==true)
+if (document.getElementById("radio165").checked==true)
 window.location = "73.html";
-if (document.getElementById("radio722").checked==true)
+if (document.getElementById("radio166").checked==true)
 window.location = "72.html";
-if (document.getElementById("radio723").checked==true)
+if (document.getElementById("radio167").checked==true)
 window.location = "72.html";
-if (document.getElementById("radio724").checked==true)
+if (document.getElementById("radio168").checked==true)
 window.location = "72.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio721").checked!=true) {
+if (document.getElementById("radio165").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio722").checked!=false) {
+if (document.getElementById("radio166").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio723").checked!=false) {
+if (document.getElementById("radio167").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio724").checked!=false) {
+if (document.getElementById("radio168").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,16 +93,19 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio721" value="radio721" onChange="updateForm()">Izkoristek nobenega stroja ne more biti večji od 1</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio722" value="radio722" onChange="updateForm()">Lahko je, vendar samo za kratek čas</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio723" value="radio723" onChange="updateForm()">Lahko je, vendar samo v idelanih pogojih</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio724" value="radio724" onChange="updateForm()">To je edini stroj, ki ima izkoristek manjši od 1</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio165" value="radio165" onChange="updateForm()">Izkoristek nobenega toplotnega stroja ne more biti večji od 1.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio166" value="radio166" onChange="updateForm()">Lahko je, vendar samo za kratek čas.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio167" value="radio167" onChange="updateForm()">Lahko je, vendar samo v idelanih pogojih.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio168" value="radio168" onChange="updateForm()">To je edini stroj, ki ima izkoristek manjši od 1.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

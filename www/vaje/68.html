@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio689").checked==true)
+if (document.getElementById("radio133").checked==true)
 window.location = "69.html";
-if (document.getElementById("radio690").checked==true)
+if (document.getElementById("radio134").checked==true)
 window.location = "68.html";
-if (document.getElementById("radio691").checked==true)
+if (document.getElementById("radio135").checked==true)
 window.location = "68.html";
-if (document.getElementById("radio692").checked==true)
+if (document.getElementById("radio136").checked==true)
 window.location = "68.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio689").checked!=true) {
+if (document.getElementById("radio133").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio690").checked!=false) {
+if (document.getElementById("radio134").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio691").checked!=false) {
+if (document.getElementById("radio135").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio692").checked!=false) {
+if (document.getElementById("radio136").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,16 +93,19 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio689" value="radio689" onChange="updateForm()">Za uparitev je potrebno veliko več energije kot za stalitev</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio690" value="radio690" onChange="updateForm()">Za stalitev je potrebno veliko več energije kot za uparitev</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio691" value="radio691" onChange="updateForm()">Največ energije potrebujemo za segrevanje vode od 0 do 100 stopinj C</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio692" value="radio692" onChange="updateForm()">Za uparitev in stalitev je potrebno približno enako energije</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio133" value="radio133" onChange="updateForm()">Za uparitev je potrebno veliko več energije kot za stalitev.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio134" value="radio134" onChange="updateForm()">Za stalitev je potrebno veliko več energije kot za uparitev.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio135" value="radio135" onChange="updateForm()">Največ energije potrebujemo za segrevanje vode od 0 do 100 stopinj C.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio136" value="radio136" onChange="updateForm()">Za uparitev in stalitev je potrebno približno enako energije.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

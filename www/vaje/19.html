@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio342").checked==true)
+if (document.getElementById("radio141").checked==true)
 window.location = "19.html";
-if (document.getElementById("radio343").checked==true)
+if (document.getElementById("radio142").checked==true)
 window.location = "20.html";
-if (document.getElementById("radio344").checked==true)
+if (document.getElementById("radio143").checked==true)
 window.location = "19.html";
-if (document.getElementById("radio345").checked==true)
+if (document.getElementById("radio144").checked==true)
 window.location = "19.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio342").checked!=false) {
+if (document.getElementById("radio141").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio343").checked!=true) {
+if (document.getElementById("radio142").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio344").checked!=false) {
+if (document.getElementById("radio143").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio345").checked!=false) {
+if (document.getElementById("radio144").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Elektrika
 </h1>
 <p id="text1">
-Kakšno polje se vzpostavi okoli vodnika po katerem teče električni tok?
+Kakšno polje se vzpostavi okoli vodnika, po katerem teče enosmerni električni tok?
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio342" value="radio342" onChange="updateForm()">električno</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio343" value="radio343" onChange="updateForm()">magnetno</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio344" value="radio344" onChange="updateForm()">ravninsko</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio345" value="radio345" onChange="updateForm()">zračno</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio141" value="radio141" onChange="updateForm()">Dinamično.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio142" value="radio142" onChange="updateForm()">Magnetno</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio143" value="radio143" onChange="updateForm()">Ravninsko</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio144" value="radio144" onChange="updateForm()">Zračno</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

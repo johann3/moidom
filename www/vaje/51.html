@@ -16,23 +16,27 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio560").checked==true)
+if (document.getElementById("radio4").checked==true)
 window.location = "52.html";
-if (document.getElementById("radio561").checked==true)
+if (document.getElementById("radio5").checked==true)
 window.location = "51.html";
-if (document.getElementById("radio562").checked==true)
+if (document.getElementById("radio6").checked==true)
 window.location = "51.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio560").checked!=true) {
+if (document.getElementById("radio4").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio561").checked!=false) {
+if (document.getElementById("radio5").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio562").checked!=false) {
+if (document.getElementById("radio6").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -77,22 +81,25 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-Toplotni tok skozi stene je odvisen od specifične toplotne prevodnosti stene, površine skozi katero se toplota prevaja, razlike temperatur na mejnih ploskvah in debeline stene. 
+Toplotni tok skozi stene je odvisen od specifične toplotne prevodnosti stene, površine, skozi katero se toplota prevaja, razlike temperatur na mejnih ploskvah in debeline stene. 
 </p>
 <p id="text2">
-Označite trditev s klikom.
+Se strinjate s trditvijo? Označite s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio560" value="radio560" onChange="updateForm()">Da</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio561" value="radio561" onChange="updateForm()">Ne</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio562" value="radio562" onChange="updateForm()">Ne vem</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio4" value="radio4" onChange="updateForm()">Da.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio5" value="radio5" onChange="updateForm()">Ne.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio6" value="radio6" onChange="updateForm()">Ne vem.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

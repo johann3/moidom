@@ -25,6 +25,10 @@ window.location = "107.html";
 if (document.getElementById("radio56").checked==true)
 window.location = "107.html";
 }
+function loadStart()
+{
+window.location = "start.html";
+}
 function updateForm()
 {
 var correct=true;
@@ -93,12 +97,15 @@ Označite trditev s klikom.
 <tr><td><input type="radio" name="radio" id="radio54" value="radio54" onChange="updateForm()">ogljikovega dioksida</td><td></td></tr>
 <tr><td><input type="radio" name="radio" id="radio55" value="radio55" onChange="updateForm()">ogljikovega monoksida</td><td></td></tr>
 <tr><td><input type="radio" name="radio" id="radio56" value="radio56" onChange="updateForm()">vodne pare</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

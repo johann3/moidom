@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio770").checked==true)
+if (document.getElementById("radio214").checked==true)
 window.location = "79.html";
-if (document.getElementById("radio771").checked==true)
+if (document.getElementById("radio215").checked==true)
 window.location = "78.html";
-if (document.getElementById("radio772").checked==true)
+if (document.getElementById("radio216").checked==true)
 window.location = "78.html";
-if (document.getElementById("radio773").checked==true)
+if (document.getElementById("radio217").checked==true)
 window.location = "78.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio770").checked!=true) {
+if (document.getElementById("radio214").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio771").checked!=false) {
+if (document.getElementById("radio215").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio772").checked!=false) {
+if (document.getElementById("radio216").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio773").checked!=false) {
+if (document.getElementById("radio217").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-V kopalni kadi je 30 litrov hladne vode s temperaturo 22˚C. Koliko litrov vroče vode s temperaturo 85˚C moramo doliti, da se voda v kadi segreje na 35˚C? Toploto Q izračunamo kot produkt specifične toplote, mase in razlike temperature. Specifična toplota vode je 4200 J/kgK. Namig: (m₀*c₀*(Tk-To))/(c₀*(T1-Tk))  m=masa, c=specifična toplota, T=temperatura
+V kopalni kadi je 30 litrov hladne vode s temperaturo 22˚C. Koliko litrov vroče vode s temperaturo 85˚C moramo doliti, da bo voda v kadi po mešanju imela 35˚C? Toploto Q izračunamo kot produkt specifične toplote, mase in razlike temperature. Specifična toplota vode je 4200 J/kgK. Namig: (m₀*c₀*(Tk-To))/(c₀*(T1-Tk))  m=masa, c=specifična toplota, T=temperatura
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio770" value="radio770" onChange="updateForm()">7.8 l</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio771" value="radio771" onChange="updateForm()">7.0 l</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio772" value="radio772" onChange="updateForm()">8.1 l</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio773" value="radio773" onChange="updateForm()">14 l</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio214" value="radio214" onChange="updateForm()">7.8 l</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio215" value="radio215" onChange="updateForm()">7.0 l</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio216" value="radio216" onChange="updateForm()">8.1 l</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio217" value="radio217" onChange="updateForm()">14 l</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

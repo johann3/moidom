@@ -16,33 +16,37 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio747").checked==true)
+if (document.getElementById("radio191").checked==true)
 window.location = "76.html";
-if (document.getElementById("radio748").checked==true)
+if (document.getElementById("radio192").checked==true)
 window.location = "75.html";
-if (document.getElementById("radio749").checked==true)
+if (document.getElementById("radio193").checked==true)
 window.location = "75.html";
-if (document.getElementById("radio750").checked==true)
+if (document.getElementById("radio194").checked==true)
 window.location = "75.html";
-if (document.getElementById("radio751").checked==true)
+if (document.getElementById("radio195").checked==true)
 window.location = "75.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio747").checked!=true) {
+if (document.getElementById("radio191").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio748").checked!=false) {
+if (document.getElementById("radio192").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio749").checked!=false) {
+if (document.getElementById("radio193").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio750").checked!=false) {
+if (document.getElementById("radio194").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio751").checked!=false) {
+if (document.getElementById("radio195").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -87,24 +91,27 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-Najboljše tekoče snovi za prevajanje toplote?
+Katere kapljevine so najboljši prevodniki toplote? Najboljši prevodniki toplote so...
 </p>
 <p id="text2">
-Označite trditev s klikom.
+Pravilno dokončajte trditev. Označite s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio747" value="radio747" onChange="updateForm()">voda, termična olja, poliglikol</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio748" value="radio748" onChange="updateForm()">voda, nafta, živo srebro</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio749" value="radio749" onChange="updateForm()">morska voda, zrak, alkohol</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio750" value="radio750" onChange="updateForm()">zrak, voda, glicerol</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio751" value="radio751" onChange="updateForm()">železo, etanol, poliglikol</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio191" value="radio191" onChange="updateForm()">voda, termična olja in poliglikol.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio192" value="radio192" onChange="updateForm()">voda, nafta in živo srebro.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio193" value="radio193" onChange="updateForm()">morska voda, zrak in alkohol.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio194" value="radio194" onChange="updateForm()">zrak, voda in glicerol.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio195" value="radio195" onChange="updateForm()">železo v talini, etanol in poliglikol.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

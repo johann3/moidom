@@ -16,33 +16,37 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio374").checked==true)
+if (document.getElementById("radio173").checked==true)
 window.location = "24.html";
-if (document.getElementById("radio375").checked==true)
+if (document.getElementById("radio174").checked==true)
 window.location = "23.html";
-if (document.getElementById("radio376").checked==true)
+if (document.getElementById("radio175").checked==true)
 window.location = "23.html";
-if (document.getElementById("radio377").checked==true)
+if (document.getElementById("radio176").checked==true)
 window.location = "23.html";
-if (document.getElementById("radio378").checked==true)
+if (document.getElementById("radio177").checked==true)
 window.location = "23.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio374").checked!=true) {
+if (document.getElementById("radio173").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio375").checked!=false) {
+if (document.getElementById("radio174").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio376").checked!=false) {
+if (document.getElementById("radio175").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio377").checked!=false) {
+if (document.getElementById("radio176").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio378").checked!=false) {
+if (document.getElementById("radio177").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -94,17 +98,20 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio374" value="radio374" onChange="updateForm()">8.85×10^-12 As/Vm</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio375" value="radio375" onChange="updateForm()">1.12×10^-14 As/Vm</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio376" value="radio376" onChange="updateForm()">4.23×10^-11 As/Vm</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio377" value="radio377" onChange="updateForm()">9.66×10^-15 As/Vm</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio378" value="radio378" onChange="updateForm()">2.87×10^-20 As/Vm</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio173" value="radio173" onChange="updateForm()">8.85×10^-12 As/Vm.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio174" value="radio174" onChange="updateForm()">1.12×10^-14 As/Vm.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio175" value="radio175" onChange="updateForm()">4.23×10^-11 As/Vm.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio176" value="radio176" onChange="updateForm()">9.66×10^-15 As/Vm.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio177" value="radio177" onChange="updateForm()">2.87×10^-20 As/Vm.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

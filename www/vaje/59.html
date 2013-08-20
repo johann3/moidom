@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio617").checked==true)
+if (document.getElementById("radio61").checked==true)
 window.location = "59.html";
-if (document.getElementById("radio618").checked==true)
+if (document.getElementById("radio62").checked==true)
 window.location = "60.html";
-if (document.getElementById("radio619").checked==true)
+if (document.getElementById("radio63").checked==true)
 window.location = "59.html";
-if (document.getElementById("radio620").checked==true)
+if (document.getElementById("radio64").checked==true)
 window.location = "59.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio617").checked!=false) {
+if (document.getElementById("radio61").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio618").checked!=true) {
+if (document.getElementById("radio62").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio619").checked!=false) {
+if (document.getElementById("radio63").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio620").checked!=false) {
+if (document.getElementById("radio64").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-Za ogrevanje sanitarne vode se splača …
+Za ogrevanje sanitarne vode se splača…
 </p>
 <p id="text2">
-Označite trditev s klikom.
+Pravilno dokončajte trditev. Označite s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio617" value="radio617" onChange="updateForm()">ogrevanje na elektriko, saj vodni grelci niso veliki porabniki energije</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio618" value="radio618" onChange="updateForm()">vgraditi sončne kolektorje</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio619" value="radio619" onChange="updateForm()">ogrevanje z lesno biomaso, saj je cenejša kot elektrika</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio620" value="radio620" onChange="updateForm()">ogrevanje na kurilno olje, saj je cenejše kot lesna biomasa</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio61" value="radio61" onChange="updateForm()">ogrevanje na elektriko, saj vodni grelci niso veliki porabniki energije.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio62" value="radio62" onChange="updateForm()">uporabljati sončne kolektorje.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio63" value="radio63" onChange="updateForm()">ogrevanje z lesno biomaso, saj je cenejša kot elektrika.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio64" value="radio64" onChange="updateForm()">ogrevanje na kurilno olje, saj je cenejše kot lesna biomasa.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

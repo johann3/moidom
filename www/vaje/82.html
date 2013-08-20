@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio798").checked==true)
+if (document.getElementById("radio242").checked==true)
 window.location = "83.html";
-if (document.getElementById("radio799").checked==true)
+if (document.getElementById("radio243").checked==true)
 window.location = "82.html";
-if (document.getElementById("radio800").checked==true)
+if (document.getElementById("radio244").checked==true)
 window.location = "82.html";
-if (document.getElementById("radio801").checked==true)
+if (document.getElementById("radio245").checked==true)
 window.location = "82.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio798").checked!=true) {
+if (document.getElementById("radio242").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio799").checked!=false) {
+if (document.getElementById("radio243").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio800").checked!=false) {
+if (document.getElementById("radio244").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio801").checked!=false) {
+if (document.getElementById("radio245").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-Na led z maso 0.3 kg in temperaturo -12˚C vlijemo toplo vodo z maso 1 kg in temperaturo 80˚C. Kolikšna je končna temperatura? Specifična toplota ledu je 2100 J/kgK, talilna toplota vode je 334 kJ/kg, specifična toplota vode je 4200 J/kgK. Toploto Q izračunamo kot produkt specifične toplote, mase in razlike temperature. Pri faznem prehodu pa toploto Q izračunamo kot produkt talilne toplote in mase. Pri vaji predpostavljamo, da se toplota ne izgublja. Namig: ((m1*c*(T1-To))-(m2*c1*(To-T2))-(m2*qt))/((m1+m2)*c)  qt=talilna toplota, c=specifična toplota
+Na led z maso 0.3 kg in temperaturo -12˚C vlijemo toplo vodo z maso 1 kg in temperaturo 80˚C. Kolikšna je končna temperatura? Specifična toplota ledu je 2100 J/kgK, talilna toplota vode je 334 kJ/kg, specifična toplota vode je 4200 J/kgK. Toploto Q izračunamo kot produkt specifične toplote, mase in razlike temperatur. Pri faznem prehodu (taljenje) pa toploto Q izračunamo kot produkt talilne toplote in mase. Predpostavimo, da se toplota ne izgublja. Namig: ((m1*c*(T1-To))-(m2*c1*(To-T2))-(m2*qt))/((m1+m2)*c), qt=talilna toplota, c=specifična toplota.
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio798" value="radio798" onChange="updateForm()">42˚C</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio799" value="radio799" onChange="updateForm()">35˚C</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio800" value="radio800" onChange="updateForm()">40˚C</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio801" value="radio801" onChange="updateForm()">45˚C</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio242" value="radio242" onChange="updateForm()">42˚C.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio243" value="radio243" onChange="updateForm()">35˚C.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio244" value="radio244" onChange="updateForm()">40˚C.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio245" value="radio245" onChange="updateForm()">45˚C.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

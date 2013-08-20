@@ -16,33 +16,37 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio729").checked==true)
-window.location = "74.html";
-if (document.getElementById("radio730").checked==true)
-window.location = "74.html";
-if (document.getElementById("radio731").checked==true)
-window.location = "74.html";
-if (document.getElementById("radio732").checked==true)
+if (document.getElementById("radio173").checked==true)
 window.location = "73.html";
-if (document.getElementById("radio733").checked==true)
+if (document.getElementById("radio174").checked==true)
 window.location = "73.html";
+if (document.getElementById("radio175").checked==true)
+window.location = "74.html";
+if (document.getElementById("radio176").checked==true)
+window.location = "73.html";
+if (document.getElementById("radio177").checked==true)
+window.location = "73.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio729").checked!=true) {
+if (document.getElementById("radio173").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio730").checked!=true) {
+if (document.getElementById("radio174").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio731").checked!=true) {
+if (document.getElementById("radio175").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio732").checked!=false) {
+if (document.getElementById("radio176").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio733").checked!=false) {
+if (document.getElementById("radio177").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -87,24 +91,27 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-Označite vse načine izmenjave toplote
+Kateri načini izmenjave toplote so možni?
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio729" value="radio729" onChange="updateForm()">prevajanje</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio730" value="radio730" onChange="updateForm()">konvekcija</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio731" value="radio731" onChange="updateForm()">sevanje</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio732" value="radio732" onChange="updateForm()">žarnjenje</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio733" value="radio733" onChange="updateForm()">pihanje</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio173" value="radio173" onChange="updateForm()">Možna sta: prevajanje in sevanje.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio174" value="radio174" onChange="updateForm()">Možni so: taljenje, segrevanje in izparevanje.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio175" value="radio175" onChange="updateForm()">Možni so: sevanje, konvekcija in prevajanje.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio176" value="radio176" onChange="updateForm()">Možni so: žarnjenje, toplotno popuščanje in kaljenje.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio177" value="radio177" onChange="updateForm()">Možni so: dihanje, potenje in sopenje.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

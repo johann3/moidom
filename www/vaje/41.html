@@ -19,13 +19,16 @@ function loadNext()
 if (document.getElementById("evaluation").innerHTML=="Rezultat prikazuje strošek električne energije prenosnega računalnika v enem letu, če ga uporabljate samo v času ET.")
 window.location = "44.html";
 }
+function loadStart()
+{
+window.location = "start.html";
+}
 function updateForm()
 {
 var P=parseFloat(document.getElementById("P").value); 
 var h=parseFloat(document.getElementById("h").value); 
 var ET=parseFloat(document.getElementById("ET").value); 
 var stro=parseFloat(document.getElementById("stro").value); 
-ET=iz aplikacije;
 stro=P/1000*h*ET;
 if (!isNaN(P))
 document.getElementById("P").value=P;
@@ -106,7 +109,7 @@ $(document).ready(function() {
 Elektrika
 </h1>
 <p id="text1">
-Koliko električne energije v povprečju porabi prenosni računalnik, če ga uporabljate v ET?
+Koliko električne energije v povprečju porabijo prenosni računalniki, če jih uporabljate v ET?
 </p>
 <p id="text2">
 Da se rezultat 
@@ -126,7 +129,7 @@ izračuna samodejno, v obrazec dopolnite podatke, ki jih niste vpisali v aplikac
 <td><input type="text" name="h" id="h" value="" onkeyup="updateForm();prediction();restrictInput(this);"/></td>
 <td id="var2Unit">h</td></tr>
 <tr><td id="var3Name">Cena elektrike: enotarifni ET</td>
-<td><input type="text" name="ET" id="ET" value="" onkeyup="updateForm();prediction();"/></td>
+<td><input type="text" name="ET" id="ET" value="" onkeyup="updateForm();prediction();restrictInput(this);"/></td>
 <td id="var3Unit">EUR/kWh</td></tr>
 <tr><td id="var4Name">Strošek na leto</td>
 <td><input type="text" name="stro" id="stro" value="" onkeyup="updateForm();prediction();"/></td>
@@ -146,6 +149,7 @@ izračuna samodejno, v obrazec dopolnite podatke, ki jih niste vpisali v aplikac
 </table>
 
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 
 </form>
 <div id="progressbar">

@@ -16,32 +16,28 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio515").checked==true)
+if (document.getElementById("radio314").checked==true)
 window.location = "41.html";
-if (document.getElementById("radio516").checked==true)
+if (document.getElementById("radio315").checked==true)
 window.location = "42.html";
-if (document.getElementById("radio517").checked==true)
+if (document.getElementById("radio316").checked==true)
 window.location = "43.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio515").checked!=true) {
+if (document.getElementById("radio314").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio516").checked!=true) {
+if (document.getElementById("radio315").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio517").checked!=true) {
+if (document.getElementById("radio316").checked!=true) {
     correct=false;
-}
-if (correct==true) {
-   document.getElementById("evaluation").innerHTML="pravilen";
-   document.getElementById("evaluation").style.backgroundColor="rgb(100,255,100)";
-}
-else {
-   document.getElementById("evaluation").innerHTML="napačen";
-   document.getElementById("evaluation").style.backgroundColor="rgb(255,100,100)";
 }
 }
 
@@ -77,22 +73,20 @@ $(document).ready(function() {
 Elektrika
 </h1>
 <p id="text1">
-Koliko v povprečju porabijo električno energijo prenosni računalniki?
+Koliko električne energije v povprečju porabijo prenosni računalniki?
 </p>
 <p id="text2">
-Izberite tarifo za katero vas zanima izračun naloge.
+Izberite tarifo, za katero vas zanima izračun naloge.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio515" value="radio515" onChange="updateForm()">Enotarifni ET (ET = Enotna tarifa je tarifa, ki jo beleži enotarifni števec vsak dan od 0. do 24. ure.)</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio516" value="radio516" onChange="updateForm()">Dvotarifni VT (VT = Večja tarifa je tarifa, ki jo dvotarifni števec beleži vsak delavnik od 6. do 22. ure.)</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio517" value="radio517" onChange="updateForm()">Dvotarifni MT (MT = Manjša tarifa je tarifa, ki jo dvotarifni števec beleži vsak delavnik od 22. do 6. ure naslednjega dne ter v soboto, nedeljo in dela prost dan od 0. do 24. ure.)</td><td></td></tr>
-<tr>
-<td> Vaš odgovor je </td>
-<td id="evaluation"> nepopoln. </td>
-</tr>
+<tr><td><input type="radio" name="radio" id="radio314" value="radio314" onChange="updateForm()">Enotarifni ET. (ET = Enotna tarifa je tarifa, ki jo beleži enotarifni števec vsak dan od 0. do 24. ure.)</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio315" value="radio315" onChange="updateForm()">Dvotarifni VT. (VT = Večja tarifa je tarifa, ki jo dvotarifni števec beleži vsak delavnik od 6. do 22. ure.)</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio316" value="radio316" onChange="updateForm()">Dvotarifni MT. (MT = Manjša tarifa je tarifa, ki jo dvotarifni števec beleži vsak delavnik od 22. do 6. ure naslednjega dne ter v soboto, nedeljo in dela prost dan od 0. do 24. ure.)</td><td></td></tr>
 </table>
+
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

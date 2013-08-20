@@ -16,23 +16,27 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio567").checked==true)
+if (document.getElementById("radio11").checked==true)
 window.location = "52.html";
-if (document.getElementById("radio568").checked==true)
+if (document.getElementById("radio12").checked==true)
 window.location = "53.html";
-if (document.getElementById("radio569").checked==true)
+if (document.getElementById("radio13").checked==true)
 window.location = "52.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio567").checked!=false) {
+if (document.getElementById("radio11").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio568").checked!=true) {
+if (document.getElementById("radio12").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio569").checked!=false) {
+if (document.getElementById("radio13").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -77,22 +81,25 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-Toploto merimo v wattih, starejša enota pa je kilokalorija.
+Toploto merimo v vatih (izvirno angleško watt, oznaka enote je W), starejša enota pa je kilokalorija.
 </p>
 <p id="text2">
-Označite trditev s klikom.
+Se strinjate s trditvijo? Označite s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio567" value="radio567" onChange="updateForm()">Da</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio568" value="radio568" onChange="updateForm()">Ne</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio569" value="radio569" onChange="updateForm()">Ne vem</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio11" value="radio11" onChange="updateForm()">Da.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio12" value="radio12" onChange="updateForm()">Ne.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio13" value="radio13" onChange="updateForm()">Ne vem.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

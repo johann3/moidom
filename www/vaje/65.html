@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio665").checked==true)
+if (document.getElementById("radio109").checked==true)
 window.location = "65.html";
-if (document.getElementById("radio666").checked==true)
+if (document.getElementById("radio110").checked==true)
 window.location = "65.html";
-if (document.getElementById("radio667").checked==true)
+if (document.getElementById("radio111").checked==true)
 window.location = "66.html";
-if (document.getElementById("radio668").checked==true)
+if (document.getElementById("radio112").checked==true)
 window.location = "65.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio665").checked!=false) {
+if (document.getElementById("radio109").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio666").checked!=false) {
+if (document.getElementById("radio110").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio667").checked!=true) {
+if (document.getElementById("radio111").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio668").checked!=false) {
+if (document.getElementById("radio112").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,16 +93,19 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio665" value="radio665" onChange="updateForm()">Tekočina (kalorik), ki teče od vročih teles k hladnim</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio666" value="radio666" onChange="updateForm()">Abstraktna količina, ki so jo uvedli fiziki, da poenostavijo računanje</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio667" value="radio667" onChange="updateForm()">Kinetična energije (gibanje) osnovnih delcev</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio668" value="radio668" onChange="updateForm()">Sončna energija</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio109" value="radio109" onChange="updateForm()">Je tekočina (kalorik), ki teče od vročih teles k hladnim.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio110" value="radio110" onChange="updateForm()">Je abstraktna količina, ki so jo uvedli fiziki, da poenostavijo računanje.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio111" value="radio111" onChange="updateForm()">Je pretečen del notranje energije.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio112" value="radio112" onChange="updateForm()">Je oddana moč Sonca.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

@@ -16,33 +16,37 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio325").checked==true)
+if (document.getElementById("radio124").checked==true)
 window.location = "17.html";
-if (document.getElementById("radio326").checked==true)
+if (document.getElementById("radio125").checked==true)
 window.location = "17.html";
-if (document.getElementById("radio327").checked==true)
+if (document.getElementById("radio126").checked==true)
 window.location = "18.html";
-if (document.getElementById("radio328").checked==true)
+if (document.getElementById("radio127").checked==true)
 window.location = "17.html";
-if (document.getElementById("radio329").checked==true)
+if (document.getElementById("radio128").checked==true)
 window.location = "17.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio325").checked!=false) {
+if (document.getElementById("radio124").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio326").checked!=false) {
+if (document.getElementById("radio125").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio327").checked!=true) {
+if (document.getElementById("radio126").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio328").checked!=false) {
+if (document.getElementById("radio127").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio329").checked!=false) {
+if (document.getElementById("radio128").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -87,24 +91,27 @@ $(document).ready(function() {
 Elektrika
 </h1>
 <p id="text1">
-V vzporedni vezavi se električne napetosti medsebojno …
+V vzporedni vezavi za električne napetosti velja, da…
 </p>
 <p id="text2">
-Označite trditev s klikom.
+Pravilno dokončajte trditev. Označite s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio325" value="radio325" onChange="updateForm()">odštevajo</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio326" value="radio326" onChange="updateForm()">množijo</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio327" value="radio327" onChange="updateForm()">so enake po celem vezju</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio328" value="radio328" onChange="updateForm()">seštevajo</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio329" value="radio329" onChange="updateForm()">potencirajo</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio124" value="radio124" onChange="updateForm()">se odštevajo.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio125" value="radio125" onChange="updateForm()">se množijo.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio126" value="radio126" onChange="updateForm()">so enake po celem vezju.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio127" value="radio127" onChange="updateForm()">se seštevajo.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio128" value="radio128" onChange="updateForm()">se potencirajo.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

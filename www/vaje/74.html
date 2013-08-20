@@ -16,33 +16,37 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio738").checked==true)
+if (document.getElementById("radio182").checked==true)
 window.location = "74.html";
-if (document.getElementById("radio739").checked==true)
+if (document.getElementById("radio183").checked==true)
 window.location = "74.html";
-if (document.getElementById("radio740").checked==true)
+if (document.getElementById("radio184").checked==true)
 window.location = "75.html";
-if (document.getElementById("radio741").checked==true)
+if (document.getElementById("radio185").checked==true)
 window.location = "74.html";
-if (document.getElementById("radio742").checked==true)
+if (document.getElementById("radio186").checked==true)
 window.location = "74.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio738").checked!=false) {
+if (document.getElementById("radio182").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio739").checked!=false) {
+if (document.getElementById("radio183").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio740").checked!=true) {
+if (document.getElementById("radio184").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio741").checked!=false) {
+if (document.getElementById("radio185").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio742").checked!=false) {
+if (document.getElementById("radio186").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -87,24 +91,27 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-Katere snovi najbolje prevajajo toploto?
+Katera snov izmed naštetih najbolje prevaja toploto?
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio738" value="radio738" onChange="updateForm()">porcelan</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio739" value="radio739" onChange="updateForm()">plastika</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio740" value="radio740" onChange="updateForm()">aluminij</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio741" value="radio741" onChange="updateForm()">steklo</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio742" value="radio742" onChange="updateForm()">železo</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio182" value="radio182" onChange="updateForm()">Porcelan.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio183" value="radio183" onChange="updateForm()">Plastika.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio184" value="radio184" onChange="updateForm()">Aluminij.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio185" value="radio185" onChange="updateForm()">Steklo.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio186" value="radio186" onChange="updateForm()">Železo.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio673").checked==true)
+if (document.getElementById("radio117").checked==true)
 window.location = "66.html";
-if (document.getElementById("radio674").checked==true)
+if (document.getElementById("radio118").checked==true)
 window.location = "67.html";
-if (document.getElementById("radio675").checked==true)
+if (document.getElementById("radio119").checked==true)
 window.location = "66.html";
-if (document.getElementById("radio676").checked==true)
+if (document.getElementById("radio120").checked==true)
 window.location = "66.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio673").checked!=false) {
+if (document.getElementById("radio117").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio674").checked!=true) {
+if (document.getElementById("radio118").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio675").checked!=false) {
+if (document.getElementById("radio119").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio676").checked!=false) {
+if (document.getElementById("radio120").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-Če isti količini plina povečamo volumen mu pade temperatura.
+Če isti količini plina povečamo volumen, se mu zniža temperatura.
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio673" value="radio673" onChange="updateForm()">Ne drži, temperatura mu naraste</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio674" value="radio674" onChange="updateForm()">Drži, na ta princip delujejo klimatske naprave</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio675" value="radio675" onChange="updateForm()">Temperatura plina je konstantna ne glede na volumen</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio676" value="radio676" onChange="updateForm()">Plinu se temperatura spremeni samo, če spreminjamo pritisk</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio117" value="radio117" onChange="updateForm()">Ne drži, temperatura mu naraste.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio118" value="radio118" onChange="updateForm()">Drži, na ta princip delujejo tudi klimatske naprave.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio119" value="radio119" onChange="updateForm()">Temperatura plina je konstantna ne glede na volumen.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio120" value="radio120" onChange="updateForm()">Plinu se temperatura spremeni samo, če spreminjamo tlak.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

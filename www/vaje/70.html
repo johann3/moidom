@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio705").checked==true)
+if (document.getElementById("radio149").checked==true)
 window.location = "70.html";
-if (document.getElementById("radio706").checked==true)
+if (document.getElementById("radio150").checked==true)
 window.location = "71.html";
-if (document.getElementById("radio707").checked==true)
+if (document.getElementById("radio151").checked==true)
 window.location = "70.html";
-if (document.getElementById("radio708").checked==true)
+if (document.getElementById("radio152").checked==true)
 window.location = "70.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio705").checked!=false) {
+if (document.getElementById("radio149").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio706").checked!=true) {
+if (document.getElementById("radio150").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio707").checked!=false) {
+if (document.getElementById("radio151").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio708").checked!=false) {
+if (document.getElementById("radio152").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -89,16 +93,19 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio705" value="radio705" onChange="updateForm()">Nič ne more biti večje od 100%</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio706" value="radio706" onChange="updateForm()">Lahko je vendar se vlaga takoj kondenzira ko tak zrak pride v stik s kondezacijskim jedrom</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio707" value="radio707" onChange="updateForm()">Vlažnost zraka ne more biti večja od 50%</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio708" value="radio708" onChange="updateForm()">Takšne pogoje lahko dosežemo samo v laboratoriju</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio149" value="radio149" onChange="updateForm()">Nič ne more biti večje od 100%.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio150" value="radio150" onChange="updateForm()">Lahko je, vendar se vlaga takoj kondenzira, ko tak zrak pride v stik s kondezacijskim jedrom.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio151" value="radio151" onChange="updateForm()">Vlažnost zraka nikoli ne more biti večja od 50%.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio152" value="radio152" onChange="updateForm()">Takšne pogoje lahko dosežemo samo v laboratoriju.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio602").checked==true)
+if (document.getElementById("radio46").checked==true)
 window.location = "57.html";
-if (document.getElementById("radio603").checked==true)
+if (document.getElementById("radio47").checked==true)
 window.location = "57.html";
-if (document.getElementById("radio604").checked==true)
+if (document.getElementById("radio48").checked==true)
 window.location = "58.html";
-if (document.getElementById("radio605").checked==true)
+if (document.getElementById("radio49").checked==true)
 window.location = "57.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio602").checked!=false) {
+if (document.getElementById("radio46").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio603").checked!=false) {
+if (document.getElementById("radio47").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio604").checked!=true) {
+if (document.getElementById("radio48").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio605").checked!=false) {
+if (document.getElementById("radio49").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-Za do koliko odstotkov večjo porabo energije pomeni vsaka stopinja nad 20 stopinjami v prostoru?
+Do koliko odstotkov večjo porabo energije za segrevanje pozimi pomeni vsaka dodatna stopinja nad 20 stopinjami v notranjosti prostorov?
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio602" value="radio602" onChange="updateForm()">4</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio603" value="radio603" onChange="updateForm()">5</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio604" value="radio604" onChange="updateForm()">6</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio605" value="radio605" onChange="updateForm()">7</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio46" value="radio46" onChange="updateForm()">4.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio47" value="radio47" onChange="updateForm()">5.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio48" value="radio48" onChange="updateForm()">6.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio49" value="radio49" onChange="updateForm()">7.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

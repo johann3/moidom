@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio812").checked==true)
+if (document.getElementById("radio256").checked==true)
 window.location = "85.html";
-if (document.getElementById("radio813").checked==true)
+if (document.getElementById("radio257").checked==true)
 window.location = "84.html";
-if (document.getElementById("radio814").checked==true)
+if (document.getElementById("radio258").checked==true)
 window.location = "84.html";
-if (document.getElementById("radio815").checked==true)
+if (document.getElementById("radio259").checked==true)
 window.location = "84.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio812").checked!=true) {
+if (document.getElementById("radio256").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio813").checked!=false) {
+if (document.getElementById("radio257").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio814").checked!=false) {
+if (document.getElementById("radio258").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio815").checked!=false) {
+if (document.getElementById("radio259").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Toplota
 </h1>
 <p id="text1">
-Okrogli lonec s premerom 25 cm vsebuje vodo s temperaturo 60˚C. V vodo vtaknemo grelec z močjo 2 kW (watt je enota za moč). Koliko mora biti debelina stene lonca, katerega toplotna prevodnost je o.3 W/mK (to je enota za toplotno prevodnost), da ima voda ves čas stalno temperaturo, če je zunanja temperatura Tz=25˚C? Toplotni tok izračunamo kot produkt toplotne prevodnosti, razlike temperatur in površine ulomljeno z debelino. Toplotni tok mora biti enak 2 kW, da bo temperatura v loncu konstantna. Namig: (6*π*r2*λ*(T-Tz))/P   r=polmer lonca, λ=toplotna prevodnost
+Okrogli lonec s premerom 25 cm vsebuje vodo s temperaturo 60˚C. V vodo vtaknemo grelec z močjo 2 kW (watt je enota za moč). Kolikšna mora biti debelina stene lonca, katerega toplotna prevodnost skozi steno je 0.3 W/mK, da ima voda ves čas stalno temperaturo in če je zunanja temperatura Tz=25˚C? Toplotni tok izračunamo kot produkt toplotne prevodnosti, razlike temperatur in površine ulomljeno z debelino. Toplotni tok mora biti enak 2 kW, da bo temperatura v loncu konstantna. Namig: (6*π*r2*λ*(T-Tz))/P, r=polmer lonca, λ=toplotna prevodnost.
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio812" value="radio812" onChange="updateForm()">1.8 mm</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio813" value="radio813" onChange="updateForm()">0.0015 m</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio814" value="radio814" onChange="updateForm()">0.2 dm</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio815" value="radio815" onChange="updateForm()">0.002 cm</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio256" value="radio256" onChange="updateForm()">1.8 mm.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio257" value="radio257" onChange="updateForm()">0.0015 m.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio258" value="radio258" onChange="updateForm()">0.2 dm.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio259" value="radio259" onChange="updateForm()">0.002 cm.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

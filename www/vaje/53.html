@@ -16,23 +16,27 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio574").checked==true)
+if (document.getElementById("radio18").checked==true)
 window.location = "54.html";
-if (document.getElementById("radio575").checked==true)
+if (document.getElementById("radio19").checked==true)
 window.location = "53.html";
-if (document.getElementById("radio576").checked==true)
+if (document.getElementById("radio20").checked==true)
 window.location = "53.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio574").checked!=true) {
+if (document.getElementById("radio18").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio575").checked!=false) {
+if (document.getElementById("radio19").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio576").checked!=false) {
+if (document.getElementById("radio20").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -80,19 +84,22 @@ Toplota
 Največ energije v gospodinjstvu porabimo za ogrevanje.
 </p>
 <p id="text2">
-Označite trditev s klikom.
+Se strinjate s trditvijo? Označite s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio574" value="radio574" onChange="updateForm()">Da</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio575" value="radio575" onChange="updateForm()">Ne</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio576" value="radio576" onChange="updateForm()">Ne vem</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio18" value="radio18" onChange="updateForm()">Da.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio19" value="radio19" onChange="updateForm()">Ne.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio20" value="radio20" onChange="updateForm()">Ne vem.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

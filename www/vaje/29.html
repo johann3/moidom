@@ -16,28 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio419").checked==true)
+if (document.getElementById("radio218").checked==true)
 window.location = "29.html";
-if (document.getElementById("radio420").checked==true)
+if (document.getElementById("radio219").checked==true)
 window.location = "29.html";
-if (document.getElementById("radio421").checked==true)
+if (document.getElementById("radio220").checked==true)
 window.location = "29.html";
-if (document.getElementById("radio422").checked==true)
+if (document.getElementById("radio221").checked==true)
 window.location = "30.html";
+}
+function loadStart()
+{
+window.location = "start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio419").checked!=false) {
+if (document.getElementById("radio218").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio420").checked!=false) {
+if (document.getElementById("radio219").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio421").checked!=false) {
+if (document.getElementById("radio220").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio422").checked!=true) {
+if (document.getElementById("radio221").checked!=true) {
     correct=false;
 }
 if (correct==true) {
@@ -82,23 +86,26 @@ $(document).ready(function() {
 Elektrika
 </h1>
 <p id="text1">
-Kolikšen električni tok potroši 2 kW (watt je enota za moč) bojler, za segrevanje 1 ure vode, priključen na 220 V (volt je enota za napetost) napetosti? Tok izračunamo kot količnik med močjo in napetostjo. Namig: P/U    P=moč, U=napetost
+Kolikšen električni tok potroši bojler z močjo 2 kW (watt je enota za moč), če 1 uro segreva vodo. Priključen je na 220 V (volt je enota za napetost) napetosti? Tok izračunamo kot količnik med močjo in napetostjo. Namig: P/U, P=moč, U=napetost.
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio419" value="radio419" onChange="updateForm()">10.1 A</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio420" value="radio420" onChange="updateForm()">0.1 A</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio421" value="radio421" onChange="updateForm()">0.01 A</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio422" value="radio422" onChange="updateForm()">9.1 A</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio218" value="radio218" onChange="updateForm()">10.1 A.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio219" value="radio219" onChange="updateForm()">0.1 A.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio220" value="radio220" onChange="updateForm()">0.01 A.</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio221" value="radio221" onChange="updateForm()">9.1 A.</td><td></td></tr>
+</table>
+<table>
 <tr>
 <td> Vaš odgovor je </td>
 <td id="evaluation"> nepopoln. </td>
 </tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">
