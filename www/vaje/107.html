@@ -16,32 +16,32 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio53").checked==true)
+if (document.getElementById("radio179").checked==true)
 window.location = "107.html";
-if (document.getElementById("radio54").checked==true)
+if (document.getElementById("radio180").checked==true)
 window.location = "108.html";
-if (document.getElementById("radio55").checked==true)
+if (document.getElementById("radio181").checked==true)
 window.location = "107.html";
-if (document.getElementById("radio56").checked==true)
+if (document.getElementById("radio182").checked==true)
 window.location = "107.html";
 }
 function loadStart()
 {
-window.location = "start.html";
+window.location = "../svetovanje/start.html";
 }
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio53").checked!=false) {
+if (document.getElementById("radio179").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio54").checked!=true) {
+if (document.getElementById("radio180").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio55").checked!=false) {
+if (document.getElementById("radio181").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio56").checked!=false) {
+if (document.getElementById("radio182").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -93,10 +93,10 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio53" value="radio53" onChange="updateForm()">metana</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio54" value="radio54" onChange="updateForm()">ogljikovega dioksida</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio55" value="radio55" onChange="updateForm()">ogljikovega monoksida</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio56" value="radio56" onChange="updateForm()">vodne pare</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio179" value="radio179" onChange="updateForm()">metana</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio180" value="radio180" onChange="updateForm()">ogljikovega dioksida</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio181" value="radio181" onChange="updateForm()">ogljikovega monoksida</td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio182" value="radio182" onChange="updateForm()">vodne pare</td><td></td></tr>
 </table>
 <table>
 <tr>

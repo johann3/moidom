@@ -25,7 +25,7 @@ window.location = "39.html";
 }
 function loadStart()
 {
-window.location = "start.html";
+window.location = "../svetovanje/start.html";
 }
 function updateForm()
 {
@@ -38,6 +38,14 @@ if (document.getElementById("radio269").checked!=true) {
 }
 if (document.getElementById("radio270").checked!=true) {
     correct=false;
+}
+if (correct==true) {
+   document.getElementById("evaluation").innerHTML="pravilen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(100,255,100)";
+}
+else {
+   document.getElementById("evaluation").innerHTML="napačen";
+   document.getElementById("evaluation").style.backgroundColor="rgb(255,100,100)";
 }
 }
 
@@ -84,7 +92,12 @@ Izberite tarifo, za katero vas zanima izračun naloge.
 <tr><td><input type="radio" name="radio" id="radio269" value="radio269" onChange="updateForm()">Dvotarifni VT. (VT = Večja tarifa je tarifa, ki jo dvotarifni števec beleži vsak delavnik od 6. do 22. ure.)</td><td></td></tr>
 <tr><td><input type="radio" name="radio" id="radio270" value="radio270" onChange="updateForm()">Dvotarifni MT. (MT = Manjša tarifa je tarifa, ki jo dvotarifni števec beleži vsak delavnik od 22. do 6. ure naslednjega dne ter v soboto, nedeljo in dela prost dan od 0. do 24. ure.)</td><td></td></tr>
 </table>
-
+<table>
+<tr>
+<td> Vaš odgovor je </td>
+<td id="evaluation"> nepopoln. </td>
+</tr>
+</table>
 <button type="submit" id="button">Naprej</button>
 <button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
