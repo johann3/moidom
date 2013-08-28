@@ -16,14 +16,14 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio319").checked==true)
-window.location = "779.html";
 if (document.getElementById("radio320").checked==true)
+window.location = "779.html";
+if (document.getElementById("radio321").checked==true)
 window.location = "780.html";
 }
 function loadStart()
 {
-window.location = "start.html";
+window.location = "../svetovanje/start.html";
 }
 
 $(document).ready(function() {
@@ -65,8 +65,8 @@ Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio319" value="radio319" onChange="updateForm()">Zadovoljen.</td></tr>
-<tr><td><input type="radio" name="radio" id="radio320" value="radio320" onChange="updateForm()">Želim nasvet kako privarčevati.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio320" value="radio320" onChange="updateForm()"><label for="radio320">Zadovoljen.</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio321" value="radio321" onChange="updateForm()"><label for="radio321">Želim nasvet kako privarčevati.</label></td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
 <button type="button" id="button2" onclick="loadStart()">Na začetek</button>

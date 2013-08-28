@@ -27,7 +27,7 @@ window.location = "239.html";
 }
 function loadStart()
 {
-window.location = "start.html";
+window.location = "../svetovanje/start.html";
 }
 
 $(document).ready(function() {
@@ -69,10 +69,10 @@ Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio185" value="radio185" onChange="updateForm()">Zrak-zrak</td></tr>
-<tr><td><input type="radio" name="radio" id="radio186" value="radio186" onChange="updateForm()">Zrak-voda</td></tr>
-<tr><td><input type="radio" name="radio" id="radio187" value="radio187" onChange="updateForm()">Voda voda</td></tr>
-<tr><td><input type="radio" name="radio" id="radio188" value="radio188" onChange="updateForm()">Zemlja-voda</td></tr>
+<tr><td><input type="radio" name="radio" id="radio185" value="radio185" onChange="updateForm()"><label for="radio185">Zrak-zrak</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio186" value="radio186" onChange="updateForm()"><label for="radio186">Zrak-voda</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio187" value="radio187" onChange="updateForm()"><label for="radio187">Voda voda</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio188" value="radio188" onChange="updateForm()"><label for="radio188">Zemlja-voda</label></td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
 <button type="button" id="button2" onclick="loadStart()">Na začetek</button>

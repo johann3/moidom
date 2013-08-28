@@ -16,14 +16,18 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio1230").checked==true)
+if (document.getElementById("radio14").checked==true)
 window.location = "1.html";
-if (document.getElementById("radio1231").checked==true)
+if (document.getElementById("radio15").checked==true)
 window.location = "51.html";
-if (document.getElementById("radio1232").checked==true)
+if (document.getElementById("radio16").checked==true)
 window.location = "150.html";
-if (document.getElementById("radio1233").checked==true)
+if (document.getElementById("radio17").checked==true)
 window.location = "100.html";
+}
+function loadStart()
+{
+window.location = "../svetovanje/start.html";
 }
 
 $(document).ready(function() {
@@ -65,12 +69,13 @@ Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio1230" value="radio1230" onChange="updateForm()">Električna energija</td></tr>
-<tr><td><input type="radio" name="radio" id="radio1231" value="radio1231" onChange="updateForm()">Ogrevanje</td></tr>
-<tr><td><input type="radio" name="radio" id="radio1232" value="radio1232" onChange="updateForm()">Voda</td></tr>
-<tr><td><input type="radio" name="radio" id="radio1233" value="radio1233" onChange="updateForm()">Odpadki</td></tr>
+<tr><td><input type="radio" name="radio" id="radio14" value="radio14" onChange="updateForm()"><label for="radio14">Električna energija</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio15" value="radio15" onChange="updateForm()"><label for="radio15">Ogrevanje</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio16" value="radio16" onChange="updateForm()"><label for="radio16">Voda</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio17" value="radio17" onChange="updateForm()"><label for="radio17">Odpadki</label></td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

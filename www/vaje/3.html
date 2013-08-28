@@ -16,11 +16,11 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio10").checked==true)
+if (document.getElementById("radio18").checked==true)
 window.location = "4.html";
-if (document.getElementById("radio11").checked==true)
+if (document.getElementById("radio19").checked==true)
 window.location = "3.html";
-if (document.getElementById("radio12").checked==true)
+if (document.getElementById("radio20").checked==true)
 window.location = "3.html";
 }
 function loadStart()
@@ -30,13 +30,13 @@ window.location = "../svetovanje/start.html";
 function updateForm()
 {
 var correct=true;
-if (document.getElementById("radio10").checked!=true) {
+if (document.getElementById("radio18").checked!=true) {
     correct=false;
 }
-if (document.getElementById("radio11").checked!=false) {
+if (document.getElementById("radio19").checked!=false) {
     correct=false;
 }
-if (document.getElementById("radio12").checked!=false) {
+if (document.getElementById("radio20").checked!=false) {
     correct=false;
 }
 if (correct==true) {
@@ -88,9 +88,9 @@ Označite trditev s klikom.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio10" value="radio10" onChange="updateForm()"><label for="radio10">Da.</label></td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio11" value="radio11" onChange="updateForm()"><label for="radio11">Ne.</label></td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio12" value="radio12" onChange="updateForm()"><label for="radio12">Ne vem.</label></td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio18" value="radio18" onChange="updateForm()"><label for="radio18">Da.</label></td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio19" value="radio19" onChange="updateForm()"><label for="radio19">Ne.</label></td><td></td></tr>
+<tr><td><input type="radio" name="radio" id="radio20" value="radio20" onChange="updateForm()"><label for="radio20">Ne vem.</label></td><td></td></tr>
 </table>
 <table>
 <tr>

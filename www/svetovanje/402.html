@@ -29,7 +29,7 @@ window.location = "407.html";
 }
 function loadStart()
 {
-window.location = "start.html";
+window.location = "../svetovanje/start.html";
 }
 
 $(document).ready(function() {
@@ -71,11 +71,11 @@ Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio10" value="radio10" onChange="updateForm()">Varčevanje v kuhinji.</td></tr>
-<tr><td><input type="radio" name="radio" id="radio11" value="radio11" onChange="updateForm()">Varčevanje na stranišču.</td></tr>
-<tr><td><input type="radio" name="radio" id="radio12" value="radio12" onChange="updateForm()">Varčevanje v kopalnici.</td></tr>
-<tr><td><input type="radio" name="radio" id="radio13" value="radio13" onChange="updateForm()">Varčevanje na vrtu.</td></tr>
-<tr><td><input type="radio" name="radio" id="radio14" value="radio14" onChange="updateForm()">Varčevanje v pralnici</td></tr>
+<tr><td><input type="radio" name="radio" id="radio10" value="radio10" onChange="updateForm()"><label for="radio10">Varčevanje v kuhinji.</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio11" value="radio11" onChange="updateForm()"><label for="radio11">Varčevanje na stranišču.</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio12" value="radio12" onChange="updateForm()"><label for="radio12">Varčevanje v kopalnici.</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio13" value="radio13" onChange="updateForm()"><label for="radio13">Varčevanje na vrtu.</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio14" value="radio14" onChange="updateForm()"><label for="radio14">Varčevanje v pralnici</label></td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
 <button type="button" id="button2" onclick="loadStart()">Na začetek</button>

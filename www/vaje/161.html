@@ -29,12 +29,12 @@ var t=parseFloat(document.getElementById("t").value);
 var n=parseFloat(document.getElementById("n").value); 
 var pret=parseFloat(document.getElementById("pret").value); 
 var porena=parseFloat(document.getElementById("porena").value); 
-var stOseb=parseFloat(document.getElementById("stOseb").value); 
+var št=parseFloat(document.getElementById("št").value); 
 var porvsi=parseFloat(document.getElementById("porvsi").value); 
 var por=parseFloat(document.getElementById("por").value); 
 porena=t*n*pret;
-porvsi=t*n*pret*stOseb;
-por=t*n*pret*stOseb*365/1000;
+porvsi=t*n*pret*št;
+por=t*n*pret*št*365/1000;
 if (!isNaN(t))
 document.getElementById("t").value=t;
 if (!isNaN(n))
@@ -43,8 +43,8 @@ if (!isNaN(pret))
 document.getElementById("pret").value=pret;
 if (!isNaN(porena))
 document.getElementById("porena").value=porena;
-if (!isNaN(stOseb))
-document.getElementById("stOseb").value=stOseb;
+if (!isNaN(št))
+document.getElementById("št").value=št;
 if (!isNaN(porvsi))
 document.getElementById("porvsi").value=porvsi;
 if (!isNaN(por))
@@ -88,17 +88,7 @@ function restrictInput (element)
 	element.value = element.value.replace(/[^(0-9\.)]/, '');
 }
 $(document).ready(function() {
-    $.ajax({
-        url: DATA_URL + 'user/get_profile',
-        type: 'GET',
-        xhrFields: { withCredentials: true },
-        success: function(data, textStatus, xhr) {
-            //alert ('Število članov gospodinjstva: ' + data.persons);
-            document.getElementById("stOseb").innerHTML=data.persons;
-        }
-    })
-
-        $('form').submit(function() {
+    $('form').submit(function() {
         $.ajax({
             url: DATA_URL + 'consult/log',
             type: 'GET',
@@ -155,7 +145,7 @@ Da se rezultat izračuna samodejno, v obrazec dopolni podatke, ki jih nisi vnese
 <td><input type="text" name="porena" id="porena" value="" onkeyup="updateForm();prediction();"/></td>
 <td id="var4Unit">L/dan</td></tr>
 <tr><td id="var5Name">Število članov gospodinjstva</td>
-<td><input type="text" name="stOseb" id="stOseb" value="" onkeyup="updateForm();prediction();restrictInput(this);"/></td>
+<td><input type="text" name="št" id="št" value="" onkeyup="updateForm();prediction();restrictInput(this);"/></td>
 <td id="var5Unit">oseb</td></tr>
 <tr><td id="var6Name">Poraba vode vseh članov gospodinjstva skupaj na dan</td>
 <td><input type="text" name="porvsi" id="porvsi" value="" onkeyup="updateForm();prediction();"/></td>

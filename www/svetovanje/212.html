@@ -27,7 +27,7 @@ window.location = "220.html";
 }
 function loadStart()
 {
-window.location = "start.html";
+window.location = "../svetovanje/start.html";
 }
 
 $(document).ready(function() {
@@ -69,10 +69,10 @@ Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio55" value="radio55" onChange="updateForm()">Lesna biomasa</td></tr>
-<tr><td><input type="radio" name="radio" id="radio56" value="radio56" onChange="updateForm()">Električna energija</td></tr>
-<tr><td><input type="radio" name="radio" id="radio57" value="radio57" onChange="updateForm()">Daljinska toplota</td></tr>
-<tr><td><input type="radio" name="radio" id="radio58" value="radio58" onChange="updateForm()">Zemeljski plin</td></tr>
+<tr><td><input type="radio" name="radio" id="radio55" value="radio55" onChange="updateForm()"><label for="radio55">Lesna biomasa</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio56" value="radio56" onChange="updateForm()"><label for="radio56">Električna energija</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio57" value="radio57" onChange="updateForm()"><label for="radio57">Daljinska toplota</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio58" value="radio58" onChange="updateForm()"><label for="radio58">Zemeljski plin</label></td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
 <button type="button" id="button2" onclick="loadStart()">Na začetek</button>

@@ -16,16 +16,16 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio22").checked==true)
+if (document.getElementById("radio25").checked==true)
 window.location = "788.html";
-if (document.getElementById("radio23").checked==true)
+if (document.getElementById("radio26").checked==true)
 window.location = "816.html";
-if (document.getElementById("radio24").checked==true)
+if (document.getElementById("radio27").checked==true)
 window.location = "844.html";
 }
 function loadStart()
 {
-window.location = "start.html";
+window.location = "../svetovanje/start.html";
 }
 
 $(document).ready(function() {
@@ -67,9 +67,9 @@ Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio22" value="radio22" onChange="updateForm()">Nominalno.</td></tr>
-<tr><td><input type="radio" name="radio" id="radio23" value="radio23" onChange="updateForm()">Po osebi.</td></tr>
-<tr><td><input type="radio" name="radio" id="radio24" value="radio24" onChange="updateForm()">Po m2.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio25" value="radio25" onChange="updateForm()"><label for="radio25">Nominalno.</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio26" value="radio26" onChange="updateForm()"><label for="radio26">Po osebi.</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio27" value="radio27" onChange="updateForm()"><label for="radio27">Po m2.</label></td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
 <button type="button" id="button2" onclick="loadStart()">Na začetek</button>

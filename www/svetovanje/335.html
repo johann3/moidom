@@ -23,7 +23,7 @@ window.location = "339.html";
 }
 function loadStart()
 {
-window.location = "start.html";
+window.location = "../svetovanje/start.html";
 }
 
 $(document).ready(function() {
@@ -65,8 +65,8 @@ Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio181" value="radio181" onChange="updateForm()">Napolnite lonce.</td></tr>
-<tr><td><input type="radio" name="radio" id="radio182" value="radio182" onChange="updateForm()">Nakup posode.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio181" value="radio181" onChange="updateForm()"><label for="radio181">Napolnite lonce.</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio182" value="radio182" onChange="updateForm()"><label for="radio182">Nakup posode.</label></td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
 <button type="button" id="button2" onclick="loadStart()">Na začetek</button>

@@ -23,7 +23,7 @@ window.location = "226.html";
 }
 function loadStart()
 {
-window.location = "start.html";
+window.location = "../svetovanje/start.html";
 }
 
 $(document).ready(function() {
@@ -65,8 +65,8 @@ Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio125" value="radio125" onChange="updateForm()">Imam dobro izoliran ovoj stavbe in nimam potrebe po dodatnih ukrepih.</td></tr>
-<tr><td><input type="radio" name="radio" id="radio126" value="radio126" onChange="updateForm()">Moj ovoj stavbe ni izoliran ali je pomanjkljivo izoliran.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio125" value="radio125" onChange="updateForm()"><label for="radio125">Imam dobro izoliran ovoj stavbe in nimam potrebe po dodatnih ukrepih.</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio126" value="radio126" onChange="updateForm()"><label for="radio126">Moj ovoj stavbe ni izoliran ali je pomanjkljivo izoliran.</label></td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
 <button type="button" id="button2" onclick="loadStart()">Na začetek</button>

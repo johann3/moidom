@@ -27,11 +27,11 @@ window.location = "501.html";
 if (document.getElementById("radio8").checked==true)
 window.location = "700.html";
 if (document.getElementById("radio9").checked==true)
-window.location = "../vaje/startizo.html";
+window.location = "startizo.html";
 }
 function loadStart()
 {
-window.location = "start.html";
+window.location = "../svetovanje/start.html";
 }
 
 $(document).ready(function() {
@@ -81,6 +81,7 @@ Izberite možnost.
 <tr><td><input type="radio" name="radio" id="radio9" value="radio9" onChange="updateForm()"><label for="radio9">Izobraževalne naloge</label></td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

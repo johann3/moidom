@@ -16,11 +16,11 @@ var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio4").checked==true)
+if (document.getElementById("radio314").checked==true)
 window.location = "41.html";
-if (document.getElementById("radio5").checked==true)
+if (document.getElementById("radio315").checked==true)
 window.location = "42.html";
-if (document.getElementById("radio6").checked==true)
+if (document.getElementById("radio316").checked==true)
 window.location = "43.html";
 }
 function loadStart()
@@ -67,9 +67,9 @@ Izberite tarifo, za katero vas zanima izračun naloge.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio4" value="radio4" onChange="updateForm()">Enotarifni ET. (ET = Enotna tarifa je tarifa, ki jo beleži enotarifni števec vsak dan od 0. do 24. ure.)</td></tr>
-<tr><td><input type="radio" name="radio" id="radio5" value="radio5" onChange="updateForm()">Dvotarifni VT. (VT = Večja tarifa je tarifa, ki jo dvotarifni števec beleži vsak delavnik od 6. do 22. ure.)</td></tr>
-<tr><td><input type="radio" name="radio" id="radio6" value="radio6" onChange="updateForm()">Dvotarifni MT. (MT = Manjša tarifa je tarifa, ki jo dvotarifni števec beleži vsak delavnik od 22. do 6. ure naslednjega dne ter v soboto, nedeljo in dela prost dan od 0. do 24. ure.)</td></tr>
+<tr><td><input type="radio" name="radio" id="radio314" value="radio314" onChange="updateForm()"><label for="radio314">Enotarifni ET. (ET = Enotna tarifa je tarifa, ki jo beleži enotarifni števec vsak dan od 0. do 24. ure.)</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio315" value="radio315" onChange="updateForm()"><label for="radio315">Dvotarifni VT. (VT = Večja tarifa je tarifa, ki jo dvotarifni števec beleži vsak delavnik od 6. do 22. ure.)</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio316" value="radio316" onChange="updateForm()"><label for="radio316">Dvotarifni MT. (MT = Manjša tarifa je tarifa, ki jo dvotarifni števec beleži vsak delavnik od 22. do 6. ure naslednjega dne ter v soboto, nedeljo in dela prost dan od 0. do 24. ure.)</label></td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
 <button type="button" id="button2" onclick="loadStart()">Na začetek</button>
