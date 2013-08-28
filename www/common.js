@@ -1,7 +1,7 @@
 var DATA_URL = "/server_prod/";
 //DATA_URL = "/server_test/";
 //DATA_URL = "http://localhost:8080/server_prod/"
-//DATA_URL = "http://www.moidom.si/server_prod/";
+DATA_URL = "http://www.moidom.si/server_prod/";
 //DATA_URL = "http://www.moidom.si/server_test/";
 var HTML_URL = ""; // useful for tracking the code that changes URLs
 
