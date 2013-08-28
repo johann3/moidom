@@ -5,9 +5,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/bootstrap.css" rel="stylesheet">
-        <link href="css/bootstrap-responsive.css" rel="stylesheet">
-        <link href="css/bootstrap-timepicker.min.css" rel="stylesheet">
         <link href="css/bootstrap-fileupload.min.css" rel="stylesheet">
+        <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="css/bootstrap-timepicker.min.css" rel="stylesheet">
+        <link href="css/datepicker.css" rel="stylesheet">
         <link href="css/moidom.css" rel="stylesheet">
         
         <script charset="UTF-8" src="js/jquery.min.js"></script>
@@ -1125,10 +1126,12 @@
                                     <select name="submitCommodity" id="submitCommodity" onchange="updateSubmitForm()"></select>
                                     <p>Popravi zadnjega: <input type="checkbox" name="updateExisting" id="updateExisting" onclick="updateSubmitForm()"></input></p>
                                     <p>Datum odčitka:</p>
-                                        <input type="text" name="submitDate" id="submitDate" data-date-format="dd.mm.yyyy" data-date-language="sl" data-date-autoclose="true" >
+                                        <div class="datepicker">
+                                            <input type="text" name="submitDate" id="submitDate" data-date-format="dd.mm.yyyy" data-date-language="sl" data-date-autoclose="true" >
+                                        </div>
                                     <p>Čas odčitka:</p>
                                         <div class="bootstrap-timepicker">
-                                            <input type="text" name="submitTime" id="submitTime" data-template="dropdown" data-show-seconds="true" data-show-meridian="false" data-disable-focus="true" data-show-inputs="true" data-minute-step="1" data-second-step="1" >
+                                            <input type="time" name="submitTime" id="submitTime" data-template="dropdown" data-show-seconds="true" data-show-meridian="false" data-disable-focus="true" data-show-inputs="true" data-minute-step="1" data-second-step="1" >
                                         </div>
                                     <p>Vrednost odčitka:</p>
                                         <input type="text" name="submitValue" id="submitValue"><span id="submitUnit"></span>

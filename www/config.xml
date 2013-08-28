@@ -3,8 +3,8 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "si.moidom"
-        version   = "1.0.11">
-    <name>mOIDom test</name>
+        version   = "1.0.12">
+    <name>mOIDom</name>
 
     <description>
         mOIDom mobilna aplikacija
@@ -33,8 +33,8 @@
     <icon src="res/icon/ios/icon-57-2x.png"         gap:platform="ios"        width="114" height="114" />
     <icon src="res/icon/ios/icon-72-2x.png"         gap:platform="ios"        width="144" height="144" />
     <icon src="res/icon/webos/icon-64.png"          gap:platform="webos" />
-    <icon src="res/icon/windows-phone/icon-48.png"  gap:platform="winphone" />
-    <icon src="res/icon/windows-phone/icon-173.png" gap:platform="winphone"   gap:role="background" />
+    <icon src="res/icon/winphone/icon-48.png"  gap:platform="winphone" />
+    <icon src="res/icon/winphone/icon-173.png" gap:platform="winphone"   gap:role="background" />
 
     <gap:splash src="res/splash/android/screen-ldpi-portrait-200x320.png"  gap:platform="android" gap:density="ldpi" />
     <gap:splash src="res/splash/android/screen-mdpi-portrait-320x480.png"  gap:platform="android" gap:density="mdpi" />
@@ -45,5 +45,5 @@
     <gap:splash src="res/splash/ios/screen-iphone-portrait-2x.png" gap:platform="ios"     width="640" height="960" />
     <gap:splash src="res/splash/ios/screen-ipad-portrait.png"      gap:platform="ios"     width="768" height="1024" />
     <gap:splash src="res/splash/ios/screen-ipad-landscape.png"     gap:platform="ios"     width="1024" height="768" />
-    <gap:splash src="res/splash/windows-phone/screen-portrait.jpg" gap:platform="winphone" />
+    <gap:splash src="res/splash/winphone/screen-portrait.jpg" gap:platform="winphone" />
 </widget>

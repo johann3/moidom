@@ -222,3 +222,8 @@ button[disabled] {
   font-style: italic;
   color: #555;
 }
+
+label {
+    padding-left: 1em;
+}
+

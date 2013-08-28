@@ -25,7 +25,7 @@ window.location = "205.html";
 }
 function loadStart()
 {
-window.location = "start.html";
+window.location = "../svetovanje/start.html";
 }
 
 $(document).ready(function() {
@@ -67,9 +67,9 @@ Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio4" value="radio4" onChange="updateForm()">Posodobitev ogrevalnega sistema.</td></tr>
-<tr><td><input type="radio" name="radio" id="radio5" value="radio5" onChange="updateForm()">Sprememba ogrevalnih navad.</td></tr>
-<tr><td><input type="radio" name="radio" id="radio6" value="radio6" onChange="updateForm()">Izboljšanje energetskih lastnosti stavbe.</td></tr>
+<tr><td><input type="radio" name="radio" id="radio4" value="radio4" onChange="updateForm()"><label for="radio4">Posodobitev ogrevalnega sistema.</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio5" value="radio5" onChange="updateForm()"><label for="radio5">Sprememba ogrevalnih navad.</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio6" value="radio6" onChange="updateForm()"><label for="radio6">Izboljšanje energetskih lastnosti stavbe.</label></td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
 <button type="button" id="button2" onclick="loadStart()">Na začetek</button>
