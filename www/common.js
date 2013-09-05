@@ -1,14 +1,16 @@
-var DATA_URL = "/server_prod/";
-//DATA_URL = "/server_test/";
-//DATA_URL = "http://localhost:8080/server_prod/"
-DATA_URL = "http://www.moidom.si/server_prod/";
-//DATA_URL = "http://www.moidom.si/server_test/";
+var SERVER_BASE_URL = ""; // the comments in the next few lines have keywords that are to be synchronized with deployment scripts
+// search for string 'uncommented by' in the text and script files
+SERVER_BASE_URL = "/server_prod/";
+//SERVER_BASE_URL = "/server_test/";  // keyword test_webapp
+//SERVER_BASE_URL = "http://localhost:8080/server_prod/"  // keyword development
+//SERVER_BASE_URL = "http://www.moidom.si/server_prod/"; // keyword mobile_app 
+//SERVER_BASE_URL = "http://www.moidom.si/server_test/";
 var HTML_URL = ""; // useful for tracking the code that changes URLs
 
 function getDataUrl()
 {
     // this is prefix for server call urls
-    return DATA_URL;
+    return SERVER_BASE_URL;
 }
 
 function getHtmlUrl()
