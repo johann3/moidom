@@ -3,7 +3,7 @@ var SERVER_BASE_URL = ""; // the comments in the next few lines have keywords th
 SERVER_BASE_URL = "/server_prod/";
 //SERVER_BASE_URL = "/server_test/";  // keyword test_webapp
 //SERVER_BASE_URL = "http://localhost:8080/server_prod/"  // keyword development
-//SERVER_BASE_URL = "http://www.moidom.si/server_prod/"; // keyword mobile_app 
+SERVER_BASE_URL = "http://www.moidom.si/server_prod/"; // keyword mobile_app 
 //SERVER_BASE_URL = "http://www.moidom.si/server_test/";
 var HTML_URL = ""; // useful for tracking the code that changes URLs
 
