@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="sl">
+    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/bootstrap.css" rel="stylesheet">
@@ -7,6 +8,7 @@
         <link href="css/bootstrap-timepicker.min.css" rel="stylesheet">
         <link href="css/bootstrap-fileupload.min.css" rel="stylesheet">
         <link href="css/moidom.css" rel="stylesheet">
+        <!-- mobile.css is added conditionally, see code below  -->
         
         <script charset="UTF-8" src="js/jquery.min.js"></script>
         <script charset="UTF-8" src="js/jquery.cookie.js"></script>
@@ -20,7 +22,7 @@
         <script charset="UTF-8" src="js/ocr.js"></script>
         <script charset="UTF-8" src="common.js"></script>
         
-        <script charset="UTF-8">
+        <script>
             //
             // VARIABLES
             //
@@ -36,7 +38,24 @@
                 // Register the event handler 
                 document.addEventListener("deviceready", onDeviceReady, false);
                 
+                if (isMobileEnvironment()) {
+                    // copy the locations defined only once and used twice
+                    $('#facebookMobile').attr('href', $('#facebookSocial').attr('href'));
+                    $('#twitterMobile').attr('href', $('#twitterSocial').attr('href'));
+                    // copy the 'about' texts and icons
+                    $('#aboutText').html($('#welcome').html());
+                    $('#aboutIcons').html($('#partnerIcons').html());
+                    // modify the presentation styles for the mobiles
+                    var link = document.createElement("link");
+                    link.href = "css/mobile.css";
+                    link.type = "text/css";
+                    link.rel = "stylesheet";
+                    document.getElementsByTagName("head")[0].appendChild(link);
+                }
+                
                 addValidators();
+                
+                // see also function call at the end of script
                 
                 // if logged in, continue to the main page
                 $.ajax({
@@ -80,7 +99,7 @@
                 });
                 
                 // Validate the input form: Register (new user) [Tab: Login]        
-                $("#formRegisterUser").validate({
+                $("#formRegister").validate({
                     rules:
                     {
                         email: {moidomRequired: true, email: true, maxlength: 50},
@@ -155,18 +174,45 @@
                 // Set pgReady.
                 pgReady = true;
             }
- 
+            
+            
+            /* The functions shows and hides the elements making one of several screens
+            partToShow=
+                0 initial
+                1 login
+                2 lost password
+                3 register
+                4 about
+            */
+            function showScreen(partToShow) {
+                var isMobile = isMobileEnvironment();
+                showOrHide($('#mobileLogo'), partToShow == 0 && isMobile);
+                showOrHideById('loginButton', partToShow == 0);
+                showOrHideById('loginContent', partToShow == 1);
+                showOrHideById('lostPassButton', partToShow == 0);
+                showOrHideById('lostPassContent', partToShow == 2);
+                showOrHide($('#registerButton'), partToShow == 0);
+                showOrHide($('#registerContent'), partToShow == 3);
+                showOrHide($('#facebookMobile'), partToShow == 0);
+                showOrHide($('#twitterMobile'), partToShow == 0);
+                showOrHide($('#aboutButton'), partToShow == 0 && isMobile);
+                showOrHide($('#aboutContent'), partToShow == 4);
+            }
+            
+            //showScreen(0);
+
         </script>
+        <title>mOIDom</title>
     </head>
 
     <body onload="onBodyLoad()">
         <div class="mainWrap withPartners">
-            <div id="mainHeader">
+            <div id="mainHeader" class="webOnly">
                 <a href="index.html" class="appLogo"></a>
             </div>
             <div class="mainContent">
             
-                <div class="welcome">
+                <div class="welcome webOnly" id="welcome">
                     <h2>Pozdravljeni v mobilni aplikaciji mOIDom!</h2>
                     <p>So vaši mesečni računi previsoki? Želite porabiti manj, pa ne veste kako? Če ste na vsaj eno vprašanje odgovorili z da, potem je aplikacija mOIDom prava izbira za vas. S pomočjo aplikacije mOIDom boste enostavno spremljali svojo porabo in z upoštevanjem varčevalnih nasvetov, ki jih aplikacija ponuja, zmanjšali stroške svojega gospodinjstva.</p>
                     <p>mOIDom je spletna in mobilna aplikacija informativno-svetovalnega značaja, ki vam omogoča spremljanje porabe in stroškov gospodinjstva. Preko uporabnih nasvetov in praktičnih nalog boste spoznali, kje vaše gospodinjstvo izgublja denar in kaj spremeniti, da optimizirate porabo ter s tem privarčujete. Cilj aplikacije je tudi spodbujanje k varčevanju z energijo in tako zmanjševanje obremenjevanja okolja z emisijami in zviševanje energetske učinkovitosti zgradb.</p>
@@ -175,94 +221,118 @@
                 </div>
                     
                 <div class="tab-content">
-                    <div class="accordion" id="startView">
-                        <div class="accordion-group">
-                            <div class="accordion-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#startView" href="#startViewLogin">Prijava</a>
-                            </div>
-                            <div id="startViewLogin" class="accordion-body collapse">
-                                <div class="accordion-inner">
-                                    <form id="formLogin">
-                                        <label>Elektronski naslov:</label>
-                                        <input type="email" name="email" class="input-medim">
-                                        <label>Geslo:</label>
-                                        <input type="password" name="password" class="input-medim">
-                                        <label>Ostanite prijavljeni:</label>
-                                        <input type="checkbox" name="permanent" value="true" class="input-medim"></input>
-                                        <br />
-                                        <div class="clearfix"></div>
-                                        <br />
-                                        S klikom na prijavo se strinjate s <a href="pogoji.html">splošnimi pogoji</a>,
-                                        ki vključujejo uporabo enega internega piškotka za potrebe sledenja prijavi v aplikaciji.
-                                        <br />
-                                        <input type="submit" value="Prijavi se" class="submit btn btn-primary">
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="accordion-group">
-                            <div class="accordion-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#startView" href="#startViewForgotten">Ste pozabili geslo?</a>
-                            </div>
-                            <div id="startViewForgotten" class="accordion-body collapse">
-                                <div class="accordion-inner">
-                                    <p>Prosim, vnesite vaš registrirani elektronski naslov. Na ta naslov vam bomo poslali novo geslo, ki ga uporabite pri naslednji prijavi.</p>
-                                    <br>
-                                    <form id="formLostPass">
-                                        <label>Elektronski naslov:</label>
-                                        <input type="email" name="lostPassEmail" id="lostPassEmail" class="input-medium">
-                                        <div class="clearfix"></div>
-                                        <input type="submit" value="Pošlji zahtevo" class="submit btn btn-primary">
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="accordion-group">
-                            <div class="accordion-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#startView" href="#startViewRegister">Nov uporabnik</a>
-                            </div>
-                            <div id="startViewRegister" class="accordion-body collapse">
-                                <div class="accordion-inner">
-
-                                <p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
-                                <strong>Podatki uporabnika:</strong>
-                                <form id="formRegisterUser">
-                                    <label>* Elektronski naslov:</label>
-                                    <input type="email" id="email" name="email" class="input-medium">
-                                    <label>* Geslo za mOIDom:</label>
-                                    <input type="password" id="password" name="password" id="password" class="input-medium">
-                                    <label>* Potrdi geslo za mOIDom:</label>
-                                    <input type="password" id="confPassword" name="confPassword" id="confPassword" class="input-medium">
-
-                                    <label></label>
-                                    <strong>Podatki o stanovanju:</strong>
-                                    <label></label>
-                                    <label>* Površina stanovanja (m2, celo število):</label>
-                                    <input type="number" id="area" name="area" class="input-medium">
-                                    <label>* Število članov gospodinjstva:</label>
-                                    <input type="number" id="persons" name="persons" class="input-medium">
-                                    <label>Priključna moč električnega priključka (kW, celo število):</label>
-                                    <input type="number" id="in_power" name="in_power" class="input-medium">
-                                    <label>Poštna številka kraja bivanja:</label>
-                                    <input type="number" id="postal_code" name="postal_code" class="input-medium">
-                                    <label>Doma generirana moč (kW, decimalno število, decimalka je vejica ali pika):</label>
-                                    <input type="text" id="out_power" name="out_power" class="input-medium">
-                                    <div class="clearfix"></div>
-                                    <input type="submit" value="Pošlji zahtevo" class="submit btn btn-primary">
-                                </form>
-                                </div>
-                            </div>
-                        </div>
-
+                    <div class="mobileLogo mobileOnly" id="mobileLogo">
+                        <img src="img/logo160color.png" style="margin:30px" alt="mOIDom logo">
                     </div>
+                    <div class="mobileCentered" id="loginButton">
+                        <span class="btn btn-primary margin5" onclick="showScreen(1)">Prijava</span>
+                    </div>
+                    <div id="loginContent" class="margin20" style="display:none">
+                        <div>
+                             <span class="btn btn-primary margin5" onclick="showScreen(0)">&lt;&lt; Nazaj</span>
+                        </div>
+                        <form id="formLogin">
+                            <label>Elektronski naslov:</label>
+                            <input type="email" name="email" class="input-medim wide">
+                            <label>Geslo:</label>
+                            <input type="password" name="password" class="input-medim wide">
+                            <label>Ostanite prijavljeni:</label>
+                            <input type="checkbox" name="permanent" value="true" class="input-medim">
+                            <br />
+                            <div class="clearfix"></div>
+                            <br />
+                            <span class="webOnly">
+                                S klikom na prijavo se strinjate s <a href="pogoji.html">splošnimi pogoji</a>,
+                                ki vključujejo uporabo enega internega piškotka za potrebe sledenja prijavi v aplikaciji.
+                                <br />
+                            </span>
+                            <input type="submit" value="Prijavi se" class="submit btn btn-primary">
+                        </form>
+                    </div>
+                    
+                    <div class="mobileCentered" id="lostPassButton">
+                        <span class="btn btn-primary margin5" onclick="showScreen(2)">Ste pozabili geslo?</span>
+                    </div>
+                    <div id="lostPassContent" style="display:none" class="margin20">
+                        <div>
+                             <span class="btn btn-primary margin5" onclick="showScreen(0)">&lt;&lt; Nazaj</span>
+                        </div>
+                        <form id="formLostPass">
+                         <p>Prosim, vnesite vaš registrirani elektronski naslov. Na ta naslov vam bomo poslali novo geslo, ki ga uporabite pri naslednji prijavi.</p>
+                         <br>
+                            <label>Elektronski naslov:</label>
+                            <input type="email" name="lostPassEmail" id="lostPassEmail" class="input-medium">
+                            <div class="clearfix"></div>
+                            <input type="submit" value="Pošlji zahtevo" class="submit btn btn-primary">
+                        </form>
+                    </div>
+                        
+                    <div class="mobileCentered" id="registerButton">
+                        <span class="btn btn-primary margin5" onclick="showScreen(3)">Nov uporabnik</span>
+                    </div>
+                    <div id="registerContent" style="display:none" class="margin20">
+                        <div>
+                             <span class="btn btn-primary margin5" onclick="showScreen(0)">&lt;&lt; Nazaj</span>
+                        </div>
+
+                        <form id="formRegister">
+                         <p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
+                         <strong>Podatki uporabnika:</strong>
+                            <label>* Elektronski naslov:</label>
+                            <input type="email" id="email" name="email" class="input-medium">
+                            <label>* Geslo za mOIDom:</label>
+                            <input type="password" id="password" name="password" class="input-medium">
+                            <label>* Potrdi geslo za mOIDom:</label>
+                            <input type="password" id="confPassword" name="confPassword" class="input-medium">
+
+                            <label></label>
+                            <strong>Podatki o stanovanju:</strong>
+                            <label></label>
+                            <label>* Površina stanovanja (m2, celo število):</label>
+                            <input type="number" id="area" name="area" class="input-medium">
+                            <label>* Število članov gospodinjstva:</label>
+                            <input type="number" id="persons" name="persons" class="input-medium">
+                            <label>Priključna moč električnega priključka (kW, celo število):</label>
+                            <input type="number" id="in_power" name="in_power" class="input-medium">
+                            <label>Poštna številka kraja bivanja:</label>
+                            <input type="number" id="postal_code" name="postal_code" class="input-medium">
+                            <label>Doma generirana moč (kW, decimalno število, decimalka je vejica ali pika):</label>
+                            <input type="text" id="out_power" name="out_power" class="input-medium">
+                            <div class="clearfix"></div>
+                            <input type="submit" value="Pošlji zahtevo" class="submit btn btn-primary">
+                        </form>
+                    </div>
+
                 </div>
                     
+                <div class="mobileSocialIcons mobileOnly">
+                    <!-- these are larger than the icons for web, 
+                    href values are taken from #socialIcons not to duplicate the values -->
+                    <a href="" id="facebookMobile" target="_blank" ><img src="img/mobile/facebook40.png" alt="facebook"></a>
+                    <a href="" id="twitterMobile" target="_blank" ><img src="img/mobile/twitter40.png" alt="twitter"></a>
+                </div>
+                
+                
+                <div class="mobileCentered mobileOnly" id="aboutButton">
+                    <span class="btn btn-primary margin5" onclick="showScreen(4)">O nas</span>
+                </div>
+                <div id="aboutContent" style="display:none">
+                    <div>
+                         <span class="btn btn-primary margin5" onclick="showScreen(0)">&lt;&lt; Nazaj</span>
+                    </div>
+                    <div id="aboutText">
+                    <!--  the content is povided for mobile environment, programatically-->
+                    </div>
+                    <div id="aboutIcons">
+                    <!--  the content is povided for mobile environment, programatically-->
+                    </div>
+                </div>
+
+                
             </div> <!-- mainContent -->
-            <div id="appFooter" class="clearfix">
+            <div id="appFooter" class="clearfix webOnly">
                 <div class="center">
-                    <p>
+                    <p id="partnerIcons">
                         <img src="img/ref/esrr.png" alt="" width="200" height="50" />
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <img src="img/ref/mizs.png" alt="" width="200" height="37" />
@@ -278,34 +348,12 @@
                     <span>© 2013 mOIDom | Vse pravice pridržane.</span>
                     <div class="socialIcons">
                         <span>Sledite nam na </span>
-                        <a href="https://www.facebook.com/pages/Moidom/371804792918719?fref=ts" target="_blank" class="facebook"></a>
-                        <a href="https://twitter.com/moidom_si" target="_blank" class="twitter"></a>
+                        <a href="https://www.facebook.com/pages/Moidom/371804792918719?fref=ts" id="facebookSocial" target="_blank" class="facebook"></a>
+                        <a href="https://twitter.com/moidom_si" id="twitterSocial" target="_blank" class="twitter"></a>
                     </div>
                 </div>
             </div>
         </div>  
-        <div id="appMoreInfo" class="modal hide fade">
-
-            <!-- Modal header -->
-            <div class="modal-header">
-                <h3>Več informacij o aplikaciji 2</h3>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <!-- Modal window text -->
-                <div class="row-fluid">
-                    <div class="span12">
-                        <p>Podrobnejše informacije o aplikaciji (potrebno definirati)</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button class="btn pull-left btn-success" data-dismiss="modal" aria-hidden="true">OK</button>
-            </div>
-        </div>  <!-- appMoreInfo -->
     </body>
 </html>
 

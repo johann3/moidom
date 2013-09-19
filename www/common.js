@@ -1,10 +1,10 @@
 var SERVER_BASE_URL = ""; // the comments in the next few lines have keywords that are to be synchronized with deployment scripts
 // search for string 'uncommented by' in the text and script files
-SERVER_BASE_URL = "/server_prod/";
+SERVER_BASE_URL = "/server_prod/"; // keyword prod_webapp
 //SERVER_BASE_URL = "/server_test/";  // keyword test_webapp
 //SERVER_BASE_URL = "http://localhost:8080/server_prod/"  // keyword development
-SERVER_BASE_URL = "http://www.moidom.si/server_prod/"; // keyword mobile_app 
-//SERVER_BASE_URL = "http://www.moidom.si/server_test/";
+//SERVER_BASE_URL = "http://www.moidom.si/server_prod/"; // keyword prod_mobile 
+//SERVER_BASE_URL = "http://www.moidom.si/server_test/"; // keyword test_mobile
 var HTML_URL = ""; // useful for tracking the code that changes URLs
 
 function getDataUrl()
@@ -53,6 +53,11 @@ function localizeDecimal (decimal)
     return decimal.toString().replace('.', ',');
 }
 
+function parseDecimal (decimalString)
+{
+    return parseFloat(decimalString.replace(',', '.'));
+}
+
 
 function zeroToEmpty (numberAsString)
 {
@@ -70,15 +75,15 @@ function firstNonEmpty (a,b)
 
 
 function parseDateTime(dateValue, dateFormat, timeValue, timeFormat) {
-	var dateFmt = new Array(), timeFmt = new Array();
-	var i = 0, j = 0;
-	var dateParts = dateValue.match(/(\d+)/g);
-	var timeParts = timeValue.match(/(\d+)/g);
-	dateFormat.replace(/(yyyy|dd|mm)/g, function(part) { dateFmt[part] = i++; });
-	timeFormat.replace(/(hh|mm|ss)/g, function(part) { timeFmt[part] = j++; });
-	var date = new Date(dateParts[dateFmt['yyyy']], dateParts[dateFmt['mm']] - 1, dateParts[dateFmt['dd']],
-						timeParts[timeFmt['hh']], timeParts[timeFmt['mm']], timeParts[timeFmt['ss']]);
-	return date.getTime();
+    var dateFmt = new Array(), timeFmt = new Array();
+    var i = 0, j = 0;
+    var dateParts = dateValue.match(/(\d+)/g);
+    var timeParts = timeValue.match(/(\d+)/g);
+    dateFormat.replace(/(yyyy|dd|mm)/g, function(part) { dateFmt[part] = i++; });
+    timeFormat.replace(/(hh|mm|ss)/g, function(part) { timeFmt[part] = j++; });
+    var date = new Date(dateParts[dateFmt['yyyy']], dateParts[dateFmt['mm']] - 1, dateParts[dateFmt['dd']],
+                        timeParts[timeFmt['hh']], timeParts[timeFmt['mm']], timeParts[timeFmt['ss']]);
+    return date.getTime();
 }
 
 
@@ -98,3 +103,36 @@ function addValidators()
     }, "Vnesi celo ali decimalno število, decimalka je vejica ali pika.");
 }
 
+
+// The function returns true if it detects a mobile operating system environment
+function isMobileEnvironment()
+{
+    if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        return true;
+    }
+    if (window.innerWidth <= 800 && window.innerHeight <= 600) {
+        //alert ("isMobileEnvironment returning true on screen size");
+        return true;
+    }
+    return false;
+}
+
+
+/* The function shows or hides (depending on 'hide' argument) the 'element' */
+function showOrHide(element, show)
+{
+    if (show)
+        element.show();
+    else
+        element.hide();
+}
+
+
+/* The function shows or hides (depending on 'hide' argument) the 'element' */
+function showOrHideById(elementId, show)
+{
+    if (show)
+        $('#'+elementId).show();
+    else
+        $('#'+elementId).hide();
+}

@@ -1,0 +1,366 @@
+﻿<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+
+</head>
+
+<body lang=SL>
+
+<div class=WordSection1>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>FHEM modul</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+lang=EN-US style='font-size:12.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>Opozorilo !&nbsp; </span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>Projektni partnerji so opisane postopke do največje možne mere 
+preizkusili in se ob razumni uporabi smatrajo za varne tako glede delovanja naprav kot 
+glede varnosti sodelujočih. Vendar pri dejanski uporabi vedno lahko pride do odstopanja 
+pri pogojih eksperimentov, zato odgovornost za kakršnokoli uporaba teh navodil prevzame 
+tisti, ki jih uporablja. Avtorji navodil in programske opreme ne prevzemajo nobene 
+odgovornosti, ne neposredne niti posredne, za morebitno škodo ali poškodbe, ki bi nastale 
+med izvajanjem opisanih eksperimentov. Če pri eksperimentih sodelujejo otroci, morajo biti 
+pod nadzorom odrasle osebe.</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><b><span
+style='font-size:12.0pt'>Zgradba sistema FHEM</span></b></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>FHEM modul, ki ga uporablja aplikacija mOIDom, je zgrajen iz naslednjih slojev strojne in programske opreme:<br><br>
+•	Senzorji in aktuatorji so nameščeni po objektu in komunicirajo z računalnikom preko FS20 protokola in 
+računalniškega vmesnika za ta protokol.<br>
+•	FHZ 1000 PC komunikacijski modul je vmesnik med senzorji in aktuatorji v objektu in računalnikom. 
+Z aktuatorji komunicira preko FS20 protokola, s senzorji prek protokolov HMS in FHT, z računalnikom pa preko USB vrat.<br>
+•	Na računalniku teče poljuben operacijski sistem, na katerem je mogoče zagnati virtualni računalnik
+s prosto dostopnim orodjem VMware Player.<br>
+•	Z orodjem VMware Player zaženemo virtualni računalnik VM CODAC 3.1, na katerem teče operacijski sistem Linux.<br>
+•	Na operacijskem sistemu je nameščeno FHEM okolje, s katerim se beleži aktivnosti na napravah, povezanih s 
+komunikacijskim modulom FHZ 1000 PC.<br>
+•	Na operacijskem sistemu teče lokalni spletni strežnik TomCat, preko katerega z brskalnikom Mozilla Firefox 
+lahko dostopamo do FHEM okolja in ga konfiguriramo.<br><br>
+
+Za izvedbo opisanih eksperimentov potrebujete naslednjo strojno opremo, ki jo je mogoče kupiti prek spleta z dostavo po pošti:<br><br>
+•	Računalnik z vsaj 4 GB RAM in 40 GB prostega diska, na katerem se namesti virtualni računalnik VM CODAC 3.1.<br>
+•	Komunikacijski modul FHZ 1000 PC ali FHZ 1300 PC: <br>
+<a href="http://www.elv.de/fhz-1000-pc-software-zur-ansteuerung-der-fs20-hms-100-komponenten-der-fht-80b.html">povezava</a></span></p>
+•	Aktuator: vtičnica s podporo FS20 protokolu, FS20 ST-4:<br>
+<a href="http://www.elv.de/elv-funk-schaltsteckdose-fs20-st.html">povezava</a></span></p>
+•	Senzor za temperaturo in vlago HMS1000 TF:<br>
+<a href="http://www.elv.de/temperatur-luftfeuchte-sensor-hms-100-tf.html">povezava</a></span></p>
+ </span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><b><span
+style='font-size:12.0pt'>Uporaba FHEM modula</span></b></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>Ob prvi uporabi virtualnega računalnika je potrebno izvesti naslednje korake:<br><br>
+1.	Na računalnik namestite prostodostopni VMware Player<br>
+<a href=" http://www.vmware.com/products/player/">povezava</a></span></p>
+2.	S spleta na svoj računalnik prenesete datoteko (Pozor: datoteka je velika ca. 16GB, zato prenos traja dlje časa)<br>
+<a href="http://www.moidom.si/fhem/vmcodac3_1.rar">povezava</a></span></p>
+3.	Datoteko vmcodac3_1.rar razširite v mapo na svojem računalniku.<br>
+4.	Poženite program VMware Player<br>
+5.	Na vhodnem oknu izberite »Open Virtual Machine«<br>
+6.	V mapi, v katero ste razširili vmcodac3_1.rar poiščite datoteko codac_3_1.vmx in jo odprite.<br>
+7.	V okolju WMvare Player se bo zagnal virtualni računalnik, na katerem teče operacijski sistem Linux. 
+Njegova uporaba je opisana v nadaljnjih razdelkih. Konkretno nadaljujete s korakom 3 razdelka »Uporaba virtualnega računalnika«.<br><br>
+Po prvi uporabi virtualnega računalnika so naslednji zagoni virtualnega računalnika nekoliko preprostejši in sicer:<br><br>
+1.	Poženite program VMware Player<br>
+2.	Na seznamu nedavno odprtih virtualnih računalnikov izberite CODAC_3_1<br>
+3.	Ko se pojavi okno za prijavo, se prijavite kot uporabnik moidom z geslom mOIDom2013<br>
+a.	Enako geslo velja tudi za administrativnega uporabnika root<br>
+b.	Priporočamo vam, da gesli čim prej zamenjate, saj lahko zaradi njune javne objave pride do vdora v vaš virtualni 
+računalnik, v kolikor je dostopen s spleta. Gesli se zamenja z ukazom passwd<br>
+4.	Na namizju kliknite ikono Mozilla Firefox<br>
+5.	Odpre se vam prva stran okolja FHEM, ki ji lahko uporabljate, kot je opisano v nadaljevanju.<br>
+6.	Ko zaključite z uporabo, lahko virtualni računalnik suspendirate in naslednjič nadaljujete, kjer ste zaključili, 
+ali pa ga ugasnete in nadaljujete od začetka.<br>
+7.	Za suspendiranje v oknu VMware Player-ja izberite Player | Power | Suspend.<br>
+8.	Za izklop v osnovnem oknu Red Hat operacijskega sistema izberite System | Shutdown | Shutdown.<br><br>
+FHEM krmilni in nadzorni sistem uporabljate s pomočjo internega spletnega vmesnika. FHEM uporablja spletni strežnik, 
+ki je nameščen na virtualnem računalniku in zato za svoje delovanje ne potrebuje povezave na splet. Neveščim uporabnikom 
+Linux računalnikov odsvetujemo vzpostavitev s spletom med uporabo virtualnega računalnika, saj so v tem času bolj 
+občutljivi za vdore v računalnik. Do spletnega vmesnika dostopate na naslednji način:<br><br>
+1.	Poženete virtualni računalnik CODAC_3_1, kot je opisano v prejšnjem razdelku Uporaba virtualnega računalnika.<br>
+2.	Na namizju poženete ikono »Začnite tukaj!« s katero odprete brskalnik Mozzila Firefox. Brskalnik je nastavljen tako, 
+da je prva stran, na kateri se odpre, tudi osnovna stran mOIDom FHEM krmilnega modula.<br>
+a.	Če vam spletni brskalnik prikaže, da spletna stran ni dostopna, potem FHEM krmilni sistem ne deluje. Poskusite ga 
+ponovno zagnati, kot je opisano v razdelku Upravljanje FHEM procesa.<br>
+3.	Osnovna stran FHEM krmilnega modula je sestavljena iz dvodelnega modrega menija na levi strani ter seznama elementov 
+modula in prikaza njihovih stanj na desni strani. Moduli so urejeni po sklopih naprav enake vrste; s klikom na povezave 
+dostopamo do njihovih podatkov ali možnosti za spreminjanje njihovega stanja. Več o pomenu teh naprav je opisano v nadaljevanju 
+oz. v komentarjih posameznih datotek sistema.
+</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><b><span
+style='font-size:12.0pt'>Pomembne datoteke v sistemu</span></b></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>Datoteka fhem.cfg je namenjena konfiguriranju nabora naprav, ki jih upravljamo v sistemu FHEM. Vsaka naprava dobi svoje ime, s katerim 
+se identificira v FHEM okolju, kar pomeni v vseh datotekah, v katere FHEM zapisuje dogajanje v sistemu, kot tudi v programski kodi, s katero lahko dopolnjujemo 
+standardno FHEM instalacijo in nadzorujemo obnašanje naprav. </span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>Datoteko lahko urejamo s pomočjo FHEM spletnega vmesnika:</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>1.	Na namizju poženemo Mozilla Firefox (ikona z napisom »Začnite tukaj!«)<br>
+2.	Prikaže se nam popis elementov FHEM prostora »mOIDom«, ki ima na levi strani moder meni.<br>
+3.	V meniju kliknemo na povezavo »Edit files«.<br>
+4.	Na seznamu datotek kliknete ime datoteke »fhem.cfg« (je prva datoteka na seznamu).<br>
+5.	Datoteka je zgrajena iz več sklopov:<br>
+a.	Splošne definicije, prvi sklop ki ga tipično ni treba spreminjati.<br>
+b.	Povezava z aktuatorjem – vtičnico. Ta del naj služi kot vzorec za povezovanje z aktuatorji – 
+napravami, ki uporabljajo protokol FS20. Glejte ustrezen razdelek v nadaljevanju za podrobnosti.<br>
+c.	Povezava s senzorjem. Ta del naj služi kot vzorec za povezovanje s senzorji, ki uporabljajo protokol HMS.<br>
+d.	Povezava s spremenljivko. Ta del naj služi kot vzorec za definiranje spremenljivk, ki jih uporabljate 
+za vnos parametrov vašega krmilnega sistema.<br>
+6.	Po urejanju datoteke spremembe shranite z gumbom »Save fhem.cfg« na začetku strani. <br><br>
+Ob shranitvi te datoteke se bo avtomatično resetiral tudi FHEM proces, ki teče v ozadju. 
+Proces lahko tudi ročno ustavite in ponovno zaženete, glejte opis v ustreznem razdelku.
+Datoteka 99_mOIDom.pm je programski modul v jeziku Perl, s katerim lahko avtomatizirate odzive 
+aktuatorjev vašega pametnega doma na spremembe, ki jih zaznajo senzorji. Datoteko urejate na naslednji način:<br><br>
+1.   Najprej zaženete terminal, tako da na RedHat oknu izberete Applications | System Tools | Terminal.<br>
+2.  V terminalu se prijavite kot super user (root) z ukazom su. Če gesla za uporabnika root niste spremenili, 
+je to geslo mOIDom2013, vendar vam priporočamo, da geslo z ukazom passwd čim prej spremenite.<br>
+3.    Z ukazom cd /root/fhem-5.2/FHEM/ se premaknete v mapo, kjer se nahaja datoteka 99_mOIDom.pm.<br>
+4.     Z ukazom gedit 99_mOIDom.pm & poženete program za urejanje datoteke.<br>
+5.     Datoteka je zgrajena iz več sklopov<br>
+a.       Prvi del je opisni komentar funkcionalnosti datoteke.<br>
+b.      Drugi del so uvodne definicije za opis modula.<br>
+c.       Tretji del so definicije lokalnih spremenljivk, v katere shranimo imena naprav, kot so registrirana 
+v FHEM sistemu v datoteki fhem.cfg. Te definicije uporabimo zato, da v primeru spreminjanja imena naprave v 
+fhem.cfg to spremembo napravimo le na enem mestu v datoteki z opisom modula; tovrstno izoliranje konstant je 
+dobra programerska praksa.<br>
+d.      Naslednji sklop so definicije privzetih vrednosti, ki jih upoštevamo kot vrednosti stanja naprav, 
+kadar FHEM z napravo ne more komunicirati. <br>
+e.      Naslednji sklop so definicije podatkov za periodično časovno preverjanje vrednosti naprav.<br>
+f.        Sledi metoda mOIDom_Initialize, s katero se FHEM modul inicializira – registrira funkcije, ki se bodo 
+izvajale ob definiranju vrednosti parametrov modula po polnem zagonu FHEM sistema ter ob zagonu posameznih naprav.<br>
+g.       Sledi metoda mOIDom_Define, ki po zagonu FHEM sistema požene interni timer.<br>
+h.      Sledi metoda mOIDom_Notify, ki ob vsaki spremembi stanja katerekoli naprave, registrirane v FHEM, sproži 
+preverjanje, ali je potrebno izvesti katero od pravil za spreminjanje stanja naprav.<br>
+i.         Sledi metoda mOIDom_Timer, ki se kliče periodično kot odziv na časovnik in po potrebi sproži preverjanje, 
+ali je potrebno izvesti katero od pravil za spreminjanje stanja naprav.<br>
+j.        Sledi metoda readValuesAndAct, ki v prvem sklopi prebere zanimiva stanja naprav, v drugem sklopu pa preveri, 
+ali je glede na aktualno stanje naprav potrebno izvesti katero od pravil za spreminjanje stanja naprav. <br>
+6.   Če v sistem dodajate kako novo napravo – senzor oz. aktuator, ki ni v tem primeru, postopajte na tu opisan način. 
+Pri tem se morate zavedati, da je potrebno zelo dobro premisliti, ali je končni rezultat smiseln in predvsem varen za 
+vaše naprave in posameznike, ki jih uporabljajo. S tovrstnimi premisleki se boste srečali z izzivi, ki se dnevno 
+pojavljajo pri tehnoloških razvojnih nalogah, in tako dobili bežen vpogled v način razmišljanja načrtovalcev sodobnih 
+naprav in sistemov.<br>
+a.       Najprej razmislite, ob katerih pogojih želite, da je nova naprava vklopljena/izklopljena, oz. na katere obstoječe 
+naprave naj vpliva nov senzor ali nov parameter.<br>
+b.      Ustrezno prilagodite pravila spreminjanja stanj naprav in premislite, da so nova pravila varna – tipično naj bodo 
+nastavljena tako, da so aktuatorji v primeru kakršnegakoli dvoma o varnosti izklopljeni.<br>
+c.       V ustreznem sklopi definirajte spremenljivko za ime nove naprave in ji priredite vrednost, ki ustreza imenu v datoteki fhem.cfg.<br>
+d.      V ustreznem sklopu definirajte privzete vrednosti te naprave.<br>
+e.      V metodi readValuesAndAct v prvem delu preberite vrednosti stanja naprave.<br>
+f.        V drugem delu metode readValuesAndAct spremenite pravila na nova, dobro premišljena pravila.<br>
+7.   Po vsakem spreminjanju datoteke 99_mOIDom.pm je potrebno ponovno zagnati FHEM proces, glej razdelek Upravljanje FHEM procesa.
+
+</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal;
+page-break-before:always'><b><span style='font-size:12.0pt'>Upravljanje FHEM procesa</span></b></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>Delovanje krmilnega in nadzornega sistema FHEM temelji na FHEM procesu, 
+ki teče v ozadju virtualnega računalnika in preko USB komunicira s FHZ 1000 PC komunikacijskim modulom. 
+Kadar spreminjate konfiguracijske datoteke FHEM sistema, je potrebno proces ponovno zagnati, da konfiguracijske 
+datoteke prebere in uporabi spremembe. Ponovni zagon teče preko naslednjih korakov:<br>
+1.  Najprej zaženete terminal, tako da na RedHat oknu izberete Applications | System Tools | Terminal.<br>
+2.  V terminalu se prijavite kot super user (root) z ukazom su. Če gesla za uporabnika root niste spremenili, 
+je to geslo mOIDom2013, vendar vam priporočamo, da geslo z ukazom passwd čim prej spremenite.<br>
+3.  Z ukazom killall fhem.pl ustavite obstoječi FHEM proces.<br>
+4.  Z ukazom /etc/rc.local poženete nov FHEM proces.<br>
+a.       Če je pri datoteki fhem.cfg ali 99_mOIDom.pm prišlo do kakih napak, se bodo izpisala obvestila o teh napakah. 
+Po prej opisanih navodilih jih odstranite.<br>
+5.  Z ukazom exit zapustite prijavo kot superuser.<br>
+6.  Z ukazom exit zapustite terminal.
+</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><b><span
+style='font-size:12.0pt'>Preverjanje delovanja FHEM procesa</span></b></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>FHEM povežete s temperaturnim senzorjem HMS100 TF, ki je v datoteki fhem.cfg označen z 
+imenom naprave temperaturaVlaga.<br>
+1.  Zaženite virtualni računalnik, kot je opisano v razdelku Uporaba virtualnega računalnika.<br>
+2.  Poženite spletni vmesnik FHEM krmilnega in nadzornega sistema, kot je opisano v razdelku Uporaba FHEM krmilnega 
+in nadzornega sistema.<br>
+3. Odprite datoteko, ki je zadnja na seznamu FileLog. Datoteka ima tipično ime fhem-YYYY-MM.log<br>
+4.  Vnosi na koncu datoteke, tj. ob času zagona virtualnega računalnika, morajo vsebovati naslednje vrstice:<br>
+2013.05.22 10:29:34 3: Init module 99_mOIDom.pm<br>
+2013.05.22 10:29:34 2: Telnet port 7072 opened<br>
+2013.05.22 10:29:35 2: FHEMWEB port 8083 opened<br>
+2013.05.22 10:29:35 3: FHZ opening FHZ device /dev/ttyUSB0<br>
+2013.05.22 10:29:35 3: FHZ opened FHZ device /dev/ttyUSB0<br>
+V kolikor se namesto zadnjih dveh vrstic pojavi<br>
+2013.05.22 10:20:36 1: define: Can't open /dev/ttyUSB0: No such file or directory<br>
+2013.05.22 10:20:36 3: Please define FHZ first<br>
+je problem pri povezavi s FHZ 1000 PC modulom. Postopajte po naslednjih korakih:<br>
+a.       Preverite, da je FHZ 1000 PC modul priklopljen na vašo napravo.<br>
+b.      Na oknu VMware Player-ja izberite Player | Removable Devices | Future Devices ELV FHZ 1000 PC | Connect (Disconnect from host). <br>
+c.       Počakajte nekaj trenutkov, da računalnik vzpostavi povezavo z napravo.<br>
+d.      Ponovno zaženite FHEM proces, kot je opisano v razdelku Upravljanje FHEM procesa.<br> 
+5.   Če je FHEM strežnik ustrezno zagnan in datoteki fhem.cfg ter 99_mOIDom.pm nimata sintaktičnih napak, 
+potem lahko nadaljujete z upravljanjem sistema v skladu z navodili drugih razdelkov ali na lastno eksperimentatorsko iniciativo.<br><br>
+FHEM povežete s temperaturnim senzorjem HMS100 TF, ki je v datoteki fhem.cfg označen z imenom naprave temperaturaVlaga. 
+Povezavo s temperaturnim senzorjem morate ponoviti vedno, kadar je senzor dlje časa brez baterije: ob ponovnem vstavljanju 
+baterije senzor namreč spremeni svojo identifikacijsko številko.<br><br>
+1.  V skladu z navodili iz razdelka Preverjanje delovanja FHEM procesa preverite, da FHEM proces ustrezno deluje.<br>
+2.  Vstavite baterijo v vašo HMS100 TF napravo.<br>
+3.  Po vstavljanju baterije oz. vsakih ca. 5 minut HMZ100 TF naprava oddaja signal z vrednostjo temperature in vlage. 
+Če je naprava registrirana v datoteki fhem.cfg, se ti vrednosti izpišeta v LOG datoteko, v kateri ste preverjali delovanje 
+FHEM procesa. Če naprava ni registrirana, boste v LOG datoteki zaznali obvestila naslednje oblike
+Unknown HMS device 1001/b2b8, please define it
+4.  Druga številka (zapisana v heksadecimalnem sistemu) v tem sporočilu je identifikacijska številka vaše HMS naprave. 
+Zabeležite jo, da jo boste uporabili pri registraciji naprave v datoteki fhem.cfg.<br>
+5.   Po navodilih razdelka z opisom datoteke fhem.cfg odprite to datoteko za urejanje.<br>
+6.    Poiščite naslednje vrstice:<br>
+######################################################<br>
+#Povezava s senzorjem HMS 100 TF - temperatura, vlaga<br>
+define temperaturaVlaga HMS 4541<br>
+attr temperaturaVlaga room mOIDom<br><br>
+ 
+#Datoteka z evidenco temperature in vlage<br>
+define FileLog_tempVlg FileLog /var/log/fhem/tempVlg-%Y.log temperaturaVlaga<br>
+attr FileLog_tempVlg logtype ks550_th:Temp/Hum,text<br><br>
+ 
+#Prikaz grafa temperature in vlage<br>
+define weblink_2_tempVlg weblink fileplot <br>
+FileLog_tempVlg:ks550_th:CURRENT<br>
+attr weblink_2_tempVlg label "Senzor: Temperatura $data{currval1} <br>
+($data{min1}-$data{max1}), Vlaznost $data{currval2} ($data{min2}-$data{max2}) @ $data{currdate1}"<br>
+attr weblink_2_tempVlg room mOIDom<br>
+7.  Številko 4541 v tretji od navedenih vrstic zamenjajte s heksadecimalno številko, ki ste jo prebrali v LOG datoteki.<br>
+8.   Shranite datoteko s klikom na »Save fhem.cfg«. Po tem se bo FHEM proces avtomatično ponovno zagnal, kar boste zaznali 
+tudi v LOG datoteki (pogled je treba v brskalniku osvežiti oz. ponovno klikniti na povezavo do datoteke). Ob zajemanju 
+podatkov se bo pričel osveževati tudi graf temperature, ki je prikazan na domači strani brskalnika, kot tudi pri napravi 
+»temperaturaVlaga« bodo izpisani zadnji zbrani podatki. <br>
+9.  Če želite dodati nov temperaturni senzor, v datoteki fhem.cfg podvojite (skopirajte) vse v točki 6 navedene vrstice in 
+jih popravite na naslednji način:<br>
+a.       Definirajte ime spremenljivke za nov senzor, in ga navedite povsod, kjer v teh vrsticah piše temperaturaVlaga.<br>
+b.      Zabeležite številko novega senzorja na mesto, kjer piše 4541.<br>
+c.       Če želite, da se senzor nahaja v ločenem FHEM prostoru, povsod namesto mOIDom pišite ime tega novega prostora.<br>
+d.      Zamenjajte ime datoteke, v katero se shranjujejo podatki z novega senzorja: povsod, kjer piše tempVlg napišite novo ime datoteke.<br>
+e.      Shranite datoteko s klikom na gumb Save fhem.cfg.<br>
+</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><b><span
+style='font-size:12.0pt'>Povezava z aktuatorjem</span></b></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>Razdelek opisuje, kako FHEM povežete z aktuatorsko vtičnico FS20 ST-4, ki je v datoteki fhem.cfg 
+označena z imenom naprave Vticnica.<br><br>
+1. V skladu z navodili iz razdelka Preverjanje delovanja FHEM procesa preverite, da FHEM proces ustrezno deluje.<br>
+2.  Vašo FS20 ST-4 vtičnico vtaknite v vtičnico v vašem stanovanju.<br>
+3.  Gumb na vtičnici stisnite za toliko sekund, da rdeča lučka na vtičnici prične utripati. <br>
+4.  Na spletnem vmesniku FHEM ob imenu naprave »Vtičnica« kliknite na povezavo »on«. Gumb na vtičnici bo nehal utripati.<br>
+5.  Pravilno delovanje vtičnice preverite tako, da izmenično klikate na povezavi »on« ali »off« in vtičnica se bo 
+priklapljala/izklapljala.<br>
+6.  Če želite dodati v sistem novo FHEM vtičnico, ravnajte po naslednjih korakih:<br>
+a.  Po navodilih razdelka z opisom datoteke fhem.cfg odprite to datoteko za urejanje.<br>
+b.  Poiščite naslednje vrstice in jih podvojite (skopirajte):<br><br>
+######################################################<br><br>
+#Povezava z aktuatorjem - vtičnico<br>
+define Vticnica FS20 63ac 33<br>
+attr Vticnica room mOIDom<br><br>
+ 
+#Datoteka z evidenco aktivnosti vtičnice<br>
+define FileLog_Vticnica FileLog /var/log/fhem/vticnica-%Y.log Vticnica<br>
+attr FileLog_Vticnica logtype text<br><br>
+c.  Izmislite si novo ime za vašo vtičnico in besedilo Vticnica povsod v kopiranih vrsticah zamenjajte z novim imenom. <br>
+d.  Spremenite tudi ime datoteke za evidenco aktivnosti vtičnice.<br>
+e.  Če želite, da se nova vtičnica nahaja v drugem FHEM prostoru, spremente ime prostora mOIDom v vseh kopiranih vrsticah.<br>
+f.   Številka 63ac v tretji od navedenih vrstic predstavlja naslov vaše vtičnice, številka 33 pa kodo FS20 omrežja, v katerem 
+deluje. Predpostavlja se, da te kode ne pozna nihče drug in zato ne more krmiliti vaše vtičnice (verjetnost, da bi naključno 
+uporabil isto kodo in omrežje je zanemarljivo majhna. Zato spremenite vse kode omrežja v datoteki na neko svojo vrednost, ki 
+je enaka pri vseh vtičnicah, obenem pa spremenite tudi številko 63ac za novo vtičnico.<br>
+g.   Shranite datoteko s klikom na »Save fhem.cfg«. Po tem se bo FHEM proces avtomatično ponovno zagnal, kar boste zaznali tudi 
+v LOG datoteki (pogled je treba v brskalniku osvežiti oz. ponovno klikniti na povezavo do datoteke). Ob vstopu v FHEM prostor, 
+v katerem se nahaja nova vtičnica, boste le-to zaznali na spletni strani. Povežite se z njo, kot je opisano v korakih 1-5. <br><br>
+V FHEM konfiguracijski datoteki definirate parameter, preko katerega boste lahko spreminjali obnašanje svojega modula. Vsak FHEM 
+parameter se na vmesniku obnaša kot naprava, ki ji uporabnik preko vmesnika lahko spremeni vrednost stanja, v krmilnih modulih pa 
+to vrednost tudi prebere. <br><br>
+1.  V skladu z navodili iz razdelka Preverjanje delovanja FHEM procesa preverite, da FHEM proces ustrezno deluje.<br>
+2.  Po navodilih razdelka z opisom datoteke fhem.cfg odprite to datoteko za urejanje.<br>
+3.  Poiščite naslednje vrstice in jih podvojite (skopirajte):<br><br>
+######################################################<br><br>
+#Povezava s spremenljivko - nastavljivo temperaturo vklopa ventilatorja.<br>
+define ventilatorVklop dummy<br>
+attr ventilatorVklop room mOIDom<br>
+ #Datoteka z zapisom spreminjanja temperature vklopa ventilatorja.<br>
+define FileLog_ventilatorVklop FileLog /var/log/fhem/ventilatorVklop-%Y.log ventilatorVklop<br>
+attr FileLog_ventilatorVklop logtype text<br><br>
+4.  Izmislite si novo ime parametra in besedilo ventilatorVklop povsod v kopiranih vrsticah zamenjajte z novim imenom. <br>
+5.  Če želite, da se nova vtičnica nahaja v drugem FHEM prostoru, spremenite ime prostora mOIDom v vseh kopiranih vrsticah.<br>
+6.   Shranite datoteko s klikom na »Save fhem.cfg«. Po tem se bo FHEM proces avtomatično ponovno zagnal, kar boste zaznali tudi 
+v LOG datoteki (pogled je treba v brskalniku osvežiti oz. ponovno klikniti na povezavo do datoteke). Ob vstopu v FHEM prostor, 
+v katerem se nahaja nov parameter, boste tega zaznali na spisku preprostih »dummy« naprav. <br>
+7.  Vrednost parametra spremenite z naslednjimi koraki:<br>
+a.       Kliknete na ime parametra.<br>
+b.      Prikaže se popis vseh atributov parametra (ki ga FHEM obravnava kot preprosto »dummy« napravo). V vnosni vrstici »set 
+imeNaprave *« vnesite novo vrednost naprave, npr. napravi ventilatorVklop nastavite temperaturo, ki je nad ali pod trenutno 
+temperaturo v sobi.<br>
+c.       Kliknite na gumb »Set« in nova vrednost se bo shranila ter upoštevala pri preračunavanju pravil.
+</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><b><span
+style='font-size:12.0pt'>Dodatni spletni viri</span></b></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>FHEM:</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>FHEM domača stran: 
+<a href="http://www.fhem.de">povezava</a></span></p>
+FHEM dokumentacija: 
+<a href="http://fhem.de/fhem.html#Documentation">povezava</a></span></p>
+FHEM opis ukazov: 
+<a href="http://fhem.de/commandref.html">povezava</a></span></p>
+</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>PERL:</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>PERL domača stran: 
+<a href="http://www.perl.org/">povezava</a></span></p>
+PERL dokumentacija: 
+<a href="http://www.perl.org/docs.html">povezava</a></span></p>
+PERL za začetnike opis ukazov: 
+<a href="http://perl-tutorial.org/">povezava</a></span></p>
+</span></p>
+
+<p class=MsoNormal style='margin-left:0cm;text-indent:0cm;line-height:normal'><span
+style='font-size:12.0pt'>&nbsp;</span></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

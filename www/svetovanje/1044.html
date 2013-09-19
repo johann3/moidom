@@ -2,28 +2,28 @@
 <html>
 <head>
 <title>
-startizo
+1044
 </title>
 <meta charset='utf-8'>
 <link href="../css/moidom_iframe.css" rel="stylesheet">
 <script charset="UTF-8" src="../js/jquery.min.js"></script>
 <script charset="UTF-8" src="../common.js"></script>
 <script>
-var NODE_ID = 'nodestartizo';
+var NODE_ID = 'node1044';
 var APPLICATION_ID = 1;
 var TIMEOUT = 1000;
 var DATA_URL = getDataUrl(); // in common.js
 
 function loadNext()
 {
-if (document.getElementById("radio1230").checked==true)
-window.location = "1.html";
-if (document.getElementById("radio1231").checked==true)
-window.location = "51.html";
-if (document.getElementById("radio1232").checked==true)
-window.location = "150.html";
-if (document.getElementById("radio1233").checked==true)
-window.location = "100.html";
+if (document.getElementById("radio10").checked==true)
+window.location = "1045.html";
+if (document.getElementById("radio11").checked==true)
+window.location = "1130.html";
+}
+function loadStart()
+{
+window.location = "../svetovanje/start.html";
 }
 
 $(document).ready(function() {
@@ -55,22 +55,21 @@ $(document).ready(function() {
 </head>
 <body>
 <h1 id="title">
-Izobraževalne naloge
+Voda
 </h1>
 <p id="text1">
-Za katero področje vas zanimajo izobraževalne naloge?
+Prosimo izberite enoto kazalca.
 </p>
 <p id="text2">
 Izberite možnost.
 </p>
 <form>
 <table>
-<tr><td><input type="radio" name="radio" id="radio1230" value="radio1230" onChange="updateForm()">Električna energija</td></tr>
-<tr><td><input type="radio" name="radio" id="radio1231" value="radio1231" onChange="updateForm()">Ogrevanje</td></tr>
-<tr><td><input type="radio" name="radio" id="radio1232" value="radio1232" onChange="updateForm()">Voda</td></tr>
-<tr><td><input type="radio" name="radio" id="radio1233" value="radio1233" onChange="updateForm()">Smeti</td></tr>
+<tr><td><input type="radio" name="radio" id="radio10" value="radio10" onChange="updateForm()"><label for="radio10">EUR</label></td></tr>
+<tr><td><input type="radio" name="radio" id="radio11" value="radio11" onChange="updateForm()"><label for="radio11">m³</label></td></tr>
 </table>
 <button type="submit" id="button">Naprej</button>
+<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
 </form>
 <div id="progressbar">
    <div class="progressTxt">

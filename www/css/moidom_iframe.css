@@ -5,7 +5,7 @@ body {
 	font-size: 14px;
 	line-height: 20px;
 	color: #333333;
-	background-color: #ffffff;
+	background-color: transparent;
 }
 
 a {
@@ -135,6 +135,8 @@ input[type="file"] {
 
 h1 {
 	font-size: 25px;
+	margin-top: 0px;
+	padding-top: 20px;
 }
 h2 {
 	font-size: 18px;
@@ -200,7 +202,14 @@ button[disabled] {
      -moz-box-shadow: none;
           box-shadow: none;
 }
-#progressbar {
+button.withImage {
+    padding: 0px 0px;
+    background: none;
+    /*border-color: none;*/
+    box-shadow: none;
+    border: none;
+}
+#progressBar {
   position: fixed;
   left: 0;
   top: 0;
@@ -209,7 +218,7 @@ button[disabled] {
   z-index: 1000;
   background: rgba(0,0,0,.4);
 }
-.progressTxt {
+.progressText {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -227,3 +236,23 @@ label {
     padding-left: 1em;
 }
 
+table.selectNext, table.selectEvaluate {
+    width: 100%;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+}
+table.selectNext tr, table.selectEvaluate tr {
+    cursor: pointer;
+    border: 1px solid #cccccc;
+    background: #fff;
+}
+table.selectNext td, table.selectEvaluate td {
+    padding: 5px;
+    border: none;
+}
+table.selectNext td.next, table.selectEvaluate td.next {
+    width: 5%;
+}
+input.narrow {
+    width: 100px;
+}

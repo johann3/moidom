@@ -1,92 +1,38 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<title>
-start
-</title>
-<meta charset='utf-8'>
-<link href="../css/moidom_iframe.css" rel="stylesheet">
-<script charset="UTF-8" src="../js/jquery.min.js"></script>
-<script charset="UTF-8" src="../common.js"></script>
-<script>
-var NODE_ID = 'nodestart';
-var APPLICATION_ID = 1;
-var TIMEOUT = 1000;
-var DATA_URL = getDataUrl(); // in common.js
-
-function loadNext()
-{
-if (document.getElementById("radio4").checked==true)
-window.location = "201.html";
-if (document.getElementById("radio5").checked==true)
-window.location = "301.html";
-if (document.getElementById("radio6").checked==true)
-window.location = "401.html";
-if (document.getElementById("radio7").checked==true)
-window.location = "501.html";
-if (document.getElementById("radio8").checked==true)
-window.location = "700.html";
-if (document.getElementById("radio9").checked==true)
-window.location = "../vaje/startizo.html";
-}
-function loadStart()
-{
-window.location = "../svetovanje/start.html";
-}
-
-$(document).ready(function() {
-    $('form').submit(function() {
-        $.ajax({
-            url: DATA_URL + 'consult/log',
-            type: 'GET',
-            data: {
-                node: NODE_ID,
-                params: $('form').serialize(),
-                application: APPLICATION_ID
-            },
-            xhrFields: { withCredentials: true },
-            async: true,
-            cache: false,
-            timeout: TIMEOUT,
-            beforeSend: function(xhr, options) { $('#progressbar').show(); }
-        })
-        .always(function () {
-            $('#progressbar').hide();
-            loadNext();
-        });
-        return false;
-    });
-
-    $('#progressbar').hide();
-});
-</script>
+    <meta charset='utf-8'>
+    <link href="../css/moidom_iframe.css" rel="stylesheet">
+    <script charset="UTF-8" src="../js/jquery.min.js"></script>
+    <script charset="UTF-8" src="../common.js"></script>
+    <script charset="UTF-8" src="../iframe.js"></script>
+    <script>var NODE_ID = 'nodestart';</script>
+    <title>start</title>
 </head>
 <body>
-<h1 id="title">
-Okoljsko svetovanje
-</h1>
-<p id="text1">
-Za katero področje vas zanima okoljsko svetovanje?
-</p>
-<p id="text2">
-Izberite možnost.
-</p>
-<form>
-<table>
-<tr><td><input type="radio" name="radio" id="radio4" value="radio4" onChange="updateForm()"><label for="radio4">Ogrevanje</label></td></tr>
-<tr><td><input type="radio" name="radio" id="radio5" value="radio5" onChange="updateForm()"><label for="radio5">Električna energija</label></td></tr>
-<tr><td><input type="radio" name="radio" id="radio6" value="radio6" onChange="updateForm()"><label for="radio6">Voda</label></td></tr>
-<tr><td><input type="radio" name="radio" id="radio7" value="radio7" onChange="updateForm()"><label for="radio7">Odpadki</label></td></tr>
-<tr><td><input type="radio" name="radio" id="radio8" value="radio8" onChange="updateForm()"><label for="radio8">Izračun mojih energetskih kazalcev</label></td></tr>
-<tr><td><input type="radio" name="radio" id="radio9" value="radio9" onChange="updateForm()"><label for="radio9">Izobraževalne naloge</label></td></tr>
-</table>
-<button type="submit" id="button">Naprej</button>
-<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
-</form>
-<div id="progressbar">
-   <div class="progressTxt">
-   Prenašam podatke ...
-   </div>
-</div>
+    <h1 id="title">Okoljsko svetovanje</h1>
+    <p id="text1">Za katero področje vas zanima okoljsko svetovanje?</p>
+    <p id="text2">Izberite možnost.</p>
+    
+    <table class="selectNext">
+        <tr onClick="selectNext(NODE_ID,'radio=radio4', '201.html')"><td>Ogrevanje</td><td class="next">&gt;</td></tr>
+        <tr onClick="selectNext(NODE_ID,'radio=radio5', '301.html')"><td>Električna energija</td><td class="next">&gt;</td></tr>
+        <tr onClick="selectNext(NODE_ID,'radio=radio6', '401.html')"><td>Voda</td><td class="next">&gt;</td></tr>
+        <tr onClick="selectNext(NODE_ID,'radio=radio7', '501.html')"><td>Odpadki</td><td class="next">&gt;</td></tr>
+        <tr onClick="selectNext(NODE_ID,'radio=radio8', '700.html')"><td>Izračun mojih energetskih kazalcev</td><td class="next">&gt;</td></tr>
+        <tr onClick="selectNext(NODE_ID,'radio=radio9', 'naloge/startizo.html')"><td>Izobraževalne naloge</td><td class="next">&gt;</td></tr>
+        <!-- 
+        <tr onClick="selectNext(NODE_ID,'radio=radio8', 'naloge/7.html')"><td>Naloga 7</td><td class="next">&gt;</td></tr>
+        <tr onClick="selectNext(NODE_ID,'radio=radio8', 'naloge/42.html')"><td>Naloga 42</td><td class="next">&gt;</td></tr>
+        <tr onClick="selectNext(NODE_ID,'radio=radio8', '1074.html')"><td>Vozlišče 1074</td><td class="next">&gt;</td></tr>
+        <tr onClick="selectNext(NODE_ID,'radio=radio8', 'naloge/44.html')"><td>Naloga 44</td><td class="next">&gt;</td></tr>
+         -->        
+    </table>
+    
+    <div id="progressBar" style="display:none">
+       <div class="progressText">
+           Prenašam podatke ...
+       </div>
+    </div>
 </body>
 </html>

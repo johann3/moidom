@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>7</title>
+    <meta charset='utf-8'>
+    <link href="../../css/moidom_iframe.css" rel="stylesheet">
+    <script charset="UTF-8" src="../../js/jquery.min.js"></script>
+    <script charset="UTF-8" src="../../common.js"></script>
+    <script charset="UTF-8" src="../../iframe.js"></script>
+    <script>var NODE_ID = 'node7';</script>
+</head>
+<body>
+    <h1 id="title">Elektrika</h1>
+    <p id="text1">Poraba elektrike v gospodinjstvu za razsvetljavo predstavlja samo majhen delež skupne porabe.</p>
+    <p id="text2">Se strinjate s trditvijo? Označite s klikom.</p>
+    
+    <table class="selectEvaluate">
+        <tr onClick="selectEvaluate(NODE_ID,'radio=radio4', 1)"><td>Da.</td><td class="next">&gt;</td></tr>
+        <tr onClick="selectEvaluate(NODE_ID,'radio=radio5', 0)"><td>Ne.</td><td class="next">&gt;</td></tr>
+        <tr onClick="selectEvaluate(NODE_ID,'radio=radio6', -1)"><td>Ne vem.</td><td class="next">&gt;</td></tr>
+    </table>
+
+    <p></p>
+    <p id="evaluation">Čakam na odgovor.</p>
+    
+    <p><button id="nextButton" disabled class="withImage" onClick="setPage('8.html')">
+        <img src="../../img/nextNaprej.svg" alt="Naprej &gt;" />    
+    </button></p>
+
+    <div id="progressBar" style="display:none">
+       <div class="progressText">
+       Prenašam podatke ...
+       </div>
+    </div>
+</body>
+</html>

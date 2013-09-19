@@ -81,7 +81,6 @@ a:hover {
     background: url(../img/mainHead.png) left center repeat-x #a4c032;
     border-color: #97b12b;
 }
-
 .mainNav {
     position: fixed;
     z-index: 3;
@@ -184,11 +183,11 @@ a:hover {
         padding-bottom: 70px;
     }
 }
-.mainWrap.withPartners {
+.withPartners {
     padding-bottom: 120px;
 }
 @media(max-width: 850px) {
-    .mainWrap.withPartners {
+    .withPartners {
         padding-bottom: 20px;
     }
     #appFooter {
@@ -295,7 +294,7 @@ a:hover {
  display: block;
 }
 
-a.quickIcon {
+a.mobileIcon {
     display: inline-block;
     padding:8px;
     border-radius: 5px;
@@ -311,13 +310,52 @@ a.quickIcon {
     border:1px solid #efefef;
 }
 
-a.quickIcon:hover{
+a.mobileIcon:hover{
     background: #fff;
 }
 
-a.quickIcon:active{
+a.mobileIcon:active{
    top:3px;
     box-shadow: inset 0px 2px 3px #bebebe, 0px 0px 0px 0px #bebebe, 0px 0px 1px #bebebe;
     border:1px solid #d0d0d0;
 }
-
+.noSpacing {
+    padding: 0px 0px;
+    padding-bottom: 0px;
+    margin: 0;
+}
+.margin5 {
+    margin: 5px;
+}
+.margin20 {
+    margin: 20px;
+}
+.noBorder {
+	border: none;
+}
+.buttonMobile {
+    display: inline-block !important;
+}
+.centered {
+    text-align: center;	
+}
+.mobileCentered {
+	/* by default, nothing; on mobile, centered */
+}
+.mobileLeftAligned {
+    /* by default, nothing; on mobile, centered */
+}
+.leftAligned {
+    text-align: left; 
+}
+.webOnly {
+	 /* shown in the web page and not shown in the mobile application */
+	 display:inherit;
+}
+.mobileOnly {
+     /* shown in the mobile application and not shown in the web page */
+     display:none;
+}
+.clickable {
+    cursor: pointer;
+}
