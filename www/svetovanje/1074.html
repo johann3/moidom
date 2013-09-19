@@ -69,10 +69,16 @@ function doCalculate()
     
     
     </form>
-    <button id="calculateButton" class="withImage" onClick="doCalculate();">
-        <img src="../img/rectIzracunaj.svg" alt="Izračunaj" /></button>
-    <button id="nextButton" disabled class="withImage" onClick="setPage('???.html')">
-        <img src="../img/nextNaprej.svg" alt="Naprej &gt;" /></button>
+    <div>
+        <button class="withImage" onclick="doCalculate()" id="calculateButton">
+            <object type="image/svg+xml" data="../img/rectIzracunaj.svg">
+             <span class="btn btn-primary margin5">Izračunaj</span> </object>
+        </button>
+        <button class="withImage" onclick="setPage('???.html')" id="nextButton" disabled>
+            <object type="image/svg+xml" data="../img/nextNaprej.svg">
+             <span class="btn btn-primary margin5">Naprej &gt;</span> </object>
+        </button>
+    </div>
 
     <div id="progressBar" style="display:none">
        <div class="progressText">

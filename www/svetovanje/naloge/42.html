@@ -68,10 +68,14 @@ function checkPrediction()
 </form>
 
     <div>
-    <button id="checkButton" class="withImage" onClick="checkPrediction();">
-        <img src="../../img/rectPreveri.svg" alt="Preveri" /></button>
-    <button id="nextButton" disabled class="withImage" onClick="setPage('44.html')">
-        <img src="../../img/nextNaprej.svg" alt="Naprej &gt;" /></button>
+        <button class="withImage" onclick="checkPrediction()">
+            <object type="image/svg+xml" data="../../img/rectPreveri.svg">
+             <span class="btn btn-primary margin5">Preveri</span> </object>
+        </button>
+        <button class="withImage" onclick="setPage('44.html')" id="nextButton" disabled>
+            <object type="image/svg+xml" data="../../img/nextNaprej.svg">
+             <span class="btn btn-primary margin5">Naprej &gt;</span> </object>
+        </button>
     </div>
 
 
