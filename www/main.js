@@ -102,6 +102,10 @@ $(document).ready(function() {
         $('#mainTabs #tabMobile').tab('show');
     }
     
+    if (!isIosEnvironment()) {
+        $('#ios7statusBarPadding').attr ('style', 'margin-top:0px');
+    }
+    
     // Connect tabs' show events
     $('#tabSubmit').on('show', function() {
         updateCommoditySelection();
@@ -116,11 +120,11 @@ $(document).ready(function() {
     });
     $('#tabView').on('show', function() {
         updateCommoditySelection();
-        populateTagsList('viewTag', 'assigned');
+        populateTagLists('viewTag', 'assigned');
         updateIndicatorsAndGraph(true);
     });
     $('#tabSettings').on('show', function() {
-        populateAssignedUnassignedCommodities();
+        showSettingsTab (0, -2);
     });
 
     // Connect graphs' show events
@@ -278,17 +282,17 @@ function onDeviceReady() {
 
 /// The function shows a tab (menu contents)
 /// 'tabId' is ID of tab element without a leading '#'
-function showTab (tabId) {
-    $('#mainTabs #' + tabId).tab('show');
+function showBasicTab (tabId) {
+  $('#mainTabs #' + tabId).tab('show');
 }
-            
+      
 /// the functions shows the tab (menu screen), called in mobile
 /// environment after login
 function showMobileTopMenu () {
-    showTab ('tabMobile');
+    showBasicTab ('tabMobile');
 }
  
-/// The function shows the 'view' tab with its diagrams
+/// The functions shows wanted part of View tab
 /// the argument 'partToshow' has the following values
 /*
 GRAPH_NONE = 0;
@@ -296,17 +300,100 @@ GRAPH_EFFICIENCY = 1;
 GRAPH_PERCENTILES = 2;
 GRAPH_NONCUMULATIVE = 3;
 GRAPH_CUMULATIVE = 4;
- */
-function showTabView (partToShow)
+*/
+function showViewTab (partToShow)
 {
-    showTab ('tabView');
+    if (partToShow > 0) {
+        selectedGraph = partToShow;
+        updateIndicatorsAndGraph(false);
+    }
+    var isMobile = isMobileEnvironment();
+    showBasicTab ('tabView');
+    showOrHideById('viewBack', partToShow == 0  && isMobile);
+    showOrHideById('viewForm', partToShow == 0  ||  !isMobile);
+    showOrHideById('viewEffClassButton', partToShow == 0);
+    showOrHideById('viewEffClassContent', partToShow == GRAPH_EFFICIENCY);
+    showOrHideById('viewPercentileButton', partToShow == 0);
+    showOrHideById('viewPercentileContent', partToShow == GRAPH_PERCENTILES);
+    showOrHideById('viewTimeseqIncrButton', partToShow == 0);
+    showOrHideById('viewTimeseqIncrContent', partToShow == GRAPH_NONCUMULATIVE);
+    showOrHideById('viewTimeseqCumulButton', partToShow == 0);
+    showOrHideById('viewTimeseqCumulContent', partToShow == GRAPH_CUMULATIVE);
 }
 
-function showTabSettings ()
+/** The functions shows wanted part of Settings tab
+ the argument 'partToshow' has the following values
+ 0 main tab content
+ 1 commodities
+ 2 tags
+ 3 user
+ the argument 'actionIx'is used with partToShow values 1 and 2 and has the following values
+ -2: show the initial list with "add" button and existing entries
+ -1: show the "add" dialog
+ 0..end: show the "details" dialog for the indexed entry
+*/
+function showSettingsTab (partToShow, actionIx)
 {
-    showTab ('tabSettings');
+    //alert ('showSettingsTab '+partToShow+' '+ actionIx);
+    //showBasicTab ('tabSettings');
+    if (partToShow == 1 &&  actionIx == -2) {
+        populateAssignedUnassignedCommodities();
+    }
+    if (partToShow == 2 &&  actionIx == -2) {
+        populateAssignedUnassignedTags();
+    }
+    var isMobile = isMobileEnvironment();
+    
+    showOrHideById('settingsBack', (partToShow == 0 || actionIx == -2) && isMobile);
+    showOrHideById('settingsSubMenu', partToShow == 0 || actionIx == -2);
+    
+    showOrHideById('commoditySettingsDefault', partToShow == 1 &&  actionIx == -2);
+    showOrHideById('commoditySettingsAdd', partToShow == 1 &&  actionIx == -1);
+    if (partToShow == 1 &&  actionIx >= 0) {
+        // commodityItemNameId_ IS SET IN FUNCTION populateCommodityLists
+        var idString = '#commodityItemNameId_'+actionIx;
+        var commodityId = $(idString).data('commodityId');        
+        var paramIx = '(' + commodityId + ')';
+        $('#commoditySettingsEditCommodity').html ($(idString).html());
+        var importKey = $(idString).data('importKey');
+        $('#commoditySettingsEditCode').html (importKey!=null? importKey : 'ni na voljo.');        
+        $('#commoditySettingsEditRemove').attr ('onclick', 'unassignCommodityAsk'+paramIx);
+        $('#commoditySettingsEditEnable').attr ('onclick', 'enableCommodityImportAsk'+paramIx);
+        var enableImport = $(idString).data('enable')!=0;
+        var disableImport = $(idString).data('disable')!=0;
+        //alert ('data 1 idString enable disable = '+ idString+' '+  enableImport+' '+ disableImport);
+        showOrHideById('commoditySettingsEditEnable', enableImport);
+        $('#commoditySettingsEditDisable').attr ('onclick', 'disableCommodityImportAsk'+paramIx);
+        showOrHideById('commoditySettingsEditDisable', disableImport);
+    }
+    showOrHideById('commoditySettingsEdit', partToShow == 1 &&  actionIx >= 0);
+    showOrHideById('assignedCommodities', partToShow == 1 &&  actionIx != -1);
+    
+    showOrHideById('tagSettingsDefault', partToShow == 2 &&  actionIx == -2);
+    showOrHideById('tagSettingsAdd', partToShow == 2 &&  actionIx == -1);
+    if (partToShow == 2 &&  actionIx >= 0) {
+        // tagItemNameId_ IS SET IN FUNCTION populateTagLists
+        var idString = '#tagItemNameId_'+actionIx;
+        var tagId = $(idString).data('tagId');        
+        var paramIx = '(' + tagId + ')';
+        $('#tagSettingsEditTag').html ($(idString).html());
+        $('#tagSettingsEditRemove').attr ('onclick', 'unassignTagAsk'+paramIx);
+    }    
+    showOrHideById('tagSettingsEdit', partToShow == 2 &&  actionIx >= 0);
+    showOrHideById('assignedTags', partToShow == 2 &&  actionIx != -1);
+    
 }
 
+/// The function shows a tab (menu contents)
+/// 'tabId' is ID of tab element without a leading '#'
+function showTab (tabId) {
+    //alert ('showTab '+tabId)
+    showBasicTab(tabId);
+    if (tabId == 'tabSettings') {
+        showSettingsTab (0, -2);
+    }
+}
+          
 function restartConsulting () {
     $('#consultFrame').attr('src', 'svetovanje/start.html');
 }
@@ -627,45 +714,45 @@ function plotComodityData(plotHolder, totalValueHolder, cumulative) {
 
 
 // The function updates the confirmation dialog texts (title, body),
-// remembers an 'id' (to be passed to server) as .data('id')
+// remembers an 'idToPass' (to be passed to server) as .data('id')
 // assembles and assigns the onclick attribute and shows the dialog
-function showConfirmDialog(id, title, body, onClickStart)
+function showConfirmDialog(idToPass, title, body, onClickStart)
 {
     $('#confirmDialogTitle').text(title);
     $('#confirmDialogBody').text(body);
     $('#confirmDialogButton').attr('onclick', 
         onClickStart + "$('#confirmDialog').modal('hide')");                
-    $('#confirmDialog').data('id', id);
+    $('#confirmDialog').data('id', idToPass);
     $('#confirmDialog').modal('show');
 }
 
-function unassignCommodityAsk(id)
+function unassignCommodityAsk(commodityId)
 {
-    showConfirmDialog (id, 'Brisanje obremenitve',
+    showConfirmDialog (commodityId, 'Brisanje obremenitve',
         'Ali res želite pobrisati izbrano obremenitev in njene odčitke iz vašega seznama?',
-        "unassignCommodity($('#confirmDialog').data('id'));");
+        "unassignCommodity($('#confirmDialog').data('id'));showSettingsTab (1,-2);");
 }
 
 
-function enableCommodityImportAsk(id)
+function enableCommodityImportAsk(commodityId)
 {
-    showConfirmDialog (id, 'Omogoči uvoz odčitkov',
+    showConfirmDialog (commodityId, 'Omogoči uvoz odčitkov',
         'Ali res želite omogočiti samodejen uvoz podatkov za izbrano obremenitev?',
-        "setupCommodityImport($('#confirmDialog').data('id'),true);");                
+        "setupCommodityImport($('#confirmDialog').data('id'),true);showSettingsTab (1,-2);");                
 }
 
-function disableCommodityImportAsk(id)
+function disableCommodityImportAsk(commodityId)
 {
-    showConfirmDialog (id, 'Onemogoči uvoz odčitkov',
+    showConfirmDialog (commodityId, 'Onemogoči uvoz odčitkov',
         'Ali res želite onemogočiti samodejen uvoz podatkov za izbrano obremenitev?',
-        "setupCommodityImport($('#confirmDialog').data('id'),false);");                
+        "setupCommodityImport($('#confirmDialog').data('id'),false);showSettingsTab (1,-2);");
 }
 
 function unassignTagAsk(id)
 {
     showConfirmDialog (id, 'Brisanje označbe',
         'Ali res želite pobrisati izbrano označbo iz vašega seznama in se odjaviti od skupine?',
-        "unassignTag($('#confirmDialog').data('id'));");                
+        "unassignTag($('#confirmDialog').data('id'));showSettingsTab (2,-2);");                
 }
 
 function unassignCommodity(id)
@@ -686,12 +773,12 @@ function unassignCommodity(id)
     });
 }
 
-function setupCommodityImport(id, value)
+function setupCommodityImport(commodityId, value)
 {
     $.ajax({
         url: DATA_URL + 'user/setup_fast_store',
         type: 'POST',
-        data: { commodity: id, 
+        data: { commodity: commodityId, 
             enabled: value },
         xhrFields: { withCredentials: true },
         success: function(data, textStatus, xhr)
@@ -812,29 +899,27 @@ function getEfficiencyUnitText()
 
 
 // The function updates all the commodity lists with their ids 'idList'
-// by calling user/list_commodities with type set to 'typ'
-// setting onclick attributes to the specified string in parameters
-// 'removalCheckName', 'importCheckName', 'importDisableCheckName'
+// by calling user/list_commodities with type set to 'listType'
 // and finally calling function as specified by parameter 'oncomplete'
-function populateCommodityLists(idList, typ, oncomplete, removalCheckName, importEnableCheckName, importDisableCheckName)
+function populateCommodityLists(idList, listType, oncomplete)
 {
     $.ajax({
         url: DATA_URL + 'user/list_commodities',
         type: 'GET',
-        data: { type: typ },
+        data: { type: listType },
         xhrFields: { withCredentials: true },
         success: function(data, textStatus, xhr)
         {
             if (dataStatusIsBad (data.status, data.status_loc))
                 return; 
-            if (typ == 'assigned') {
+            if (listType == 'assigned') {
                 assignedCommodityCount = data.commodities.length;
                 assignedCommodities = data.commodities;
                 var hintHtmlString = '';
                 var contentVisible = true;
                 if (assignedCommodityCount == 0) {
                     updateCurrentCommodity (0, true);
-                    hintHtmlString = 'Na meniju <a href="#Settings" onclick="showTabSettings()">' + 
+                    hintHtmlString = 'Na meniju <a href="#Settings" onclick="showSettingsTab(0,-2)">' + 
                         'Nastavitve</a>&gt Obremenitve ' +
                         'dodajte obremenitev, potem vnesite podatke.';
                     contentVisible = false;
@@ -858,22 +943,17 @@ function populateCommodityLists(idList, typ, oncomplete, removalCheckName, impor
                         $(commodityListid).append('<option value="' + commodity.id + '" data-unit="' + commodity.unit + 
                             '" data-cumulative="' + commodity.cumulative + '" ' + selected + '>' + commodity.name + '</option>');
                     } else if (el.nodeName == "UL") {
-                        // values for removalCheckName, importEnableCheckName, importDisableCheckName are expected here                                    
-                        var removeHtml = '&nbsp;<a href="#" style="float: none" onclick="' + 
-                                removalCheckName + '(' + commodity.id + ')">Odstrani obremenitev</a>';
-                        var importHtml = '';
-                        if (importKey == null) {
-                            if (cumulative) {
-                                importHtml = '&nbsp;<a href="#" style="float: none" onclick="' + 
-                                    importEnableCheckName + '(' + commodity.id + ')">Omogoči uvoz iz podatkovnega koncentratorja</a>';
-                            }
-                        } else {
-                            importHtml = '&nbsp;Koda za uvoz: ' + importKey + 
-                                '&nbsp;<a href="#" style="float: none" onclick="' + 
-                                importDisableCheckName + '(' + commodity.id + ')">Onemogoči uvoz</a>';
-                        }
-                        $(commodityListid).append('<li>&nbsp;' + commodity.name + removeHtml +
-                            importHtml + '</li>');
+                        // THE FUNCTION showSettingsTab USES THE 'ID' ATTRIBUTES DEFINED HERE
+                        var idString = 'commodityItemNameId_'+i;
+                        var nameHtml = '<span id="' + idString
+                            +'" class="clickable"'
+                            +' onclick="showSettingsTab(1,'+i+')"'
+                            +'>' + commodity.name + '</span>';
+                        $(commodityListid).append('<li>' + nameHtml + '</li>');
+                        $('#'+idString).data ('enable', importKey == null && cumulative?'1':'0');
+                        $('#'+idString).data ('disable', importKey != null?'1':'0');
+                        $('#'+idString).data ('importKey', importKey);
+                        $('#'+idString).data ('commodityId', commodity.id);
                     }
                 }
             }
@@ -894,40 +974,39 @@ function populateAssignedCommodities() {
 
 function populateAssignedUnassignedCommodities() {
     // both lists at setup menu, already assigned as UL and noy yet assigned as SELECT
-    populateCommodityLists(['#assignedCommodities'], 'assigned', null, 
-        'unassignCommodityAsk', 'enableCommodityImportAsk', 'disableCommodityImportAsk');
+    populateCommodityLists(['#assignedCommodities'], 'assigned', null);
     populateCommodityLists(['#unassignedCommodities'], 'unassigned', setAssignCommodityDependants);
 }
 
 
-function populateTagsList(id, typ, onclick)
+function populateTagLists(tagElemId, tagType)
 {
-    var el = document.getElementById(id);
-
     $.ajax({
         url: DATA_URL + 'user/list_tags',
-        data: { type: typ },
+        data: { type: tagType },
         type: 'GET',
         xhrFields: { withCredentials: true },
         success: function(data, textStatus, xhr)
         {
             if (dataStatusIsBad (data.status, data.status_loc))
                 return; 
-            $('#' + id).empty();
+            var el = document.getElementById(tagElemId);
+            var hashedTagElemId = '#' + tagElemId;
+            $(hashedTagElemId).empty();
 
             for (var i = 0; i < data.tags.length; i++) {
                 var tag = data.tags[i];
                 if (el.nodeName == "SELECT") {
-                    if (onclick)
-                        $('#' + id).append('<option value="' + tag.id + '" onclick="' + onclick + '(' + tag.id + ')">' + tag.name + '</option>');
-                    else
-                        $('#' + id).append('<option value="' + tag.id + '">' + tag.name + '</option>');
+                    $(hashedTagElemId).append('<option value="' + tag.id + '">' + tag.name + '</option>');
                 } else if (el.nodeName == "UL") {
-                    if (onclick)
-                        $('#' + id).append('<li><a href="#" class="close" style="float: none" onclick="' 
-                            + onclick + '(' + tag.id + ')">&times;</a>&nbsp;' + tag.name + '</li>');
-                    else
-                        $('#' + id).append('<li>' + tag.name + '</li>');
+                    // THE FUNCTION showSettingsTab USES THE 'ID' ATTRIBUTES DEFINED HERE
+                    var idString = 'tagItemNameId_'+i;
+                    var nameHtml = '<span id="' + idString
+                        +'" class="clickable"'
+                        +' onclick="showSettingsTab(2,'+i+')"'
+                        +'>' + tag.name + '</span>';
+                    $(hashedTagElemId).append('<li>' + nameHtml + '</li>');
+                    $('#'+idString).data ('tagId', tag.id);
                 }
             }
         },
@@ -937,8 +1016,8 @@ function populateTagsList(id, typ, onclick)
 
 
 function populateAssignedUnassignedTags() {
-    populateTagsList('assignedTags', 'unassignable', 'unassignTagAsk'); 
-    populateTagsList('unassignedTags', 'unassigned')            
+    populateTagLists('assignedTags', 'unassignable'); 
+    populateTagLists('unassignedTags', 'unassigned')            
 }
 
 

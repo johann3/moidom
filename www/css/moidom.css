@@ -131,19 +131,6 @@ a:hover {
 .subMenuContent {
     margin-top: 38px;
 }
-.accordion-inner {
-    overflow: auto;
-}
-.logout {
-    position: absolute;
-    right:0;
-    top: 0;
-    display: block;
-    width:51px;
-    height: 40px;
-    background: url(../img/logout.png) left center;
-    cursor: pointer;
-}
 @media (max-width: 600px) {
     .welcome, .loginForm { width: 90%; float: none; margin: 10px 0; }
 }
@@ -331,10 +318,28 @@ a.mobileIcon:active{
 }
 .clickable {
     cursor: pointer;
+    background: white;
 }
 button.withImage {
     padding: 0px 0px;
     background: none;
     box-shadow: none;
     border: none;
+}
+img.withImage {
+    /* currently empty, the style is used to find such images easily */
+}
+ul.assignedSettingList {
+    /* lists of currently assigned commodities or tags */
+    list-style: none;
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 10px 10px 10px 10px;
+    margin: 0px 0px 0px 0px;
+    background: white;
+}
+ul.assignedSettingList li {
+    /* list items of currently assigned commodities or tags */
+    list-style: none;
+    margin: 10px 10px 10px 10px;
+    background: white;
 }

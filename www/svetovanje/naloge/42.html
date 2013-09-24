@@ -9,9 +9,8 @@
     <script charset="UTF-8" src="../../iframe.js"></script>
     <script>var NODE_ID = 'node42';</script>
 <script>
-function checkPrediction()
+function doCalculate()
 {
-    logParameters(NODE_ID, $('form').serialize());
     var P=parseDecimal($('#P').val());
     var h=parseDecimal($('#h').val());
     var VT=parseDecimal($('#VT').val());
@@ -46,16 +45,16 @@ function checkPrediction()
 <form>
     <table>
     <tr><td>Predvidi strošek v EUR/leto.</td>
-    <td><input type="number" class="narrow" name="predvid" id="predvid" value="" /></td></tr>
+    <td><input type="number" class="narrow" name="predvid" id="predvid" onkeyup="doCalculate()" /></td></tr>
     
     <tr><td>Moč v W</td>
-    <td><input type="number" class="narrow" name="P" id="P" value="" /></td></tr>
+    <td><input type="number" class="narrow" name="P" id="P"  onkeyup="doCalculate()" /></td></tr>
     
     <tr><td>Uporaba na dan v h</td>
-    <td><input type="number" class="narrow" name="h" id="h" value="" /></td></tr>
+    <td><input type="number" class="narrow" name="h" id="h"  onkeyup="doCalculate()" /></td></tr>
     
     <tr><td>Cena elektrike v EUR/kWh</td>
-    <td><input type="number" class="narrow" name="VT" id="VT" value="" /></td></tr>
+    <td><input type="number" class="narrow" name="VT" id="VT"  onkeyup="doCalculate()" /></td></tr>
     
     <tr><td>Strošek na leto v EUR</td>
     <td><span id="strosek"></span> </td></tr>
@@ -68,11 +67,9 @@ function checkPrediction()
 </form>
 
     <div>
-        <button class="withImage" onclick="checkPrediction()">
-            <object type="image/svg+xml" data="../../img/rectPreveri.svg">
-             <span class="btn btn-primary margin5">Preveri</span> </object>
-        </button>
-        <button class="withImage" onclick="setPage('44.html')" id="nextButton" disabled>
+        <button class="withImage"
+            onclick="logAndSetPage(NODE_ID, $('form').serialize(),'44.html')" 
+            id="nextButton" disabled>
             <object type="image/svg+xml" data="../../img/nextNaprej.svg">
              <span class="btn btn-primary margin5">Naprej &gt;</span> </object>
         </button>

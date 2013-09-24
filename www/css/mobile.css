@@ -1,20 +1,6 @@
 /*
   changes for mobile environment
 */
-.accordion-group {
-	border: none;
-}
-.accordion-heading {
-	text-align: center;
-}
-.accordion-toggle {
-    background: url(../img/mainHead.png) left center repeat-x #a4c032;
-    border-color: #97b12b;
-	display: inline-block !important;
-	color: rgb(255, 255, 255);
-	/* from .btn*/
-	border-radius: 4px 4px 4px 4px;
-}
 .mainContent, .mainNav, #mainHeader, .mainWrap, .tab-content {
     padding: 0px 0px;
     padding-bottom: 0px;

@@ -11,7 +11,6 @@
 <script>
 function doCalculate()
 {
-    logParameters(NODE_ID, $('form').serialize());
     var poraba=parseDecimal($('#poraba').val());
     var osebe=parseDecimal($('#osebe').val());
     var kazalec=poraba/osebe;
@@ -40,7 +39,7 @@ function doCalculate()
         }
     }
     $("#evaluation").html (razred);
-    $("#nextButton").attr ('onClick', 'setPage("'+nextUrl+'")');
+    $("#nextButton").attr ('onClick', 'logAndSetPage(NODE_ID, $("form").serialize(),"'+nextUrl+'")');
     $("#nextButton").attr ('disabled', false);
     
 }
@@ -54,10 +53,10 @@ function doCalculate()
     <form>
     <table>
     <tr><td>Strošek za vodo v EUR/leto:</td>
-    <td><input type="number" class="narrow" name="poraba" id="poraba" value=""></td></tr>
+    <td><input type="number" class="narrow" name="poraba" id="poraba" onkeyup="doCalculate()" /></td></tr>
     
     <tr><td>Število oseb v gospodinjstvu:</td>
-    <td><input type="number" class="narrow" name="osebe" id="osebe" value=""/></td></tr>
+    <td><input type="number" class="narrow" name="osebe" id="osebe" onkeyup="doCalculate()" /></td></tr>
     
     <tr><td>Kazalec učinkovitosti v EUR/osebo/leto:</td>
     <td><span id="kazalec"/></span></td></tr>
@@ -70,11 +69,10 @@ function doCalculate()
     
     </form>
     <div>
-        <button class="withImage" onclick="doCalculate()" id="calculateButton">
-            <object type="image/svg+xml" data="../img/rectIzracunaj.svg">
-             <span class="btn btn-primary margin5">Izračunaj</span> </object>
-        </button>
-        <button class="withImage" onclick="setPage('???.html')" id="nextButton" disabled>
+        <!-- THE 'ONCLICK' ATTRIBUTE BELOW IS PROGRAMMATICALLY UPDATED -->
+        <button class="withImage"
+            onclick="logAndSetPage(NODE_ID, $('form').serialize(),'???.html')" 
+            id="nextButton" disabled>
             <object type="image/svg+xml" data="../img/nextNaprej.svg">
              <span class="btn btn-primary margin5">Naprej &gt;</span> </object>
         </button>

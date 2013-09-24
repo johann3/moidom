@@ -191,12 +191,12 @@
                 showOrHideById('loginContent', partToShow == 1);
                 showOrHideById('lostPassButton', partToShow == 0);
                 showOrHideById('lostPassContent', partToShow == 2);
-                showOrHide($('#registerButton'), partToShow == 0);
-                showOrHide($('#registerContent'), partToShow == 3);
-                showOrHide($('#facebookMobile'), partToShow == 0);
-                showOrHide($('#twitterMobile'), partToShow == 0);
-                showOrHide($('#aboutButton'), partToShow == 0 && isMobile);
-                showOrHide($('#aboutContent'), partToShow == 4);
+                showOrHideById('registerButton', partToShow == 0);
+                showOrHideById('registerContent', partToShow == 3);
+                showOrHideById('facebookMobile', partToShow == 0);
+                showOrHideById('twitterMobile', partToShow == 0);
+                showOrHideById('aboutButton', partToShow == 0 && isMobile);
+                showOrHideById('aboutContent', partToShow == 4);
             }
             
             //showScreen(0);
@@ -216,9 +216,13 @@
                     <h2>Pozdravljeni v mobilni aplikaciji mOIDom!</h2>
                     <p>So vaši mesečni računi previsoki? Želite porabiti manj, pa ne veste kako? Če ste na vsaj eno vprašanje odgovorili z da, potem je aplikacija mOIDom prava izbira za vas. S pomočjo aplikacije mOIDom boste enostavno spremljali svojo porabo in z upoštevanjem varčevalnih nasvetov, ki jih aplikacija ponuja, zmanjšali stroške svojega gospodinjstva.</p>
                     <p>mOIDom je spletna in mobilna aplikacija informativno-svetovalnega značaja, ki vam omogoča spremljanje porabe in stroškov gospodinjstva. Preko uporabnih nasvetov in praktičnih nalog boste spoznali, kje vaše gospodinjstvo izgublja denar in kaj spremeniti, da optimizirate porabo ter s tem privarčujete. Cilj aplikacije je tudi spodbujanje k varčevanju z energijo in tako zmanjševanje obremenjevanja okolja z emisijami in zviševanje energetske učinkovitosti zgradb.</p>
-                    <p>Prenesite <a href="http://www.moidom.si/download">mobilno aplikacijo</a> na svoj telefon ali tablico.</p>                    
+					<p>Prenesite <a href="http://www.moidom.si/download">mobilno aplikacijo</a> na svoj telefon ali tablico.</p>                    
                     <p>Uporabite aplikacijo, ukrepajte in privarčujte!</p>
-                </div>
+					<p>Pri varčevanju z energijo vam lahko pomagajo naprave pametnih zgradb. V 
+okviru projekta mOIDom smo pripravili virtualni računalnik za krmiljenje 
+manjših instalacij pametnih zgradb [ 
+<a href="FHEM_modul.html">več</a>...].
+				</div>
                     
                 <div class="tab-content">
                     <div class="mobileLogo mobileOnly" id="mobileLogo">
@@ -229,8 +233,7 @@
                     </div>
                     <div id="loginContent" class="margin20" style="display:none">
                         <button class="withImage" onclick="showScreen(0)">
-                            <object type="image/svg+xml" data="img/backMoidom.svg">
-                             <span class="btn btn-primary margin5">&lt; Moidom</span> </object>
+                            <img class="withImage" src="img/backMoidom.svg" alt="&lt; Moidom" />
                         </button>
                         <form id="formLogin">
                             <label>Elektronski naslov:</label>
@@ -256,8 +259,7 @@
                     </div>
                     <div id="lostPassContent" style="display:none" class="margin20">
                         <button class="withImage" onclick="showScreen(0)">
-                            <object type="image/svg+xml" data="img/backMoidom.svg">
-                             <span class="btn btn-primary margin5">&lt; Moidom</span> </object>
+                            <img class="withImage" src="img/backMoidom.svg" alt="&lt; Moidom" />
                         </button>
                         <form id="formLostPass">
                          <p>Prosim, vnesite vaš registrirani elektronski naslov. Na ta naslov vam bomo poslali novo geslo, ki ga uporabite pri naslednji prijavi.</p>
@@ -274,8 +276,7 @@
                     </div>
                     <div id="registerContent" style="display:none" class="margin20">
                         <button class="withImage" onclick="showScreen(0)">
-                            <object type="image/svg+xml" data="img/backMoidom.svg">
-                             <span class="btn btn-primary margin5">&lt; Moidom</span> </object>
+                            <img class="withImage" src="img/backMoidom.svg" alt="&lt; Moidom" />
                         </button>
                         <form id="formRegister">
                          <p>Prosim, vnesite zahtevane podatke. Polja, označena z *, so obvezna.</p>
@@ -320,8 +321,7 @@
                 </div>
                 <div id="aboutContent" style="display:none">
                     <button class="withImage" onclick="showScreen(0)">
-                        <object type="image/svg+xml" data="img/backMoidom.svg">
-                         <span class="btn btn-primary margin5">&lt; Moidom</span> </object>
+                        <img class="withImage" src="img/backMoidom.svg" alt="&lt; Moidom" />
                     </button>
                     <div id="aboutText">
                     <!--  the content is povided for mobile environment, programatically-->

@@ -118,6 +118,15 @@ function isMobileEnvironment()
 }
 
 
+function isIosEnvironment()
+{
+    if ( /iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
+        return true;
+    }
+    return false;
+}
+
+
 /* The function shows or hides (depending on 'hide' argument) the 'element' */
 function showOrHide(element, show)
 {
