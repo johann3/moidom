@@ -134,9 +134,9 @@ function updateButtonsWithImages()
      they're represented as 'img' elements and on older androids,
      converted into texts
      */
-    alert ('updateButtonsWithImages starting, user agent '+navigator.userAgent);
-    if ( /Android/i.test(navigator.userAgent) ) {
-        //return; // disabled
+    //alert ('updateButtonsWithImages starting, user agent '+navigator.userAgent);
+    if ( !(/Android 2/i.test(navigator.userAgent)) ) {
+        return; // disabled for all other cases
     }
     $('img.withImage').each(function( index ) {
         var altText = $(this).attr('alt');

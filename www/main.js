@@ -87,6 +87,8 @@ $(document).ready(function() {
     // Register the event handler 
     document.addEventListener("deviceready", onDeviceReady, false);
     
+    updateButtonsWithImages();
+
     addValidators();
     
     // Initialize datepicker and timepicker
