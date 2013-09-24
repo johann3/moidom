@@ -127,6 +127,31 @@ function isIosEnvironment()
 }
 
 
+function updateButtonsWithImages()
+{
+    /*
+     * As of autumn 2013, there is no single unique way to have clickable buttons showing as images
+     they're represented as 'img' elements and on older androids,
+     converted into texts
+     */
+    alert ('updateButtonsWithImages starting, user agent '+navigator.userAgent);
+    if ( /Android/i.test(navigator.userAgent) ) {
+        //return; // disabled
+    }
+    $('img.withImage').each(function( index ) {
+        var altText = $(this).attr('alt');
+        var parent = $(this).parent();
+        parent.empty ();
+        var spanElement = $('<span class="btn btn-primary margin5"/>').appendTo(parent);
+        spanElement.text (altText);
+        //console.log('(updateButtonsWithImages '+index + ': alt="' + altText+'")');
+        }
+    );
+    //console.log ('updateButtonsWithImages finished');
+}
+
+
+
 /* The function shows or hides (depending on 'hide' argument) the 'element' */
 function showOrHide(element, show)
 {

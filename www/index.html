@@ -53,6 +53,9 @@
                     document.getElementsByTagName("head")[0].appendChild(link);
                 }
                 
+                
+                //updateButtonsWithImages();
+                
                 addValidators();
                 
                 // see also function call at the end of script
@@ -232,10 +235,9 @@ manjših instalacij pametnih zgradb [
                         <span class="btn btn-primary margin5" onclick="showScreen(1)">Prijava</span>
                     </div>
                     <div id="loginContent" class="margin20" style="display:none">
-	                <img class="withImage" src="img/backMoidom.svg" alt="&lt; Moidom" 
-	                    title="&lt; Moidom"
-	                    width="100px" height="50px"
-	                    onclick="showScreen(0)"/>
+                        <button class="withImage" onclick="showScreen(0)">
+                            <img class="withImage" src="img/backMoidom.svg" alt="&lt; Moidom" />
+                        </button>
                         <form id="formLogin">
                             <label>Elektronski naslov:</label>
                             <input type="email" name="email" class="input-medim wide">
