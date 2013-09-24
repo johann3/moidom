@@ -46,7 +46,7 @@ function doCalculate()
 </script>
 </head>
 
-<body>
+<body onload="updateButtonsWithImages()">
     <h1 id="title">Po osebi</h1>
     <p id="text1">Izračunajte si kazalec učinkovitosti.</p>
     
@@ -73,8 +73,7 @@ function doCalculate()
         <button class="withImage"
             onclick="logAndSetPage(NODE_ID, $('form').serialize(),'???.html')" 
             id="nextButton" disabled>
-            <object type="image/svg+xml" data="../img/nextNaprej.svg">
-             <span class="btn btn-primary margin5">Naprej &gt;</span> </object>
+            <img class="withImage" src="../img/nextNaprej.svg" alt="Naprej &gt;" />
         </button>
     </div>
 

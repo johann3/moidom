@@ -9,7 +9,7 @@
     <script charset="UTF-8" src="../../iframe.js"></script>
     <script>var NODE_ID = 'node44';</script>
 </head>
-<body>
+<body onload="updateButtonsWithImages()">
     <h1 id="title">
     Načrt varčevanja z električno energijo v gospodinjstvu
     </h1>
@@ -38,8 +38,7 @@
     </p>
     <div>
         <button class="withImage" onclick="setEducationPage()" id="button">
-            <object type="image/svg+xml" data="../../img/backNaloge.svg">
-             <span class="btn btn-primary margin5">&lt; Naloge</span> </object>
+            <img class="withImage" src="../../img/backNaloge.svg" alt="&lt; Naloge" />
         </button>
     </div>
         

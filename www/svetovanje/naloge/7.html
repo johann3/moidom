@@ -9,7 +9,7 @@
     <script charset="UTF-8" src="../../iframe.js"></script>
     <script>var NODE_ID = 'node7';</script>
 </head>
-<body>
+<body onload="updateButtonsWithImages()">
     <h1 id="title">Elektrika</h1>
     <p id="text1">Poraba elektrike v gospodinjstvu za razsvetljavo predstavlja samo majhen delež skupne porabe.</p>
     <p id="text2">Se strinjate s trditvijo? Označite s klikom.</p>
@@ -25,8 +25,7 @@
     
     <div>
         <button class="withImage" onclick="setPage('44.html')" id="nextButton" disabled>
-            <object type="image/svg+xml" data="../../img/nextNaprej.svg">
-             <span class="btn btn-primary margin5">Naprej &gt;</span> </object>
+            <img class="withImage" src="../../img/nextNaprej.svg" alt="Naprej &gt;" />
         </button>
     </div>
 

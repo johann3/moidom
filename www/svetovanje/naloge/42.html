@@ -37,7 +37,7 @@ function doCalculate()
 </script>
 </head>
 
-<body>
+<body onload="updateButtonsWithImages()">
     <h1 id="title">Elektrika</h1>
     <p id="text1">Koliko električne energije v povprečju porabijo prenosni računalniki, če jih uporabljate v VT?</p>
     <p id="text2">Vnesite podatke, ki jih še niste vpisali v aplikacijo mOIDom.</p>
@@ -70,8 +70,7 @@ function doCalculate()
         <button class="withImage"
             onclick="logAndSetPage(NODE_ID, $('form').serialize(),'44.html')" 
             id="nextButton" disabled>
-            <object type="image/svg+xml" data="../../img/nextNaprej.svg">
-             <span class="btn btn-primary margin5">Naprej &gt;</span> </object>
+            <img class="withImage" src="../../img/nextNaprej.svg" alt="Naprej &gt;" />
         </button>
     </div>
 

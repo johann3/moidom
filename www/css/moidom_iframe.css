@@ -255,3 +255,13 @@ table.selectNext td.next, table.selectEvaluate td.next {
 input.narrow {
     width: 100px;
 }
+.margin5 {
+    margin: 5px;
+}
+.btn-primary {
+    background: url("../img/mainHead.png") repeat-x scroll left center rgb(164, 192, 50);
+    border-color: rgb(151, 177, 43);
+}
+.btn {
+    padding: 4px 12px;
+}
