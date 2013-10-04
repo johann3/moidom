@@ -4,57 +4,13 @@
 <title>
 212
 </title>
-<meta charset='utf-8'>
-<link href="../css/moidom_iframe.css" rel="stylesheet">
-<script charset="UTF-8" src="../js/jquery.min.js"></script>
-<script charset="UTF-8" src="../common.js"></script>
+   <meta charset='utf-8'>
+    <link href="../css/moidom_iframe.css" rel="stylesheet">
+    <script charset="UTF-8" src="../js/jquery.min.js"></script>
+    <script charset="UTF-8" src="../common.js"></script>
+    <script charset="UTF-8" src="../iframe.js"></script>
 <script>
 var NODE_ID = 'node212';
-var APPLICATION_ID = 1;
-var TIMEOUT = 1000;
-var DATA_URL = getDataUrl(); // in common.js
-
-function loadNext()
-{
-if (document.getElementById("radio55").checked==true)
-window.location = "217.html";
-if (document.getElementById("radio56").checked==true)
-window.location = "218.html";
-if (document.getElementById("radio57").checked==true)
-window.location = "219.html";
-if (document.getElementById("radio58").checked==true)
-window.location = "220.html";
-}
-function loadStart()
-{
-window.location = "../svetovanje/start.html";
-}
-
-$(document).ready(function() {
-    $('form').submit(function() {
-        $.ajax({
-            url: DATA_URL + 'consult/log',
-            type: 'GET',
-            data: {
-                node: NODE_ID,
-                params: $('form').serialize(),
-                application: APPLICATION_ID
-            },
-            xhrFields: { withCredentials: true },
-            async: true,
-            cache: false,
-            timeout: TIMEOUT,
-            beforeSend: function(xhr, options) { $('#progressbar').show(); }
-        })
-        .always(function () {
-            $('#progressbar').hide();
-            loadNext();
-        });
-        return false;
-    });
-
-    $('#progressbar').hide();
-});
 </script>
 </head>
 <body>
@@ -67,20 +23,21 @@ Izberite, na kateri energent bi se želeli ogrevati ter preverite pogoje za to.
 <p id="text2">
 Izberite možnost.
 </p>
-<form>
-<table>
-<tr><td><input type="radio" name="radio" id="radio55" value="radio55" onChange="updateForm()"><label for="radio55">Lesna biomasa</label></td></tr>
-<tr><td><input type="radio" name="radio" id="radio56" value="radio56" onChange="updateForm()"><label for="radio56">Električna energija</label></td></tr>
-<tr><td><input type="radio" name="radio" id="radio57" value="radio57" onChange="updateForm()"><label for="radio57">Daljinska toplota</label></td></tr>
-<tr><td><input type="radio" name="radio" id="radio58" value="radio58" onChange="updateForm()"><label for="radio58">Zemeljski plin</label></td></tr>
+<table class="selectNext">
+<tr onClick="selectNext(NODE_ID,'radio=radio55', '217.html')"><td>Lesna biomasa</td><td class="next">&gt;</td></tr>
+<tr onClick="selectNext(NODE_ID,'radio=radio56', '218.html')"><td>Električna energija</td><td class="next">&gt;</td></tr>
+<tr onClick="selectNext(NODE_ID,'radio=radio57', '219.html')"><td>Daljinska toplota</td><td class="next">&gt;</td></tr>
+<tr onClick="selectNext(NODE_ID,'radio=radio58', '220.html')"><td>Zemeljski plin</td><td class="next">&gt;</td></tr>
 </table>
-<button type="submit" id="button">Naprej</button>
-<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
-</form>
-<div id="progressbar">
-   <div class="progressTxt">
-   Prenašam podatke ...
-   </div>
-</div>
+	<span>
+        <button class="withImage" onclick="setPage('start.html')" id="nextButton">
+            <img class="withImage" src="../img/backSvetovanje.svg" alt="Svetovanje &gt;" />
+        </button>
+    </span>
+	<div id="progressBar" style="display:none">
+       <div class="progressText">
+           Prenašam podatke ...
+       </div>
+    </div>
 </body>
 </html>

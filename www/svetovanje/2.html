@@ -4,158 +4,47 @@
 <title>
 2
 </title>
-<meta charset='utf-8'>
-<link href="../css/moidom_iframe.css" rel="stylesheet">
-<script charset="UTF-8" src="../js/jquery.min.js"></script>
-<script charset="UTF-8" src="../common.js"></script>
+    <meta charset='utf-8'>
+    <link href="../css/moidom_iframe.css" rel="stylesheet">
+    <script charset="UTF-8" src="../js/jquery.min.js"></script>
+    <script charset="UTF-8" src="../common.js"></script>
+    <script charset="UTF-8" src="../iframe.js"></script>
 <script>
 var NODE_ID = 'node2';
-var APPLICATION_ID = 1;
-var TIMEOUT = 1000;
-var DATA_URL = getDataUrl(); // in common.js
-
-function loadNext()
-{
-if (document.getElementById("evaluation").innerHTML=="Majhna poraba (A1 ali A2 učinkovitostni razred).")
-window.location = "4.html";
-if (document.getElementById("evaluation").innerHTML=="Povprečna poraba (B1 ali B2 učinkovitostni razred).")
-window.location = "5.html";
-if (document.getElementById("evaluation").innerHTML=="Visoka poraba (C, D ali E učinkovitostni rzred).")
-window.location = "6.html";
-if (document.getElementById("evaluation").innerHTML=="Zelo visoka poraba (F ali G učinkovitostni razred).")
-window.location = "7.html";
-}
-function updateForm()
-{
-var lc=parseFloat(document.getElementById("lc").value); 
-var S=parseFloat(document.getElementById("S").value); 
-var Val=parseFloat(document.getElementById("Val").value); 
-Val=lc/S;
-if (!isNaN(lc))
-document.getElementById("lc").value=lc;
-if (!isNaN(S))
-document.getElementById("S").value=S;
-if (!isNaN(Val))
-document.getElementById("Val").value=Val;
-if ((Val>=0) && (Val<200)) {
-    document.getElementById("evaluation").innerHTML="Majhna poraba (A1 ali A2 učinkovitostni razred).";
-}
-if ((Val>=200) && (Val<400)) {
-    document.getElementById("evaluation").innerHTML="Povprečna poraba (B1 ali B2 učinkovitostni razred).";
-}
-if ((Val>=400) && (Val<600)) {
-    document.getElementById("evaluation").innerHTML="Visoka poraba (C, D ali E učinkovitostni rzred).";
-}
-if ((Val>=600)) {
-    document.getElementById("evaluation").innerHTML="Zelo visoka poraba (F ali G učinkovitostni razred).";
-}
-}
-function prediction()
-{
-var Valp=parseFloat(document.getElementById("Valp").value); 
-var Val=parseFloat(document.getElementById("Val").value); 
-x=Valp/Val*100
-if (!isNaN(Valp))
-document.getElementById("Valp").value=Valp;
-if (!isNaN(Val))
-document.getElementById("Val").value=Val;
-if ((x<50)) {
-    document.getElementById("predvidevanje").innerHTML="Slabo.";
-    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,100,100)";
-}
-if ((x>=50) && (x<80)) {
-    document.getElementById("predvidevanje").innerHTML="Dobro.";
-    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,140,0)";
-}
-if ((x>=80) && (x<120)) {
-    document.getElementById("predvidevanje").innerHTML="Odlično.";
-    document.getElementById("predvidevanje").style.backgroundColor="rgb(100,255,100)";
-}
-if ((x>=120) && (x<150)) {
-    document.getElementById("predvidevanje").innerHTML="Dobro.";
-    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,140,0)";
-}
-if ((x>=150)) {
-    document.getElementById("predvidevanje").innerHTML="Slabo.";
-    document.getElementById("predvidevanje").style.backgroundColor="rgb(255,100,100)";
-}
-}
-
-$(document).ready(function() {
-    $('form').submit(function() {
-        $.ajax({
-            url: DATA_URL + 'consult/log',
-            type: 'GET',
-            data: {
-                node: NODE_ID,
-                params: $('form').serialize(),
-                application: APPLICATION_ID
-            },
-            xhrFields: { withCredentials: true },
-            async: true,
-            cache: false,
-            timeout: TIMEOUT,
-            beforeSend: function(xhr, options) { $('#progressbar').show(); }
-        })
-        .always(function () {
-            $('#progressbar').hide();
-            loadNext();
-        });
-        return false;
-    });
-
-    $('#progressbar').hide();
-});
 </script>
 </head>
-
-<body>
+<body onload="updateButtonsWithImages()">
 <h1 id="title">
-Poraba elektrike: na leto glede na kvadraturo stanovanja
+Elektrika
 </h1>
 <p id="text1">
-Izračunaj, kolikšna je poraba električne energije glede na velikost vašega stanovanja v obdobju enega leta.
+Največji delež električne energije v gospodinjstvih porabimo za ogrevanje sanitarne vode.
 </p>
 <p id="text2">
-Da se rezultat izračuna samodejno, v obrazec dopolnite podatke, ki jih niste vsebovali v aplikacijo mOIDom. 
+Označite trditev s klikom.
 </p>
-<form>
-<table>
-<tr><td id="text3">Predvidi, koliko je poraba električne energije glede na velikost vašega stanovanja v obdobju enega leta.</td>
-<td><input type="text" name="Valp" id="Valp" value="" /></td>
-<td id="ValpUnit">kWh/m2/leto</td>
+<table class="selectEvaluate">
+<tr onClick="selectEvaluate(NODE_ID,'radio=radio1', 1)"><td>Da.</td><td class="next">&gt;</td></tr>
+<tr onClick="selectEvaluate(NODE_ID,'radio=radio2', 0)"><td>Ne.</td><td class="next">&gt;</td></tr>
+<tr onClick="selectEvaluate(NODE_ID,'radio=radio3', -1)"><td>Ne vem.</td><td class="next">&gt;</td></tr>
 </table>
-<table>
-<tr><td id="var1Name">Letna poraba</td>
-<td><input type="text" name="lc" id="lc" value="" onKeyUp="updateForm();prediction();"/></td>
-<td id="var1Unit">kWh/leto</td></tr>
-<tr><td id="var2Name">Kvadratura stanovanja</td>
-<td><input type="text" name="S" id="S" value="" onKeyUp="updateForm();prediction();"/></td>
-<td id="var2Unit">m2</td></tr>
-<tr><td id="var3Name">Vrednost/m2leto</td>
-<td><input type="text" name="Val" id="Val" disabled="disabled" value="" onKeyUp="updateForm();prediction();"/></td>
-<td id="var3Unit">kWh/m2/leto</td></tr>
-</table>
+<p></p>
+    <p id="evaluation">Čakam na odgovor.</p>
 
-<table>
-<tr>
-<td id="evaluation"></td>
-</tr>
-</table>
-
-<table>
-<tr>
-<td id="text4">Vaše predvidevanje je bilo:</td><td id="predvidevanje"></td>
-</tr>
-</table>
-
-<button type="submit" id="button">Naprej</button>
-
-</form>
-<div id="progressbar">
-   <div class="progressTxt">
-   Beležim podatke ...
-   </div>
-</div>
+	<span>
+        <button class="withImage" onclick="setPage('start.html')" id="nextButton2">
+            <img class="withImage" src="../img/backSvetovanje.svg" alt="Svetovanje &gt;" />
+        </button>
+    </span>
+	<span>
+<button class="withImage" onclick="setPage('3.html')" id="nextButton" disabled>
+            <img class="withImage" src="../img/nextNaprej.svg" alt="Naprej &gt;" />
+        </button>
+    </span>
+    <div id="progressBar" style="display:none">
+       <div class="progressText">
+       Prenašam podatke ...
+       </div>
+    </div>
 </body>
 </html>

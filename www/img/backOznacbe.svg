@@ -24,7 +24,7 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="6.3231051"
+     inkscape:zoom="8.3582603"
      inkscape:cx="43.245105"
      inkscape:cy="15.293594"
      inkscape:document-units="px"
@@ -32,8 +32,8 @@
      showgrid="false"
      inkscape:window-width="1254"
      inkscape:window-height="743"
-     inkscape:window-x="370"
-     inkscape:window-y="151"
+     inkscape:window-x="305"
+     inkscape:window-y="129"
      inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
@@ -43,7 +43,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -69,6 +69,6 @@
          id="tspan2989"
          x="32.808659"
          y="1041.1821"
-         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Sans;-inkscape-font-specification:Sans">Označbe</tspan></text>
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:sans-serif;-inkscape-font-specification:sans-serif">Označbe</tspan></text>
   </g>
 </svg>

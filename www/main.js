@@ -31,13 +31,13 @@ function updateIndicatorsAndGraph(updateUnits) {
         plotEfficiencyClasses();
     }
     if (selectedGraph == GRAPH_PERCENTILES) {
-        showPercentiles();
+        plotAndShowPercentiles();
     }
     if (selectedGraph == GRAPH_NONCUMULATIVE) {
-        plotComodityData('viewTimeseqIncr', 'totalUserValue1', false);
+        plotComodityData('#viewTimeseqIncr', '#totalUserValue1', false);
     }
     if (selectedGraph == GRAPH_CUMULATIVE) {
-        plotComodityData('viewTimeseqCumul', 'totalUserValue2', true);
+        plotComodityData('#viewTimeseqCumul', '#totalUserValue2', true);
     }
 };
 
@@ -60,28 +60,6 @@ function updateCommoditySelection () {
     }
 }
 
-
-// the function sets the style attribute of an element using its wanted width
-function setSizeUsingStyle (elementId, widthPx) {
-    // style="width:300px;height:150px;"
-    widthPx = Math.round (widthPx);
-    var heightPx = Math.round (widthPx / 2);
-    if (heightPx < 200)
-        heightPx = 200;
-    var styleValue = 'width:'+widthPx+'px;height:'+heightPx+'px;';
-    $('#' + elementId).attr ('style', styleValue);
-}
-
-
-// the function sets the width and height of plot element based on window size
-function setPlotCanvasSize (elementId) {
-    var width = window.innerWidth;
-    width *= 0.9;
-    if (width > 100) {
-        width-=20;
-    }
-    setSizeUsingStyle (elementId, width);
-}
 
 $(document).ready(function() {
     // Register the event handler 
@@ -484,6 +462,22 @@ function showIndicatorValues() {
 }
 
 
+//the function sets the width and height of plot element based on window size
+//and returns the width in pixels
+function setPlotCanvasSize (hashedElementId) {
+ var widthPx = window.innerWidth * 0.9;
+ if (widthPx > 100) {
+     widthPx-=20;
+ }
+ widthPx = Math.round (widthPx);
+ var heightPx = Math.round (widthPx / 2);
+ if (heightPx < 200)
+     heightPx = 200;
+ var styleValue = 'width:'+widthPx+'px;height:'+heightPx+'px;';
+ $(hashedElementId).attr ('style', styleValue);
+ return widthPx;
+}
+
 //----------------------------------------------------------------------
 // The function plots the efficiency class graph, if available
 function plotEfficiencyClasses() {
@@ -564,8 +558,9 @@ function plotEfficiencyClasses() {
                 captions.push(rangeText + ' ' + unit + getEfficiencyUnitText() + "/leto");
             }
 
-            setPlotCanvasSize ('viewEffClassHistogram');
-            var plot = $.plot($('#viewEffClassHistogram'), plotData, plotOptions);
+            var hashedPlotHolder = '#viewEffClassHistogram';
+            setPlotCanvasSize (hashedPlotHolder);
+            var plot = $.plot($(hashedPlotHolder), plotData, plotOptions);
 
             // Print out units
             for (var i = 0; i < captions.length; i++) {
@@ -578,9 +573,39 @@ function plotEfficiencyClasses() {
     });
 }
 
+
+/// The function updates (optionally removes) real numbers in axis.ticks
+/// that will (according to a heuristics) overlap with another
+///  value when plotted in an area wide 'totalPx' pixels and expected
+/// 'digitPx' pixels for a single digit
+/// and moreover the real range is from minValue to maxValue
+/// The values in 'axis.ticks' are expected to be increasing,
+/// minValue is expected to be lower than maxValue
+function tidyOverlappingTicks (axis, minValue, maxValue, totalPx, digitPx) {
+    //console.log ('tidyOverlappingLabels start '+axis.ticks);
+    var filteredTicks = new Array();
+    var lastPx = -1; // the ending pixel position of the last value 
+    for (var i = 0; i < axis.ticks.length; i++) {
+        var value = axis.ticks[i];
+        var startPx = (value-minValue) / (maxValue-minValue) * totalPx;
+        var skipped = startPx < lastPx;
+        var valueStr = value.toString();
+        var endPx = startPx + valueStr.length * digitPx;
+        if (lastPx < endPx &&  !skipped)
+            lastPx = endPx;
+        //console.log ('tidyOverlappingLabels value '+valueStr+': skipped? '+skipped);
+        if (!skipped) {
+            filteredTicks.push (value);
+        }
+    }
+    //console.log ('tidyOverlappingLabels done');
+    axis.ticks = filteredTicks;
+}
+
+
 //----------------------------------------------------------------------
 // The function plots the percentile graph and updates associated texts. 
-function showPercentiles() {
+function plotAndShowPercentiles() {
     $.ajax({
         url: DATA_URL + 'entry/efficiency',
         type: 'GET',
@@ -605,6 +630,7 @@ function showPercentiles() {
             };
 
             var plotData = new Array();
+            var maxX = 0.0;
             for (var i = 0; i < data.levels.length; i++) {
                 plotData.push({
                     data: [ [ data.levels[i].min, data.levels[i].count ] ],
@@ -617,6 +643,7 @@ function showPercentiles() {
                     }
                 });
                 isLast = i+1 == data.levels.length;
+                maxX = data.levels[i].max;
                 if (!isLast) {
                     plotOptions.xaxis.ticks.push( data.levels[i].max );
                 }
@@ -634,19 +661,19 @@ function showPercentiles() {
                     });
                 }
             }
+            
+            hashedPlotHolder = '#viewPercentilHistogram';
+            var widthPx = setPlotCanvasSize (hashedPlotHolder);
+            tidyOverlappingTicks (plotOptions.xaxis, 0, maxX, widthPx, 8);
 
-            plotHolder = 'viewPercentilHistogram';
-            indicatorHolder = 'indicatorAtPercentile';
-            userRankHolder = 'userRank';
-            setPlotCanvasSize (plotHolder);
-            var plot = $.plot($('#' + plotHolder), plotData, plotOptions);
+            var plot = $.plot($(hashedPlotHolder), plotData, plotOptions);
 
             // Update text fields below percentile graph
             var unit = $('#viewCommodity').find(':selected').data('unit')
                 + getEfficiencyUnitText();
             $('#percentileUnit').text(unit);
-            $('#' + indicatorHolder).text(localizeDecimal(data.value) + ' ' + unit);
-            $('#' + userRankHolder).text(data.percentile_rank);
+            $('#indicatorAtPercentile').text(localizeDecimal(data.value) + ' ' + unit);
+            $('#userRank').text(data.percentile_rank);
         },
         error: ajaxError
     });
@@ -654,7 +681,7 @@ function showPercentiles() {
 
 
 // The function plots the cumulative or non-cumulative usage graph.
-function plotComodityData(plotHolder, totalValueHolder, cumulative) {
+function plotComodityData(hashedPlotHolder, hashedTotalValueHolder, cumulative) {
     var commodityId = $('#viewCommodity').val();
 
     $.ajax({
@@ -705,10 +732,10 @@ function plotComodityData(plotHolder, totalValueHolder, cumulative) {
                     totalValue += data.data[i][1] - data.data[i-1][1];
                 }
             }
-            setPlotCanvasSize (plotHolder);
-            $.plot($('#' + plotHolder), plotData, plotOptions);
+            setPlotCanvasSize (hashedPlotHolder);
+            $.plot($(hashedPlotHolder), plotData, plotOptions);
             var unit = $('#viewCommodity').find(':selected').data('unit');
-            $('#' + totalValueHolder).text(localizeDecimal(totalValue)+' '+unit);
+            $(hashedTotalValueHolder).text(localizeDecimal(totalValue)+' '+unit);
         },
         error: ajaxError
     });

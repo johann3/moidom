@@ -4,100 +4,48 @@
 <title>
 107
 </title>
-<meta charset='utf-8'>
-<link href="../css/moidom_iframe.css" rel="stylesheet">
-<script charset="UTF-8" src="../js/jquery.min.js"></script>
-<script charset="UTF-8" src="../common.js"></script>
+    <meta charset='utf-8'>
+    <link href="../css/moidom_iframe.css" rel="stylesheet">
+    <script charset="UTF-8" src="../js/jquery.min.js"></script>
+    <script charset="UTF-8" src="../common.js"></script>
+    <script charset="UTF-8" src="../iframe.js"></script>
 <script>
 var NODE_ID = 'node107';
-var APPLICATION_ID = 1;
-var TIMEOUT = 1000;
-var DATA_URL = getDataUrl(); // in common.js
-
-function loadNext()
-{
-if (document.getElementById("radio192").checked==true)
-window.location = "108.html";
-if (document.getElementById("radio193").checked==true)
-window.location = "107.html";
-if (document.getElementById("radio194").checked==true)
-window.location = "107.html";
-}
-function updateForm()
-{
-var correct=true;
-if (document.getElementById("radio192").checked!=true) {
-    correct=false;
-}
-if (document.getElementById("radio193").checked!=false) {
-    correct=false;
-}
-if (document.getElementById("radio194").checked!=false) {
-    correct=false;
-}
-if (correct==true) {
-   document.getElementById("evaluation").innerHTML="pravilen";
-   document.getElementById("evaluation").style.backgroundColor="rgb(100,255,100)";
-}
-else {
-   document.getElementById("evaluation").innerHTML="napačen";
-   document.getElementById("evaluation").style.backgroundColor="rgb(255,100,100)";
-}
-}
-
-$(document).ready(function() {
-    $('form').submit(function() {
-        $.ajax({
-            url: DATA_URL + 'consult/log',
-            type: 'GET',
-            data: {
-                node: NODE_ID,
-                params: $('form').serialize(),
-                application: APPLICATION_ID
-            },
-            xhrFields: { withCredentials: true },
-            async: true,
-            cache: false,
-            timeout: TIMEOUT,
-            beforeSend: function(xhr, options) { $('#progressbar').show(); }
-        })
-        .always(function () {
-            $('#progressbar').hide();
-            loadNext();
-        });
-        return false;
-    });
-
-    $('#progressbar').hide();
-});
 </script>
 </head>
-<body>
+<body onload="updateButtonsWithImages()">
 <h1 id="title">
-Toplota
+Odpadki: Toplogredni plini.
 </h1>
 <p id="text1">
-Toplotni tok skozi stene je odvisen od specifične toplotne prevodnosti stene, površine skozi katero se toplota prevaja, razlike temperatur na mejnih ploskvah in debeline stene. 
+Katerega od naštetih plinov je največ v dimu iz kurišč zasebnih hiš?
 </p>
 <p id="text2">
 Označite trditev s klikom.
 </p>
-<form>
-<table>
-<tr><td><input type="radio" name="radio" id="radio192" value="radio192" onChange="updateForm()">Da</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio193" value="radio193" onChange="updateForm()">Ne</td><td></td></tr>
-<tr><td><input type="radio" name="radio" id="radio194" value="radio194" onChange="updateForm()">Ne vem</td><td></td></tr>
-<tr>
-<td> Vaš odgovor je </td>
-<td id="evaluation"> nepopoln. </td>
-</tr>
+<table class="selectEvaluate">
+<tr onClick="selectEvaluate(NODE_ID,'radio=radio1', 0)"><td>metana</td><td class="next">&gt;</td></tr>
+<tr onClick="selectEvaluate(NODE_ID,'radio=radio2', 1)"><td>ogljikovega dioksida</td><td class="next">&gt;</td></tr>
+<tr onClick="selectEvaluate(NODE_ID,'radio=radio3', 0)"><td>ogljikovega monoksida</td><td class="next">&gt;</td></tr>
+<tr onClick="selectEvaluate(NODE_ID,'radio=radio4', 0)"><td>vodne pare</td><td class="next">&gt;</td></tr>
 </table>
-<button type="submit" id="button">Naprej</button>
-</form>
-<div id="progressbar">
-   <div class="progressTxt">
-   Beležim podatke ...
-   </div>
-</div>
+<p></p>
+    <p id="evaluation">Čakam na odgovor.</p>
+
+	<span>
+        <button class="withImage" onclick="setPage('start.html')" id="nextButton2">
+            <img class="withImage" src="../img/backSvetovanje.svg" alt="Svetovanje &gt;" />
+        </button>
+    </span>
+	<span>
+<button class="withImage" onclick="setPage('108.html')" id="nextButton" disabled>
+            <img class="withImage" src="../img/nextNaprej.svg" alt="Naprej &gt;" />
+        </button>
+    </span>
+    <div id="progressBar" style="display:none">
+       <div class="progressText">
+       Prenašam podatke ...
+       </div>
+    </div>
 </body>
 </html>

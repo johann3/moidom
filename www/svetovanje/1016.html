@@ -4,110 +4,49 @@
 <title>
 1016
 </title>
-<meta charset='utf-8'>
-<link href="../css/moidom_iframe.css" rel="stylesheet">
-<script charset="UTF-8" src="../js/jquery.min.js"></script>
-<script charset="UTF-8" src="../common.js"></script>
+   <meta charset='utf-8'>
+    <link href="../css/moidom_iframe.css" rel="stylesheet">
+    <script charset="UTF-8" src="../js/jquery.min.js"></script>
+    <script charset="UTF-8" src="../common.js"></script>
+    <script charset="UTF-8" src="../iframe.js"></script>
 <script>
 var NODE_ID = 'node1016';
-var APPLICATION_ID = 1;
-var TIMEOUT = 1000;
-var DATA_URL = getDataUrl(); // in common.js
-
-function loadNext()
+</script>
+<script>
+function doCalculate()
 {
-if (document.getElementById("evaluation").innerHTML=="Vaš kazalec učinkovitosti je enak razredu A1")
-window.location = "1017.html";
-if (document.getElementById("evaluation").innerHTML=="Vaš kazalec učinkovitosti je enak razredu A2")
-window.location = "1018.html";
-if (document.getElementById("evaluation").innerHTML=="Vaš kazalec učinkovitosti je enak razredu B1")
-window.location = "1019.html";
-if (document.getElementById("evaluation").innerHTML=="Vaš kazalec učinkovitosti je enak razredu B2")
-window.location = "1020.html";
-if (document.getElementById("evaluation").innerHTML=="Vaš kazalec učinkovitosti je enak razredu C")
-window.location = "1021.html";
-if (document.getElementById("evaluation").innerHTML=="Vaš kazalec učinkovitosti je enak razredu D")
-window.location = "1022.html";
-if (document.getElementById("evaluation").innerHTML=="Vaš kazalec učinkovitosti je enak razredu E")
-window.location = "1023.html";
-if (document.getElementById("evaluation").innerHTML=="Vaš kazalec učinkovitosti je enak razredu F")
-window.location = "1024.html";
-if (document.getElementById("evaluation").innerHTML=="Vaš kazalec učinkovitosti je enak razredu G")
-window.location = "1025.html";
+var por=parseDecimal($('#por').val());
+var št=parseDecimal($('#št').val());
+var kaz=por/št;
+if (!isNaN(kaz)) {$("#kaz").html (localizeDecimal(kaz));}
+var razred = 'Vaš kazalec učinkovitosti je enak razredu G';
+var nextUrl = '1025.html';
+var tabela=[
+[0,'Vaš kazalec učinkovitosti je enak razredu G','1025.html'],
+[15,'Vaš kazalec učinkovitosti je enak razredu A1','1017.html'],
+[20,'Vaš kazalec učinkovitosti je enak razredu A2','1018.html'],
+[35,'Vaš kazalec učinkovitosti je enak razredu B1','1019.html'],
+[45,'Vaš kazalec učinkovitosti je enak razredu B2','1020.html'],
+[80,'Vaš kazalec učinkovitosti je enak razredu C','1021.html'],
+[150,'Vaš kazalec učinkovitosti je enak razredu D','1022.html'],
+[200,'Vaš kazalec učinkovitosti je enak razredu E','1023.html'],
+[280,'Vaš kazalec učinkovitosti je enak razredu F','1024.html'],
+];
+	for (i=0; i<tabela.length; i++) {
+        if (kaz < tabela[i][0]) {
+            razred = tabela[i][1];
+            nextUrl = tabela[i][2];
+            break;
+        }
+    }
+    $("#evaluation").html (razred);
+    $("#nextButton").attr ('onClick', 'logAndSetPage(NODE_ID, $("form").serialize(),"'+nextUrl+'")');
+    $("#nextButton").attr ('disabled', false);
+    
 }
-function loadStart()
-{
-window.location = "../svetovanje/start.html";
-}
-function updateForm()
-{
-var por=parseFloat(document.getElementById("por").value); 
-var št=parseFloat(document.getElementById("št").value); 
-var kaz=parseFloat(document.getElementById("kaz").value); 
-kaz=por/št;
-if (!isNaN(kaz))
-document.getElementById("kaz").value=kaz;
-if ((kaz>=0) && (kaz<15)) {
-    document.getElementById("evaluation").innerHTML="Vaš kazalec učinkovitosti je enak razredu A1";
-}
-if ((kaz>=15) && (kaz<20)) {
-    document.getElementById("evaluation").innerHTML="Vaš kazalec učinkovitosti je enak razredu A2";
-}
-if ((kaz>=20) && (kaz<35)) {
-    document.getElementById("evaluation").innerHTML="Vaš kazalec učinkovitosti je enak razredu B1";
-}
-if ((kaz>=35) && (kaz<45)) {
-    document.getElementById("evaluation").innerHTML="Vaš kazalec učinkovitosti je enak razredu B2";
-}
-if ((kaz>=45) && (kaz<80)) {
-    document.getElementById("evaluation").innerHTML="Vaš kazalec učinkovitosti je enak razredu C";
-}
-if ((kaz>=80) && (kaz<150)) {
-    document.getElementById("evaluation").innerHTML="Vaš kazalec učinkovitosti je enak razredu D";
-}
-if ((kaz>=150) && (kaz<200)) {
-    document.getElementById("evaluation").innerHTML="Vaš kazalec učinkovitosti je enak razredu E";
-}
-if ((kaz>=200) && (kaz<280)) {
-    document.getElementById("evaluation").innerHTML="Vaš kazalec učinkovitosti je enak razredu F";
-}
-if ((kaz>=280)) {
-    document.getElementById("evaluation").innerHTML="Vaš kazalec učinkovitosti je enak razredu G";
-}
-}
-function restrictInput (element)
-{
-	element.value = element.value.replace(/[^(0-9\.)]/, '');
-}
-$(document).ready(function() {
-    $('form').submit(function() {
-        $.ajax({
-            url: DATA_URL + 'consult/log',
-            type: 'GET',
-            data: {
-                node: NODE_ID,
-                params: $('form').serialize(),
-                application: APPLICATION_ID
-            },
-            xhrFields: { withCredentials: true },
-            async: true,
-            cache: false,
-            timeout: TIMEOUT,
-            beforeSend: function(xhr, options) { $('#progressbar').show(); }
-        })
-        .always(function () {
-            $('#progressbar').hide();
-            loadNext();
-        });
-        return false;
-    });
-
-    $('#progressbar').hide();
-});
 </script>
 </head>
-
-<body>
+<body onload="updateButtonsWithImages()">
 <h1 id="title">
 Po m²
 </h1>
@@ -119,31 +58,42 @@ Vrednosti, ki jih še niste vnesli v aplikacijo, vnesite tukaj.
 </p>
 <form>
 <table>
-<tr><td id="var1Name">Poraba energije za elektriko na leto.</td>
-<td><input type="text" name="por" id="por" value="" onkeyup="updateForm();restrictInput(this);"/></td>
-<td id="var1Unit">kWh/leto</td></tr>
-<tr><td id="var2Name">Kvadratura objekta.</td>
-<td><input type="text" name="št" id="št" value="" onkeyup="updateForm();restrictInput(this);"/></td>
-<td id="var2Unit">m²</td></tr>
-<tr><td id="var3Name">Kazalec učinkovitosti.</td>
-<td><input type="text" name="kaz" id="kaz" value="" onkeyup="updateForm()"/></td>
-<td id="var3Unit">kWh/m²/leto</td></tr>
+<tr><td>Poraba energije za elektriko na leto.</td>
+<td><input type="number" class="narrow" name="por" id="por" onkeyup="doCalculate()" /></td>
+<td>kWh/leto</td></tr>
+</table><table>
+<tr><td>Kvadratura objekta.</td>
+<td><input type="number" class="narrow" name="št" id="št" onkeyup="doCalculate()" /></td>
+<td>m²</td></tr>
+</table><table>
+<tr><td>Kazalec učinkovitosti.</td>
+<td><span id="kaz"></span></td>
+<td>kWh/m²/leto</td></tr>
+</table><table>
+	<tr>
+    <td>Razred učinkovitosti:</td><td id="evaluation"></td>
+    </tr>
 </table>
-
-<table>
-<tr>
-<td id="evaluation"></td>
-</tr>
-</table>
-
-<button type="submit" id="button">Naprej</button>
-<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
-
 </form>
-<div id="progressbar">
-   <div class="progressTxt">
-   Prenašam podatke ...
-   </div>
-</div>
+	<span>
+        <button class="withImage" onclick="setPage('start.html')" id="nextButton2">
+            <img class="withImage" src="../img/backSvetovanje.svg" alt="Svetovanje &gt;" />
+        </button>
+    </span>
+	<span>
+        <!-- THE 'ONCLICK' ATTRIBUTE BELOW IS PROGRAMMATICALLY UPDATED -->
+        <button class="withImage"
+            onclick="logAndSetPage(NODE_ID, $('form').serialize(),'???.html')" 
+            id="nextButton" disabled>
+            <img class="withImage" src="../img/nextNaprej.svg" alt="Naprej &gt;" />
+        </button>
+    </span>
+	
+    <div id="progressBar" style="display:none">
+       <div class="progressText">
+       Prenašam podatke ...
+       </div>
+    </div>
 </body>
-</html>
+</html> 
+

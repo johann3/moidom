@@ -4,27 +4,29 @@
 <title>
 216
 </title>
-<meta charset='utf-8'>
-<link href="../css/moidom_iframe.css" rel="stylesheet">
-<script>
-function loadNext()
-{
-window.location = "Start.html"
-}
-function loadStart()
-{
-window.location = "../svetovanje/start.html";
-}
-</script>
+	<meta charset='utf-8'>
+	<link href="../css/moidom_iframe.css" rel="stylesheet">
+    <script charset="UTF-8" src="../js/jquery.min.js"></script>
+    <script charset="UTF-8" src="../common.js"></script>
+    <script charset="UTF-8" src="../iframe.js"></script>
+    <script>var NODE_ID = 'node216';</script>
 </head>
-<body>
+<body onload="updateButtonsWithImages()">
 <h1 id="title">
 Zemeljski plin posodobitev
 </h1>
 <p id="text1">
 Posodobitev sistema ogrevanja z zemeljskim plinom navadno pomeni, da boste zamenjali star kotel z novim in učinkovitim kondenzacijskim kotlom na zemeljski plin. Novi kondenzacijski plinski kotli omogočajo do 20% zmanjšanje porabe toplotne energije zaradi celovite izrabe shranjene energije v gorivu. Zato takšen kotel potrebuje možnost priklopana kanalizacijo za odvod kondenzata. Pri večjih sistemih nad 50 kW je potrebno prigraditi še nevtralizacijo kondenzata.
 </p>
-<button type="button" id="button" onclick="loadNext()">Naprej</button>
-<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
+	<div>
+        <button class="withImage" onclick="setPage('startizo.html')" id="button">
+            <img class="withImage" src="../img/backNaloge.svg" alt="&lt; Naloge" />
+        </button>
+    </div>
+    <div>
+        <button class="withImage" onclick="setPage('start.html')" id="nextButton">
+            <img class="withImage" src="../img/backSvetovanje.svg" alt="Svetovanje &gt;" />
+        </button>
+    </div>  
 </body>
 </html>

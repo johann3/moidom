@@ -4,55 +4,13 @@
 <title>
 302
 </title>
-<meta charset='utf-8'>
-<link href="../css/moidom_iframe.css" rel="stylesheet">
-<script charset="UTF-8" src="../js/jquery.min.js"></script>
-<script charset="UTF-8" src="../common.js"></script>
+   <meta charset='utf-8'>
+    <link href="../css/moidom_iframe.css" rel="stylesheet">
+    <script charset="UTF-8" src="../js/jquery.min.js"></script>
+    <script charset="UTF-8" src="../common.js"></script>
+    <script charset="UTF-8" src="../iframe.js"></script>
 <script>
 var NODE_ID = 'node302';
-var APPLICATION_ID = 1;
-var TIMEOUT = 1000;
-var DATA_URL = getDataUrl(); // in common.js
-
-function loadNext()
-{
-if (document.getElementById("radio104").checked==true)
-window.location = "347.html";
-if (document.getElementById("radio105").checked==true)
-window.location = "348.html";
-if (document.getElementById("radio106").checked==true)
-window.location = "349.html";
-}
-function loadStart()
-{
-window.location = "../svetovanje/start.html";
-}
-
-$(document).ready(function() {
-    $('form').submit(function() {
-        $.ajax({
-            url: DATA_URL + 'consult/log',
-            type: 'GET',
-            data: {
-                node: NODE_ID,
-                params: $('form').serialize(),
-                application: APPLICATION_ID
-            },
-            xhrFields: { withCredentials: true },
-            async: true,
-            cache: false,
-            timeout: TIMEOUT,
-            beforeSend: function(xhr, options) { $('#progressbar').show(); }
-        })
-        .always(function () {
-            $('#progressbar').hide();
-            loadNext();
-        });
-        return false;
-    });
-
-    $('#progressbar').hide();
-});
 </script>
 </head>
 <body>
@@ -65,19 +23,20 @@ Zamenjava ponudnika se lahko izplača. Postopek je enostaven, zato naredite nasl
 <p id="text2">
 Izberite možnost.
 </p>
-<form>
-<table>
-<tr><td><input type="radio" name="radio" id="radio104" value="radio104" onChange="updateForm()"><label for="radio104">Preverite porabo.</label></td></tr>
-<tr><td><input type="radio" name="radio" id="radio105" value="radio105" onChange="updateForm()"><label for="radio105">Primerjajte ponudbo.</label></td></tr>
-<tr><td><input type="radio" name="radio" id="radio106" value="radio106" onChange="updateForm()"><label for="radio106">Preverite pogoje.</label></td></tr>
+<table class="selectNext">
+<tr onClick="selectNext(NODE_ID,'radio=radio104', '347.html')"><td>Preverite porabo.</td><td class="next">&gt;</td></tr>
+<tr onClick="selectNext(NODE_ID,'radio=radio105', '348.html')"><td>Primerjajte ponudbo.</td><td class="next">&gt;</td></tr>
+<tr onClick="selectNext(NODE_ID,'radio=radio106', '349.html')"><td>Preverite pogoje.</td><td class="next">&gt;</td></tr>
 </table>
-<button type="submit" id="button">Naprej</button>
-<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
-</form>
-<div id="progressbar">
-   <div class="progressTxt">
-   Prenašam podatke ...
-   </div>
-</div>
+	<span>
+        <button class="withImage" onclick="setPage('start.html')" id="nextButton">
+            <img class="withImage" src="../img/backSvetovanje.svg" alt="Svetovanje &gt;" />
+        </button>
+    </span>
+	<div id="progressBar" style="display:none">
+       <div class="progressText">
+           Prenašam podatke ...
+       </div>
+    </div>
 </body>
 </html>

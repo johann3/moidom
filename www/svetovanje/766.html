@@ -4,53 +4,13 @@
 <title>
 766
 </title>
-<meta charset='utf-8'>
-<link href="../css/moidom_iframe.css" rel="stylesheet">
-<script charset="UTF-8" src="../js/jquery.min.js"></script>
-<script charset="UTF-8" src="../common.js"></script>
+   <meta charset='utf-8'>
+    <link href="../css/moidom_iframe.css" rel="stylesheet">
+    <script charset="UTF-8" src="../js/jquery.min.js"></script>
+    <script charset="UTF-8" src="../common.js"></script>
+    <script charset="UTF-8" src="../iframe.js"></script>
 <script>
 var NODE_ID = 'node766';
-var APPLICATION_ID = 1;
-var TIMEOUT = 1000;
-var DATA_URL = getDataUrl(); // in common.js
-
-function loadNext()
-{
-if (document.getElementById("radio326").checked==true)
-window.location = "781.html";
-if (document.getElementById("radio327").checked==true)
-window.location = "782.html";
-}
-function loadStart()
-{
-window.location = "../svetovanje/start.html";
-}
-
-$(document).ready(function() {
-    $('form').submit(function() {
-        $.ajax({
-            url: DATA_URL + 'consult/log',
-            type: 'GET',
-            data: {
-                node: NODE_ID,
-                params: $('form').serialize(),
-                application: APPLICATION_ID
-            },
-            xhrFields: { withCredentials: true },
-            async: true,
-            cache: false,
-            timeout: TIMEOUT,
-            beforeSend: function(xhr, options) { $('#progressbar').show(); }
-        })
-        .always(function () {
-            $('#progressbar').hide();
-            loadNext();
-        });
-        return false;
-    });
-
-    $('#progressbar').hide();
-});
 </script>
 </head>
 <body>
@@ -63,18 +23,19 @@ S stroškom sem.
 <p id="text2">
 Izberite možnost.
 </p>
-<form>
-<table>
-<tr><td><input type="radio" name="radio" id="radio326" value="radio326" onChange="updateForm()"><label for="radio326">Zadovoljen.</label></td></tr>
-<tr><td><input type="radio" name="radio" id="radio327" value="radio327" onChange="updateForm()"><label for="radio327">Želim nasvet kako privarčevati.</label></td></tr>
+<table class="selectNext">
+<tr onClick="selectNext(NODE_ID,'radio=radio326', '781.html')"><td>Zadovoljen.</td><td class="next">&gt;</td></tr>
+<tr onClick="selectNext(NODE_ID,'radio=radio327', '782.html')"><td>Želim nasvet kako privarčevati.</td><td class="next">&gt;</td></tr>
 </table>
-<button type="submit" id="button">Naprej</button>
-<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
-</form>
-<div id="progressbar">
-   <div class="progressTxt">
-   Prenašam podatke ...
-   </div>
-</div>
+	<span>
+        <button class="withImage" onclick="setPage('start.html')" id="nextButton">
+            <img class="withImage" src="../img/backSvetovanje.svg" alt="Svetovanje &gt;" />
+        </button>
+    </span>
+	<div id="progressBar" style="display:none">
+       <div class="progressText">
+           Prenašam podatke ...
+       </div>
+    </div>
 </body>
 </html>

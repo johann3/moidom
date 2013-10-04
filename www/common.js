@@ -45,7 +45,7 @@ function dataStatusIsBad (status, status_loc)
 
 function ajaxError(data, textStatus, xhr)
 {
-    alert('Pošiljanje podatkov ni uspelo, strežnik ni dosegljiv: ' + textStatus);
+    alert('Povezava s strežnikom trenutno ni dosegljiva.');
 }
 
 function localizeDecimal (decimal)

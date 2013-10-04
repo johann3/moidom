@@ -239,6 +239,7 @@ table.selectNext, table.selectEvaluate {
     width: 100%;
     border: 1px solid #cccccc;
     border-radius: 10px;
+    margin-bottom: 15px;
 }
 table.selectNext tr, table.selectEvaluate tr {
     cursor: pointer;

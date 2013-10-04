@@ -272,6 +272,7 @@ a.mobileIcon {
 
 a.mobileIcon:hover{
     background: #fff;
+    cursor: pointer;
 }
 
 a.mobileIcon:active{

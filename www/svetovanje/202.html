@@ -4,61 +4,13 @@
 <title>
 202
 </title>
-<meta charset='utf-8'>
-<link href="../css/moidom_iframe.css" rel="stylesheet">
-<script charset="UTF-8" src="../js/jquery.min.js"></script>
-<script charset="UTF-8" src="../common.js"></script>
+   <meta charset='utf-8'>
+    <link href="../css/moidom_iframe.css" rel="stylesheet">
+    <script charset="UTF-8" src="../js/jquery.min.js"></script>
+    <script charset="UTF-8" src="../common.js"></script>
+    <script charset="UTF-8" src="../iframe.js"></script>
 <script>
 var NODE_ID = 'node202';
-var APPLICATION_ID = 1;
-var TIMEOUT = 1000;
-var DATA_URL = getDataUrl(); // in common.js
-
-function loadNext()
-{
-if (document.getElementById("radio11").checked==true)
-window.location = "206.html";
-if (document.getElementById("radio12").checked==true)
-window.location = "207.html";
-if (document.getElementById("radio13").checked==true)
-window.location = "208.html";
-if (document.getElementById("radio14").checked==true)
-window.location = "209.html";
-if (document.getElementById("radio15").checked==true)
-window.location = "210.html";
-if (document.getElementById("radio16").checked==true)
-window.location = "211.html";
-}
-function loadStart()
-{
-window.location = "../svetovanje/start.html";
-}
-
-$(document).ready(function() {
-    $('form').submit(function() {
-        $.ajax({
-            url: DATA_URL + 'consult/log',
-            type: 'GET',
-            data: {
-                node: NODE_ID,
-                params: $('form').serialize(),
-                application: APPLICATION_ID
-            },
-            xhrFields: { withCredentials: true },
-            async: true,
-            cache: false,
-            timeout: TIMEOUT,
-            beforeSend: function(xhr, options) { $('#progressbar').show(); }
-        })
-        .always(function () {
-            $('#progressbar').hide();
-            loadNext();
-        });
-        return false;
-    });
-
-    $('#progressbar').hide();
-});
 </script>
 </head>
 <body>
@@ -71,22 +23,23 @@ Na kaj se ogrevate?
 <p id="text2">
 Izberite možnost.
 </p>
-<form>
-<table>
-<tr><td><input type="radio" name="radio" id="radio11" value="radio11" onChange="updateForm()"><label for="radio11">Kurilno olje</label></td></tr>
-<tr><td><input type="radio" name="radio" id="radio12" value="radio12" onChange="updateForm()"><label for="radio12">Električna energija</label></td></tr>
-<tr><td><input type="radio" name="radio" id="radio13" value="radio13" onChange="updateForm()"><label for="radio13">Utekočinjen naftni plin</label></td></tr>
-<tr><td><input type="radio" name="radio" id="radio14" value="radio14" onChange="updateForm()"><label for="radio14">Daljinska toplota</label></td></tr>
-<tr><td><input type="radio" name="radio" id="radio15" value="radio15" onChange="updateForm()"><label for="radio15">Lesna biomasa</label></td></tr>
-<tr><td><input type="radio" name="radio" id="radio16" value="radio16" onChange="updateForm()"><label for="radio16">Zemeljski plin</label></td></tr>
+<table class="selectNext">
+<tr onClick="selectNext(NODE_ID,'radio=radio11', '206.html')"><td>Kurilno olje</td><td class="next">&gt;</td></tr>
+<tr onClick="selectNext(NODE_ID,'radio=radio12', '207.html')"><td>Električna energija</td><td class="next">&gt;</td></tr>
+<tr onClick="selectNext(NODE_ID,'radio=radio13', '208.html')"><td>Utekočinjen naftni plin</td><td class="next">&gt;</td></tr>
+<tr onClick="selectNext(NODE_ID,'radio=radio14', '209.html')"><td>Daljinska toplota</td><td class="next">&gt;</td></tr>
+<tr onClick="selectNext(NODE_ID,'radio=radio15', '210.html')"><td>Lesna biomasa</td><td class="next">&gt;</td></tr>
+<tr onClick="selectNext(NODE_ID,'radio=radio16', '211.html')"><td>Zemeljski plin</td><td class="next">&gt;</td></tr>
 </table>
-<button type="submit" id="button">Naprej</button>
-<button type="button" id="button2" onclick="loadStart()">Na začetek</button>
-</form>
-<div id="progressbar">
-   <div class="progressTxt">
-   Prenašam podatke ...
-   </div>
-</div>
+	<span>
+        <button class="withImage" onclick="setPage('start.html')" id="nextButton">
+            <img class="withImage" src="../img/backSvetovanje.svg" alt="Svetovanje &gt;" />
+        </button>
+    </span>
+	<div id="progressBar" style="display:none">
+       <div class="progressText">
+           Prenašam podatke ...
+       </div>
+    </div>
 </body>
 </html>

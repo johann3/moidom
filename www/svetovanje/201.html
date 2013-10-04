@@ -4,68 +4,39 @@
 <title>
 201
 </title>
-<meta charset='utf-8'>
-<link href="../css/bootstrap.css" rel="stylesheet">
-<link href="../css/moidom.css" rel="stylesheet">
-<link href="../css/moidom_iframe.css" rel="stylesheet">
-<script charset="UTF-8" src="../js/jquery.min.js"></script>
-<script charset="UTF-8" src="../common.js"></script>
+   <meta charset='utf-8'>
+    <link href="../css/moidom_iframe.css" rel="stylesheet">
+    <script charset="UTF-8" src="../js/jquery.min.js"></script>
+    <script charset="UTF-8" src="../common.js"></script>
+    <script charset="UTF-8" src="../iframe.js"></script>
 <script>
 var NODE_ID = 'node201';
-var APPLICATION_ID = 1;
-var TIMEOUT = 1000;
-var DATA_URL = getDataUrl(); // in common.js
-
-
-function loadStart()
-{
-window.location = "../svetovanje/start.html";
-}
-
-function processClick(givenParams, nextUrl) {
-    $('#progressbar').show(); // no need to hide it as the window.location
-    // is going to change soon
-    requestData =  {
-            node: NODE_ID,
-            params: givenParams,
-            application: APPLICATION_ID
-        };
-    $.ajax({
-        url: DATA_URL + 'consult/log',
-        type: 'GET',
-        data: requestData,
-        xhrFields: { withCredentials: true },
-        async: true,
-        cache: false,
-        timeout: TIMEOUT,
-        complete: function(data, textStatus, xhr) {window.location = nextUrl; },
-    });
-    
-}
 </script>
 </head>
 <body>
-<p>&nbsp;<!-- the folowing H1 element has positive margin 
-and an empty paragraph suppresses scroll bars --></p>
 <h1 id="title">
 Zmanjšanje porabe: toplotna energija
 </h1>
 <p id="text1">
 Za zmanjšanje porabe toplotne energije imate na voljo naslednje možnosti:
-<br/>
+</p>
 <p id="text2">
 Izberite možnost.
-<br/>
-<form>
-<div onClick="processClick('radio=radio10', '202.html')" class="singleClick">Posodobitev ogrevalnega sistema. &gt;&gt;<br/></div>
-<div onClick="processClick('radio=radio11', '204.html')" class="singleClick">Sprememba ogrevalnih navad. &gt;&gt;<br/></div>
-<div onClick="processClick('radio=radio12', '205.html')" class="singleClick">Izboljšanje energetskih lastnosti stavbe. &gt;&gt;<br/></div>
-<button type="button" id="button2" onclick="loadStart()">&lt;&lt; Začetek svetovanja</button>
-</form>
-<div id="progressbar" hidden>
-   <div class="progressTxt">
-   Prenašam podatke ...
-   </div>
-</div>
+</p>
+<table class="selectNext">
+<tr onClick="selectNext(NODE_ID,'radio=radio4', '202.html')"><td>Posodobitev ogrevalnega sistema.</td><td class="next">&gt;</td></tr>
+<tr onClick="selectNext(NODE_ID,'radio=radio5', '204.html')"><td>Sprememba ogrevalnih navad.</td><td class="next">&gt;</td></tr>
+<tr onClick="selectNext(NODE_ID,'radio=radio6', '205.html')"><td>Izboljšanje energetskih lastnosti stavbe.</td><td class="next">&gt;</td></tr>
+</table>
+	<span>
+        <button class="withImage" onclick="setPage('start.html')" id="nextButton">
+            <img class="withImage" src="../img/backSvetovanje.svg" alt="Svetovanje &gt;" />
+        </button>
+    </span>
+	<div id="progressBar" style="display:none">
+       <div class="progressText">
+           Prenašam podatke ...
+       </div>
+    </div>
 </body>
 </html>

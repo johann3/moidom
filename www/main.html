@@ -345,16 +345,16 @@
                             <button class="withImage" onclick="showMobileTopMenu()">
                                 <img class="withImage" src="img/backMoidom.svg" alt="&lt; Moidom" />
                             </button>
-                            <button class="withImage" onclick="restartConsulting()">
+                            <!--<button class="withImage" onclick="restartConsulting()">
                                 <img class="withImage" src="img/backSvetovanje.svg" alt="&lt; Svetovanje" />
-                            </button>
+                            </button>-->
                         </span>
-                        <div class="webOnly">
+                        <!--<div class="webOnly">
                             <form>
                             <br />
                             <input type="button" class="btn btn-primary" value="&lt; Začetek svetovanja" onclick="restartConsulting();"></input>
                             </form>
-                        </div>
+                        </div>-->
                         <div>
                             <script>
                             jQuery(document).ready(function() {
@@ -612,6 +612,19 @@
             <div class="modal-footer">
                 <a href="#" class="btn" id="confirmDialogButton" onclick="">Da</a>
                 <a href="#" class="btn btn-primary" onclick="$('#confirmDialog').modal('hide')">Ne</a>
+            </div>
+        </div>
+		
+		<div id="retryDialog" class="modal hide fade">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 id="confirmDialogTitle">Strežnik ni dosegljiv</h3>
+            </div>
+            <div class="modal-body">
+                <p id="confirmDialogBody">Povezava s strežnikom žal ni možna. Prosimo omogočite povezavo.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-primary" onclick="$('#confirmDialog').modal('hide')">Poskusi ponovno</a>
             </div>
         </div>
         
