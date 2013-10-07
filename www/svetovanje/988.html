@@ -44,9 +44,40 @@ var tabela=[
     $("#nextButton").attr ('disabled', false);
     
 }
+
+function updateUserDataPersons()
+{
+    $.ajax({
+        url: DATA_URL + 'user/get_profile',
+        type: 'GET',
+        xhrFields: { withCredentials: true },
+        success: function(data, textStatus, xhr) {
+            $('#št').val(data.persons);
+        }
+    })
+}
+
+function updateUserDataConsumption(commodity, indicator_unit, period_type)
+{
+    $.ajax({
+        url: DATA_URL + 'entry/efficiency',
+        type: 'GET',
+        xhrFields: { withCredentials: true },
+        success: function(data, textStatus, xhr) {
+            $('#por').val(data.value);
+        }
+    })
+}
+
+function initializePage() {
+    updateButtonsWithImages();
+    updateUserDataPersons();
+	//updateUserDataConsumption(1, 0, 0);
+}
+
 </script>
 </head>
-<body onload="updateButtonsWithImages()">
+<body onload="initializePage()">
 <h1 id="title">
 Po osebi.
 </h1>

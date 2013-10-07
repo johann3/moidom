@@ -43,9 +43,26 @@ var xx = Math.abs (x-100);
     $("#evaluation").html (innerHtml);
     $("#nextButton").attr ('disabled', false);
 }
+
+function updateUserDataPersons()
+{
+    $.ajax({
+        url: DATA_URL + 'user/get_profile',
+        type: 'GET',
+        xhrFields: { withCredentials: true },
+        success: function(data, textStatus, xhr) {
+            $('#št').val(data.persons);
+        }
+    })
+}
+
+function initializePage() {
+    updateButtonsWithImages();
+    updateUserDataPersons();
+}
 </script>
 </head>
-<body onload="updateButtonsWithImages()">
+<body onload="initializePage()">
 <h1 id="title">
 Umivanje zob
 </h1>
@@ -57,7 +74,7 @@ Da se rezultat izračuna samodejno, v obrazec dopolni podatke, ki jih nisi vnese
 </p>
 <form>
 <table>
-<tr><td>Predvidite koliko kubičnih metrov bi potrošila štiričlanske družine v enem letu, ob predpostavkah v besedilu naloge.</td>
+<tr><td>Predvidite koliko kubičnih metrov bi potrošila vaša družina v enem letu, ob predpostavkah v besedilu naloge.</td>
 <td><input type="number" class="narrow" name="predvid" id="predvid" onkeyup="doCalculate()" /></td>
 <td>m^3/leto</td></tr>
 </table>

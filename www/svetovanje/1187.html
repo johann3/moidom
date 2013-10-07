@@ -44,9 +44,26 @@ var tabela=[
     $("#nextButton").attr ('disabled', false);
     
 }
+
+function updateUserDataArea()
+{
+    $.ajax({
+        url: DATA_URL + 'user/get_profile',
+        type: 'GET',
+        xhrFields: { withCredentials: true },
+        success: function(data, textStatus, xhr) {
+            $('#št').val(data.area);
+        }
+    })
+}
+
+function initializePage() {
+    updateButtonsWithImages();
+    updateUserDataArea();
+}
 </script>
 </head>
-<body onload="updateButtonsWithImages()">
+<body onload="initializePage()">
 <h1 id="title">
 Po m²
 </h1>
