@@ -13,7 +13,7 @@
 var NODE_ID = 'node794';
 </script>
 </head>
-<body>
+<body onload="updateButtonsWithImages()">
 <h1 id="title">
 Vaš kazalec učinkovitosti je enak razredu D
 </h1>
@@ -24,12 +24,12 @@ Z porabo sem.
 Izberite možnost.
 </p>
 <table class="selectNext">
-<tr onClick="selectNext(NODE_ID,'radio=radio75', '808.html')"><td>Zadovoljen.</td><td class="next">&gt;</td></tr>
-<tr onClick="selectNext(NODE_ID,'radio=radio76', '809.html')"><td>Želim nasvet kako privarčevati.</td><td class="next">&gt;</td></tr>
+<tr onClick="selectNext(NODE_ID,'radio=radio60', '808.html')"><td>Zadovoljen.</td><td class="next">&gt;</td></tr>
+<tr onClick="selectNext(NODE_ID,'radio=radio61', '809.html')"><td>Želim nasvet kako privarčevati.</td><td class="next">&gt;</td></tr>
 </table>
 	<span>
         <button class="withImage" onclick="setPage('start.html')" id="nextButton">
-            <img class="withImage" src="../img/backSvetovanje.svg" alt="Svetovanje &gt;" />
+            <img class="withImage" src="../img/backSvetovanje.svg" alt="&lt; Svetovanje" />
         </button>
     </span>
 	<div id="progressBar" style="display:none">

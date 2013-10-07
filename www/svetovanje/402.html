@@ -13,7 +13,7 @@
 var NODE_ID = 'node402';
 </script>
 </head>
-<body>
+<body onload="updateButtonsWithImages()">
 <h1 id="title">
 Zmanjšanje porabe vode
 </h1>
@@ -32,7 +32,7 @@ Izberite možnost.
 </table>
 	<span>
         <button class="withImage" onclick="setPage('start.html')" id="nextButton">
-            <img class="withImage" src="../img/backSvetovanje.svg" alt="Svetovanje &gt;" />
+            <img class="withImage" src="../img/backSvetovanje.svg" alt="&lt; Svetovanje" />
         </button>
     </span>
 	<div id="progressBar" style="display:none">
