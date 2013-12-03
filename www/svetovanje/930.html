@@ -57,9 +57,28 @@ function updateUserDataArea()
     })
 }
 
+function showIndicatorValues() 
+{
+    $.ajax({
+        url: DATA_URL + 'entry/efficiency',
+        type: 'GET',
+        data: {
+            commodity: 1,
+            indicator_unit: 0,
+            period_type: 2
+        },
+        xhrFields: { withCredentials: true },
+        success: function(data, textStatus, xhr)
+        {
+            $('#por').val(data.value);
+        }
+    })
+}
+
 function initializePage() {
     updateButtonsWithImages();
     updateUserDataArea();
+	showIndicatorValues();
 }
 </script>
 </head>

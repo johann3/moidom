@@ -57,13 +57,19 @@ function updateUserDataPersons()
     })
 }
 
-function updateUserDataConsumption(commodity, indicator_unit, period_type)
+function showIndicatorValues() 
 {
     $.ajax({
         url: DATA_URL + 'entry/efficiency',
         type: 'GET',
+        data: {
+            commodity: 2,
+            indicator_unit: 0,
+            period_type: 2
+        },
         xhrFields: { withCredentials: true },
-        success: function(data, textStatus, xhr) {
+        success: function(data, textStatus, xhr)
+        {
             $('#por').val(data.value);
         }
     })
@@ -72,7 +78,7 @@ function updateUserDataConsumption(commodity, indicator_unit, period_type)
 function initializePage() {
     updateButtonsWithImages();
     updateUserDataPersons();
-	//updateUserDataConsumption(1, 0, 0);
+	showIndicatorValues();
 }
 
 </script>
