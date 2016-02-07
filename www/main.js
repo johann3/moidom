@@ -1134,7 +1134,7 @@ function updateSubmitForm() {
                     $('#updateExisting').prop('checked', false);
                     return;
                 }
-                $('#submitDate').datepicker('setValue', data.data[0][0]);
+                $('#submitDate').datepicker('setValue', new Date(data.data[0][0]));
                 $('#submitTime').timepicker('setTime', formatTime(new Date(data.data[0][0])));
                 $('#submitValue').val(data.data[0][1]);
             },
